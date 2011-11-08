@@ -1,4 +1,3 @@
 Android application for GlobaLink.
 
 
-.
