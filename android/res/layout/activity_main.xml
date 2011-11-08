@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="#FFF">
+
+    <Button
+        android:id="@+id/btnNew"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:text="@string/new_observation" />
+
+    <Button
+        android:id="@+id/btnExisting"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:text="@string/existing_observations" />
+
+</LinearLayout>

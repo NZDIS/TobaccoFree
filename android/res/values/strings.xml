@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, Main!</string>
-    <string name="app_name">GlobaLink</string>
+
+    <string name="hello">Hello World, GlobalinkActivity!</string>
+    <string name="app_name">Globalink</string>
+    <string name="new_observation">New Observation</string>
+    <string name="existing_observations">View Existing Observations</string>
+    <string name="finish_observation">Finish</string>
+    <string name="help">Help</string>
+    <string name="no_other_occupants">No Occupants</string>
+    <string name="other_adults">Other Adults</string>
+    <string name="child">Child</string>
+    <string name="getting_gps">Retrieving GPS location...</string>
+    <string name="no_smoking">No Smokers</string>
+    <string name="enable_gps">Enable GPS</string>
+    <string name="gps_error_gps">The GPS is required to determine the location of the observation and needs to be turned on. Turn on GPS?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
 </resources>
