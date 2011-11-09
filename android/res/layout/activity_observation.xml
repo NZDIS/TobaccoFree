@@ -4,7 +4,8 @@
     android:layout_height="fill_parent"
     android:background="#FFF"
     android:orientation="vertical" 
-    android:padding="5dp">
+    android:padding="5dp"
+    android:keepScreenOn="true">
 
     <RelativeLayout
         android:id="@+id/relativeLayout1"
@@ -17,7 +18,7 @@
             android:layout_height="40dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:enabled="false"
+            android:enabled="true"
             android:text="@string/finish_observation" />
 
         <Button

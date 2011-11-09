@@ -8,14 +8,15 @@ public class Observation {
 	private Location location;
 	private long start,finish;
 	private boolean started = false;
-
+	private long id = -1;
+	
 	public Observation(long start){
 		this.start = start;
 		location = new Location("empty");
 	}
 
 	public String toString(){
-		return "Total: " + (noSmoking + child + other + noOthers) + ", No Smokers: " + noSmoking + ", Smoker with Child: " + child + ", Smoker with Adults: " + other + ", Lone smoker: " + noOthers;
+		return "Total: " + (noSmoking + child + other + noOthers);
 	}
 	/* Incrementers */
 	public void incrementNoSmoking(){
@@ -116,5 +117,17 @@ public class Observation {
 
 	public void setStarted(boolean started) {
 		this.started = started;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public int getTotal() {
+		return (noSmoking + child + other + noOthers);
 	}
 }

@@ -27,7 +27,6 @@ public class GlobalinkActivity extends Activity implements OnClickListener {
         
         btnNew.setOnClickListener(this);
         btnExisting.setOnClickListener(this);
-        
     }
 
 	@Override
@@ -40,13 +39,15 @@ public class GlobalinkActivity extends Activity implements OnClickListener {
 				Intent i = new Intent(this,ObservationActivity.class);
 				startActivity(i);			
 			}else{
+				//display gps notification
 				onCreateDialog(GPS_DIALOG);
 			}
 			return;
 		}
 		
 		if(arg0 == btnExisting){
-			//show exiting observations activity
+			Intent i = new Intent(this,ViewObservationsActivity.class);
+			startActivity(i);
 			return;
 		}
 		

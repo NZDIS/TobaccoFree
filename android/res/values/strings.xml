@@ -16,5 +16,14 @@
     <string name="gps_error_gps">The GPS is required to determine the location of the observation and needs to be turned on. Turn on GPS?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-
+	<string name="confirm_close">Are you sure you want to finish this observation?</string>
+	<string name="confirm_title">Are you sure?</string>
+	<string name="gps_fix">A GPS fix must be acquired, please wait.</string>
+	<string name="save">Save</string>
+	<string name="no_smokers">No smokers</string>
+    <string name="adult_smoker">Adult smoker</string>
+    <string name="adult_with_others">Adult smoker with others</string>
+    <string name="child_smoking">Child smoking</string>
+    <string name="total">Total</string>
+    <string name="select_observation">Select Observation:</string>
 </resources>
