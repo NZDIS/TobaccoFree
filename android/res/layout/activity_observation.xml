@@ -37,8 +37,10 @@
         android:layout_gravity="center"
         android:drawableTop="@drawable/nosmoking"
         android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:text="@string/no_smoking" />
+        android:paddingTop="15dp"
+        android:gravity="center"        
+        android:textSize="0px"
+        android:text="" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -51,19 +53,28 @@
             android:id="@+id/btnNoOccupants"
             android:layout_width="100dp"
             android:layout_height="60dp"
-            android:text="@string/no_other_occupants" />
+            android:drawableTop="@drawable/nooccupants"
+            android:textSize="0px"
+            android:paddingTop="10dp"
+       		android:text="" />
 
         <Button
             android:id="@+id/btnOtherAdults"
             android:layout_width="100dp"
             android:layout_height="60dp"
-            android:text="@string/other_adults" />
+            android:textSize="0px"
+        	android:text=""
+        	android:paddingTop="10dp"
+            android:drawableTop="@drawable/otheradults" />
 
         <Button
             android:id="@+id/btnChild"
             android:layout_width="100dp"
             android:layout_height="60dp"
-            android:text="@string/child" />
+            android:textSize="0px"
+        	android:text=""
+        	android:paddingTop="10dp"
+            android:drawableTop="@drawable/child" />
     </LinearLayout>
 
 </LinearLayout>

@@ -26,4 +26,20 @@
     <string name="child_smoking">Child smoking</string>
     <string name="total">Total</string>
     <string name="select_observation">Select Observation:</string>
+    <string name="export_all">Export All</string>
+    <string name="delete_selected">Delete Selected</string>
+    <string name="export_selected">Export Selected</string>
+    <string name="delete_all">Delete All</string>
+    <string name="ok">Ok</string>
+    <string name="nosd_title">No SD Card</string>
+    <string name="nosd_message">An SD card is required to export to CSV. Please insert a SD card and make sure that it is mounted.</string>
+   	<string name="dir_error_title">Error</string>
+   	<string name="dir_error_message">Failed to create \'globalink\' directory on the SD card. Is the SD card read only?</string>
+   	<string name="export_success">Exporting CSV to external SD card is complete</string>
+   	<string name="export_success_title">Success</string>
+   	<string name="unknown_error_title">Unknown Error</string>
+   	<string name="unknown_error_message">An unknown error as occured.</string>
+   	<string name="warning">Warning</string>
+   	<string name="delete_warning_all">Are you sure you want to delete all observations? This cannot be undone.</string>
+   	<string name="delete_warning_selected">Are you sure you want to delete the selected observation? This cannot be undone.</string>
 </resources>

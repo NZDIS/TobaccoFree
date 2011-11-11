@@ -146,10 +146,37 @@
         </TableRow>
     </TableLayout>
 
-    <Button
-        android:id="@+id/btnSaveObservation"
-        android:layout_width="100dp"
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:gravity="center" >
+
+        <Button
+            android:id="@+id/btnExportObservation"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:text="@string/export_selected" />
+
+        <Button
+            android:id="@+id/btnExportAll"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:text="@string/export_all" />
+
+        <Button
+            android:id="@+id/btnDeleteSelected"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:text="@string/delete_selected" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnDeleteAll"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
-        android:text="@string/save" />
+        android:text="@string/delete_all" />
+
 </LinearLayout>
