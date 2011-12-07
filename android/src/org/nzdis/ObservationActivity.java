@@ -6,29 +6,47 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class ObservationActivity extends Activity implements LocationListener, OnClickListener{
 	
 	private LocationManager locManager;
 	private ProgressDialog gpsDialog;
+	private MediaPlayer clickSound;
+	private SharedPreferences preferences;
 	private long observationId;
 	private Button btnFinish,btnHelp,btnNoSmoking,btnNoOccupants,btnOtherAdults,btnChild;
 	private boolean showingGPSDialog;
 	public static final int GPS_DIALOG = 2;
 	public static final int CONFIRM_DIALOG = 1;
+	private TextView tvAdults,tvAlone,tvChild,tvNone;
+	
+	private boolean debug = true;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_observation);
+        
+        tvAlone = (TextView)findViewById(R.id.tvSingleAdultCount);
+        tvAdults = (TextView)findViewById(R.id.tvMultipleAdultCount);
+        tvChild = (TextView)findViewById(R.id.tvChildCount);
+        tvNone = (TextView)findViewById(R.id.tvNoSmokingCount);
         
         btnFinish = (Button)findViewById(R.id.btnFinish);
         btnHelp = (Button)findViewById(R.id.btnHelp);
@@ -47,9 +65,27 @@ public class ObservationActivity extends Activity implements LocationListener, O
         DatabaseHelper db = new DatabaseHelper(this);
         if(savedInstanceState != null){
         	observationId = savedInstanceState.getLong("observationId",-1);
-        }
-        
-        if(observationId < 1){		    
+        	
+            if(observationId < 1){		    
+    		    try{
+    		    	observationId = db.getNewObservationId();
+    		    }catch(DatabaseException e){
+    		    	Log.e("Globalink",e.getMessage());
+    		    	db.close();
+    		    	finish();
+    		    }		    
+            }
+            
+            if(savedInstanceState.getBoolean("showingGPSDialog",false)){
+            	gpsDialog = ProgressDialog.show(this, "",getString(R.string.gps_fix), true,true);
+            	showingGPSDialog = true;
+            }
+            
+            tvAlone.setText(db.getAloneSmokerCount(observationId) + "");
+            tvAdults.setText(db.getAdultSmokersCount(observationId) + "");
+            tvChild.setText(db.getAdultChildSmokerCount(observationId) + "");
+            tvNone.setText(db.getNoSmokerCount(observationId)+"");
+        }else{
 		    try{
 		    	observationId = db.getNewObservationId();
 		    }catch(DatabaseException e){
@@ -57,17 +93,17 @@ public class ObservationActivity extends Activity implements LocationListener, O
 		    	db.close();
 		    	finish();
 		    }
-		    
-		    
         }
+    
+
+       	locManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
+        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         
-        if(!db.hasGPS(observationId)){
-	       	locManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
-	        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-        }else{
-        	locManager = null;
-        }
         db.close();
+        
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        
+        clickSound = MediaPlayer.create(this,R.raw.click);
     }
     
     @Override
@@ -83,6 +119,7 @@ public class ObservationActivity extends Activity implements LocationListener, O
     @Override
     protected void onSaveInstanceState(Bundle outState){
     	outState.putLong("observationId", observationId);
+    	outState.putBoolean("showingGPSDialog", showingGPSDialog);
     	super.onSaveInstanceState(outState);
     }
     
@@ -93,10 +130,25 @@ public class ObservationActivity extends Activity implements LocationListener, O
      */
     @Override
     protected void onPause(){   	    	
-    	if(locManager != null){
-    		locManager.removeUpdates(this);
+    	locManager.removeUpdates(this);
+    	
+    	try{
+    		gpsDialog.dismiss();
+    	}catch(NullPointerException e){
+    		
     	}
-    	super.onPause();
+    	
+    	clickSound.release();
+    	
+    	super.onPause();   	
+    	
+    }
+    
+    @Override
+    protected void onResume(){
+       	locManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
+        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        super.onResume();
     }
     
     @Override
@@ -112,7 +164,7 @@ public class ObservationActivity extends Activity implements LocationListener, O
     		}else{
     			// ask to wait for GPS
     			showingGPSDialog = true;
-    			gpsDialog = ProgressDialog.show(this, "",getString(R.string.gps_fix), true,false);
+    			gpsDialog = ProgressDialog.show(this, "",getString(R.string.gps_fix), true,true);
     		}
     	}else{
     		//delete unused observation
@@ -146,11 +198,11 @@ public class ObservationActivity extends Activity implements LocationListener, O
 		db.close();
 		finish();
 	}
+	
 	@Override
-	public void onLocationChanged(Location arg0) {		
-		/* True values for when using the emulator */
-		if(arg0.hasAccuracy() || true){
-			if((arg0.getAccuracy() <= 10 && arg0.getAccuracy() > 0) || true){
+	public void onLocationChanged(Location arg0) {
+		if(arg0.hasAccuracy() || debug){
+			if((arg0.getAccuracy() <= 10 && arg0.getAccuracy() > 0) || debug){
 				finishGPS(arg0);
 			}
 		}
@@ -202,37 +254,81 @@ public class ObservationActivity extends Activity implements LocationListener, O
 		}
 		
 		if(v == btnHelp){
-			//display help screen
+			Intent instructions = new Intent(this,InstructionsActivity.class);
+			startActivity(instructions);
 			return;
 		}
 		
 		if(v == btnNoSmoking){
 			DatabaseHelper db = new DatabaseHelper(this);
 			db.incrementNoSmoking(observationId);
+			tvNone.setText(db.getNoSmokerCount(observationId)+"");
 			db.close();
+			playSound();
 			return;
 		}
 		
 		if(v == btnNoOccupants){
 			DatabaseHelper db = new DatabaseHelper(this);
 			db.incrementNoOccupants(observationId);
+			tvAlone.setText(db.getAloneSmokerCount(observationId) + "");
 			db.close();
+			playSound();
 			return;
 		}
 		
 		if(v == btnOtherAdults){
 			DatabaseHelper db = new DatabaseHelper(this);
 			db.incrementOtherAdults(observationId);
+			tvAdults.setText(db.getAdultSmokersCount(observationId) + "");
 			db.close();
+			playSound();            
 			return;
 		}
 		
 		if(v == btnChild){
 			DatabaseHelper db = new DatabaseHelper(this);
 			db.incrementChild(observationId);
+			tvChild.setText(db.getAdultChildSmokerCount(observationId) + "");
 			db.close();
+			playSound();
 			return;
 		}
 		
 	}
+	
+	/* Will play a 'click' sound if it hasn't been disabled
+	 * in the preferences
+	 */
+	private void playSound(){
+		if(preferences.getBoolean("play_sound", true)){
+			clickSound.start();
+		}
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.main_menu, menu);
+	    return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	    case R.id.preferences_button:
+	        Intent i = new Intent(this,PreferencesActivity.class);
+	        startActivityForResult(i,0);
+	        return true;
+	    default:
+	        return super.onOptionsItemSelected(item);
+	    }
+	}
+	
+	@Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+		clickSound = MediaPlayer.create(this,R.raw.click);
+	}
+
 }

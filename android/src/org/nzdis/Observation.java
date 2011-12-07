@@ -130,4 +130,8 @@ public class Observation {
 	public int getTotal() {
 		return (noSmoking + child + other + noOthers);
 	}
+
+	public String getCSV() {
+		return location.getLatitude() + "," + location.getLongitude() + "," + start + "," + finish + "," + noSmoking + "," + other + "," + noOthers + "," + child + "\n";
+	}
 }

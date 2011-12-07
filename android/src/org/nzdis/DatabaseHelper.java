@@ -204,6 +204,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	/* Deletes an observation. Does not delete any data associated with it. Is used when a observation
 	 * has been created but no data has been saved. Should be used in conjunction with hasCounted().
+	 * To delete all of the data as well use deleteObservationDeep().
 	 */
 	public void deleteObservation(long observationId) {
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -251,6 +252,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.close();		
 	}
 	
+	/*
+	 * Returns all of the observations in the database along with the totals of each count.
+	 */
 	public List<Observation> getObservations() {
 		SQLiteDatabase db = this.getReadableDatabase();
 		List<Observation> result = new ArrayList<Observation>();
@@ -258,9 +262,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		
 		//ugly query
 		String rawQuery = "SELECT observations.*, (SELECT COUNT(observation_id) FROM details WHERE observation_type = 1 AND observation_id = observations.id) AS NoSmoking,(SELECT COUNT(observation_id) FROM details WHERE observation_type = 2 AND observation_id = observations.id) AS AdultSmoking,(SELECT COUNT(observation_id) FROM details WHERE observation_type = 3 AND observation_id = observations.id) AS AdultSmokingOthers,(SELECT COUNT(observation_id) FROM details WHERE observation_type = 4 AND observation_id = observations.id) AS AdultSmokingChild FROM observations WHERE finish_time > 0";
-		Cursor cur = db.rawQuery(rawQuery, null);
-		Location tempLoc = new Location("TEMP");
+		Cursor cur = db.rawQuery(rawQuery, null);		
 		while(cur.moveToNext()){
+			Location tempLoc = new Location("TEMP");
 			Observation temp = new Observation(cur.getLong(3));
 			temp.setFinish(cur.getLong(4));
 			tempLoc.setLatitude(cur.getDouble(1));
@@ -270,9 +274,111 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			temp.setNoSmoking(cur.getInt(5));
 			temp.setOther(cur.getInt(7));
 			temp.setChild(cur.getInt(8));
+			temp.setId(cur.getLong(0));
 			result.add(temp);
 		}
 		cur.deactivate();
+		db.close();
+		return result;
+	}
+	
+	/* Deletes an observation and all of its associated observation data
+	 * 
+	 */
+	public void deleteObservationDeep(long observationId) throws DatabaseException{
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(TABLE_OBSERVATION, OBSERVATION_ID + " = ?", new String[]{observationId + ""});
+		db.delete(TABLE_DETAILS, DETAILS_ID + " = ?", new String[]{observationId + ""});
+		db.close();
+	}
+	
+	/*
+	 * Returns an observation with all of its data.
+	 * 
+	 * ********** INCOMPLETE *************
+	 */
+	/*public Observation getObservationById(long id) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		Observation result;
+		
+		Cursor cur = db.query(TABLE_OBSERVATION,null,OBSERVATION_ID + " = ?",new String[]{id + ""},null,null,null,"1");
+
+		if(cur.getCount() != 1){
+			throw new DatabaseException("No observation for that ID");
+		}else{
+			cur.moveToFirst();
+			result = new Observation(cur.getLong(3));
+			Location loc = new Location("TEMP");
+			loc.setLatitude(cur.getDouble(1));
+			loc.setLongitude(cur.getDouble(2));
+			result.setLocation(loc);
+			result.setId(id);
+			result.setFinish(cur.getLong(4));
+		}
+		cur.deactivate();
+		db.close();
+		return result;
+	}*/
+	
+	/* Returns the number of cars without any smokers for the given observation id
+	 * 
+	 */
+	public int getNoSmokerCount(long id){
+		int result = 0;
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor curs = db.rawQuery("SELECT COUNT(observation_id) FROM details WHERE observation_type = 1 AND observation_id = ?", new String[]{id+""});
+		if(curs.moveToFirst()){
+			result = curs.getInt(0);
+		}
+		curs.deactivate();
+		db.close();
+		return result;
+	}
+	
+	/* Returns the number of cars with alone adult smokers for the given observation id
+	 * 
+	 */
+	public int getAloneSmokerCount(long id){
+		int result = 0;
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor curs = db.rawQuery("SELECT COUNT(observation_id) FROM details WHERE observation_type = 2 AND observation_id = ?", new String[]{id+""});
+		curs.moveToFirst();
+		if(curs.moveToFirst()){
+			result = curs.getInt(0);
+		}
+		curs.deactivate();
+		db.close();
+		return result;
+	}
+	
+	/* Returns the number of cars with multiple adult smokers for the given observation id
+	 * 
+	 */
+	public int getAdultSmokersCount(long id){
+		int result = 0;
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor curs = db.rawQuery("SELECT COUNT(observation_id) FROM details WHERE observation_type = 3 AND observation_id = ?", new String[]{id+""});
+		curs.moveToFirst();
+		if(curs.moveToFirst()){
+			result = curs.getInt(0);
+		}
+		curs.deactivate();
+		db.close();
+		return result;
+	}
+	
+	/* Returns the number of cars with smokers with children under 12 for the given observation id
+	 * 
+	 */
+	public int getAdultChildSmokerCount(long id){
+		int result = 0;
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor curs = db.rawQuery("SELECT COUNT(observation_id) FROM details WHERE observation_type = 4 AND observation_id = ?", new String[]{id+""});
+		curs.moveToFirst();
+		if(curs.moveToFirst()){
+			result = curs.getInt(0);
+		}
+		curs.deactivate();
 		db.close();
 		return result;
 	}

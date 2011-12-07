@@ -26,9 +26,12 @@
             </intent-filter>
         </activity>
         <activity android:name="ObservationActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name="ViewObservationsActivity"></activity>
+            android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
+        <activity android:name="ViewObservationsActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
+        <activity android:name="PreferencesActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
+        <activity android:name="InstructionsActivity" android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
     </application>
 
 </manifest>

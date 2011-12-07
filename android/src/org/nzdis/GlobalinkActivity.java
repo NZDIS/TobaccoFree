@@ -8,6 +8,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -15,6 +18,7 @@ import android.widget.Button;
 public class GlobalinkActivity extends Activity implements OnClickListener {
 	
 	private Button btnNew,btnExisting;
+
 	public static final int GPS_DIALOG = 2;
 	
     @Override
@@ -27,6 +31,7 @@ public class GlobalinkActivity extends Activity implements OnClickListener {
         
         btnNew.setOnClickListener(this);
         btnExisting.setOnClickListener(this);
+
     }
 
 	@Override
@@ -80,4 +85,25 @@ public class GlobalinkActivity extends Activity implements OnClickListener {
 				return null;
 		}
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.main_menu, menu);
+	    return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	    case R.id.preferences_button:
+	        Intent i = new Intent(this,PreferencesActivity.class);
+	        startActivity(i);
+	        return true;
+	    default:
+	        return super.onOptionsItemSelected(item);
+	    }
+	}
+	
 }

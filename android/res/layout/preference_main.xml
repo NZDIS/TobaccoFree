@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/prefScreen">
+   		<CheckBoxPreference
+			android:key="play_sound"
+			android:title="@string/play_sound"
+			android:defaultValue="true"
+			android:summary="@string/play_sound_description" />
+   		<CheckBoxPreference
+			android:key="left_handed"
+			android:title="@string/left_handed"
+			android:defaultValue="false"
+			android:summary="@string/left_handed_description" />
+</PreferenceScreen>

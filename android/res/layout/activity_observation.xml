@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#FFF"
-    android:orientation="vertical" 
-    android:padding="5dp"
-    android:keepScreenOn="true">
+    android:gravity="center_horizontal"
+    android:keepScreenOn="true"
+    android:orientation="vertical"
+    android:padding="5dp" >
 
     <RelativeLayout
-        android:id="@+id/relativeLayout1"
+        android:id="@+id/rlHelpBar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
@@ -30,51 +30,124 @@
             android:text="@string/help" />
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/btnNoSmoking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:drawableTop="@drawable/nosmoking"
-        android:layout_marginTop="5dp"
-        android:paddingTop="15dp"
-        android:gravity="center"        
-        android:textSize="0px"
-        android:text="" />
-
     <LinearLayout
-        android:id="@+id/linearLayout1"
+        android:id="@+id/llMainContentVertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:gravity="center" >
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
 
         <Button
-            android:id="@+id/btnNoOccupants"
-            android:layout_width="100dp"
-            android:layout_height="60dp"
-            android:drawableTop="@drawable/nooccupants"
-            android:textSize="0px"
-            android:paddingTop="10dp"
-       		android:text="" />
+            android:id="@+id/btnNoSmoking"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/button_nosmoking_selector"
+            android:textSize="0px" />
 
-        <Button
-            android:id="@+id/btnOtherAdults"
-            android:layout_width="100dp"
-            android:layout_height="60dp"
-            android:textSize="0px"
-        	android:text=""
-        	android:paddingTop="10dp"
-            android:drawableTop="@drawable/otheradults" />
+        <TextView
+            android:id="@+id/tvNoSmokingCount"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:gravity="center_horizontal"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <Button
-            android:id="@+id/btnChild"
-            android:layout_width="100dp"
-            android:layout_height="60dp"
-            android:textSize="0px"
-        	android:text=""
-        	android:paddingTop="10dp"
-            android:drawableTop="@drawable/child" />
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal" >
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/line_shape_vertical" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/line_shape" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/line_shape_vertical" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/btnNoOccupants"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/button_observation_alone"
+                android:textSize="0px" />
+
+            <Button
+                android:id="@+id/btnOtherAdults"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/button_observation_adults"
+                android:textSize="0px" />
+
+            <Button
+                android:id="@+id/btnChild"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/button_observation_child"
+                android:textSize="0px" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/tvSingleAdultCount"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="0"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/tvMultipleAdultCount"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="0"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/tvChildCount"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="0"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
