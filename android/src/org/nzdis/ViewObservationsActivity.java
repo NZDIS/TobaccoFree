@@ -93,6 +93,8 @@ public class ViewObservationsActivity extends Activity implements OnClickListene
         	btnExportAll.setEnabled(false);
         	btnDeleteSelected.setEnabled(false);
         	btnDeleteAll.setEnabled(false);
+        	btnEmailObservation.setEnabled(false);
+        	btnEmailAll.setEnabled(false);
         	
         	tvNoSmokersCount.setText("0");
         	tvAdultSmokerCount.setText("0");

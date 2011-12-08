@@ -36,7 +36,7 @@ public class ObservationActivity extends Activity implements LocationListener, O
 	public static final int CONFIRM_DIALOG = 1;
 	private TextView tvAdults,tvAlone,tvChild,tvNone;
 	
-	private boolean debug = true;
+	private boolean debug = !true;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
