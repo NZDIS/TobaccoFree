@@ -77,4 +77,11 @@
    	<string name="instructions_practice_title">Want to practice?</string> 
    	<string name="instructions_practice_text">Enable practice mode in the help menu which will tell us not to use the data.</string> 
    	<string name="instructions_mistake">To correct a mistake, any of the above four buttons can be held down, which will subtract on observation from that category.</string>
+   	<string name="subtract_one">Subtract 1</string>
+   	<string name="context_child">Child Passenger</string>
+   	<string name="context_others">Adult Passengers</string>
+   	<string name="context_lone">No Passengers</string>
+   	<string name="context_no_smoking">No Smoking</string>
+   	<string name="context_default">Options</string>
+   	<string name="failed_decrement">Failed to decrement value</string>
 </resources>

@@ -15,6 +15,8 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,6 +24,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ObservationActivity extends Activity implements LocationListener, OnClickListener{
 	
@@ -35,8 +38,12 @@ public class ObservationActivity extends Activity implements LocationListener, O
 	public static final int GPS_DIALOG = 2;
 	public static final int CONFIRM_DIALOG = 1;
 	private TextView tvAdults,tvAlone,tvChild,tvNone;
+	private int contextSelected = -1;
 	
-	private boolean debug = !true;
+	private static final int CONTEXT_CHILD = 1,CONTEXT_NONE = 2,CONTEXT_ALONE = 3,CONTEXT_ADULTS = 4;
+	
+	
+	private boolean debug = true;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,6 +68,12 @@ public class ObservationActivity extends Activity implements LocationListener, O
         btnNoOccupants.setOnClickListener(this);
         btnOtherAdults.setOnClickListener(this);
         btnChild.setOnClickListener(this);
+        
+        
+        registerForContextMenu(btnNoSmoking);
+        registerForContextMenu(btnNoOccupants);
+        registerForContextMenu(btnOtherAdults);
+        registerForContextMenu(btnChild);
         
         DatabaseHelper db = new DatabaseHelper(this);
         if(savedInstanceState != null){
@@ -330,5 +343,89 @@ public class ObservationActivity extends Activity implements LocationListener, O
     public void onActivityResult(int requestCode, int resultCode, Intent data){
 		clickSound = MediaPlayer.create(this,R.raw.click);
 	}
+	
+	/*
+	 * Creates a context menu for the different buttons (no smoking, alone smoker etc..). Sets contextSelected
+	 * so that the context handler knows what button the context menu is for.
+	 */
+	@Override  
+	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
+		super.onCreateContextMenu(menu, v, menuInfo);
+		if(v == btnChild){
+			menu.setHeaderTitle(R.string.context_child);
+			contextSelected = CONTEXT_CHILD;
+		}else if(v == btnOtherAdults){
+			menu.setHeaderTitle(R.string.context_others);
+			contextSelected = CONTEXT_ADULTS;
+		}else if(v == btnNoOccupants){
+			menu.setHeaderTitle(R.string.context_lone);
+			contextSelected = CONTEXT_ALONE;
+		}else if(v == btnNoSmoking){
+			menu.setHeaderTitle(R.string.context_no_smoking);
+			contextSelected = CONTEXT_NONE;
+		}else{
+			menu.setHeaderTitle(R.string.context_default);
+			contextSelected = -1;
+		}
+		
+		menu.add(0, v.getId(), 0, this.getString(R.string.subtract_one));
+	}
 
+	/* Decrements the count of a button. Based on the contextSelected variable set
+	 * during the creation of the context menu.
+	 */
+	@Override  
+	public boolean onContextItemSelected(MenuItem item) {
+		try{
+			DatabaseHelper db;
+			switch(contextSelected){
+			case CONTEXT_CHILD:
+				db = new DatabaseHelper(this);
+				if(db.getAdultChildSmokerCount(observationId) > 0){
+					db.decrementChild(observationId);
+					tvChild.setText(db.getAdultChildSmokerCount(observationId) + "");
+				}
+				db.close();			
+				break;
+			case CONTEXT_ADULTS:
+				db = new DatabaseHelper(this);
+				if(db.getAdultSmokersCount(observationId) > 0){
+					db.decrementOtherAdults(observationId);
+					tvAdults.setText(db.getAdultSmokersCount(observationId) + "");
+				}
+				db.close();		
+				break;
+			case CONTEXT_ALONE:
+				db = new DatabaseHelper(this);
+				if(db.getAloneSmokerCount(observationId) > 0){
+					db.decrementNoOccupants(observationId);
+					tvAlone.setText(db.getAloneSmokerCount(observationId) + "");
+				}
+				db.close();	
+				break;
+			case CONTEXT_NONE:
+				db = new DatabaseHelper(this);
+				if(db.getNoSmokerCount(observationId) > 0){
+					db.decrementNoSmoking(observationId);
+					tvNone.setText(db.getNoSmokerCount(observationId) + "");
+				}
+				db.close();	
+				break;
+			default:
+				return false;
+			}
+			contextSelected = -1;
+			return true;
+		}catch(DatabaseException e){
+			displayMessage(getString(R.string.failed_decrement));
+			return false;
+		}
+	}
+	
+	/* Displays a simple 'toast' message
+	 * 
+	 */
+	public void displayMessage(String message){
+		Toast.makeText(getBaseContext(),message,Toast.LENGTH_SHORT).show();
+	}
 }

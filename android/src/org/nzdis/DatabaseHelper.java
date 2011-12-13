@@ -154,7 +154,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 	
 	/*
-	 * Increments a 'OtherAdults' count for the given observation, it will throw
+	 * Increments a 'Child' count for the given observation, it will throw
 	 * a DatabaseException if getTypeIdFromName() doesn't exist
 	 */
 	public void incrementChild(long observationId) throws DatabaseException{
@@ -164,6 +164,83 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		cv.put(DETAILS_TYPE, getTypeIdFromName(ADULT_SMOKING_WITH_CHILD));
 		SQLiteDatabase db = getWritableDatabase();
 		db.insert(TABLE_DETAILS, null, cv);
+		db.close();
+	}
+	
+	/*
+	 * Decrements a 'NoSmoking' count for the given observation, it will throw
+	 * a DatabaseException if the query fails.
+	 */
+	public void decrementNoSmoking(long observationId) throws DatabaseException{
+		String typeID = getTypeIdFromName(NO_SMOKING) + "";
+		SQLiteDatabase db = getWritableDatabase();
+		Cursor result = db.query(TABLE_DETAILS, new String[]{DETAILS_TIMESTAMP}, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ?", new String[]{observationId + "",typeID}, null, null, DETAILS_TIMESTAMP + " DESC", 1 + "");
+		if(result.moveToFirst()){
+			db.delete(TABLE_DETAILS, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ? AND " + DETAILS_TIMESTAMP + " = ?" , new String[]{observationId + "",typeID,result.getLong(0) + ""});
+		}else{
+			result.close();
+			db.close();
+			throw new DatabaseException("Invalid decrement");
+		}
+		result.close();
+		db.close();
+	}
+	
+	
+	/*
+	 * Decrements a 'NoOccupants' count for the given observation, it will throw
+	 * a DatabaseException if the query fails.
+	 */
+	public void decrementNoOccupants(long observationId) throws DatabaseException{
+		String typeID = getTypeIdFromName(ADULT_SMOKING) + "";
+		SQLiteDatabase db = getWritableDatabase();
+		Cursor result = db.query(TABLE_DETAILS, new String[]{DETAILS_TIMESTAMP}, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ?", new String[]{observationId + "",typeID}, null, null, DETAILS_TIMESTAMP + " DESC", 1 + "");
+		if(result.moveToFirst()){
+			db.delete(TABLE_DETAILS, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ? AND " + DETAILS_TIMESTAMP + " = ?" , new String[]{observationId + "",typeID,result.getLong(0) + ""});
+		}else{
+			result.close();
+			db.close();
+			throw new DatabaseException("Invalid decrement");
+		}
+		result.close();
+		db.close();
+	}
+	
+	/*
+	 * Decrements a 'OtherAdults' count for the given observation, it will throw
+	 * a DatabaseException if the query fails.
+	 */
+	public void decrementOtherAdults(long observationId) throws DatabaseException{
+		String typeID = getTypeIdFromName(ADULT_SMOKING_OTHERS) + "";
+		SQLiteDatabase db = getWritableDatabase();
+		Cursor result = db.query(TABLE_DETAILS, new String[]{DETAILS_TIMESTAMP}, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ?", new String[]{observationId + "",typeID}, null, null, DETAILS_TIMESTAMP + " DESC", 1 + "");
+		if(result.moveToFirst()){
+			db.delete(TABLE_DETAILS, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ? AND " + DETAILS_TIMESTAMP + " = ?" , new String[]{observationId + "",typeID,result.getLong(0) + ""});
+		}else{
+			result.close();
+			db.close();
+			throw new DatabaseException("Invalid decrement");
+		}
+		result.close();
+		db.close();
+	}
+	
+	/*
+	 * Decrements a 'Child' count for the given observation, it will throw
+	 * a DatabaseException if the query fails.
+	 */
+	public void decrementChild(long observationId) throws DatabaseException{
+		String typeID = getTypeIdFromName(ADULT_SMOKING_WITH_CHILD) + "";
+		SQLiteDatabase db = getWritableDatabase();
+		Cursor result = db.query(TABLE_DETAILS, new String[]{DETAILS_TIMESTAMP}, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ?", new String[]{observationId + "",typeID}, null, null, DETAILS_TIMESTAMP + " DESC", 1 + "");
+		if(result.moveToFirst()){
+			db.delete(TABLE_DETAILS, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ? AND " + DETAILS_TIMESTAMP + " = ?" , new String[]{observationId + "",typeID,result.getLong(0) + ""});
+		}else{
+			result.close();
+			db.close();
+			throw new DatabaseException("Invalid decrement");
+		}
+		result.close();
 		db.close();
 	}
 	
@@ -179,6 +256,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			cur.moveToFirst();
 			id =cur.getInt(0);
 		}else{
+			cur.deactivate();
+			db.close();
 			throw new DatabaseException("Can't get type ID from name");
 		}
 		
