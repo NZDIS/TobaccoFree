@@ -1,6 +1,10 @@
 package org.nzdis;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.location.Location;
+import android.util.Log;
 
 public class Observation {
 	
@@ -133,5 +137,22 @@ public class Observation {
 
 	public String getCSV() {
 		return location.getLatitude() + "," + location.getLongitude() + "," + start + "," + finish + "," + noSmoking + "," + other + "," + noOthers + "," + child + "\n";
+	}
+	
+	public JSONObject getJSON() throws JSONException{
+		JSONObject json = new JSONObject();
+		
+		json.put("latitude", location.getLatitude());
+		json.put("longitude",location.getLongitude());
+		json.put("start", start);
+		json.put("finish", finish);
+		json.put("no_smoking", noSmoking);
+		json.put("other_adults", other);
+		json.put("lone_adult", noOthers);
+		json.put("child", child);
+		
+		
+		Log.i("JSON",json.toString());
+		return json;
 	}
 }

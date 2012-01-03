@@ -84,4 +84,16 @@
    	<string name="context_no_smoking">No Smoking</string>
    	<string name="context_default">Options</string>
    	<string name="failed_decrement">Failed to decrement value</string>
+   	<string name="preference_button">Preferences</string>
+   	<string name="upload_data">Upload Data</string>
+   	<string name="set_username">Set Username</string>
+   	<string name="upload_selected">Upload Selected</string>
+   	<string name="upload_all">Upload All</string>
+   	<string name="no_md5">Sorry your device cannot do the required hashing function.</string>
+   	<string name="no_username_set">Please set your username and password in the preferences screen</string>
+   	<string name="error">Error</string>
+   	<string name="email">E-Mail</string>
+   	<string name="password">Password</string>
+   	<string name="cancel">Cancel</string>
+   	<string name="enter_details">Enter Your Details</string>
 </resources>

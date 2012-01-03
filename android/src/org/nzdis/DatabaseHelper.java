@@ -1,5 +1,6 @@
 package org.nzdis;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import android.location.Location;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 	public static final String DATABASE_NAME = "globalink.sqlite";
-	public static final int DATABASE_VESRION = 1;
+	public static final int DATABASE_VESRION = 2;
 	
 	//observation table
 	public static final String TABLE_OBSERVATION = "observations";
@@ -22,24 +23,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String OBSERVATION_LONGITUDE = "longitude";
 	public static final String OBSERVATION_START = "start_time";
 	public static final String OBSERVATION_FINISH = "finish_time";
+	public static final String OBSERVATION_UPLOADED = "uploaded";
 	
 	//observation details table
 	public static final String TABLE_DETAILS = "details";
 	public static final String DETAILS_ID = "observation_id";
 	public static final String DETAILS_TYPE = "observation_type";
-	public static final String DETAILS_TIMESTAMP = "obeservation_time";
+	public static final String DETAILS_TIMESTAMP = "obeservation_time";	
 	
-	//detail type table
-	public static final String TABLE_TYPES = "types";
-	public static final String TYPES_ID = "id";
-	public static final String TYPES_NAME = "name";
-	
-	
-	//type contants
+	//type constants
 	public static final String NO_SMOKING = "No Smokers";
 	public static final String ADULT_SMOKING = "Adult with no other occupants";
 	public static final String ADULT_SMOKING_OTHERS = "Adult with other smoking adults";
 	public static final String ADULT_SMOKING_WITH_CHILD = "Smoking with child <= 12";
+	
+	//username table
+	public static final String TABLE_USER = "user";
+	public static final String USER_USERNAME = "username";
+	public static final String USER_HASH = "hash";
 	
 	public DatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VESRION);
@@ -47,30 +48,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String createObservation = "CREATE TABLE " + TABLE_OBSERVATION + " (" + OBSERVATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + OBSERVATION_LATITUDE + " REAL NOT NULL DEFAULT 0, " + OBSERVATION_LONGITUDE + " REAL NOT NULL DEFAULT 0, " + OBSERVATION_START + " INTEGER NOT NULL DEFAULT 0, " + OBSERVATION_FINISH + " NOT NULL DEFAULT 0)";
+		String createObservation = "CREATE TABLE " + TABLE_OBSERVATION + " (" + OBSERVATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + OBSERVATION_LATITUDE + " REAL NOT NULL DEFAULT 0, " + OBSERVATION_LONGITUDE + " REAL NOT NULL DEFAULT 0, " + OBSERVATION_START + " INTEGER NOT NULL DEFAULT 0, " + OBSERVATION_FINISH + " INTEGER NOT NULL DEFAULT 0, " + OBSERVATION_UPLOADED + " INTEGER NOT NULL DEFAULT 0)";
 		db.execSQL(createObservation);
 		
 		String createDetails = "CREATE TABLE " + TABLE_DETAILS + " (" + DETAILS_ID + " INTEGER NOT NULL, " + DETAILS_TYPE + " INTEGER NOT NULL DEFAULT 0, " + DETAILS_TIMESTAMP + " INTEGNER NOT NULL DEFAULT 0)";
 		db.execSQL(createDetails);
 		
-		String createTypes = "CREATE TABLE " + TABLE_TYPES + " ( " + TYPES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TYPES_NAME + " TEXT NOT NULL)";
-		db.execSQL(createTypes);
-		
-		//insert types
-		ContentValues cv = new ContentValues();
-		cv.put(TYPES_NAME, NO_SMOKING);
-		db.insert(TABLE_TYPES, null, cv);
-		cv.put(TYPES_NAME, ADULT_SMOKING);
-		db.insert(TABLE_TYPES, null, cv);
-		cv.put(TYPES_NAME, ADULT_SMOKING_OTHERS);
-		db.insert(TABLE_TYPES, null, cv);
-		cv.put(TYPES_NAME, ADULT_SMOKING_WITH_CHILD);
-		db.insert(TABLE_TYPES, null, cv);
+		String createUser = "CREATE TABLE " + TABLE_USER + " (" + USER_USERNAME + " VARCHAR(20) NOT NULL, " + USER_HASH + " VARCHARR(32) NOT NULL)";  
+		db.execSQL(createUser);
+
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		
+		if(oldVersion == 1){
+			//drop types table here
+			db.execSQL("DROP TABLE IF EXISTS types");
+			
+			//add upload column
+			db.execSQL("ALTER TABLE " + TABLE_OBSERVATION + " ADD " + OBSERVATION_UPLOADED + " INTEGER NOT NULL DEFAULT 0");
+			
+			//create username table
+			String createUser = "CREATE TABLE " + TABLE_USER + " (" + USER_USERNAME + " VARCHAR(20) NOT NULL, " + USER_HASH + " VARCHARR(32) NOT NULL)";  
+			db.execSQL(createUser);
+		}
 	}
 
 	/* debug method */
@@ -248,22 +249,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 * Returns the observation type ID from the name given. If no match is found for the
 	 * name given, then a DatabaseException is thrown.
 	 */
-	private int getTypeIdFromName(String string) throws DatabaseException{
-		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor cur = db.query(TABLE_TYPES, new String[]{TYPES_ID}, TYPES_NAME + " = ?", new String[]{string}, null, null, null);
-		int id;
-		if(cur.getCount() == 1){
-			cur.moveToFirst();
-			id =cur.getInt(0);
+	private int getTypeIdFromName(String string) {
+		if(string.equals(NO_SMOKING)){
+			return 1;
+		}else if(string.equals(ADULT_SMOKING)){
+			return 2;
+		}else if(string.equals(ADULT_SMOKING_OTHERS)){
+			return 3;
 		}else{
-			cur.deactivate();
-			db.close();
-			throw new DatabaseException("Can't get type ID from name");
+			return 4;
 		}
-		
-		cur.deactivate();
-		db.close();
-		return id;
 	}
 
 	/* Checks to see if anything has been counted yet for the given observation id
@@ -460,5 +455,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		curs.deactivate();
 		db.close();
 		return result;
+	}
+	
+	/*
+	 * Get the users username and password hash
+	 */
+	public UsersDetails getUserDetails() throws NoSuchAlgorithmException, UsernameNotSetException{
+		UsersDetails result = new UsersDetails();
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor curs = db.query(TABLE_USER, null, null, null, null, null, null, "1");
+		curs.moveToFirst();
+		if(curs.getCount() == 1){
+			result.setUsername(curs.getString(0));
+			result.setPasswordHash(curs.getString(1), true);
+		}else{
+			throw new UsernameNotSetException("Username and/or password have not been set");
+		}
+		curs.deactivate();
+		db.close();
+		return result;
+	}
+	
+	/*
+	 * Sets the users username and password
+	 */
+	public void setUsersDetails(UsersDetails input) throws UsernameNotSetException{
+		if(input.getPasswordHash() == null || input.getUsername() == null){
+			throw new UsernameNotSetException("Username and/or password have not been set in the container \"input\"");
+		}
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(USER_USERNAME, input.getUsername());
+		cv.put(USER_HASH, input.getPasswordHash());
+		
+		//make sure there aren't existing details
+		db.delete(TABLE_USER, null, null);
+		
+		//insert new details
+		db.insert(TABLE_USER, null, cv);
+		db.close();
 	}
 }

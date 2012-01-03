@@ -4,13 +4,13 @@
     <item 
         android:state_enabled="true"
         android:state_pressed="true"
-        android:drawable="@drawable/button_observation_selected"/>
+        android:drawable="@drawable/finish_selected"/>
     <item 
         android:state_enabled="true"
         android:state_focused="true"
-        android:drawable="@drawable/button_observation_selected"/>
+        android:drawable="@drawable/finish_selected"/>
     <item 
         android:state_enabled="true"
-        android:drawable="@drawable/button_observation"/>
+        android:drawable="@drawable/finish"/>
 
 </selector>

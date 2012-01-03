@@ -43,7 +43,7 @@ public class ObservationActivity extends Activity implements LocationListener, O
 	private static final int CONTEXT_CHILD = 1,CONTEXT_NONE = 2,CONTEXT_ALONE = 3,CONTEXT_ADULTS = 4;
 	
 	
-	private boolean debug = true;
+	private boolean debug = !true;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {

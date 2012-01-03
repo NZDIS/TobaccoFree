@@ -1,6 +1,7 @@
 package org.nzdis;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,7 +13,9 @@ import android.widget.Button;
 public class PreferencesActivity extends Activity implements OnClickListener {
 
 	private SharedPreferences preferences;
-	private Button btnViewInstructions,btnLeftRightMode,btnPracticeMode,btnSound,btnEmailSupport,btnEmailData;
+	private Button btnViewInstructions,btnLeftRightMode,btnPracticeMode,btnSound,btnEmailSupport, btnSetUsername;
+	
+	public static final int SET_DETAILS = 123;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,8 +38,8 @@ public class PreferencesActivity extends Activity implements OnClickListener {
         btnEmailSupport = (Button)findViewById(R.id.btnEmailSupport);
         btnEmailSupport.setOnClickListener(this);
         
-        btnEmailData = (Button)findViewById(R.id.btnEmailData);
-        btnEmailData.setOnClickListener(this);
+        btnSetUsername = (Button)findViewById(R.id.btnUsername);
+        btnSetUsername.setOnClickListener(this);
         
 		if(!preferences.getBoolean("play_sound", true)){
 			btnSound.setText(getString(R.string.sound_on));
@@ -49,7 +52,7 @@ public class PreferencesActivity extends Activity implements OnClickListener {
 		    Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
 		    emailIntent.setType("plain/text");
 		    emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Globalink App Test");
-		    emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"medlin.hamish@gmail.com"}); 
+		    emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"medlin.hamish@gmail.com","vimal.patel@otago.ac.nz","mariusz@nowostawski.org"}); 
 		    startActivity(Intent.createChooser(emailIntent, getString(R.string.send_feedback))); 
 		    return;
 		}
@@ -70,6 +73,21 @@ public class PreferencesActivity extends Activity implements OnClickListener {
 			Intent instructions = new Intent(this,InstructionsActivity.class);
 			startActivity(instructions);
 			return;
+		}
+		
+		if(arg0 == btnSetUsername){
+			showDialog(SET_DETAILS);
+			return;
+		}
+	}
+	
+	@Override
+	protected Dialog onCreateDialog(int d){
+		switch(d){
+			case SET_DETAILS:
+				return new UserDetailsDialog(this);			
+			default:
+				return null;
 		}
 	}
 	

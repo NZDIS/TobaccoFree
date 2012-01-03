@@ -50,4 +50,24 @@
         android:textStyle="bold"
         android:typeface="monospace" />
 
+    <Button
+        android:id="@+id/btnUpload"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/button_selector"
+        android:enabled="false"
+        android:text="@string/upload_data"
+        android:textStyle="bold"
+        android:typeface="monospace" />
+    
+    <Button
+        android:id="@+id/btnPreferences"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/button_selector"
+        android:text="@string/preference_button"
+        android:textStyle="bold"
+        android:typeface="monospace" />
 </LinearLayout>

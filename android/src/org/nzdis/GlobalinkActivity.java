@@ -8,16 +8,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.view.Menu;
+/*import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.view.MenuItem;*/
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class GlobalinkActivity extends Activity implements OnClickListener {
 	
-	private Button btnNew,btnExisting;
+	private Button btnNew,btnExisting,btnPreferences,btnUpload;
 
 	public static final int GPS_DIALOG = 2;
 	
@@ -28,10 +28,13 @@ public class GlobalinkActivity extends Activity implements OnClickListener {
         
         btnNew = (Button)findViewById(R.id.btnNew);
         btnExisting = (Button)findViewById(R.id.btnExisting);
+        btnPreferences = (Button)findViewById(R.id.btnPreferences);
+        btnUpload = (Button)findViewById(R.id.btnUpload);
         
         btnNew.setOnClickListener(this);
         btnExisting.setOnClickListener(this);
-
+        btnPreferences.setOnClickListener(this);
+        btnUpload.setOnClickListener(this);
     }
 
 	@Override
@@ -56,6 +59,17 @@ public class GlobalinkActivity extends Activity implements OnClickListener {
 			return;
 		}
 		
+		if(arg0 == btnPreferences){
+	        Intent i = new Intent(this,PreferencesActivity.class);
+	        startActivity(i);
+	        return;
+		}
+		
+		if(arg0 == btnUpload){
+	        Intent i = new Intent(this,UploadActivity.class);
+	        startActivity(i);
+	        return;
+		}
 	}
 	
 	@Override
@@ -86,6 +100,7 @@ public class GlobalinkActivity extends Activity implements OnClickListener {
 		}
 	}
 	
+	/*
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
@@ -105,5 +120,5 @@ public class GlobalinkActivity extends Activity implements OnClickListener {
 	        return super.onOptionsItemSelected(item);
 	    }
 	}
-	
+	*/
 }
