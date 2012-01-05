@@ -4,7 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.location.Location;
-import android.util.Log;
 
 public class Observation {
 	
@@ -152,7 +151,7 @@ public class Observation {
 		json.put("child", child);
 		
 		
-		Log.i("JSON",json.toString());
+		//Log.i("JSON",json.toString());
 		return json;
 	}
 }

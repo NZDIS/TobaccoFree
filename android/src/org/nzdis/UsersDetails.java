@@ -51,4 +51,8 @@ public class UsersDetails {
 	public void setUsername(String username){
 		this.username = username;
 	}
+	
+	public String toString(){
+		return "Username: " + username + " Password Hash: " + hash;
+	}
 }

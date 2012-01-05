@@ -469,6 +469,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			result.setUsername(curs.getString(0));
 			result.setPasswordHash(curs.getString(1), true);
 		}else{
+			curs.deactivate();
+			db.close();
 			throw new UsernameNotSetException("Username and/or password have not been set");
 		}
 		curs.deactivate();
@@ -494,5 +496,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		//insert new details
 		db.insert(TABLE_USER, null, cv);
 		db.close();
+	}
+
+	public Observation getObservation(long id) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		Observation result;
+		//Cursor cur = db.query(TABLE_OBSERVATION,null,null,null,null,null,OBSERVATION_START + " ASC, " + OBSERVATION_FINISH + " ASC");
+		
+		//ugly query
+		String rawQuery = "SELECT observations.*, (SELECT COUNT(observation_id) FROM details WHERE observation_type = 1 AND observation_id = observations.id) AS NoSmoking,(SELECT COUNT(observation_id) FROM details WHERE observation_type = 2 AND observation_id = observations.id) AS AdultSmoking,(SELECT COUNT(observation_id) FROM details WHERE observation_type = 3 AND observation_id = observations.id) AS AdultSmokingOthers,(SELECT COUNT(observation_id) FROM details WHERE observation_type = 4 AND observation_id = observations.id) AS AdultSmokingChild FROM observations WHERE finish_time > 0 AND observations.id = " + id;
+		Cursor cur = db.rawQuery(rawQuery, null);		
+		if(cur.moveToNext()){
+			Location tempLoc = new Location("TEMP");
+			result = new Observation(cur.getLong(3));
+			result.setFinish(cur.getLong(4));
+			tempLoc.setLatitude(cur.getDouble(1));
+			tempLoc.setLongitude(cur.getDouble(2));
+			result.setLocation(tempLoc);
+			result.setNoOthers(cur.getInt(6));
+			result.setNoSmoking(cur.getInt(5));
+			result.setOther(cur.getInt(7));
+			result.setChild(cur.getInt(8));
+			result.setId(cur.getLong(0));
+		}else{
+			cur.deactivate();
+			db.close();
+			return null;
+		}
+		cur.deactivate();
+		db.close();
+		return result;
 	}
 }

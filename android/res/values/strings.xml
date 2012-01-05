@@ -96,4 +96,8 @@
    	<string name="password">Password</string>
    	<string name="cancel">Cancel</string>
    	<string name="enter_details">Enter Your Details</string>
+   	<string name="no_internet">An Internet connection (2/3G or WiFi) is required to upload data</string>
+   	<string name="uploading_observation_number">Uploading observation </string>
+   	<string name="uploading_observation_of">of </string>
+   	<string name="username_details">A username and password are required to use the uploading fucntion of this application. To get a username and password go to &lt;website> and sign up.</string>
 </resources>

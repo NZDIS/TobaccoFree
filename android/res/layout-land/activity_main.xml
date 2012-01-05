@@ -52,7 +52,7 @@
             android:layout_height="40dp"
             android:layout_margin="5dp"
             android:background="@drawable/button_selector"
-            android:enabled="false"
+            android:enabled="true"
             android:text="@string/upload_data"
             android:textStyle="bold"
             android:typeface="monospace" />
