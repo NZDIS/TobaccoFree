@@ -1,8 +1,19 @@
 package org.nzdis;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 
 import android.app.Activity;
@@ -244,15 +255,41 @@ public class UploadActivity extends Activity implements OnClickListener, android
 		protected Boolean doInBackground(Observation... arg0) {
 			total = arg0.length;
 			int count = 1;
+			DatabaseHelper db;
 			for(Observation observation : arg0){
 				if(isCancelled()){
 					return false;
 				}
+				
 				publishProgress(count);
 				count++;
 				
 				/***************************
 				 * Upload code here
+				 *
+	        	try {
+					HttpClient client = new DefaultHttpClient();
+					// TODO GET URL
+		        	HttpPost post = new HttpPost("");
+		        	List<NameValuePair> params = new ArrayList<NameValuePair>();
+					params.add(new BasicNameValuePair("JSON",observation.getJSON().toString()));
+		        	UrlEncodedFormEntity ent;
+		        	ent = new UrlEncodedFormEntity(params,HTTP.UTF_8);			
+		            post.setEntity(ent);
+		            client.execute(post);
+				} catch (JSONException e1) {
+					e1.printStackTrace();
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				} catch (ClientProtocolException e) {
+					e.printStackTrace();
+				} catch (IOException e) {					
+					e.printStackTrace();
+				}*/
+	        	
+				
+				/******************************
+				 * Simple offline testing code
 				 */
 				try {
 					Log.i("GlobaLink",observation.getJSON().toString());
@@ -264,7 +301,12 @@ public class UploadActivity extends Activity implements OnClickListener, android
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				/**************************/
+				/*****************************/
+				
+				//if upload succeeded then set 'upload' tag to 1
+				db = new DatabaseHelper(act);
+				db.setUploaded(observation.getId());
+				db.close();
 			}
 			return true;
 		}

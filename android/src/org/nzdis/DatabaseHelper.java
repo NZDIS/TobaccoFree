@@ -498,6 +498,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.close();
 	}
 
+	/* Retrieve a selected observation from a given ID
+	 * 
+	 */
 	public Observation getObservation(long id) {
 		SQLiteDatabase db = this.getReadableDatabase();
 		Observation result;
@@ -526,5 +529,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		cur.deactivate();
 		db.close();
 		return result;
+	}
+
+	/* Set the 'upload' column to 1 in the table TABLE_OBSERVATION for the given ID
+	 * 
+	 */
+	public void setUploaded(long id) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(OBSERVATION_UPLOADED, 1);
+		db.update(TABLE_OBSERVATION, cv, OBSERVATION_ID + " = ?", new String[]{id + ""});
+		db.close();
 	}
 }
