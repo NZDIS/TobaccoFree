@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical" >
 
         <TextView
@@ -93,7 +93,6 @@
             android:textStyle="bold" />
 
         <LinearLayout
-            android:id="@+id/linearLayout1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -109,7 +108,6 @@
                 android:textSize="0px" />
 
             <TextView
-                android:id="@+id/TextView01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/instructions_sole"
@@ -117,7 +115,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -133,7 +130,6 @@
                 android:textSize="0px" />
 
             <TextView
-                android:id="@+id/TextView01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/instructions_adult_passenger"
@@ -141,7 +137,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -157,7 +152,6 @@
                 android:textSize="0px" />
 
             <TextView
-                android:id="@+id/TextView01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/instructions_child"
@@ -218,6 +212,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/instructions_practice_text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/instructions_upload"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/upload_description"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
 

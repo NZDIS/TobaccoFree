@@ -62,7 +62,6 @@ public class ViewObservationsActivity extends Activity implements OnClickListene
         tvChildSmokerCount = (TextView)findViewById(R.id.tvChildSmokerCount);
         total = (TextView)findViewById(R.id.total);
         
-
         updateContent();
     }
     

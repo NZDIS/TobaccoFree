@@ -344,10 +344,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			tempLoc.setLatitude(cur.getDouble(1));
 			tempLoc.setLongitude(cur.getDouble(2));
 			temp.setLocation(tempLoc);
-			temp.setNoOthers(cur.getInt(6));
-			temp.setNoSmoking(cur.getInt(5));
-			temp.setOther(cur.getInt(7));
-			temp.setChild(cur.getInt(8));
+			temp.setNoOthers(cur.getInt(7));
+			temp.setNoSmoking(cur.getInt(6));
+			temp.setOther(cur.getInt(8));
+			temp.setChild(cur.getInt(9));
+			temp.setId(cur.getLong(0));
+			result.add(temp);
+		}
+		cur.deactivate();
+		db.close();
+		return result;
+	}
+	
+	/*
+	 * Returns all of the observations that haven't been marked uploaded in the database along with the totals of each count.
+	 */
+	public List<Observation> getObservationsNotUploaded() {
+		SQLiteDatabase db = this.getReadableDatabase();
+		List<Observation> result = new ArrayList<Observation>();
+		//Cursor cur = db.query(TABLE_OBSERVATION,null,null,null,null,null,OBSERVATION_START + " ASC, " + OBSERVATION_FINISH + " ASC");
+		
+		//ugly query
+		String rawQuery = "SELECT observations.*, (SELECT COUNT(observation_id) FROM details WHERE observation_type = 1 AND observation_id = observations.id) AS NoSmoking,(SELECT COUNT(observation_id) FROM details WHERE observation_type = 2 AND observation_id = observations.id) AS AdultSmoking,(SELECT COUNT(observation_id) FROM details WHERE observation_type = 3 AND observation_id = observations.id) AS AdultSmokingOthers,(SELECT COUNT(observation_id) FROM details WHERE observation_type = 4 AND observation_id = observations.id) AS AdultSmokingChild FROM observations WHERE finish_time > 0 AND uploaded = 0";
+		Cursor cur = db.rawQuery(rawQuery, null);		
+		while(cur.moveToNext()){
+			Location tempLoc = new Location("TEMP");
+			Observation temp = new Observation(cur.getLong(3));
+			temp.setFinish(cur.getLong(4));
+			tempLoc.setLatitude(cur.getDouble(1));
+			tempLoc.setLongitude(cur.getDouble(2));
+			temp.setLocation(tempLoc);
+			temp.setNoOthers(cur.getInt(7));
+			temp.setNoSmoking(cur.getInt(6));
+			temp.setOther(cur.getInt(8));
+			temp.setChild(cur.getInt(9));
 			temp.setId(cur.getLong(0));
 			result.add(temp);
 		}

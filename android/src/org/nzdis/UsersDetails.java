@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 public class UsersDetails {
 
 	private String username;
+	private String dummy; // just testing the diff
 	private String hash;
 	
 	public UsersDetails(){}
@@ -22,7 +23,8 @@ public class UsersDetails {
 	private String hashPassword(String password) throws NoSuchAlgorithmException {
 		MessageDigest md = MessageDigest.getInstance("MD5");
 		md.reset();
-		md.update(password.getBytes());
+		String saltedPassword = "$709dfgssd*" + password + "lkgjzxvhdsfg";
+		md.update(saltedPassword.getBytes());
 		byte hash[] = md.digest();
 		
 		StringBuffer hex = new StringBuffer();

@@ -1,5 +1,8 @@
 package org.nzdis;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -138,7 +141,8 @@ public class Observation {
 		return location.getLatitude() + "," + location.getLongitude() + "," + start + "," + finish + "," + noSmoking + "," + other + "," + noOthers + "," + child + "\n";
 	}
 	
-	public JSONObject getJSON() throws JSONException{
+	/* Create a JSON representation of this class */
+	public JSONObject getJSON() throws JSONException, NoSuchAlgorithmException{
 		JSONObject json = new JSONObject();
 		
 		json.put("latitude", location.getLatitude());
@@ -149,9 +153,25 @@ public class Observation {
 		json.put("other_adults", other);
 		json.put("lone_adult", noOthers);
 		json.put("child", child);
-		
+		json.put("hash", getHash());
 		
 		//Log.i("JSON",json.toString());
 		return json;
+	}
+	
+	/* Create hash of all of the values stored in this class. Should be considered unique */
+	public String getHash() throws NoSuchAlgorithmException{
+		MessageDigest md = MessageDigest.getInstance("MD5");
+		md.reset();
+		String hashString = location.getLatitude() + location.getLongitude() + "salt" + finish + start + noSmoking + other + noOthers + child;
+		//Log.i("HASH",hashString);
+		md.update(hashString.getBytes());
+		byte hash[] = md.digest();
+		
+		StringBuffer hex = new StringBuffer();
+		for(int i = 0;i < hash.length;i++){
+			hex.append(Integer.toHexString(0xFF & hash[i]));
+		}
+		return hex.toString();
 	}
 }
