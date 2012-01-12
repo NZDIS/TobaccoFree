@@ -7,6 +7,8 @@ Created on Dec 19, 2011
 from django.utils import simplejson as json
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseForbidden
+from django.template import RequestContext
+from django.shortcuts import render_to_response
 from datetime import datetime
 import logging
 
@@ -18,8 +20,11 @@ logger = logging.getLogger("globalink.custom")
 
 
 def home(request):
-    return HttpResponse("Place holder for the HOME PAGE.")
+    return render_to_response('observation/index.html', context_instance=RequestContext(request))
 
+
+def signup(request):
+    return HttpResponse("Placeholder for signup form is here")
 
 
 @csrf_exempt
