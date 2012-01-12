@@ -40,7 +40,7 @@ public class UserDetailsDialog extends Dialog implements OnClickListener {
 		DatabaseHelper db = new DatabaseHelper(con);
 		try {
 			dets = db.getUserDetails();
-			email.setText(dets.getUsername());
+			email.setText(dets.getUserEmail());
 		} catch (NoSuchAlgorithmException e) {
 		} catch (UsernameNotSetException e) {
 		}
@@ -62,7 +62,7 @@ public class UserDetailsDialog extends Dialog implements OnClickListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			dets.setUsername(email.getText().toString());
+			dets.setUserEmail(email.getText().toString());
 			DatabaseHelper db = new DatabaseHelper(con);
 			db.setUsersDetails(dets);
 			db.close();

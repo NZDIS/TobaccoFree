@@ -41,7 +41,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-public class UploadActivity extends Activity implements OnClickListener, android.content.DialogInterface.OnClickListener, OnCancelListener {
+/**
+ * Represents activity responsible for uploading observation data to the server.
+ * 
+ * @author Hamish Medlin
+ * @author Mariusz Nowostawski <mariusz@nowostawski.org>
+ *
+ * @version $Revision$ <br>
+ * Created: Jan 12, 2012 11:30:04 AM
+ */
+public class UploadActivity extends Activity 
+	implements Constants, OnClickListener, OnCancelListener,
+				android.content.DialogInterface.OnClickListener {
 
 	private Spinner spnObservations;
 	private List<Observation> obs;
@@ -91,7 +102,7 @@ public class UploadActivity extends Activity implements OnClickListener, android
 		}
         db.close();
 
-        // setup spinner etc..
+        // setup spinner etc.
         updateView();
         
         //check if an upload is in progress and if so, show dialog
@@ -137,7 +148,7 @@ public class UploadActivity extends Activity implements OnClickListener, android
     }
     
 	@Override
-	public void onClick(DialogInterface dialog, int which) {
+    public void onClick(DialogInterface dialog, int which) {
 		if(dialog == alert){
 			alert.dismiss();
 			
@@ -229,14 +240,20 @@ public class UploadActivity extends Activity implements OnClickListener, android
 		}
 	}
 	
-	/* Check if there is a internet connection */
+	/** 
+	 * Checks if there is an Internet connection. 
+	 * @return <code>true</code> if there is Internet connection, 
+	 * 		<code>false</code> otherwise.
+	 **/
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
     }
     
-    /* Code to get a unique device ID */
+    /** 
+     * Returns a unique device ID. 
+     *@return unique device ID*/
 	private String getDeviceID(){
         final TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         final String tmDevice, tmSerial, androidId;
@@ -244,9 +261,15 @@ public class UploadActivity extends Activity implements OnClickListener, android
         tmSerial = "" + tm.getSimSerialNumber();
         androidId = "" + android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
         UUID deviceUuid = new UUID(androidId.hashCode(), ((long)tmDevice.hashCode() << 32) | tmSerial.hashCode());
-        Log.i("LENGTH",deviceUuid.toString().length() + "");
+// TODO debugging LOG.i
+Log.i("LENGTH",deviceUuid.toString().length() + "");
         return deviceUuid.toString().toUpperCase();		
 	}
+	
+
+	
+	
+	
 	
 	private class UploadTask extends AsyncTask<Observation,Integer,Boolean>{
 
@@ -305,28 +328,39 @@ public class UploadActivity extends Activity implements OnClickListener, android
 				 * Upload code here
 				 */
 	        	try {
+Log.i("Globalink","Sending JSon object");
 	        		temp = observation.getJSON();
-	        		temp.put("device", deviceID);
-	        		temp.put("username", user.getUsername());
-	        		temp.put("passwordHash", user.getPasswordHash());
-					HttpClient client = new DefaultHttpClient();
-		        	HttpPost post = new HttpPost("http://globalink.nzdis.org/observation/add");
-					//HttpPost post = new HttpPost("http://www.hamishmedlin.com/upload.php");
+	        		temp.put(USER_DEVICE, deviceID);
+	        		temp.put(USER_USER_EMAIL, user.getUserEmail());
+	        		temp.put(USER_PASSWORD_HASH, user.getPasswordHash());
+					final HttpClient client = new DefaultHttpClient();
+		        	final HttpPost post = new HttpPost(URL_OBSERVATION_ADD);
+					
 		        	List<NameValuePair> params = new ArrayList<NameValuePair>();
-					params.add(new BasicNameValuePair("JSON",temp.toString()));
+					params.add(new BasicNameValuePair("Observation", temp.toString()));
 		        	UrlEncodedFormEntity ent;
 		        	ent = new UrlEncodedFormEntity(params,HTTP.UTF_8);			
 		            post.setEntity(ent);
-		            HttpResponse response = client.execute(post);
-					BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
+Log.i("Globalink","Sending post instance:" + post);
+		            final HttpResponse response = client.execute(post);
+					final BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
 					String sResponse;
 					StringBuilder s = new StringBuilder();
 					while ((sResponse = reader.readLine()) != null) {
 						s = s.append(sResponse);
 					}
-					
-					// Prints out response from server
-		            Log.i("Globalink","Response: " + s);
+					if (response.getStatusLine().getStatusCode() == 200) {
+Log.i("Globalink","Data saved correctly to server.");						
+						// if upload succeeded then set 'upload' tag to 1
+						/** TODO For testing purposes do not mark observations as uploaded.*				
+							        	db = new DatabaseHelper(act);
+										db.setUploaded(observation.getId());
+										db.close();*/
+						
+					} else {
+// TODO Debugging printout: Prints out response from server
+Log.i("Globalink","ERROR: status line " + response.getStatusLine() + " from server.\nResponse: " + s);
+					}
 				} catch (JSONException e1) {
 					e1.printStackTrace();
 					errored = true;
@@ -353,30 +387,6 @@ public class UploadActivity extends Activity implements OnClickListener, android
 					errorCode = 5;
 					return false;
 				}
-	        	
-				
-				/******************************
-				 * Simple offline testing code
-				 *
-				try {
-					Log.i("GlobaLink",observation.getJSON().toString());
-					Thread.sleep(5000);
-					
-					//Error message test
-					//JSONObject json = new JSONObject("Asda2%");
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				} catch (JSONException e) {
-					errored = true;
-					errorCode = 1;
-					return false;
-				}
-				/*****************************/
-				
-				//if upload succeeded then set 'upload' tag to 1
-				db = new DatabaseHelper(act);
-				db.setUploaded(observation.getId());
-				db.close();
 			}
 			return true;
 		}

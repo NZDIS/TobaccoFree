@@ -8,9 +8,18 @@ import org.json.JSONObject;
 
 import android.location.Location;
 
+/**
+ * Represents a single observation.
+ * 
+ * @author Hemish Medlin
+ * @author Mariusz Nowostawski <mariusz@nowostawski.org>
+ *
+ * @version $Revision$ <br>
+ * Created: Jan 12, 2012 11:39:13 AM
+ */
 public class Observation {
 	
-	private int noSmoking = 0,child = 0, other = 0, noOthers = 0;
+	private int noSmoking = 0, child = 0, other = 0, noOthers = 0;
 	private Location location;
 	private long start,finish;
 	private boolean started = false;
@@ -24,7 +33,12 @@ public class Observation {
 	public String toString(){
 		return "Total: " + (noSmoking + child + other + noOthers);
 	}
+	
+	
+	
 	/* Incrementers */
+	
+	
 	public void incrementNoSmoking(){
 		noSmoking++;
 	}
@@ -141,7 +155,10 @@ public class Observation {
 		return location.getLatitude() + "," + location.getLongitude() + "," + start + "," + finish + "," + noSmoking + "," + other + "," + noOthers + "," + child + "\n";
 	}
 	
-	/* Create a JSON representation of this class */
+	/** 
+	 * Creates a JSON representation of this class. 
+	 * @return JSON representation of this observation.
+	 **/
 	public JSONObject getJSON() throws JSONException, NoSuchAlgorithmException{
 		JSONObject json = new JSONObject();
 		
@@ -154,24 +171,31 @@ public class Observation {
 		json.put("lone_adult", noOthers);
 		json.put("child", child);
 		json.put("hash", getHash());
-		
-		//Log.i("JSON",json.toString());
+
 		return json;
 	}
 	
-	/* Create hash of all of the values stored in this class. Should be considered unique */
-	public String getHash() throws NoSuchAlgorithmException{
-		MessageDigest md = MessageDigest.getInstance("MD5");
+	/** 
+	 * Creates a hash of all of the values stored in this instance. 
+	 * Should be considered unique. Used for verification of recording 
+	 * and syncing between phone and server data.
+	 *  
+	 * @return a unique hash of all the values of this observation instance.*/
+	public String getHash() throws NoSuchAlgorithmException {
+		final MessageDigest md = MessageDigest.getInstance("MD5");
 		md.reset();
-		String hashString = location.getLatitude() + location.getLongitude() + "salt" + finish + start + noSmoking + other + noOthers + child;
-		//Log.i("HASH",hashString);
+		final String hashString = location.getLatitude() + location.getLongitude() 
+				+ "salt" + finish + start 
+				+ noSmoking + other + noOthers + child;
+		
 		md.update(hashString.getBytes());
-		byte hash[] = md.digest();
+		final byte hash[] = md.digest();
 		
 		StringBuffer hex = new StringBuffer();
-		for(int i = 0;i < hash.length;i++){
+		for(int i = 0; i < hash.length; i++) {
 			hex.append(Integer.toHexString(0xFF & hash[i]));
 		}
 		return hex.toString();
 	}
+	
 }

@@ -1,4 +1,11 @@
+#
 # Django settings for GlobaLink_server project.
+#
+#
+# Author: Mariusz Nowostawski, Created: December 2011
+#
+# 2011-2012 (C) NZDIS Group.
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -12,7 +19,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/Users/mariusz/workspace/GlobaLink_server/sqlite.db',                      # Or path to database file if using sqlite3.
+        'NAME': 'globalink.sqlite',      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -100,24 +107,23 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'globalink.urls'
+ROOT_URLCONF = 'urls'
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
+TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates'),)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
+    'observation',
 )
+
+HASH_SALT_PRE = '$709dfgssd*'
+HASH_SALT_POST = '2356lkgjzxvhdsfg'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -127,11 +133,24 @@ INSTALLED_APPS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
     'handlers': {
         'mail_admins': {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+    'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+            'formatter': 'simple'
+        },
     },
     'loggers': {
         'django.request': {
@@ -139,5 +158,9 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+        'globalink.custom': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        }
     }
 }

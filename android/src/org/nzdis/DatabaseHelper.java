@@ -11,7 +11,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+/**
+ * SQLite helper. See also Constants for shared DB and JSON constants.
+ * 
+ * @author Hamish Medlin
+ * @author Mariusz Nowostawski <mariusz@nowostawski.org>
+ *
+ * @version $Revision$ <br>
+ * Created: Jan 12, 2012 12:09:48 PM
+ */
+public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 
 	public static final String DATABASE_NAME = "globalink.sqlite";
 	public static final int DATABASE_VESRION = 2;
@@ -19,11 +28,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	//observation table
 	public static final String TABLE_OBSERVATION = "observations";
 	public static final String OBSERVATION_ID = "id";
-	public static final String OBSERVATION_LATITUDE = "latitude";
-	public static final String OBSERVATION_LONGITUDE = "longitude";
-	public static final String OBSERVATION_START = "start_time";
-	public static final String OBSERVATION_FINISH = "finish_time";
-	public static final String OBSERVATION_UPLOADED = "uploaded";
 	
 	//observation details table
 	public static final String TABLE_DETAILS = "details";
@@ -37,10 +41,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String ADULT_SMOKING_OTHERS = "Adult with other smoking adults";
 	public static final String ADULT_SMOKING_WITH_CHILD = "Smoking with child <= 12";
 	
-	//username table
+	//user table
 	public static final String TABLE_USER = "user";
-	public static final String USER_USERNAME = "username";
-	public static final String USER_HASH = "hash";
+
 	
 	public DatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VESRION);
@@ -48,63 +51,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String createObservation = "CREATE TABLE " + TABLE_OBSERVATION + " (" + OBSERVATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + OBSERVATION_LATITUDE + " REAL NOT NULL DEFAULT 0, " + OBSERVATION_LONGITUDE + " REAL NOT NULL DEFAULT 0, " + OBSERVATION_START + " INTEGER NOT NULL DEFAULT 0, " + OBSERVATION_FINISH + " INTEGER NOT NULL DEFAULT 0, " + OBSERVATION_UPLOADED + " INTEGER NOT NULL DEFAULT 0)";
-		db.execSQL(createObservation);
-		
-		String createDetails = "CREATE TABLE " + TABLE_DETAILS + " (" + DETAILS_ID + " INTEGER NOT NULL, " + DETAILS_TYPE + " INTEGER NOT NULL DEFAULT 0, " + DETAILS_TIMESTAMP + " INTEGNER NOT NULL DEFAULT 0)";
-		db.execSQL(createDetails);
-		
-		String createUser = "CREATE TABLE " + TABLE_USER + " (" + USER_USERNAME + " VARCHAR(20) NOT NULL, " + USER_HASH + " VARCHARR(32) NOT NULL)";  
-		db.execSQL(createUser);
-
+		db.execSQL(CREATE_TABLE_Observation);
+		db.execSQL(CREATE_TABLE_Details);
+		db.execSQL(CREATE_TABLE_User);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		if(oldVersion == 1){
+		if (oldVersion == 1 && newVersion == 2) {
 			//drop types table here
-			db.execSQL("DROP TABLE IF EXISTS types");
-			
+			db.execSQL("DROP TABLE IF EXISTS types"); //old types table, not used
 			//add upload column
 			db.execSQL("ALTER TABLE " + TABLE_OBSERVATION + " ADD " + OBSERVATION_UPLOADED + " INTEGER NOT NULL DEFAULT 0");
+			// create new table that wasn't here in version 1
+			db.execSQL(CREATE_TABLE_User);
+		} else { // for ass possible version upgrades, re-start the DB from scratch
+			//drop types table here
+			db.execSQL("DROP TABLE IF EXISTS types"); //old types table, not used
+			db.execSQL("DROP TABLE IF EXISTS " + TABLE_OBSERVATION);
+			db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
+			db.execSQL("DROP TABLE IF EXISTS " + TABLE_DETAILS);
 			
-			//create username table
-			String createUser = "CREATE TABLE " + TABLE_USER + " (" + USER_USERNAME + " VARCHAR(20) NOT NULL, " + USER_HASH + " VARCHARR(32) NOT NULL)";  
-			db.execSQL(createUser);
+			db.execSQL(CREATE_TABLE_User);
+			db.execSQL(CREATE_TABLE_Observation);
+			db.execSQL(CREATE_TABLE_Details);
 		}
 	}
 
-	/* debug method */
-	public void dummyDBRead(){
-		SQLiteDatabase db = getReadableDatabase();
-		db.close();
-	}
 	
-	/* not used */
-	public Observation newObservation(){
-		long startTime = System.currentTimeMillis();
-		Observation result = new Observation(startTime);
-		
-		ContentValues cv = new ContentValues();
-		cv.put(OBSERVATION_START, startTime);
-		SQLiteDatabase db = getWritableDatabase();
-		long observationId = db.insert(TABLE_OBSERVATION, null, cv);
-		
-		if(observationId == -1){
-			db.close();
-			throw new DatabaseException("Can't get Observation ID from database");
-		}
-		db.close();
-		result.setId(observationId);
-		return result;
-	}
-	
-	public long getNewObservationId(){
-		ContentValues cv = new ContentValues();
+	/**
+	 * Creates, registers and generates unique ID for newly created observation.
+	 * @return unique ID of newly created observation, or throws DatabaseException if operation fails.
+	 */
+	public long getNewObservationId() {
+		final ContentValues cv = new ContentValues();
 		cv.put(OBSERVATION_START, System.currentTimeMillis());
-		SQLiteDatabase db = getWritableDatabase();
-		long observationId = db.insert(TABLE_OBSERVATION, null, cv);		
-		if(observationId == -1){
+		final SQLiteDatabase db = getWritableDatabase();
+		final long observationId = db.insert(TABLE_OBSERVATION, null, cv);		
+		if (observationId == -1) {
 			db.close();
 			throw new DatabaseException("Can't get Observation ID from database");
 		}
@@ -112,9 +96,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return observationId;
 	}
 
-	/*
-	 * Increments a 'NoSmoking' count for the given observation, it will throw
-	 * a DatabaseException if getTypeIdFromName() doesn't exist
+	/**
+	 * Increments a 'NoSmoking' count for the given observation. Throws
+	 * a DatabaseException if getTypeIdFromName() doesn't exist.
 	 */
 	public void incrementNoSmoking(long observationId) throws DatabaseException{
 		ContentValues cv = new ContentValues();
@@ -126,44 +110,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.close();
 	}
 
-	/*
-	 * Increments a 'NoOccupants' count for the given observation, it will throw
-	 * a DatabaseException if getTypeIdFromName() doesn't exist
+	/**
+	 * Increments a 'NoOccupants' count for the given observation. Throws
+	 * a DatabaseException if getTypeIdFromName() doesn't exist.
 	 */
 	public void incrementNoOccupants(long observationId) throws DatabaseException{
-		ContentValues cv = new ContentValues();
+		final ContentValues cv = new ContentValues();
 		cv.put(DETAILS_ID, observationId);
 		cv.put(DETAILS_TIMESTAMP,System.currentTimeMillis());
 		cv.put(DETAILS_TYPE, getTypeIdFromName(ADULT_SMOKING));
-		SQLiteDatabase db = getWritableDatabase();
+		final SQLiteDatabase db = getWritableDatabase();
 		db.insert(TABLE_DETAILS, null, cv);
 		db.close();
 	}
 	
-	/*
-	 * Increments a 'OtherAdults' count for the given observation, it will throw
-	 * a DatabaseException if getTypeIdFromName() doesn't exist
+	/**
+	 * Increments a 'OtherAdults' count for the given observation. Throws
+	 * a DatabaseException if getTypeIdFromName() doesn't exist.
 	 */
-	public void incrementOtherAdults(long observationId) throws DatabaseException{
-		ContentValues cv = new ContentValues();
+	public void incrementOtherAdults(long observationId) throws DatabaseException {
+		final ContentValues cv = new ContentValues();
 		cv.put(DETAILS_ID, observationId);
-		cv.put(DETAILS_TIMESTAMP,System.currentTimeMillis());
+		cv.put(DETAILS_TIMESTAMP, System.currentTimeMillis());
 		cv.put(DETAILS_TYPE, getTypeIdFromName(ADULT_SMOKING_OTHERS));
-		SQLiteDatabase db = getWritableDatabase();
+		final SQLiteDatabase db = getWritableDatabase();
 		db.insert(TABLE_DETAILS, null, cv);
 		db.close();
 	}
 	
-	/*
-	 * Increments a 'Child' count for the given observation, it will throw
-	 * a DatabaseException if getTypeIdFromName() doesn't exist
+	/**
+	 * Increments a 'Child' count for the given observation. Throws
+	 * a DatabaseException if getTypeIdFromName() doesn't exist.
 	 */
-	public void incrementChild(long observationId) throws DatabaseException{
-		ContentValues cv = new ContentValues();
+	public void incrementChild(long observationId) throws DatabaseException {
+		final ContentValues cv = new ContentValues();
 		cv.put(DETAILS_ID, observationId);
-		cv.put(DETAILS_TIMESTAMP,System.currentTimeMillis());
+		cv.put(DETAILS_TIMESTAMP, System.currentTimeMillis());
 		cv.put(DETAILS_TYPE, getTypeIdFromName(ADULT_SMOKING_WITH_CHILD));
-		SQLiteDatabase db = getWritableDatabase();
+		final SQLiteDatabase db = getWritableDatabase();
 		db.insert(TABLE_DETAILS, null, cv);
 		db.close();
 	}
@@ -172,13 +156,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 * Decrements a 'NoSmoking' count for the given observation, it will throw
 	 * a DatabaseException if the query fails.
 	 */
-	public void decrementNoSmoking(long observationId) throws DatabaseException{
-		String typeID = getTypeIdFromName(NO_SMOKING) + "";
-		SQLiteDatabase db = getWritableDatabase();
-		Cursor result = db.query(TABLE_DETAILS, new String[]{DETAILS_TIMESTAMP}, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ?", new String[]{observationId + "",typeID}, null, null, DETAILS_TIMESTAMP + " DESC", 1 + "");
-		if(result.moveToFirst()){
-			db.delete(TABLE_DETAILS, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ? AND " + DETAILS_TIMESTAMP + " = ?" , new String[]{observationId + "",typeID,result.getLong(0) + ""});
-		}else{
+	public void decrementNoSmoking(long observationId) throws DatabaseException {
+		final String typeID = getTypeIdFromName(NO_SMOKING) + "";
+		final SQLiteDatabase db = getWritableDatabase();
+		final Cursor result = db.query(TABLE_DETAILS, new String[]{DETAILS_TIMESTAMP}, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ?", 
+				new String[]{observationId + "",typeID}, null, null, DETAILS_TIMESTAMP + " DESC", 1 + "");
+		if (result.moveToFirst()) {
+			db.delete(TABLE_DETAILS, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ? AND " + DETAILS_TIMESTAMP + " = ?", 
+					new String[]{observationId + "",typeID,result.getLong(0) + ""});
+		} else {
 			result.close();
 			db.close();
 			throw new DatabaseException("Invalid decrement");
@@ -192,13 +178,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 * Decrements a 'NoOccupants' count for the given observation, it will throw
 	 * a DatabaseException if the query fails.
 	 */
-	public void decrementNoOccupants(long observationId) throws DatabaseException{
-		String typeID = getTypeIdFromName(ADULT_SMOKING) + "";
-		SQLiteDatabase db = getWritableDatabase();
-		Cursor result = db.query(TABLE_DETAILS, new String[]{DETAILS_TIMESTAMP}, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ?", new String[]{observationId + "",typeID}, null, null, DETAILS_TIMESTAMP + " DESC", 1 + "");
-		if(result.moveToFirst()){
-			db.delete(TABLE_DETAILS, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ? AND " + DETAILS_TIMESTAMP + " = ?" , new String[]{observationId + "",typeID,result.getLong(0) + ""});
-		}else{
+	public void decrementNoOccupants(long observationId) throws DatabaseException {
+		final String typeID = getTypeIdFromName(ADULT_SMOKING) + "";
+		final SQLiteDatabase db = getWritableDatabase();
+		final Cursor result = db.query(TABLE_DETAILS, new String[]{DETAILS_TIMESTAMP}, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ?", 
+				new String[]{observationId + "",typeID}, null, null, DETAILS_TIMESTAMP + " DESC", 1 + "");
+		if (result.moveToFirst()) {
+			db.delete(TABLE_DETAILS, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ? AND " + DETAILS_TIMESTAMP + " = ?", 
+					new String[]{observationId + "",typeID,result.getLong(0) + ""});
+		} else {
 			result.close();
 			db.close();
 			throw new DatabaseException("Invalid decrement");
@@ -212,12 +200,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 * a DatabaseException if the query fails.
 	 */
 	public void decrementOtherAdults(long observationId) throws DatabaseException{
-		String typeID = getTypeIdFromName(ADULT_SMOKING_OTHERS) + "";
-		SQLiteDatabase db = getWritableDatabase();
-		Cursor result = db.query(TABLE_DETAILS, new String[]{DETAILS_TIMESTAMP}, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ?", new String[]{observationId + "",typeID}, null, null, DETAILS_TIMESTAMP + " DESC", 1 + "");
-		if(result.moveToFirst()){
-			db.delete(TABLE_DETAILS, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ? AND " + DETAILS_TIMESTAMP + " = ?" , new String[]{observationId + "",typeID,result.getLong(0) + ""});
-		}else{
+		final String typeID = getTypeIdFromName(ADULT_SMOKING_OTHERS) + "";
+		final SQLiteDatabase db = getWritableDatabase();
+		final Cursor result = db.query(TABLE_DETAILS, new String[]{DETAILS_TIMESTAMP}, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ?", 
+					new String[]{observationId + "",typeID}, null, null, DETAILS_TIMESTAMP + " DESC", 1 + "");
+		if (result.moveToFirst()) {
+			db.delete(TABLE_DETAILS, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ? AND " + DETAILS_TIMESTAMP + " = ?", 
+					new String[]{observationId + "",typeID,result.getLong(0) + ""});
+		} else {
 			result.close();
 			db.close();
 			throw new DatabaseException("Invalid decrement");
@@ -231,12 +221,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 * a DatabaseException if the query fails.
 	 */
 	public void decrementChild(long observationId) throws DatabaseException{
-		String typeID = getTypeIdFromName(ADULT_SMOKING_WITH_CHILD) + "";
-		SQLiteDatabase db = getWritableDatabase();
-		Cursor result = db.query(TABLE_DETAILS, new String[]{DETAILS_TIMESTAMP}, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ?", new String[]{observationId + "",typeID}, null, null, DETAILS_TIMESTAMP + " DESC", 1 + "");
-		if(result.moveToFirst()){
-			db.delete(TABLE_DETAILS, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ? AND " + DETAILS_TIMESTAMP + " = ?" , new String[]{observationId + "",typeID,result.getLong(0) + ""});
-		}else{
+		final String typeID = getTypeIdFromName(ADULT_SMOKING_WITH_CHILD) + "";
+		final SQLiteDatabase db = getWritableDatabase();
+		final Cursor result = db.query(TABLE_DETAILS, new String[]{DETAILS_TIMESTAMP}, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ?", new String[]{observationId + "",typeID}, null, null, DETAILS_TIMESTAMP + " DESC", 1 + "");
+		if (result.moveToFirst()) {
+			db.delete(TABLE_DETAILS, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ? AND " + DETAILS_TIMESTAMP + " = ?", 
+					new String[]{observationId + "",typeID,result.getLong(0) + ""});
+		} else {
 			result.close();
 			db.close();
 			throw new DatabaseException("Invalid decrement");
@@ -250,13 +241,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 * name given, then a DatabaseException is thrown.
 	 */
 	private int getTypeIdFromName(String string) {
-		if(string.equals(NO_SMOKING)){
+		if (string.equals(NO_SMOKING)) {
 			return 1;
-		}else if(string.equals(ADULT_SMOKING)){
+		} else if (string.equals(ADULT_SMOKING)) {
 			return 2;
-		}else if(string.equals(ADULT_SMOKING_OTHERS)){
+		} else if (string.equals(ADULT_SMOKING_OTHERS)) {
 			return 3;
-		}else{
+		} else {
 			return 4;
 		}
 	}
@@ -396,33 +387,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.close();
 	}
 	
-	/*
-	 * Returns an observation with all of its data.
-	 * 
-	 * ********** INCOMPLETE *************
-	 */
-	/*public Observation getObservationById(long id) {
-		SQLiteDatabase db = this.getReadableDatabase();
-		Observation result;
-		
-		Cursor cur = db.query(TABLE_OBSERVATION,null,OBSERVATION_ID + " = ?",new String[]{id + ""},null,null,null,"1");
 
-		if(cur.getCount() != 1){
-			throw new DatabaseException("No observation for that ID");
-		}else{
-			cur.moveToFirst();
-			result = new Observation(cur.getLong(3));
-			Location loc = new Location("TEMP");
-			loc.setLatitude(cur.getDouble(1));
-			loc.setLongitude(cur.getDouble(2));
-			result.setLocation(loc);
-			result.setId(id);
-			result.setFinish(cur.getLong(4));
-		}
-		cur.deactivate();
-		db.close();
-		return result;
-	}*/
 	
 	/* Returns the number of cars without any smokers for the given observation id
 	 * 
@@ -496,7 +461,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		Cursor curs = db.query(TABLE_USER, null, null, null, null, null, null, "1");
 		curs.moveToFirst();
 		if(curs.getCount() == 1){
-			result.setUsername(curs.getString(0));
+			result.setUserEmail(curs.getString(0));
 			result.setPasswordHash(curs.getString(1), true);
 		}else{
 			curs.deactivate();
@@ -511,35 +476,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	/*
 	 * Sets the users username and password
 	 */
-	public void setUsersDetails(UsersDetails input) throws UsernameNotSetException{
-		if(input.getPasswordHash() == null || input.getUsername() == null){
+	public void setUsersDetails(UsersDetails input) throws UsernameNotSetException {
+		if (input.getPasswordHash() == null || input.getUserEmail() == null) {
 			throw new UsernameNotSetException("Username and/or password have not been set in the container \"input\"");
 		}
-		SQLiteDatabase db = this.getWritableDatabase();
-		ContentValues cv = new ContentValues();
-		cv.put(USER_USERNAME, input.getUsername());
-		cv.put(USER_HASH, input.getPasswordHash());
+		final SQLiteDatabase db = this.getWritableDatabase();
+		final ContentValues cv = new ContentValues();
+		cv.put(USER_USER_EMAIL, input.getUserEmail());
+		cv.put(USER_PASSWORD_HASH, input.getPasswordHash());
 		
 		//make sure there aren't existing details
-		db.delete(TABLE_USER, null, null);
+		// TODO check this db.delete(TABLE_USER, null, null);
 		
 		//insert new details
 		db.insert(TABLE_USER, null, cv);
 		db.close();
 	}
 
-	/* Retrieve a selected observation from a given ID
-	 * 
+	
+	/** 
+	 * Retrieves a selected observation for a given ID.
 	 */
 	public Observation getObservation(long id) {
 		SQLiteDatabase db = this.getReadableDatabase();
 		Observation result;
-		//Cursor cur = db.query(TABLE_OBSERVATION,null,null,null,null,null,OBSERVATION_START + " ASC, " + OBSERVATION_FINISH + " ASC");
+		// Cursor cur = db.query(TABLE_OBSERVATION,null,null,null,null,null,OBSERVATION_START + " ASC, " + OBSERVATION_FINISH + " ASC");
 		
-		//ugly query
+		// TODO ugly query, needs refactoring
 		String rawQuery = "SELECT observations.*, (SELECT COUNT(observation_id) FROM details WHERE observation_type = 1 AND observation_id = observations.id) AS NoSmoking,(SELECT COUNT(observation_id) FROM details WHERE observation_type = 2 AND observation_id = observations.id) AS AdultSmoking,(SELECT COUNT(observation_id) FROM details WHERE observation_type = 3 AND observation_id = observations.id) AS AdultSmokingOthers,(SELECT COUNT(observation_id) FROM details WHERE observation_type = 4 AND observation_id = observations.id) AS AdultSmokingChild FROM observations WHERE finish_time > 0 AND observations.id = " + id;
 		Cursor cur = db.rawQuery(rawQuery, null);		
-		if(cur.moveToNext()){
+		if (cur.moveToNext()) {
 			Location tempLoc = new Location("TEMP");
 			result = new Observation(cur.getLong(3));
 			result.setFinish(cur.getLong(4));
@@ -551,7 +517,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			result.setOther(cur.getInt(7));
 			result.setChild(cur.getInt(8));
 			result.setId(cur.getLong(0));
-		}else{
+		} else {
 			cur.deactivate();
 			db.close();
 			return null;
@@ -561,14 +527,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return result;
 	}
 
-	/* Set the 'upload' column to 1 in the table TABLE_OBSERVATION for the given ID
-	 * 
+	/**
+	 * Sets the 'upload' column to 1 in the table TABLE_OBSERVATION for the given ID.
 	 */
 	public void setUploaded(long id) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues cv = new ContentValues();
 		cv.put(OBSERVATION_UPLOADED, 1);
-		db.update(TABLE_OBSERVATION, cv, OBSERVATION_ID + " = ?", new String[]{id + ""});
+		db.update(TABLE_OBSERVATION, cv, OBSERVATION_ID + " = ?", new String[] {String.valueOf(id)} );
 		db.close();
 	}
+	
+	
+	
+	
+	
+	static final String CREATE_TABLE_Observation = "CREATE TABLE " + TABLE_OBSERVATION + " (" 
+			+ OBSERVATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " 
+			+ OBSERVATION_LATITUDE + " REAL NOT NULL DEFAULT 0, " 
+			+ OBSERVATION_LONGITUDE + " REAL NOT NULL DEFAULT 0, " 
+			+ OBSERVATION_START + " INTEGER NOT NULL DEFAULT 0, " 
+			+ OBSERVATION_FINISH + " INTEGER NOT NULL DEFAULT 0, " 
+			+ OBSERVATION_UPLOADED + " INTEGER NOT NULL DEFAULT 0)";
+	
+	static final String CREATE_TABLE_Details = "CREATE TABLE " + TABLE_DETAILS + " (" 
+			+ DETAILS_ID + " INTEGER NOT NULL, " 
+			+ DETAILS_TYPE + " INTEGER NOT NULL DEFAULT 0, " 
+			+ DETAILS_TIMESTAMP + " INTEGNER NOT NULL DEFAULT 0)";
+	
+	static final String CREATE_TABLE_User = "CREATE TABLE " + TABLE_USER + " (" 
+			+ USER_USER_EMAIL + " VARCHAR(32) NOT NULL, " 
+			+ USER_PASSWORD_HASH + " VARCHARR(32) NOT NULL)";  
+	
+	
 }
