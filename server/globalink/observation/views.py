@@ -36,6 +36,8 @@ def add(request):
         email_str = new_ob.get('user_email')
         u = GlobalinkUser.objects.get(email=email_str)
         data_pass_hash = new_ob.get('pass_hash')
+        logger.debug("Got  hash: " + data_pass_hash)
+        logger.debug("User hash: " + u.password_hash)
         if u.password_hash == data_pass_hash:
             o = Observation(observation_hash = new_ob.get('hash'),
                         latitude = float(new_ob.get('latitude')),

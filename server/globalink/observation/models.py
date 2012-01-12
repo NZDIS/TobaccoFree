@@ -32,5 +32,5 @@ class Observation(models.Model):
     user = models.ForeignKey(GlobalinkUser)
 
     def __unicode__(self):
-        return u"Start:{0} Finish:{1} DeviceID:{2}".format(self.start, self.finish, self.device_id)
+        return u"Start: {0} Finish: {1} By: {2}".format(self.start, self.finish, self.user.email)
 

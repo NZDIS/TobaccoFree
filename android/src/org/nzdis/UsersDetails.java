@@ -20,13 +20,9 @@ public class UsersDetails {
 	
 	public UsersDetails(){}
 	
-	public UsersDetails(String username, String password,boolean hashed) throws NoSuchAlgorithmException {
+	public UsersDetails(String username, String password, boolean hashed) throws NoSuchAlgorithmException {
 		this.user_email = username;
-		if (hashed) {
-			this.hash = password;
-		} else {
-			this.hash = hashPassword(password);
-		}
+		setPasswordHash(password, hashed);
 	}
 	
 	public String getUserEmail(){
@@ -37,7 +33,7 @@ public class UsersDetails {
 		return hash;
 	}
 	
-	public void setPasswordHash(String password,boolean hashed) throws NoSuchAlgorithmException{
+	public void setPasswordHash(String password, boolean hashed) throws NoSuchAlgorithmException {
 		if (hashed) {
 			this.hash = password;
 		} else {
@@ -65,8 +61,10 @@ public class UsersDetails {
 		byte hash[] = md.digest();
 		
 		final StringBuffer hex = new StringBuffer();
-		for(int i = 0;i < hash.length;i++){
-			hex.append(Integer.toHexString(0xFF & hash[i]));
+		for(int i = 0;i < hash.length;i++) {
+			String digit = Integer.toHexString(0xFF & hash[i]);
+			if (digit.length() == 1) digit = "0"+digit;
+			hex.append(digit);
 		}
 		return hex.toString();
 	}

@@ -30,6 +30,7 @@
 	        android:layout_margin="5dp"
 	        android:background="@drawable/button_selector"
 	        android:text="@string/upload_selected"
+	        android:textSize="19dip"
 	        android:textStyle="bold"
 	        android:typeface="monospace" />
 	
@@ -41,6 +42,7 @@
 	        android:layout_margin="5dp"
 	        android:background="@drawable/button_selector"
 	        android:text="@string/upload_all"
+	        android:textSize="19dip"
 	        android:textStyle="bold"
 	        android:typeface="monospace" />
 	

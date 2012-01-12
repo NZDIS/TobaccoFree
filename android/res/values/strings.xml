@@ -50,15 +50,15 @@
    	<string name="email_selected">E-mail Selected</string>
    	<string name="email_all">E-mail All</string>
    	<string name="title">Smoking Monitor</string>
-   	<string name="sub_title">to count smoking in cars</string>
-   	<string name="welcome">Welcome.</string>
+   	<string name="sub_title">counting smoking in cars</string>
+   	<string name="welcome"></string>
    	<string name="view_instructions">View Instructions</string>
    	<string name="practice_mode">Practice Mode</string>
    	<string name="sound_off">Turn Sound Off</string>
    	<string name="sound_on">Turn Sound On</string>
-   	<string name="email_support">Email Support</string>
+   	<string name="email_support">Give us Feedback</string>
    	<string name="email_data">Email Data</string>
-   	<string name="send_feedback">Email support with..</string>
+   	<string name="send_feedback">Send us feedback:</string>
    	<string name="instuctions_choosing_title">Choosing an observation site</string>
    	<string name="instructions_choosing_text">The ideal site will have high vehicle flows (but low vehicle speed) and good visibility of vehicle occupants.</string>
    	<string name="instructions_what_title">What to observe</string>
@@ -85,12 +85,12 @@
    	<string name="context_default">Options</string>
    	<string name="failed_decrement">Failed to decrement value</string>
    	<string name="preference_button">Preferences</string>
-   	<string name="upload_data">Upload Data</string>
-   	<string name="set_username">Set Username</string>
+   	<string name="upload_data">Upload data</string>
+   	<string name="set_username">Account Details</string>
    	<string name="upload_selected">Upload Selected</string>
    	<string name="upload_all">Upload All</string>
-   	<string name="no_md5">Sorry your device cannot do the required hashing function.</string>
-   	<string name="no_username_set">Please set your username and password in the preferences screen</string>
+   	<string name="no_md5">Sorry your device has insufficient version. Please upgrade.</string>
+   	<string name="no_username_set">Please set your email and password in the preferences screen</string>
    	<string name="error">Error</string>
    	<string name="email">E-Mail</string>
    	<string name="password">Password</string>
@@ -99,8 +99,8 @@
    	<string name="no_internet">An Internet connection (2/3G or WiFi) is required to upload data</string>
    	<string name="uploading_observation_number">Uploading observation </string>
    	<string name="uploading_observation_of">of </string>
-   	<string name="username_details">A username and password are required to use the uploading function of this application. To get a username and password go to &lt;website> and sign up.</string>
+   	<string name="username_details">An email and password are required to use the uploading function of this application. To setup your account go to globalink.nzdis.org and sign up.</string>
    	<string name="upload_description">To upload an observation, select it from the drop down box and tap \"Upload\" or to upload them all just press \"Upload All\". Only those observations that haven\'t been upload will show in the list.</string>
    	<string name="instructions_upload">How to Upload</string>
-   	<string name="upload_error">An error has occurred while uploading. Please check your internet connection and try again. If this continues please contact us from the preferences menu.</string>
+   	<string name="upload_error">An error has occurred while uploading. If this continues please contact globalink@nzdis.org.</string>
 </resources>

@@ -473,8 +473,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 		return result;
 	}
 	
-	/*
-	 * Sets the users username and password
+	/**
+	 * Sets the user email and password.
 	 */
 	public void setUsersDetails(UsersDetails input) throws UsernameNotSetException {
 		if (input.getPasswordHash() == null || input.getUserEmail() == null) {
@@ -485,8 +485,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 		cv.put(USER_USER_EMAIL, input.getUserEmail());
 		cv.put(USER_PASSWORD_HASH, input.getPasswordHash());
 		
-		//make sure there aren't existing details
-		// TODO check this db.delete(TABLE_USER, null, null);
+		// make sure there aren't existing user details
+		db.delete(TABLE_USER, null, null);
 		
 		//insert new details
 		db.insert(TABLE_USER, null, cv);

@@ -16,9 +16,9 @@ public interface Constants {
 
 // WEB API URLs
 	
-	//String URL_OBSERVATION_ADD = "http://globalink.nzdis.org/observation/add";
+	String URL_OBSERVATION_ADD = "http://globalink.nzdis.org/observation/add";
 	// For local testing on home LAN
-	String URL_OBSERVATION_ADD = "http://192.168.2.200:8000/observation/add";
+	// String URL_OBSERVATION_ADD = "http://192.168.2.200:8000/observation/add";
 
 // DB schema related constants, used for SQLite and JSON
 	

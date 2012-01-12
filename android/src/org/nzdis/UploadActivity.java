@@ -15,6 +15,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
@@ -28,6 +29,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -40,6 +42,7 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 /**
  * Represents activity responsible for uploading observation data to the server.
@@ -51,8 +54,7 @@ import android.widget.Spinner;
  * Created: Jan 12, 2012 11:30:04 AM
  */
 public class UploadActivity extends Activity 
-	implements Constants, OnClickListener, OnCancelListener,
-				android.content.DialogInterface.OnClickListener {
+	implements Constants, OnClickListener, OnCancelListener {
 
 	private Spinner spnObservations;
 	private List<Observation> obs;
@@ -64,7 +66,13 @@ public class UploadActivity extends Activity
 	private ProgressDialog upload_dialog;
 	private Boolean displayingMessage = false;
 	private UploadTask uploadTask;
-	public static final int NO_MD5 = 10,NO_DETAILS = 11,NO_NET = 12,UPLOAD_PROGRESS = 13,UPLOAD_ERROR = 14,MD5_ERROR = 15;
+	public static final int 
+		NO_MD5 = 10, 
+		NO_DETAILS = 11, 
+		NO_NET = 12, 
+		UPLOAD_PROGRESS = 13, 
+		UPLOAD_ERROR = 14, 
+		MD5_ERROR = 15;
 	
 	
     @Override
@@ -73,10 +81,10 @@ public class UploadActivity extends Activity
         setContentView(R.layout.activity_upload);
         
         // inflate layout items
-        spnObservations = (Spinner)findViewById(R.id.spnUploadObservations);
+        spnObservations = (Spinner) findViewById(R.id.spnUploadObservations);
         
-        btnUploadSelected = (Button)findViewById(R.id.btnUploadObservation);
-        btnUploadAll = (Button)findViewById(R.id.btnUploadAll);
+        btnUploadSelected = (Button) findViewById(R.id.btnUploadObservation);
+        btnUploadAll = (Button) findViewById(R.id.btnUploadAll);
         
         btnUploadSelected.setOnClickListener(this);
         btnUploadAll.setOnClickListener(this);
@@ -114,6 +122,12 @@ public class UploadActivity extends Activity
         }
     }
     
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	updateView();
+    }
+    
     private void updateView(){
     	DatabaseHelper db = new DatabaseHelper(this);
         obs = db.getObservationsNotUploaded();
@@ -130,7 +144,7 @@ public class UploadActivity extends Activity
         }        
         
         //disable views if there are no observations
-        if(names.length == 0 || noDetails){
+        if (names.length == 0 || noDetails) {
         	spnObservations.setEnabled(false);
         	btnUploadSelected.setEnabled(false);
         	btnUploadAll.setEnabled(false);
@@ -139,32 +153,21 @@ public class UploadActivity extends Activity
     
     @Override
 	public Object onRetainNonConfigurationInstance(){
-    	if(uploadTask != null){
+    	if (uploadTask != null) {
     		uploadTask.setActivity(null);
 	    	return (uploadTask == null) ? null : uploadTask;
-    	}else{
+    	} else {
     		return null;
     	}
     }
-    
-	@Override
-    public void onClick(DialogInterface dialog, int which) {
-		if(dialog == alert){
-			alert.dismiss();
-			
-			//ignore this for now
-			//finish();
-		}
-		
-	}
-	
+    	
 	@Override
 	public void onClick(View v) {
-		if(v == btnUploadAll){
+		if (v == btnUploadAll) {
 			// upload all
-			if(!isNetworkAvailable()){
+			if (!isNetworkAvailable()) {
 				showDialog(NO_NET);
-			}else{
+			} else {
 				Observation[] output = new Observation[obs.size()];
 				output = obs.toArray(output);
 				uploadTask = new UploadTask(this);
@@ -173,11 +176,11 @@ public class UploadActivity extends Activity
 			return;
 		}
 		
-		if(v == btnUploadSelected){
+		if (v == btnUploadSelected) {
 			// uploaded selected one
-			if(!isNetworkAvailable()){
+			if (!isNetworkAvailable()) {
 				showDialog(NO_NET);
-			}else{
+			} else {
 				DatabaseHelper db = new DatabaseHelper(this);
 				Observation selectedObservation = db.getObservation(obs.get(spnObservations.getSelectedItemPosition()).getId());
 				db.close();
@@ -191,7 +194,7 @@ public class UploadActivity extends Activity
 
 	@Override
 	public void onCancel(DialogInterface dialog) {
-		if(dialog == this.upload_dialog){
+		if(dialog == this.upload_dialog) {
 			uploadTask.cancel(false);
 		}
 		
@@ -205,34 +208,46 @@ public class UploadActivity extends Activity
 	}
 	
 	@Override
-	protected Dialog onCreateDialog(int d){
+	protected Dialog onCreateDialog(int d) {
+		final DialogInterface.OnClickListener doNothingListener = new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		};
 		switch(d){
 			case NO_MD5:
 				alert = new AlertDialog.Builder(this).create();
 		    	alert.setTitle(getString(R.string.error));
 		    	alert.setMessage(getString(R.string.no_md5));
-		    	alert.setButton(getString(R.string.ok), this);
+		    	alert.setButton(getString(R.string.ok), doNothingListener);
 		    	alert.setIcon(android.R.drawable.ic_dialog_alert);	
 		    	return alert;
 			case NO_DETAILS:
 				alert = new AlertDialog.Builder(this).create();
 		    	alert.setTitle(getString(R.string.error));
 		    	alert.setMessage(getString(R.string.no_username_set));
-		    	alert.setButton(getString(R.string.ok), this);
+		    	alert.setButton(getString(R.string.ok), new DialogInterface.OnClickListener (){
+		    		@Override
+					public void onClick(DialogInterface dialog, int which) {
+		    			dialog.dismiss();
+		    			final Intent i = new Intent(UploadActivity.this, PreferencesActivity.class);
+		    			startActivity(i);
+		    		}
+				});
 		    	alert.setIcon(android.R.drawable.ic_dialog_alert);	
 		    	return alert;
 			case NO_NET:
 				non_finish_alert = new AlertDialog.Builder(this).create();
 				non_finish_alert.setTitle(getString(R.string.error));
 				non_finish_alert.setMessage(getString(R.string.no_internet));
-				non_finish_alert.setButton(getString(R.string.ok), this);
+				non_finish_alert.setButton(getString(R.string.ok), doNothingListener);
 				non_finish_alert.setIcon(android.R.drawable.ic_dialog_alert);	
 		    	return non_finish_alert;
 			case UPLOAD_ERROR:
 				upload_failed_alert = new AlertDialog.Builder(this).create();
 				upload_failed_alert.setTitle(getString(R.string.error));
 				upload_failed_alert.setMessage(getString(R.string.upload_error));
-				upload_failed_alert.setButton(getString(R.string.ok), this);
+				upload_failed_alert.setButton(getString(R.string.ok), doNothingListener);
 				upload_failed_alert.setIcon(android.R.drawable.ic_dialog_alert);	
 		    	return upload_failed_alert;
 			default:
@@ -253,16 +268,14 @@ public class UploadActivity extends Activity
     
     /** 
      * Returns a unique device ID. 
-     *@return unique device ID*/
-	private String getDeviceID(){
+     *@return unique device ID */
+	private String getDeviceID() {
         final TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         final String tmDevice, tmSerial, androidId;
         tmDevice = "" + tm.getDeviceId();
         tmSerial = "" + tm.getSimSerialNumber();
         androidId = "" + android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
         UUID deviceUuid = new UUID(androidId.hashCode(), ((long)tmDevice.hashCode() << 32) | tmSerial.hashCode());
-// TODO debugging LOG.i
-Log.i("LENGTH",deviceUuid.toString().length() + "");
         return deviceUuid.toString().toUpperCase();		
 	}
 	
@@ -328,7 +341,6 @@ Log.i("LENGTH",deviceUuid.toString().length() + "");
 				 * Upload code here
 				 */
 	        	try {
-Log.i("Globalink","Sending JSon object");
 	        		temp = observation.getJSON();
 	        		temp.put(USER_DEVICE, deviceID);
 	        		temp.put(USER_USER_EMAIL, user.getUserEmail());
@@ -341,7 +353,6 @@ Log.i("Globalink","Sending JSon object");
 		        	UrlEncodedFormEntity ent;
 		        	ent = new UrlEncodedFormEntity(params,HTTP.UTF_8);			
 		            post.setEntity(ent);
-Log.i("Globalink","Sending post instance:" + post);
 		            final HttpResponse response = client.execute(post);
 					final BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
 					String sResponse;
@@ -352,17 +363,15 @@ Log.i("Globalink","Sending post instance:" + post);
 					if (response.getStatusLine().getStatusCode() == 200) {
 Log.i("Globalink","Data saved correctly to server.");						
 						// if upload succeeded then set 'upload' tag to 1
-						/** TODO For testing purposes do not mark observations as uploaded.*				
-							        	db = new DatabaseHelper(act);
-										db.setUploaded(observation.getId());
-										db.close();*/
-						
+			        	db = new DatabaseHelper(act);
+						db.setUploaded(observation.getId());
+						db.close();
 					} else {
 // TODO Debugging printout: Prints out response from server
 Log.i("Globalink","ERROR: status line " + response.getStatusLine() + " from server.\nResponse: " + s);
 					}
-				} catch (JSONException e1) {
-					e1.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
 					errored = true;
 					errorCode = 1;
 					return false;
@@ -376,11 +385,17 @@ Log.i("Globalink","ERROR: status line " + response.getStatusLine() + " from serv
 					errored = true;
 					errorCode = 3;
 					return false;
+				} catch(HttpHostConnectException e) {
+					// something wrong on the server side
+					// tell user
+					errored = true;
+					errorCode = 4;
+					return false;
 				} catch (IOException e) {					
 					e.printStackTrace();
 					errored = true;
 					errorCode = 4;
-					return false;
+					return false;	
 				} catch (NoSuchAlgorithmException e) {
 					e.printStackTrace();
 					errored = true;

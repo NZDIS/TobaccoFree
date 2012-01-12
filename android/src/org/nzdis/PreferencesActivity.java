@@ -13,7 +13,8 @@ import android.widget.Button;
 public class PreferencesActivity extends Activity implements OnClickListener {
 
 	private SharedPreferences preferences;
-	private Button btnViewInstructions,btnLeftRightMode,btnPracticeMode,btnSound,btnEmailSupport, btnSetUsername;
+	private Button btnViewInstructions, btnLeftRightMode, btnPracticeMode,
+				btnSound, btnEmailSupport, btnSetUserCredentials;
 	
 	public static final int SET_DETAILS = 123;
 	
@@ -25,21 +26,21 @@ public class PreferencesActivity extends Activity implements OnClickListener {
         
         btnViewInstructions = (Button)findViewById(R.id.btnViewInstuctions);
         btnViewInstructions.setOnClickListener(this);
-        
+/** TODO left right mode not done yet        
         btnLeftRightMode = (Button)findViewById(R.id.btnLeftRightMode);
         btnLeftRightMode.setOnClickListener(this);
         
         btnPracticeMode = (Button)findViewById(R.id.btnPractice);
         btnPracticeMode.setOnClickListener(this);
-        
+**/
         btnSound = (Button)findViewById(R.id.btnSound);
         btnSound.setOnClickListener(this);
         
         btnEmailSupport = (Button)findViewById(R.id.btnEmailSupport);
         btnEmailSupport.setOnClickListener(this);
         
-        btnSetUsername = (Button)findViewById(R.id.btnUsername);
-        btnSetUsername.setOnClickListener(this);
+        btnSetUserCredentials = (Button)findViewById(R.id.btnUsername);
+        btnSetUserCredentials.setOnClickListener(this);
         
 		if(!preferences.getBoolean("play_sound", true)){
 			btnSound.setText(getString(R.string.sound_on));
@@ -52,7 +53,7 @@ public class PreferencesActivity extends Activity implements OnClickListener {
 		    Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
 		    emailIntent.setType("plain/text");
 		    emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Globalink App Test");
-		    emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"medlin.hamish@gmail.com","vimal.patel@otago.ac.nz","mariusz@nowostawski.org"}); 
+		    emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"globalink@nzdis.org", "vimal.patel@otago.ac.nz"}); 
 		    startActivity(Intent.createChooser(emailIntent, getString(R.string.send_feedback))); 
 		    return;
 		}
@@ -75,7 +76,7 @@ public class PreferencesActivity extends Activity implements OnClickListener {
 			return;
 		}
 		
-		if(arg0 == btnSetUsername){
+		if(arg0 == btnSetUserCredentials){
 			showDialog(SET_DETAILS);
 			return;
 		}
