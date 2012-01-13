@@ -1,0 +1,26 @@
+
+Project leadership
+==================
+
+ Dr. George Thomson, Senior Research Fellow
+   Department of Public Health 
+   Te Tari Hauora Tumatanui 
+   University of Otago, Wellington
+
+ Vimal Patel, Assistant Research Fellow 
+   Department of Public Health 
+   Te Tari Hauora Tumatanui 
+   University of Otago, Wellington
+
+ Dr. Mariusz Nowostawski, Lecturer  
+   Information Science Department
+   University of Otago, Dunedin
+
+
+Developers
+==========
+ 
+  Hamish Medlin <android@hamishmedlin.com>
+ 
+  Mariusz Nowostawski <mariusz@nowostawski.org>
+
