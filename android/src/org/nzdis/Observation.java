@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.location.Location;
+import android.text.format.DateFormat;
 
 /**
  * Represents a single observation.
@@ -155,7 +156,7 @@ public class Observation {
 	}
 
 	public String getCSV() {
-		return location.getLatitude() + "," + location.getLongitude() + "," + start + "," + finish + "," + noSmoking + "," + other + "," + noOthers + "," + child + "\n";
+		return location.getLatitude() + "," + location.getLongitude() + "," + DateFormat.format("dd MMMM, yyyy h:mmaa",start).toString() + "," + DateFormat.format("dd MMMM, yyyy h:mmaa",finish).toString() + "," + noSmoking + "," + other + "," + noOthers + "," + child + "\n";
 	}
 	
 	/** 
