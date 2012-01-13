@@ -98,7 +98,7 @@
    	<string name="no_internet">An Internet connection (2/3G or WiFi) is required to upload data</string>
    	<string name="uploading_observation_number">Uploading observation </string>
    	<string name="uploading_observation_of">of </string>
-   	<string name="username_details">An email and password are required to use the uploading function of this application. To setup your account go to http://tobaccofree.globalink.nzdis.org and sign up.</string>
+   	<string name="username_details">An email and password are required to use the uploading function of this application. To setup your account go to http://tobaccofree.nzdis.org and sign up.</string>
    	<string name="upload_description">To upload an observation, select it from the drop down box and tap \"Upload\" or to upload them all just press \"Upload All\". Only those observations that haven\'t been upload will show in the list.</string>
    	<string name="instructions_upload">How to Upload</string>
    	<string name="upload_error">An error has occurred while uploading. If this continues please use the feedback button in the Preferences menu.</string>

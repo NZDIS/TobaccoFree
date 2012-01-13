@@ -29,7 +29,7 @@ public class PreferencesActivity extends Activity implements OnClickListener {
 	private SharedPreferences preferences;
 	private Button btnViewInstructions, btnSound, 
 			btnEmailSupport, btnSetUserCredentials,
-			btnLeftRightMode, btnPracticeMode;
+			btnLeftRightMode;//, btnPracticeMode;
 				
 	
 	
@@ -46,9 +46,9 @@ public class PreferencesActivity extends Activity implements OnClickListener {
         btnLeftRightMode = (Button)findViewById(R.id.btnLeftRightMode);
         btnLeftRightMode.setOnClickListener(this);
         
-        btnPracticeMode = (Button)findViewById(R.id.btnPractice);
+        /*btnPracticeMode = (Button)findViewById(R.id.btnPractice);
         btnPracticeMode.setOnClickListener(this);
-
+*/
         btnSound = (Button)findViewById(R.id.btnSound);
         btnSound.setOnClickListener(this);
         
