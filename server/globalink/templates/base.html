@@ -3,8 +3,8 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Globalink: smoking in cars study</title>
-    <meta name="description" content="Project jointly with Globalink. Record smoking in cars. Globally. Share your results.">
+    <title>NZDIS Tobacco</title>
+    <meta name="description" content="University of Otago joint project with Globalink. Tobacco Free. Tobacco Awarness. Record smoking in cars. Globally. Share your results.">
     <meta name="author" content="NZDIS Group. University of Otago">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
@@ -23,7 +23,8 @@
     
     <!-- Le styles -->	
     <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
-    
+    <link href="{{ STATIC_URL }}css/ribbon.css" rel="stylesheet">
+        
     <style type="text/css">
       html, body {
         background-color: #eee;
@@ -86,9 +87,16 @@
 
 {% block topbar %}
     <div class="topbar">
+    	
+    <div class="right ribbon-holder">
+   		<a href="https://github.com/marni/NZDIS-TobaccoFree" class="orange ribbon">
+      	<span class="text" style='color: #FFFFFF;'>Fork me on GitHub</span>
+   		</a>
+	</div>
+			
       <div class="topbar-inner">
         <div class="container-fluid">
-          <a class="brand" href="#">Globalink: smoking in cars</a>
+          <a class="brand" href="#">Tobacco Free</a>
           <ul class="nav">
             <li class="active"><a href="#">Home</a></li> 
             <li class="pull-right"><a href="/admin">Admin</a></li>
@@ -113,7 +121,7 @@
 {% block hero %}	
         <!-- Main hero unit for a primary marketing message and call to action -->
         <div>
-          <h1>Globalink <small> smoking in cars study</small> </h1>
+          <h1>NZDIS Tobacco Free <small> smoking in cars study</small> </h1>
           <p>How many people smoke in cars? </p>
           <p><a href="/signup/" class="btn success large pull-left">Register to participate &raquo;</a></form></p>
         </div>
