@@ -102,4 +102,5 @@
    	<string name="upload_description">To upload an observation, select it from the drop down box and tap \"Upload\" or to upload them all just press \"Upload All\". Only those observations that haven\'t been upload will show in the list.</string>
    	<string name="instructions_upload">How to Upload</string>
    	<string name="upload_error">An error has occurred while uploading. If this continues please use the feedback button in the Preferences menu.</string>
+	<string name="right_hand">Right Handed Mode</string>
 </resources>

@@ -28,8 +28,8 @@ public class PreferencesActivity extends Activity implements OnClickListener {
 	
 	private SharedPreferences preferences;
 	private Button btnViewInstructions, btnSound, 
-			btnEmailSupport, btnSetUserCredentials; 
-			//btnLeftRightMode, btnPracticeMode,
+			btnEmailSupport, btnSetUserCredentials,
+			btnLeftRightMode, btnPracticeMode;
 				
 	
 	
@@ -42,13 +42,13 @@ public class PreferencesActivity extends Activity implements OnClickListener {
         btnViewInstructions = (Button)findViewById(R.id.btnViewInstuctions);
         btnViewInstructions.setOnClickListener(this);
         
-/** TODO left right mode not done yet        
+     
         btnLeftRightMode = (Button)findViewById(R.id.btnLeftRightMode);
         btnLeftRightMode.setOnClickListener(this);
         
         btnPracticeMode = (Button)findViewById(R.id.btnPractice);
         btnPracticeMode.setOnClickListener(this);
-**/
+
         btnSound = (Button)findViewById(R.id.btnSound);
         btnSound.setOnClickListener(this);
         
@@ -60,6 +60,10 @@ public class PreferencesActivity extends Activity implements OnClickListener {
         
 		if(!preferences.getBoolean("play_sound", true)){
 			btnSound.setText(getString(R.string.sound_on));
+		}
+		
+		if(preferences.getBoolean("left_hand", false)){
+			btnLeftRightMode.setText(getString(R.string.right_hand));
 		}
 	}
 
@@ -94,6 +98,18 @@ public class PreferencesActivity extends Activity implements OnClickListener {
 		
 		if(arg0 == btnSetUserCredentials){
 			showDialog(SET_DETAILS);
+			return;
+		}
+		
+		if(arg0 == btnLeftRightMode){
+			SharedPreferences.Editor editor = preferences.edit();
+			editor.putBoolean("left_hand", !preferences.getBoolean("left_hand", false));
+			editor.commit();
+			if(preferences.getBoolean("left_hand", false)){
+				btnLeftRightMode.setText(getString(R.string.right_hand));
+			}else{
+				btnLeftRightMode.setText(getString(R.string.left_handed));
+			}
 			return;
 		}
 	}
