@@ -1,13 +1,12 @@
 /**
- * Copyright (C) 2011-2012 NZDIS. All Rights Reserved. See LICENCE.
+ * Copyright (C) 2011-2012 NZDIS.org. All Rights Reserved. See AUTHORS and LICENCE.
  */
 package org.nzdis;
 
 /**
  * Constants for the project. 
  * 
- * 
- * @author Mariusz Nowostawski <mariusz@ngarua.com>
+ * @author Mariusz Nowostawski <mariusz@nowostawski.org>
  *
  * @version $Revision$ <br>
  * Created: Jan 12, 2012 11:44:42 AM

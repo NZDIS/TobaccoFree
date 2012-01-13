@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2011-2012 NZDIS.org. All Rights Reserved. See AUTHORS and LICENCE.
+ */
 package org.nzdis;
 
 import java.security.NoSuchAlgorithmException;
@@ -18,7 +21,7 @@ import android.location.Location;
  * @author Mariusz Nowostawski <mariusz@nowostawski.org>
  *
  * @version $Revision$ <br>
- * Created: Jan 12, 2012 12:09:48 PM
+ * Created: Dec 2011
  */
 public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 

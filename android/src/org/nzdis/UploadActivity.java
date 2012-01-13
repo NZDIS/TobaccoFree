@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2011-2012 NZDIS.org. All Rights Reserved. See AUTHORS and LICENCE.
+ */
 package org.nzdis;
 
 import java.io.BufferedReader;
@@ -42,7 +45,6 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 /**
  * Represents activity responsible for uploading observation data to the server.
@@ -51,7 +53,7 @@ import android.widget.Toast;
  * @author Mariusz Nowostawski <mariusz@nowostawski.org>
  *
  * @version $Revision$ <br>
- * Created: Jan 12, 2012 11:30:04 AM
+ * Created: Jan 2012
  */
 public class UploadActivity extends Activity 
 	implements Constants, OnClickListener, OnCancelListener {

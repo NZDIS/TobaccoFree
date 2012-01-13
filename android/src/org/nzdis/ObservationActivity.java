@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2011-2012 NZDIS.org. All Rights Reserved. See AUTHORS and LICENCE.
+ */
 package org.nzdis;
 
 import android.app.Activity;
@@ -26,7 +29,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ObservationActivity extends Activity implements LocationListener, OnClickListener{
+
+/**
+ * Represents the act of logging smoking.
+ * 
+ * @author Hamish Medlin
+ *
+ * @version $Revision$ <br>
+ * Created: Dec 2011
+ */
+public class ObservationActivity extends Activity implements LocationListener, OnClickListener {
 	
 	private LocationManager locManager;
 	private ProgressDialog gpsDialog;

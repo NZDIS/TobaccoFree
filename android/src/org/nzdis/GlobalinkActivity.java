@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2011-2012 NZDIS.org. All Rights Reserved. See AUTHORS and LICENCE.
+ */
 package org.nzdis;
 
 import android.app.Activity;
@@ -15,6 +18,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+/**
+ * Represents the top level activity for the smoking in cars logger.
+ * 
+ * @author Hamish Medlin
+ *
+ * @version $Revision$ <br>
+ * Created: Jan 13, 2012 12:48:02 PM
+ */
 public class GlobalinkActivity extends Activity implements OnClickListener {
 	
 	private Button btnNew,btnExisting,btnPreferences,btnUpload;

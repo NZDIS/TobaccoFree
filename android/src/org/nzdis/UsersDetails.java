@@ -11,7 +11,7 @@ import java.security.NoSuchAlgorithmException;
  * @author Hamish Medlin
  *
  * @version $Revision$ <br>
- * Created: Jan 12, 2012 11:27:24 AM
+ * Created: Dec 2011
  */
 public class UsersDetails {
 

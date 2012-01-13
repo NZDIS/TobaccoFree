@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2011-2012 NZDIS.org. All Rights Reserved. See AUTHORS and LICENCE.
+ */
 package org.nzdis;
 
 import java.security.MessageDigest;
@@ -15,7 +18,7 @@ import android.location.Location;
  * @author Mariusz Nowostawski <mariusz@nowostawski.org>
  *
  * @version $Revision$ <br>
- * Created: Jan 12, 2012 11:39:13 AM
+ * Created: Dec 2011
  */
 public class Observation {
 	

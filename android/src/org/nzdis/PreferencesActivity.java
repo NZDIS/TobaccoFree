@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2011-2012 NZDIS.org. All Rights Reserved. See AUTHORS and LICENCE.
+ */
 package org.nzdis;
 
 import android.app.Activity;
@@ -10,13 +13,25 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+/**
+ * Represents simple list of preferences managed by buttons.
+ * 
+ * @author Hamish Medlin
+ * @author Mariusz Nowostawski <mariusz@nowostawski.org>
+ *
+ * @version $Revision$ <br>
+ * Created: Dec 2011
+ */
 public class PreferencesActivity extends Activity implements OnClickListener {
-
-	private SharedPreferences preferences;
-	private Button btnViewInstructions, btnLeftRightMode, btnPracticeMode,
-				btnSound, btnEmailSupport, btnSetUserCredentials;
 	
 	public static final int SET_DETAILS = 123;
+	
+	private SharedPreferences preferences;
+	private Button btnViewInstructions, btnSound, 
+			btnEmailSupport, btnSetUserCredentials; 
+			//btnLeftRightMode, btnPracticeMode,
+				
+	
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,6 +41,7 @@ public class PreferencesActivity extends Activity implements OnClickListener {
         
         btnViewInstructions = (Button)findViewById(R.id.btnViewInstuctions);
         btnViewInstructions.setOnClickListener(this);
+        
 /** TODO left right mode not done yet        
         btnLeftRightMode = (Button)findViewById(R.id.btnLeftRightMode);
         btnLeftRightMode.setOnClickListener(this);

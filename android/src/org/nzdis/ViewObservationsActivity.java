@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2011-2012 NZDIS.org. All Rights Reserved. See AUTHORS and LICENCE.
+ */
 package org.nzdis;
 
 import java.io.File;
@@ -23,6 +26,14 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+/**
+ * Allows the user to view observations stored on the phone.
+ * 
+ * @author Hamish Medlin
+ *
+ * @version $Revision$ <br>
+ * Created: Dec 2011
+ */
 public class ViewObservationsActivity extends Activity implements OnClickListener, OnItemSelectedListener {
 
 	private Button btnExportSelected,btnExportAll,btnDeleteSelected,btnDeleteAll,btnEmailObservation,btnEmailAll;

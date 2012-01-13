@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2011-2012 NZDIS.org. All Rights Reserved. See AUTHORS and LICENCE.
+ */
 package org.nzdis;
 
 import java.util.List;
@@ -5,6 +8,13 @@ import java.util.List;
 import android.content.Context;
 import android.widget.ArrayAdapter;
 
+/**
+ * 
+ * @author Hamish Medlin
+ *
+ * @version $Revision$ <br>
+ * Created: Dec 2011
+ */
 public class ObservationAdapter extends ArrayAdapter<Observation> {
 
 	private List<Observation> observations;
@@ -28,4 +38,5 @@ public class ObservationAdapter extends ArrayAdapter<Observation> {
 	public Observation getItem(int position){
 		return observations.get(position);
 	}
+	
 }

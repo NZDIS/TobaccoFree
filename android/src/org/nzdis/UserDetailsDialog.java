@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) 2011-2012 NZDIS.org. All Rights Reserved. See AUTHORS and LICENCE.
+ */
 package org.nzdis;
 
 import java.security.NoSuchAlgorithmException;
@@ -10,6 +13,14 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
 
+/**
+ * Represents dialog for acquiring user email and password. 
+ * 
+ * @author Hamish Medlin
+ *
+ * @version $Revision$ <br>
+ * Created: Jan 2012
+ */
 public class UserDetailsDialog extends Dialog implements OnClickListener {
 
 	private Button btnSave, btnCancel;
