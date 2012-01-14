@@ -2,11 +2,11 @@
           University of Otago 
     in partnernship with Globalink
 
-     http://globalink.nzdis.org
+     http://tobaccofree.nzdis.org
+    current version: 1.2, code: 3
 
 
-
-  Purpose
+Purpose
 ===========
 
 The purpose of the study is to establish
@@ -19,38 +19,44 @@ and the website that stores the data.
 
 
 
-  Android application for GlobaLink
+Android application for GlobaLink
 =====================================
 
 The application currently runs on Android. 
 You can download it from the market. It is 
-called 'NZDIS Smoking'.
+called: TobaccoFree
 
 
-  Website
+Website
 ===========
 
 To become a register data acquisition agent,
 you need to register and be approved by our 
 research staff.
 
+
 Visit:
-http://globalink.nzdis.org
+http://tobaccofree.nzdis.org
 
 
 
-  Technical details
+Technical details
 =====================
 
 The project is provided for other researchers 
 to benefit from. We have published our code in
 an open source fashion. The front end is provided 
 as an Android application, and the backend uses
-Python and Django framework. 
+Python/Django framework. 
 
 The repository contains two Eclipse projects,
 one for Android app, and one for Python backend.
 
-Please contact  globalink@nzdis.org  if you have any questions.
+
+Please contact  support@nzdis.org  if you have any questions.
+
+
+If you want to help, please contact us. If you could translate
+the application into your own language, we would appreciate it!
 
 
