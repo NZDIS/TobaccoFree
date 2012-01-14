@@ -60,7 +60,7 @@ def register(request):
                                         password_hash = settings.hash_password(cd['password']))    
             newuser.save()                                                                       
             form = RegistrationConfirmationForm()                                                                
-            form.message = 'Thank you for Registering. Confirmation has been e-mailed to you.' 
+            form.message = 'Thank you for Registering. Confirmation and activation key has been e-mailed to you.' 
                 
             return render_to_response('observation/register_confirm.html', 
                               {'form': form},
@@ -88,7 +88,7 @@ def register_confirm(request):
                                                                        
             form = FeedbackForm()                                          
             form.message = 'Thank you for participating. You can now start logging the data.' 
-                
+            
             return render_to_response('observation/index.html', 
                               {'form': form},
                               context_instance=RequestContext(request))

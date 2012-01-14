@@ -1,7 +1,41 @@
 {% extends "base.html" %} 
 
-{% block hero %}
 
+
+{% block topbar %}
+<div class="topbar">
+
+	{% if form.errors %}
+	<div class="alert-message error fade in" data-alert="alert"
+		style="z-index: 101;">
+		<a class="close pull-left" href="#">&times;</a>
+		<p>
+			<big><a href="#feedback">Please correct your FORM error{{form.errors|pluralize }} below</a></big>
+		</p>
+	</div>
+	{% endif %} 
+	
+	{% if form.message %}
+	<div class="alert-message success fade in" data-alert="alert"
+		style="z-index: 101">
+		<a class="close" href="#">&times;</a>
+		<p>
+			<big>{{form.message}}</big>
+		</p>
+	</div>
+	{% endif %}
+
+	<div class="topbar-inner">
+		<div class="container-fluid">
+			<a class="brand" href="/">Tobacco Free</a>
+		</div>
+	</div>
+</div>
+{% endblock %} 
+
+
+
+{% block hero %}
 <!-- Main hero unit for a primary marketing message and call to action -->
 <h1>
 	NZDIS Tobacco Free <small> smoking in cars study</small>
@@ -9,7 +43,6 @@
 <p></p>
 </p>
 <p>&nbsp;</p>
-
 {% endblock %} 
 
 
@@ -21,9 +54,9 @@
 	<div class="span11">
 		<hr>
 		<h2>
-			Confirm your register <small> and be able to upload data to the server</small>
+			Confirm your registration <small> to start logging the observations</small>
 		</h2>
-
+		<h3>Please copy and paste your activation key</h3>
 		<form action="/observer/confirm" method="POST">
 			{% csrf_token %} {{ form.non_field_errors }}
 			<fieldset>
