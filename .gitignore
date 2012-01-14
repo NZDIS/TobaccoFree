@@ -5,3 +5,7 @@
 gen
 bin
 static_gen
+*.swp
+*.apk
+*.keystore
+

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="org.nzdis"
-      android:versionCode="2"
-      android:versionName="1.1">
+      package="nzdis.tobaccofree"
+      android:versionCode="3"
+      android:versionName="1.2">
+    
     <uses-sdk android:minSdkVersion="7" />
+    
     <uses-permission android:name="android.permission.INTERNET" />   
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -14,26 +16,31 @@
 	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
 	
     <application
+        android:debuggable="false"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
             android:label="@string/app_name"
-            android:name=".GlobalinkActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            android:name="nzdis.tobaccofree.GlobalinkActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar">
+            
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            
         </activity>
-        <activity android:name="ObservationActivity"
+        <activity android:name="nzdis.tobaccofree.ObservationActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
-        <activity android:name="ViewObservationsActivity"
+        <activity android:name="nzdis.tobaccofree.ViewObservationsActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
-        <activity android:name="PreferencesActivity"
+        <activity android:name="nzdis.tobaccofree.PreferencesActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
-        <activity android:name="InstructionsActivity" android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
-        <activity android:name="UploadActivity" android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
+        <activity android:name="nzdis.tobaccofree.InstructionsActivity" 
+            android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
+        <activity android:name="nzdis.tobaccofree.UploadActivityy"
+            android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
     </application>
 
 </manifest>

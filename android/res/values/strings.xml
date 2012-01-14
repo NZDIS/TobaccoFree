@@ -50,7 +50,6 @@
    	<string name="email_all">E-mail All</string>
    	<string name="title">Smoking Monitor</string>
    	<string name="sub_title">counting smoking in cars</string>
-   	<string name="welcome"></string>
    	<string name="view_instructions">View Instructions</string>
    	<string name="practice_mode">Practice Mode</string>
    	<string name="sound_off">Turn Sound Off</string>

@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2011-2012 NZDIS.org. All Rights Reserved. See AUTHORS and LICENCE.
  */
-package org.nzdis;
+package nzdis.tobaccofree;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,9 +11,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
-/*import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;*/
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;

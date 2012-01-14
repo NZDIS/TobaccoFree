@@ -1,4 +1,4 @@
-package org.nzdis;
+package nzdis.tobaccofree;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

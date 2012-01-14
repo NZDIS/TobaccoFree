@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2011-2012 NZDIS.org. All Rights Reserved. See AUTHORS and LICENCE.
  */
-package org.nzdis;
+package nzdis.tobaccofree;
 
 import java.security.NoSuchAlgorithmException;
 

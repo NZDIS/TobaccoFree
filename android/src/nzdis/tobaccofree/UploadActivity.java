@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2011-2012 NZDIS.org. All Rights Reserved. See AUTHORS and LICENCE.
  */
-package org.nzdis;
+package nzdis.tobaccofree;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -76,7 +76,8 @@ public class UploadActivity extends Activity
 		UPLOAD_PROGRESS = 13, 
 		UPLOAD_ERROR = 14, 
 		MD5_ERROR = 15,
-		UPLOAD_ERROR_RESPONSE = 16;
+		UPLOAD_ERROR_RESPONSE = 16,
+		UPLOAD_SUCCESS = 100;
 	
 	
     @Override
@@ -218,7 +219,10 @@ public class UploadActivity extends Activity
 			public void onClick(DialogInterface dialog, int which) {
 			}
 		};
-		switch(d){
+		switch(d) {
+			case UPLOAD_SUCCESS:
+				
+				return alert;
 			case NO_MD5:
 				alert = new AlertDialog.Builder(this).create();
 		    	alert.setTitle(getString(R.string.error));
@@ -469,6 +473,8 @@ public class UploadActivity extends Activity
 				default:
 					break;
 				}
+			} else {
+				showDialog(UPLOAD_SUCCESS);
 			}
 			act.onTaskCompleted();
 		}
