@@ -4,20 +4,19 @@ Thank you very much for your interest in "Monitoring smoking in cars" study.
 Project website: http://tobaccofree.nzdis.org
 
 
-To complete the registration on NZDIS Tobacco Free, 
-please go to:
+To complete the registration on NZDIS Tobacco Free, please go to:
 
-    http://tobaccofree.nzdis.org 
+http://tobaccofree.nzdis.org 
     
 and copy-and-paste your activation key:
 
-    {{activation_key}}
+{{activation_key}}
 
 
 
 Note:
-If you have NOT registered on NZDIS: Tobacco Free website
-please ignore this email. 
+If you have NOT registered on website "NZDIS Tobacco Free"
+then please ignore this email. Apologies for inconvenience. 
 
 
 Thank you for participation

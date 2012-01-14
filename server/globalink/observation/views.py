@@ -87,7 +87,7 @@ def register_confirm(request):
             RegisteredObserver.objects.confirm_observer(cd['activation_key'],)
                                                                        
             form = FeedbackForm()                                          
-            form.message = 'Thank you for participating. You can now start logging the data.' 
+            form.message = 'Thank you for participating. You can now start logging the data on your Android.' 
             
             return render_to_response('observation/index.html', 
                               {'form': form},
