@@ -68,13 +68,15 @@ public class UploadActivity extends Activity
 	private ProgressDialog upload_dialog;
 	private Boolean displayingMessage = false;
 	private UploadTask uploadTask;
+	private String uploadErrorResponse = "";
 	public static final int 
 		NO_MD5 = 10, 
 		NO_DETAILS = 11, 
 		NO_NET = 12, 
 		UPLOAD_PROGRESS = 13, 
 		UPLOAD_ERROR = 14, 
-		MD5_ERROR = 15;
+		MD5_ERROR = 15,
+		UPLOAD_ERROR_RESPONSE = 16;
 	
 	
     @Override
@@ -252,6 +254,13 @@ public class UploadActivity extends Activity
 				upload_failed_alert.setButton(getString(R.string.ok), doNothingListener);
 				upload_failed_alert.setIcon(android.R.drawable.ic_dialog_alert);	
 		    	return upload_failed_alert;
+			case UPLOAD_ERROR_RESPONSE:
+				upload_failed_alert = new AlertDialog.Builder(this).create();
+				upload_failed_alert.setTitle(getString(R.string.error));
+				upload_failed_alert.setMessage(uploadErrorResponse);
+				upload_failed_alert.setButton(getString(R.string.ok), doNothingListener);
+				upload_failed_alert.setIcon(android.R.drawable.ic_dialog_alert);	
+		    	return upload_failed_alert;
 			default:
 				return null;
 		}
@@ -363,14 +372,18 @@ public class UploadActivity extends Activity
 						s = s.append(sResponse);
 					}
 					if (response.getStatusLine().getStatusCode() == 200) {
-Log.i("Globalink","Data saved correctly to server.");						
+						Log.i("Globalink","Data saved correctly to server.");						
 						// if upload succeeded then set 'upload' tag to 1
 			        	db = new DatabaseHelper(act);
 						db.setUploaded(observation.getId());
 						db.close();
 					} else {
-// TODO Debugging printout: Prints out response from server
-Log.i("Globalink","ERROR: status line " + response.getStatusLine() + " from server.\nResponse: " + s);
+						// TODO Debugging printout: Prints out response from server
+						Log.i("Globalink","ERROR: status line " + response.getStatusLine() + " from server.\nResponse: " + s);
+						errored = true;
+						uploadErrorResponse = s.toString();
+						errorCode = UPLOAD_ERROR_RESPONSE;
+						return false;
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -433,6 +446,9 @@ Log.i("Globalink","ERROR: status line " + response.getStatusLine() + " from serv
 			if(!result && errored){
 				//Each exception type. Could be customised
 				switch(errorCode){
+				case UPLOAD_ERROR_RESPONSE:
+					showDialog(UPLOAD_ERROR_RESPONSE);
+					break;
 				case 1:
 					//JSON error
 					showDialog(UPLOAD_ERROR);

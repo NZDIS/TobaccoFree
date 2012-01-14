@@ -20,15 +20,11 @@
         android:layout_height="wrap_content"
         android:text="@string/sub_title"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/textView3"
+    
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="50dp"
-        android:text="@string/welcome"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:src="@drawable/ic_launcher" />
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -43,6 +39,7 @@
             android:layout_margin="5dp"
             android:background="@drawable/button_selector"
             android:text="@string/new_observation"
+            android:textSize="19dip"
             android:textStyle="bold"
             android:typeface="monospace" />
 
@@ -54,9 +51,9 @@
             android:background="@drawable/button_selector"
             android:enabled="true"
             android:text="@string/upload_data"
+            android:textSize="19dip"
             android:textStyle="bold"
             android:typeface="monospace" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -72,6 +69,7 @@
             android:layout_margin="5dp"
             android:background="@drawable/button_selector"
             android:text="@string/existing_observations"
+            android:textSize="19dip"
             android:textStyle="bold"
             android:typeface="monospace" />
 
@@ -82,9 +80,9 @@
             android:layout_margin="5dp"
             android:background="@drawable/button_selector"
             android:text="@string/preference_button"
+            android:textSize="19dip"
             android:textStyle="bold"
             android:typeface="monospace" />
-
     </LinearLayout>
 
 </LinearLayout>

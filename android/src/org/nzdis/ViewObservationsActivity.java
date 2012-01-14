@@ -127,7 +127,7 @@ public class ViewObservationsActivity extends Activity implements OnClickListene
 			if(checkedDirectory()){
 				//write here
 				int selectedId = spnObservations.getSelectedItemPosition();
-				File outputFile = new File(Environment.getExternalStorageDirectory() + "/globalink/" + DateFormat.format("yyyyMMdd-hh-mmaa", obs.get(selectedId).getStart()).toString() + "-" + obs.get(selectedId).getId() + ".csv");
+				File outputFile = new File(Environment.getExternalStorageDirectory() + "/tobaccofree/" + DateFormat.format("yyyyMMdd-hh-mmaa", obs.get(selectedId).getStart()).toString() + "-" + obs.get(selectedId).getId() + ".csv");
 				try {
 					FileWriter writer = new FileWriter(outputFile);
 					String outputHeader = "latitude,longitude,start,finish,no smokers,other adults,single adult,child\n";
@@ -156,7 +156,7 @@ public class ViewObservationsActivity extends Activity implements OnClickListene
 		if(arg0 == btnExportAll || arg0 == btnEmailAll){
 			if(checkedDirectory()){
 				//write here
-				File outputFile = new File(Environment.getExternalStorageDirectory() + "/globalink/" + DateFormat.format("yyyyMMdd-hh-mmaa", System.currentTimeMillis()).toString() + "-all.csv");
+				File outputFile = new File(Environment.getExternalStorageDirectory() + "/tobaccofree/" + DateFormat.format("yyyyMMdd-hh-mmaa", System.currentTimeMillis()).toString() + "-all.csv");
 				try {
 					FileWriter writer = new FileWriter(outputFile);
 					String outputHeader = "latitude,longitude,start,finish,no smokers,other adults,single adult,child\n";
@@ -195,7 +195,7 @@ public class ViewObservationsActivity extends Activity implements OnClickListene
 
 	private boolean checkedDirectory(){		
 		if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
-			File globalinkDir = new File(Environment.getExternalStorageDirectory() + "/globalink/");
+			File globalinkDir = new File(Environment.getExternalStorageDirectory() + "/tobaccofree/");
 			//Log.i("FILE",globalinkDir.getAbsolutePath());
 			if(!globalinkDir.isDirectory()){
 				//create directory

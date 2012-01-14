@@ -60,7 +60,16 @@ public class ObservationActivity extends Activity implements LocationListener, O
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_observation);
+        
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        
+        if(preferences.getBoolean("left_hand", false)){
+        	setContentView(R.layout.activity_observation_left);
+        	//Log.i("Globalink","Using Left Hand Layout: " + preferences.getBoolean("left_hand", true));
+        }else{
+        	setContentView(R.layout.activity_observation);
+        	//Log.i("Globalink","Using Right Hand Layout:" + preferences.getBoolean("left_hand", true));
+        }
         
         tvAlone = (TextView)findViewById(R.id.tvSingleAdultCount);
         tvAdults = (TextView)findViewById(R.id.tvMultipleAdultCount);
@@ -125,8 +134,6 @@ public class ObservationActivity extends Activity implements LocationListener, O
         locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         
         db.close();
-        
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
         
         clickSound = MediaPlayer.create(this,R.raw.click);
     }
@@ -354,6 +361,47 @@ public class ObservationActivity extends Activity implements LocationListener, O
 	@Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
 		clickSound = MediaPlayer.create(this,R.raw.click);
+		
+		// set left/right hand layout if it was changed in the preferences
+        if(preferences.getBoolean("left_hand", false)){
+        	setContentView(R.layout.activity_observation_left);
+        	Log.i("Globalink","Using Left Hand Layout: " + preferences.getBoolean("left_hand", true));
+        }else{
+        	setContentView(R.layout.activity_observation);
+        	Log.i("Globalink","Using Right Hand Layout:" + preferences.getBoolean("left_hand", true));
+        }
+        
+        tvAlone = (TextView)findViewById(R.id.tvSingleAdultCount);
+        tvAdults = (TextView)findViewById(R.id.tvMultipleAdultCount);
+        tvChild = (TextView)findViewById(R.id.tvChildCount);
+        tvNone = (TextView)findViewById(R.id.tvNoSmokingCount);
+        
+        btnFinish = (Button)findViewById(R.id.btnFinish);
+        btnHelp = (Button)findViewById(R.id.btnHelp);
+        btnNoSmoking = (Button)findViewById(R.id.btnNoSmoking);
+        btnNoOccupants = (Button)findViewById(R.id.btnNoOccupants);
+        btnOtherAdults = (Button)findViewById(R.id.btnOtherAdults);
+        btnChild = (Button)findViewById(R.id.btnChild);
+        
+        btnFinish.setOnClickListener(this);
+        btnHelp.setOnClickListener(this);
+        btnNoSmoking.setOnClickListener(this);
+        btnNoOccupants.setOnClickListener(this);
+        btnOtherAdults.setOnClickListener(this);
+        btnChild.setOnClickListener(this);
+        
+        
+        registerForContextMenu(btnNoSmoking);
+        registerForContextMenu(btnNoOccupants);
+        registerForContextMenu(btnOtherAdults);
+        registerForContextMenu(btnChild);
+        
+		DatabaseHelper db = new DatabaseHelper(this);
+		tvNone.setText(db.getNoSmokerCount(observationId)+"");
+		tvChild.setText(db.getAdultChildSmokerCount(observationId) + "");
+		tvAdults.setText(db.getAdultSmokersCount(observationId) + "");
+		tvAlone.setText(db.getAloneSmokerCount(observationId) + "");
+		db.close();
 	}
 	
 	/*

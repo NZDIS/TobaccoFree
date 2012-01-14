@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, GlobalinkActivity!</string>
-    <string name="app_name">Globalink</string>
+    <string name="app_name">TobaccoFree</string>
     <string name="new_observation">Record new data</string>
     <string name="existing_observations">View old data</string>
     <string name="finish_observation">Finish</string>
@@ -34,7 +33,7 @@
     <string name="nosd_title">No SD Card</string>
     <string name="nosd_message">An SD card is required to export to CSV. Please insert a SD card and make sure that it is mounted.</string>
    	<string name="dir_error_title">Error</string>
-   	<string name="dir_error_message">Failed to create \'globalink\' directory on the SD card. Is the SD card read only?</string>
+   	<string name="dir_error_message">Failed to create \'tobaccofree\' directory on the SD card. Is the SD card read only?</string>
    	<string name="export_success">Exporting CSV to external SD card is complete</string>
    	<string name="export_success_title">Success</string>
    	<string name="unknown_error_title">Unknown Error</string>
@@ -99,8 +98,9 @@
    	<string name="no_internet">An Internet connection (2/3G or WiFi) is required to upload data</string>
    	<string name="uploading_observation_number">Uploading observation </string>
    	<string name="uploading_observation_of">of </string>
-   	<string name="username_details">An email and password are required to use the uploading function of this application. To setup your account go to globalink.nzdis.org and sign up.</string>
+   	<string name="username_details">An email and password are required to use the uploading function of this application. To setup your account go to http://tobaccofree.nzdis.org and sign up.</string>
    	<string name="upload_description">To upload an observation, select it from the drop down box and tap \"Upload\" or to upload them all just press \"Upload All\". Only those observations that haven\'t been upload will show in the list.</string>
    	<string name="instructions_upload">How to Upload</string>
-   	<string name="upload_error">An error has occurred while uploading. If this continues please contact globalink@nzdis.org.</string>
+   	<string name="upload_error">An error has occurred while uploading. If this continues please use the feedback button in the Preferences menu.</string>
+	<string name="right_hand">Right Handed Mode</string>
 </resources>
