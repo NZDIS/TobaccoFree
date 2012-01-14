@@ -12,19 +12,14 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <!-- Javascript 
-	<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.7.1.min.js"></script>
-	<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-ui-1.8.17.custom.min.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.ui.timepicker.js?v=0.2.9"></script>
-    
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.ui.timepicker.css?v=0.2.9" type="text/css" />
-    <link type="text/css" href="{{ STATIC_URL }}css/smoothness/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
-    -->
-    
-    <!-- Le styles -->	
+	
     <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/ribbon.css" rel="stylesheet">
-        
+
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-alerts.js"></script>
+    
+            
     <style type="text/css">
       html, body {
         background-color: #eee;
@@ -84,21 +79,40 @@
   </head>
 
   <body>
-
+  
+  <a id="home"></a>&nbsp;
 {% block topbar %}
     <div class="topbar">
-    	
+
+
     <div class="right ribbon-holder">
    		<a href="https://github.com/marni/NZDIS-TobaccoFree" class="orange ribbon">
       	<span class="text" style='color: #FFFFFF;'>Fork me on GitHub</span>
    		</a>
 	</div>
-			
+    
+    
+  	{% if form.errors %}
+	<div class="alert-message error fade in" data-alert="alert" style="z-index: 101;">
+  		<a class="close pull-left" href="#">&times;</a>
+  		<p><big><a href="#feedback">Please correct your FORM error{{ form.errors|pluralize }} below</a></big></p>
+	</div>
+    {% endif %}
+    
+    {% if form.message %}
+    <div class="alert-message success fade in" data-alert="alert" style="z-index: 101">
+  		<a class="close" href="#">&times;</a>
+  		<p><big>{{form.message}}</big></p>
+	</div>
+    {% endif %}	
+
       <div class="topbar-inner">
         <div class="container-fluid">
-          <a class="brand" href="#">Tobacco Free</a>
+          <a class="brand" href="/">Tobacco Free</a>
           <ul class="nav">
-            <li class="active"><a href="#">Home</a></li> 
+            <li class="active"><a href="#home">Home</a></li>
+            <li><a href="#awareness">Awareness</a></li>
+            <li><a href="#feedback">Feedback</a></li>
             <li class="pull-right"><a href="/admin">Admin</a></li>
           </ul>
 	      <!--
@@ -113,52 +127,126 @@
       </div>
     </div>
 {% endblock %}
-
-     
+	
    <div class="container">
       <div class="content">
-
 {% block hero %}	
         <!-- Main hero unit for a primary marketing message and call to action -->
-        <div>
           <h1>NZDIS Tobacco Free <small> smoking in cars study</small> </h1>
-          <p>How many people smoke in cars? </p>
-          <p><a href="/signup/" class="btn success large pull-left">Register to participate &raquo;</a></form></p>
-        </div>
+          <div align="left">
+          <ul>
+          	<li>How many people smoke in cars? How many passive smokers are affected? </li>
+          	<li>How many children? </li>
+            <li>How much the stats differ between cities? Countries?</li>
+          </ul>
+          </div>
+		  <p></p>        
+          <p>
+          <a href="/observer/register" class="btn success large pull-left">Register to participate &raquo;</a>
+          &nbsp;&nbsp;
+          <a href="#about" class="btn primary large">Learn more &raquo;</a>
+          </p>
+          <p>&nbsp;</p>
 {% endblock %}
 
 {% block content %}
-	<!-- Some stats. For testing purposes -->
+	<!-- Some stats. For testing purposes. -->
 	<div class="row">
 	  <div class="span8">
 	    <h2>Statistics</h2>
 	    <p></p>
 	    <ul>
-	      <li>Current number of participating loggers: ...</li>
-      	  <li>Current number of observations stored: ...</li>
+	      <li>Current number of registered loggers: {{ number_of_registered_observers }}</li>
+      	  <li>Current number of observations stored: {{ number_of_observations }}</li>
 	    </ul>
-	    </p>
+	    <p></p>
 	  </div>
 	</div>
-
-	 
+    &nbsp;
+	
+	<a id="about"></a>&nbsp;
+	<hr>
     <!-- About -->
     <div class="row">
-       <div class="span9">
-       <a name="about"></a>
-       <h2>About <big>smoking in car study</big></h2>
-	   <p></p>
+       <div class="span11">
+       <h2>About</h2>
+       <p>To collect data from multiple sites, globally, many times a day, 
+          over and over again, would be expensive. So expensive, that 
+          study like that is impossible	to run through traditional methods.<br>
+	   <p>The idea is to ask volunteers to help. <big>YOU</big> will help us to conduct the study.</p>
           <ul>
 	      <li>Anyone can participate</li>
-	      <li>Register and we will verify your credentials</li>
-	      <li>Download and install Globalink smoking in cars app</li>
-	      <li>Start logging</li>
+	      <li>Register and we will verify your details</li>
+	      <li>Download and install NZDIS TobaccoFree Android application</li>
+	      <li>Agree to University of Otago &raquo;Ethical Conduct and Honour Code&laquo;</big></li>
+	      <li>Start logging the data</li>
 	    </ul>
-	    <p>We have developped a mobile application on Android phones. Anyone can download it and use. The application
+	    <p>We have developped a mobile application on Android phones. Download it and use. </p>
+	    <p>The application
 	    allows easy logging of occurances of smoking in cars. Install it, go out, and collect data about particular location. 
 	    Instructions are provided within the application.</p>
+	    <p></p>
       </div>
 	</div>
+	
+	<hr>
+	<a id="awareness"></a>
+	<div class="row">
+       <div class="span11">
+       <a name="about"></a>
+       <h2>Awareness</h2>
+	   <p></p>
+	   <h3>World</h3>
+        <ul>
+          <li><a href="http://www.globalink.org">GlobaLink</a> &laquo;
+	      	GlobaLink - the International Tobacco Control Community</li>
+	      <li><a href="http://en.wikipedia.org/wiki/Tobacco_control">Tobacco control</a> &laquo;
+	      	Article on Wikipedia about Tobacco control and the history of the movement</li>
+	      <li><a href="http://en.wikipedia.org/wiki/Tobacco_control">Tobacco Free movement</a> &laquo;
+	      	Another Article on Tobacco control movement</li>
+	    </ul>
+	    <h3>New Zealand</h3>
+        <ul>
+          <li><a href="http://www.sfc.org.nz">The Smokefree Coalition</a> &laquo;
+	      	The Smokefree Coalition - te ohu auahi kore</li>
+          <li><a href="http://www.smokefree.co.nz">Smokefree by Health Sponsorship Council</a> &laquo;
+	      	Smokefree - auahi kore, Health Sponsorship Council</li>
+          <li><a href="http://www.tereomarama.co.nz">Te Reo Marama</a> &laquo;
+	      	Maori community for Tobacco resistance</li>
+	    </ul>
+      </div>
+	</div>
+	
+	<script type="text/javascript">
+		$(".alert-message").alert()
+	</script>
+	
+	<hr>
+	<a id="feedback"></a>
+	<div class="row">
+       <div class="span11">
+       <a name="about"></a>
+
+       <h2>Feedback <small>tell us what you think</small></h2>
+
+        <form action="/feedback/send" method="POST">
+	          {% csrf_token %}
+	          {{ form.non_field_errors }}
+	          <fieldset>
+	          
+	          	{% include "observation/parts/field.html" with field=form.email %}
+				{% include "observation/parts/field.html" with field=form.subject %}
+				{% include "observation/parts/field.html" with field=form.description %}
+				
+				<div class="actions">
+	            	<input type="submit" class="btn primary" value="Send feedback &raquo;">&nbsp;
+	                <button type="reset" class="btn">Clear form</button>
+	            </div>
+			  </fieldset>
+		</form>
+	  </div>
+	</div>
+	
 {% endblock %}
 
 {% block footer %}   

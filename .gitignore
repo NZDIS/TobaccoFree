@@ -4,4 +4,4 @@
 *.pyc
 gen
 bin
-
+static_gen

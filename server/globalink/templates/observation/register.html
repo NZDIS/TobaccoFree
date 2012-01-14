@@ -1,0 +1,47 @@
+{% extends "base.html" %} 
+
+{% block hero %}
+
+<!-- Main hero unit for a primary marketing message and call to action -->
+<h1>
+	NZDIS Tobacco Free <small> smoking in cars study</small>
+</h1>
+<p></p>
+</p>
+<p>&nbsp;</p>
+
+{% endblock %} 
+
+
+
+
+{% block content %}
+
+<div class="row">
+	<div class="span11">
+		<hr>
+		<h2>
+			Register <small> and be able to upload data to the server</small>
+		</h2>
+
+		<form action="/observer/register" method="POST">
+			{% csrf_token %} {{ form.non_field_errors }}
+			<fieldset>
+
+				{% include "observation/parts/field.html" with field=form.email %}
+				{% include "observation/parts/field.html" with field=form.name %} 
+				{% include "observation/parts/field.html" with field=form.surname %} 
+				{% include "observation/parts/field.html" with field=form.affiliation %}
+				{% include "observation/parts/field.html" with field=form.password %}
+				
+				<div class="actions">
+					<input type="submit" class="btn primary"
+						value="Send registration request &raquo;">&nbsp;
+					<button type="reset" class="btn">Clear form</button>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+
+{% endblock %}

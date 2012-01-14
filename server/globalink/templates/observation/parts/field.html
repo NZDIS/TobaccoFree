@@ -1,0 +1,12 @@
+<div class="clearfix {% if field.errors %}error{% endif %}">
+  <label class="{{field.css_classes}}" for="id_{{ field.html_name }}">{{ field.label }}</label>
+  <div class="input">
+    {{ field }}
+    <span class="help-inline">
+        {% for error in field.errors %}
+            {{ error }}
+        {% endfor %}
+    </span>
+    <span class="help-block">{{ field.help_text }}</span>
+  </div>
+</div>

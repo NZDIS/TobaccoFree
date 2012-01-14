@@ -32,6 +32,6 @@ public interface Constants {
 	
 	String USER_PASSWORD_HASH = "pass_hash";
 	
-	String HASH_SALT_PRE = "$709dfgssd*";
-	String HASH_SALT_POST = "2356lkgjzxvhdsfg";
+	String HASH_SALT_PRE = "put salt here";
+	String HASH_SALT_POST = "put pepper here";
 }

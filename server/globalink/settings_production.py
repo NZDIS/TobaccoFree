@@ -5,6 +5,7 @@ from settings import *
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+
 STATIC_ROOT = "/home/www/public_html/static/"
 
 

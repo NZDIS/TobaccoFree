@@ -5,7 +5,7 @@
 # Author: Mariusz Nowostawski, Created: December 2011
 #
 # 2011-2012 (C) NZDIS Group.
-import os
+import os, hashlib
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -13,6 +13,8 @@ TEMPLATE_DEBUG = DEBUG
 ADMINS = (
           ('Mariusz Nowostawski', 'nowostawski@gmail.com'),
 )
+
+DEFAULT_FROM_EMAIL = 'support@tobaccofree.nzdis.org'
 
 MANAGERS = ADMINS
 
@@ -63,7 +65,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(os.path.dirname(__file__), 'static_gen')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -118,8 +120,15 @@ INSTALLED_APPS = (
     'observation',
 )
 
-HASH_SALT_PRE = '$709dfgssd*'
-HASH_SALT_POST = '2356lkgjzxvhdsfg'
+HASH_SALT_PRE = 'put salt here'
+HASH_SALT_POST = 'put pepper here'
+
+def hash_password(plain):
+    m = hashlib.md5()
+    m.update(HASH_SALT_PRE)
+    m.update(plain)
+    m.update(HASH_SALT_POST)
+    return str(m.hexdigest())
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
