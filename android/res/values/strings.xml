@@ -3,14 +3,14 @@
 
     <string name="app_name">TobaccoFree</string>
     <string name="new_observation">Record new data</string>
-    <string name="existing_observations">View old data</string>
+    <string name="existing_observations">Stored data</string>
     <string name="finish_observation">Finish</string>
     <string name="help">Help</string>
     <string name="no_other_occupants">No Occupants</string>
     <string name="other_adults">Other Adults</string>
     <string name="child">Child</string>
     <string name="getting_gps">Retrieving GPS location...</string>
-    <string name="no_smoking">No Smokers</string>
+    <string name="no_smoking">Non Smokers</string>
     <string name="enable_gps">Enable GPS</string>
     <string name="gps_error_gps">The GPS is required to determine the location of the observation and needs to be turned on. Turn on GPS?</string>
     <string name="yes">Yes</string>
@@ -19,7 +19,7 @@
 	<string name="confirm_title">Are you sure?</string>
 	<string name="gps_fix">A GPS fix must be acquired, please wait.</string>
 	<string name="save">Save</string>
-	<string name="no_smokers">No smokers</string>
+	<string name="no_smokers">Non smokers</string>
     <string name="adult_smoker">Adult smoker</string>
     <string name="adult_with_others">Adult smoker with others</string>
     <string name="child_smoking">Child smoking</string>
@@ -70,11 +70,11 @@
    	<string name="instructions_child">Smoking and <b>child</b> passenger(s) (in a car seat or under 12 years of age). Also press this button if there are other adult passenger(s) <b>together</b> with the child passenger(s).</string> 
    	<string name="instructions_how_sub_title">For vehicles with smoking:</string> 
    	<string name="instructions_what_not_title">What not to observe</string> 
-   	<string name="instructions_what_not_text">Vehicles that are difficult to see inside eg, due to window tinting.</string> 
+   	<string name="instructions_what_not_text">Vehicles that are difficult to see inside eg. due to window tinting.</string> 
    	<string name="instructions_when_title">When to observe</string> 
    	<string name="instructions_when_text">During peak traffic (eg, 7:30-9:30 and 16:00-18:00).</string> 
    	<string name="instructions_practice_title">Want to practice?</string> 
-   	<string name="instructions_practice_text">Enable practice mode in the help menu which will tell us not to use the data.</string> 
+   	<string name="instructions_practice_text">Record some data and then delete it instead of uploading to the server.</string> 
    	<string name="instructions_mistake">To correct a mistake, any of the above four buttons can be held down, which will subtract on observation from that category.</string>
    	<string name="subtract_one">Subtract 1</string>
    	<string name="context_child">Child Passenger</string>
