@@ -111,11 +111,12 @@ def feedback(request):
         if form.is_valid():
             cd = form.cleaned_data
             form = FeedbackForm()
+            subject = cd['subject']
+            subject = "[TobaccoFree Feedback]" + subject
             try:
-                send_mail(
-                          cd['subject'],
+                send_mail(subject,
                           cd['description'],
-                          cd.get('email', 'noreply@tobaccofree.nzdis.org'),
+                          cd.get('email', 'noreply@nzdis.org'),
                             ['nowostawski@gmail.com', ],)
                 
                 form.message = "Thank you for your feedback"
