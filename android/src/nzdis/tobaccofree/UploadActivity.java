@@ -219,9 +219,13 @@ public class UploadActivity extends Activity
 			public void onClick(DialogInterface dialog, int which) {
 			}
 		};
-		switch(d) {
+		switch (d) {
 			case UPLOAD_SUCCESS:
-				
+				alert = new AlertDialog.Builder(this).create();
+		    	alert.setTitle(getString(R.string.success_title));
+		    	alert.setMessage(getString(R.string.upload_success));
+		    	alert.setButton(getString(R.string.ok), doNothingListener);
+		    	alert.setIcon(android.R.drawable.ic_dialog_info);
 				return alert;
 			case NO_MD5:
 				alert = new AlertDialog.Builder(this).create();

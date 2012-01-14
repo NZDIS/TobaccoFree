@@ -329,12 +329,17 @@ public class ObservationActivity extends Activity implements LocationListener, O
 		
 	}
 	
-	/* Will play a 'click' sound if it hasn't been disabled
+	
+	
+	/* 
+	 * Will play a 'click' sound if it hasn't been disabled
 	 * in the preferences
 	 */
 	private void playSound(){
-		if(preferences.getBoolean("play_sound", true)){
-			clickSound.start();
+		if (preferences.getBoolean("play_sound", true)) {
+			try {
+				clickSound.start();
+			} catch(IllegalStateException ise) {}
 		}
 	}
 	

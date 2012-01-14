@@ -35,7 +35,8 @@
    	<string name="dir_error_title">Error</string>
    	<string name="dir_error_message">Failed to create \'tobaccofree\' directory on the SD card. Is the SD card read only?</string>
    	<string name="export_success">Exporting CSV to external SD card is complete</string>
-   	<string name="export_success_title">Success</string>
+   	<string name="success_title">Success</string>
+   	<string name="upload_success">Upload of the data to TobaccoFree website completed.</string>
    	<string name="unknown_error_title">Unknown Error</string>
    	<string name="unknown_error_message">An unknown error as occurred.</string>
    	<string name="warning">Warning</string>

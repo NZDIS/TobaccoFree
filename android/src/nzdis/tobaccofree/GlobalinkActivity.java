@@ -47,33 +47,33 @@ public class GlobalinkActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View arg0) {
-		if(arg0 == btnNew){			
+		if (arg0 == btnNew) {			
 			//check if gps is enabled
 			LocationManager locManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 			if(locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
 				//start new observation
 				Intent i = new Intent(this,ObservationActivity.class);
 				startActivity(i);			
-			}else{
+			} else {
 				//display gps notification
 				onCreateDialog(GPS_DIALOG);
 			}
 			return;
 		}
 		
-		if(arg0 == btnExisting){
-			Intent i = new Intent(this,ViewObservationsActivity.class);
+		if (arg0 == btnExisting) {
+		 	Intent i = new Intent(this,ViewObservationsActivity.class);
 			startActivity(i);
 			return;
 		}
 		
-		if(arg0 == btnPreferences){
+		if (arg0 == btnPreferences) {
 	        Intent i = new Intent(this,PreferencesActivity.class);
 	        startActivity(i);
 	        return;
 		}
 		
-		if(arg0 == btnUpload){
+		if (arg0 == btnUpload) {
 	        Intent i = new Intent(this,UploadActivity.class);
 	        startActivity(i);
 	        return;

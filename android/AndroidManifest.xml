@@ -39,7 +39,7 @@
             android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
         <activity android:name="nzdis.tobaccofree.InstructionsActivity" 
             android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
-        <activity android:name="nzdis.tobaccofree.UploadActivityy"
+        <activity android:name="nzdis.tobaccofree.UploadActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
     </application>
 

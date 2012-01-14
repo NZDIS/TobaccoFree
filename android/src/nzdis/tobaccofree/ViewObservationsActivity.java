@@ -257,7 +257,7 @@ public class ViewObservationsActivity extends Activity implements OnClickListene
 			    return null;
 			case SUCCESS:
 				alert.setIcon(android.R.drawable.ic_dialog_info);
-				alert.setTitle(getString(R.string.export_success_title));
+				alert.setTitle(getString(R.string.success_title));
 				alert.setMessage(getString(R.string.export_success));
 				alert.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
 			           public void onClick(DialogInterface dialog, int id) {
