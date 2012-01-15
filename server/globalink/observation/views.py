@@ -147,7 +147,7 @@ def add(request):
         email_str = new_ob.get('user_email')
         try:
             userId = User.objects.get(username=email_str)
-            u = RegisteredObserver.objects.get(user=userID)
+            u = RegisteredObserver.objects.get(user=userId)
         except:
             logger.debug("User doesn't exist")
             return HttpResponseForbidden("No user with this email address.")
