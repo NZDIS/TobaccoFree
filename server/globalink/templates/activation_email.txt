@@ -6,7 +6,7 @@ Project website: http://tobaccofree.nzdis.org
 
 To complete the registration on NZDIS Tobacco Free, please go to:
 
-http://tobaccofree.nzdis.org 
+http://tobaccofree.nzdis.org/observer/confirm 
     
 and copy-and-paste your activation key:
 
