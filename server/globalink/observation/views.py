@@ -15,6 +15,7 @@ from datetime import datetime
 
 from globalink.observation.models import RegisteredObserver, Observation,\
     RegistrationManager
+from mongoengine.django.auth import User
 
 from globalink.observation.forms import FeedbackForm, RegistrationForm,\
     RegistrationConfirmationForm
@@ -145,7 +146,8 @@ def add(request):
         new_ob = json.loads(json_str)
         email_str = new_ob.get('user_email')
         try:
-            u = RegisteredObserver.objects.get(email=email_str)
+            user = User.objects.get(email=email_str)
+            u = RegisteredObserver.objects.get(user=user)
         except ObjectDoesNotExist:
             logger.debug("User doesn't exist")
             return HttpResponseForbidden("No user with this email address.")
