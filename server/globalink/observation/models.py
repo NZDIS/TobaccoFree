@@ -123,7 +123,7 @@ class RegistrationManager():
                                     })
         logger.debug("Trying to email this:\n" + message)
         try:
-            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [new_observer.email])
+            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [new_observer.user.email])
         except:
             pass
             # TODO what should we do if the email connection fails?
