@@ -14,7 +14,9 @@ from django.shortcuts import render_to_response
 from datetime import datetime
 
 from globalink import settings
-from globalink.observation.models import RegisteredObserver, Observation
+from globalink.observation.models import RegisteredObserver, Observation,\
+    RegistrationManager
+
 from globalink.observation.forms import FeedbackForm, RegistrationForm,\
     RegistrationConfirmationForm
 
@@ -52,12 +54,13 @@ def register(request):
         if form.is_valid():
             cd = form.cleaned_data
             # create new RegisteredObserver here
-            newuser = RegisteredObserver.objects.create_new_observer(
-                                        email = cd['email'],
-                                        name = cd['name'],                                       
-                                        surname = cd['surname'],                                   
-                                        affiliation = cd['affiliation'],                                                                     
-                                        password_hash = settings.hash_password(cd['password']))    
+            rm = RegistrationManager()
+            newuser = rm.create_new_observer(
+                          email = cd['email'],
+                          name = cd['name'],                                       
+                          surname = cd['surname'],                                   
+                          affiliation = cd['affiliation'],                                                                     
+                          password_hash = settings.hash_password(cd['password']))    
             newuser.save()                                                                       
             form = RegistrationConfirmationForm()                                                                
             form.message = 'Thank you for Registering. Confirmation and activation key has been e-mailed to you.' 
@@ -84,7 +87,8 @@ def register_confirm(request):
         if form.is_valid():
             cd = form.cleaned_data
             # create new RegisteredObserver here
-            RegisteredObserver.objects.confirm_observer(cd['activation_key'],)
+            rm = RegistrationManager()
+            rm.confirm_observer(cd['activation_key'],)
                                                                        
             form = FeedbackForm()                                          
             form.message = 'Thank you for participating. You can now start logging the data on your Android.' 

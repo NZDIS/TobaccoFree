@@ -5,10 +5,12 @@ Created on Jan 12, 2012
 '''
 
 
-from django.db import models
+from mongoengine import *
+
 from django.template.loader import render_to_string
-from django.contrib.sites.models import Site
-import random, hashlib, settings
+import random, hashlib
+from datetime import datetime
+from globalink import settings
 
 import logging
 
@@ -17,7 +19,47 @@ import logging
 logger = logging.getLogger("globalink.custom")
 
 
-class RegistrationManager(models.Manager):
+   
+
+
+
+class RegisteredObserver(Document):
+    email = EmailField(help_text="Primary email address, used as user identifier", unique=True)
+    name = StringField(max_length=128, help_text="User real name")
+    surname = StringField(max_length=256, help_text="User real surname")
+    affiliation = StringField(help_text="Affiliation, university, department, etc.")
+    password_hash = StringField(max_length=64, help_text='Enter password here. It will be hashed automatically.')
+    approved = BooleanField(default=False, help_text="Is this user approved?")
+    registration_confirmed = BooleanField(default=False, help_text="Has this user confirmed her/his registration?")
+    registration_date = DateTimeField(default=datetime.now, help_text="Timestamp of user registration")
+    activation_key = StringField(max_length=256)
+    
+    def __unicode__(self):
+        return u"{0} [{1} {2}]".format(self.email, self.name, self.surname)
+
+
+
+
+class Observation(Document):
+    observation_hash = StringField(max_length=64, unique=True)
+    latitude = FloatField()
+    longitude = FloatField()
+    start = DateTimeField()
+    finish = DateTimeField()
+    no_smoking = IntField()
+    other_adults = IntField()
+    lone_adult = IntField()
+    child = IntField()
+    device_id = StringField(max_length=128)
+    upload_timestamp = DateTimeField()
+    user = ReferenceField(RegisteredObserver)
+
+    def __unicode__(self):
+        return u"Start: {0} Finish: {1} By: {2}".format(self.start, self.finish, self.user.email)
+
+
+
+class RegistrationManager():
 
     def confirm_observer(self, activation_key):
         '''
@@ -26,12 +68,8 @@ class RegistrationManager(models.Manager):
         If the key is valid returns the Observer after activating.
         If the key is not valid returns ``False``.
         '''
-        # Make sure the key we're trying conforms to the pattern of a
-        # SHA1 hash; if it doesn't, no point trying to look it up in
-        # the database.
-        try:                                                               
-            profile = self.get(activation_key=activation_key) 
-        except self.model.DoesNotExist:                                    
+        profile = RegisteredObserver.objects.get(activation_key=activation_key) 
+        if not profile:                                    
             return False                                                   
                                                                            
         profile.registration_confirmed = True;                             
@@ -79,45 +117,8 @@ class RegistrationManager(models.Manager):
         except:
             pass
             # TODO what should we do if the email connection fails?
+            # should never happen on the server
         return new_observer
     
-        
-
-
-
-class RegisteredObserver(models.Model):
-    email = models.EmailField(help_text="Primary email address, used as user identifier", unique=True)
-    name = models.CharField(max_length=128, help_text="User real name")
-    surname = models.CharField(max_length=256, help_text="User real surname")
-    affiliation = models.TextField(help_text="Affiliation, university, department, etc.")
-    password_hash = models.CharField(max_length=64, help_text='Enter password here. It will be hashed automatically.')
-    approved = models.BooleanField(help_text="Is this user approved?", default=False)
-    registration_confirmed = models.BooleanField(help_text="Has this user confirmed her/his registration?", default=False)
-    registration_date = models.DateTimeField(auto_now_add=True, blank=True, help_text="Timestamp of user registration")
-    activation_key = models.CharField(max_length=256)
     
-    objects = RegistrationManager()
     
-    def __unicode__(self):
-        return u"{0} [{1} {2}]".format(self.email, self.name, self.surname)
-
-
-
-
-class Observation(models.Model):
-    observation_hash = models.CharField(max_length=64, unique=True)
-    latitude = models.FloatField()
-    longitude = models.FloatField()
-    start = models.DateTimeField()
-    finish = models.DateTimeField()
-    no_smoking = models.IntegerField()
-    other_adults = models.IntegerField()
-    lone_adult = models.IntegerField()
-    child = models.IntegerField()
-    device_id = models.CharField(max_length=128)
-    upload_timestamp = models.DateTimeField()
-    user = models.ForeignKey(RegisteredObserver)
-
-    def __unicode__(self):
-        return u"Start: {0} Finish: {1} By: {2}".format(self.start, self.finish, self.user.email)
-
