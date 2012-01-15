@@ -138,7 +138,7 @@ def add(request):
     '''
     Processes a POST request with Observation data, and puts new record into a DB.
     '''
-    logger.debug("Got a request.POST: {0}".format(request.POST))
+#    logger.debug("Got a request.POST: {0}".format(request.POST))
     json_str = request.POST.get('Observation')
     logger.debug("Got a request.POST.Observation: {0}".format(json_str))
     
@@ -146,9 +146,9 @@ def add(request):
         new_ob = json.loads(json_str)
         email_str = new_ob.get('user_email')
         try:
-            user = User.objects.get(email=email_str)
-            u = RegisteredObserver.objects.get(user=user)
-        except ObjectDoesNotExist:
+            userId = User.objects.get(username=email_str)
+            u = RegisteredObserver.objects.get(user=userID)
+        except:
             logger.debug("User doesn't exist")
             return HttpResponseForbidden("No user with this email address.")
         data_pass_hash = new_ob.get('pass_hash')

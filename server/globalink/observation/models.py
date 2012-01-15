@@ -38,7 +38,7 @@ class RegisteredObserver(Document):
     activation_key = StringField(max_length=256)
     
     def __unicode__(self):
-        return u"{0} [{1} {2}]".format(self.email, self.name, self.surname)
+        return u"{0} [{1} {2}]".format(self.user.email, self.name, self.surname)
 
 
 
