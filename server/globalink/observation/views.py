@@ -13,7 +13,6 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from datetime import datetime
 
-from globalink import settings
 from globalink.observation.models import RegisteredObserver, Observation,\
     RegistrationManager
 
@@ -60,7 +59,7 @@ def register(request):
                           name = cd['name'],                                       
                           surname = cd['surname'],                                   
                           affiliation = cd['affiliation'],                                                                     
-                          password_hash = settings.hash_password(cd['password']))    
+                          password = cd['password'])
             newuser.save()                                                                       
             form = RegistrationConfirmationForm()                                                                
             form.message = 'Thank you for Registering. Confirmation and activation key has been e-mailed to you.' 

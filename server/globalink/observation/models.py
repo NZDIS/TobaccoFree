@@ -5,7 +5,10 @@ Created on Jan 12, 2012
 '''
 
 
-from mongoengine import *
+from mongoengine import Document, StringField, BooleanField,\
+        IntField, FloatField, DateTimeField, ReferenceField
+        
+from mongoengine.django.auth import User
 
 from django.template.loader import render_to_string
 import random, hashlib
@@ -24,9 +27,9 @@ logger = logging.getLogger("globalink.custom")
 
 
 class RegisteredObserver(Document):
-    email = EmailField(help_text="Primary email address, used as user identifier", unique=True)
+    user = ReferenceField(User)
     name = StringField(max_length=128, help_text="User real name")
-    surname = StringField(max_length=256, help_text="User real surname")
+    surname = StringField(max_length=256, help_text="User real surname")    
     affiliation = StringField(help_text="Affiliation, university, department, etc.")
     password_hash = StringField(max_length=64, help_text='Enter password here. It will be hashed automatically.')
     approved = BooleanField(default=False, help_text="Is this user approved?")
@@ -73,12 +76,13 @@ class RegistrationManager():
             return False                                                   
                                                                            
         profile.registration_confirmed = True;                             
-        profile.activation_key = "ALREADY_ACTIVATED"                       
+        profile.activation_key = "ALREADY_ACTIVATED"
+        profile.user.date_joined = datetime.now()                 
         profile.save()                                                     
         return profile                                                     
 
     
-    def create_new_observer(self, email, name, surname, affiliation, password_hash):
+    def create_new_observer(self, email, name, surname, affiliation, password):
         """
         Create a new, inactive ``Observer``, generates a
         ``profile`` and emails its activation key,
@@ -86,11 +90,15 @@ class RegistrationManager():
         
         """
         new_observer = RegisteredObserver()
-        new_observer.email = email
+        user = User()
+        user.email = email
+        user.username = email
         new_observer.name = name
         new_observer.surname = surname
+        user.name = name + surname
         new_observer.affiliation = affiliation
-        new_observer.password_hash = password_hash
+        user.set_password(password)
+        new_observer.password_hash = settings.hash_password(password)
         new_observer.approved = False
         new_observer.registration_confirmed = False
         sha1 = hashlib.sha1()
@@ -99,6 +107,8 @@ class RegistrationManager():
         sha1 = hashlib.sha1()
         sha1.update(salt + email + name + affiliation)
         new_observer.activation_key = sha1.hexdigest()
+        user.save()
+        new_observer.user = user
         new_observer.save()
         
         from django.core.mail import send_mail

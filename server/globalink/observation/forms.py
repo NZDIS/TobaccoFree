@@ -2,6 +2,7 @@
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist
 from observation.models import RegisteredObserver
+from mongoengine.django.auth import User
 
 import re
 
@@ -36,7 +37,7 @@ class RegistrationForm(forms.Form):
         '''
         Validate that the supplied email address is unique.
         '''
-        if RegisteredObserver.objects.filter(email__iexact=self.cleaned_data['email']):
+        if User.objects.filter(email__iexact=self.cleaned_data['email']):
             raise forms.ValidationError('This e-mail is already in use.')
         return self.cleaned_data['email']
 
