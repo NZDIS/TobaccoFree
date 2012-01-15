@@ -14,10 +14,11 @@ ADMINS = (
           ('Mariusz Nowostawski', 'nowostawski@gmail.com'),
 )
 
-DEFAULT_FROM_EMAIL = 'support@tobaccofree.nzdis.org'
+DEFAULT_FROM_EMAIL = 'support@nzdis.org'
 
 MANAGERS = ADMINS
 
+# This is overwritten in production
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
@@ -88,7 +89,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '_n)#x@)afo@pg46eldhxr^6vtauh@dl5$8*6trf3pb60-ma)(o'
+SECRET_KEY = 'hey, this is overwritten in production ;)'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
