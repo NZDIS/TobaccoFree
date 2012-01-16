@@ -14,6 +14,7 @@ ADMINS = (
           ('Mariusz Nowostawski', 'nowostawski@gmail.com'),
 )
 
+DEFAULT_FEEDBACK_EMAIL = 'info@nzdis.org'
 DEFAULT_FROM_EMAIL = 'support@nzdis.org'
 
 MANAGERS = ADMINS
@@ -127,6 +128,8 @@ INSTALLED_APPS = (
 AUTHENTICATION_BACKENDS = (
     'mongoengine.django.auth.MongoEngineBackend',
 )
+
+LOGIN_URL = "/"
 
 SESSION_ENGINE = 'mongoengine.django.sessions'
 

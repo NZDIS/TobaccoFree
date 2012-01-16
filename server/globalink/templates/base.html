@@ -103,9 +103,16 @@
           <a class="brand" href="/"><img align="top" src="{{ STATIC_URL }}images/logo.png" height="20" width="20"/>&nbsp;&nbsp;Tobacco Free</a>
           <ul class="nav">
             <li class="active"><a href="#home">Home</a></li>
-            <li><a href="#awareness">Awareness</a></li>
-            <li><a href="#feedback">Feedback</a></li>
-            </ul>	
+            <li><a href="/#awareness">Awareness</a></li>
+            <li><a href="/#feedback">Feedback</a></li>
+        {% if user.is_authenticated %}
+        	<li><a href="/observation/list">My Observations</a></li>
+            <li><a href="/observer/profile">My Profile</a></li>
+            {% if user.is_staff %}
+            <li><a href="/admin">Administration</a></li>
+            {% endif %}
+        {% endif %}
+          </ul>
         {% if user.is_authenticated %}
           <form class="pull-right">
           <ul>
@@ -140,7 +147,8 @@
           <div class="row">
           	<div class="span8">
           	   <h1>Tobacco Free <small> smoking in cars study</small> </h1>
-          	   
+
+               {% if not user.is_authenticated %}          	   
           	   <p>
           	   <a href="https://market.android.com/details?id=nzdis.tobaccofree">
                   <img height="160" width="284" src="{{ STATIC_URL }}images/screen5.png"/>
@@ -153,31 +161,36 @@
                	<li>How many children? </li>                                                                      
                 <li>How much the stats differ between cities? Countries?</li>                                     
                </ul>                                                                                               
+
                <p>                                                                                                 
                <a href="/observer/register" class="btn success large pull-left">
-               		Register to participate &raquo;</a>&nbsp;&nbsp;                                                                                        
+               		<big>Register</big> to participate &raquo;</a>&nbsp;&nbsp;                                                                                        
  			   <a href="#about" class="btn primary large">Learn more &raquo;</a>                                         
                </p>
+               {% endif %}
           	</div>
+          	{% if not user.is_authenticated %}
           	<div class="span3" align="top">
           		<a href="https://market.android.com/details?id=nzdis.tobaccofree">
           		<img align="top" src="http://chart.apis.google.com/chart?cht=qr&chs=350x350&chld=L&choe=UTF-8&chl=https%3A%2F%2Fmarket.android.com%2Fdetails%3Fid%3Dnzdis.tobaccofree"/></a>
 	      	</div>
+	      	{% endif %}
 	      </div>
 {% endblock %}
 
 {% block content %}
 	<!-- Some stats. For testing purposes. -->
+	<hr>
 	<div class="row">
 	  <div class="span8">
 	    <h2>Statistics</h2>
-	    <p>Coming soon... Stay tuned.</p>
-	    <p></p>
+	    <h4>Overall</h4>
 	    <ul>
-	      <li>Current number of registered loggers: {{ number_of_registered_observers }}</li>
-      	  <li>Current number of observations stored: {{ number_of_observations }}</li>
+	      <li><big>{{ number_of_registered_observers }}</big> registered loggers</li>
+      	  <li><big>{{ number_of_observations }}</big> stored observations</li>
+      	  <li><big>{{ number_of_cars }}</big> cars checked</li>
+      	  <li><big>{{ ratio_of_smokers }}%</big> of people <big>smoke</big> in cars</li>
 	    </ul>
-	    
 	  </div>
 	</div>
     

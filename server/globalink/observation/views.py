@@ -4,9 +4,8 @@ Created on Dec 19, 2011
 @author: Mariusz Nowostawski <mariusz@nowostawski.org>
 '''
 
+from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
-from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth import login, authenticate, logout
 from django.utils import simplejson as json
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseForbidden
@@ -14,12 +13,14 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from datetime import datetime
 
-from globalink.observation.models import RegisteredObserver, Observation,\
-    RegistrationManager
+from globalink.observation.models import RegisteredObserver, Observation
+    
 from mongoengine.django.auth import User
 
-from globalink.observation.forms import FeedbackForm, RegistrationForm,\
-    RegistrationConfirmationForm 
+from globalink.views import redirect_home_with_message
+from globalink.observation.forms import FeedbackForm
+
+from globalink import settings
 
 import logging
 
@@ -29,103 +30,9 @@ logger = logging.getLogger("globalink.custom")
 
 
 
-def prepareStatistics():
-    b = {}
-    b['number_of_registered_observers'] = RegisteredObserver.objects.count()
-    b['number_of_observations'] = Observation.objects.count()
-    return b
-
-
-
-def redirect_home_with_message(request, message):
-    params = prepareStatistics()
-    form = FeedbackForm()
-    params['form'] = form
-    form.message = message
-    return render_to_response('observation/index.html', 
-                              params,
-                              context_instance=RequestContext(request))
-    
-def dologin(request):
-    username = request.POST['email']
-    password = request.POST['password']
-    logger.debug("Got user %s %s" % (username, password))
-    user = authenticate(username=username, password=password)
-    if user is not None:
-        if user.is_active:
-            login(request, user)
-            return redirect_home_with_message(request, None)
-        else:
-            return redirect_home_with_message(request, "ERROR: Login failed. This account has been disabled.")
-    else:
-        return redirect_home_with_message(request, "ERROR: Invalid credentials. Login failed.")    
-
-def dologout(request):
-    logout(request)
-    return redirect_home_with_message(request, None)
 
 def home(request):
     return redirect_home_with_message(request, None)
-
-def register(request):
-    '''
-    Process the Registration form.
-    '''
-    if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data
-            # create new RegisteredObserver here
-            rm = RegistrationManager()
-            newuser = rm.create_new_observer(
-                          email = cd['email'],
-                          name = cd['name'],                                       
-                          surname = cd['surname'],                                   
-                          affiliation = cd['affiliation'],                                                                     
-                          password = cd['password'])
-            newuser.save()                                                                       
-            form = RegistrationConfirmationForm()                                                                
-            form.message = 'Thank you for Registering. Confirmation and activation key has been e-mailed to you.' 
-                
-            return render_to_response('observation/register_confirm.html', 
-                              {'form': form},
-                              context_instance=RequestContext(request))
-        
-    else:
-        form = RegistrationForm()
-        
-    return render_to_response('observation/register.html',
-                                        {'form': form},
-                                        context_instance=RequestContext(request))
-
-
-
-def register_confirm(request):
-    '''
-    Process the registration confirmation form with activation key.
-    '''
-    if request.method == 'POST':
-        form = RegistrationConfirmationForm(request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data
-            # create new RegisteredObserver here
-            rm = RegistrationManager()
-            rm.confirm_observer(cd['activation_key'],)
-                                                                       
-            form = FeedbackForm()                                          
-            form.message = 'Thank you for participating. You can now start logging the data on your Android.' 
-            
-            return render_to_response('observation/index.html', 
-                              {'form': form},
-                              context_instance=RequestContext(request))
-        
-    else:
-        form = RegistrationConfirmationForm()
-        
-    return render_to_response('observation/register_confirm.html',
-                                        {'form': form},
-                                        context_instance=RequestContext(request))
-    
 
 
 def feedback(request):
@@ -142,8 +49,8 @@ def feedback(request):
             try:
                 send_mail(subject,
                           cd['description'],
-                          cd.get('email', 'noreply@nzdis.org'),
-                            ['nowostawski@gmail.com', ],)
+                          cd.get('email', settings.DEFAULT_FROM_EMAIL),
+                            [settings.DEFAULT_FEEDBACK_EMAIL],)
                 
                 form.message = "Thank you for your feedback"
             except:
@@ -197,3 +104,13 @@ def add(request):
     else:
         logger.debug("got GET instead of POST")
         return HttpResponse('Go back <a href="/">home</a>.')
+
+
+@login_required
+def do_list(request):
+    observer = RegisteredObserver.objects.get(user=request.user)
+    obs = Observation.objects(user=observer)
+    return render_to_response('observation/list.html',
+                                        {'observer': observer,
+                                         'observations': obs},
+                                        context_instance=RequestContext(request))
