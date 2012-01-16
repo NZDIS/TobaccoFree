@@ -6,7 +6,7 @@ Created on Jan 12, 2012
 
 
 from mongoengine import Document, StringField,\
-        IntField, FloatField, DateTimeField, ReferenceField
+        IntField, FloatField, DateTimeField, ReferenceField, GeoPointField
         
 from globalink.observer.models import RegisteredObserver
 
@@ -24,8 +24,10 @@ class Observation(Document):
     observation_hash = StringField(max_length=64, unique=True)
     latitude = FloatField()
     longitude = FloatField()
+    loc = GeoPointField()
     start = DateTimeField()
     finish = DateTimeField()
+    duration = IntField() #duration in milliseconds, finish-start
     no_smoking = IntField()
     other_adults = IntField()
     lone_adult = IntField()

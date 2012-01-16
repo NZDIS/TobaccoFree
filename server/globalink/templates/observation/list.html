@@ -29,8 +29,8 @@
 			<a class="brand" href="/"><img align="top" src="{{ STATIC_URL }}images/logo.png" height="20" width="20"/>&nbsp;&nbsp;Tobacco Free</a>
 			<ul class="nav">
 	            <li><a href="/#home">Home</a></li>
-	            <li><a href="/observation/list">My Observations</a></li>
-            	<li class="active"><a href="/observer/profile">My Profile</a></li>
+	            <li class="active"><a href="/observation/list">My Observations</a></li>
+            	<li><a href="/observer/profile">My Profile</a></li>
             </ul>
             <form class="pull-right">
           		<ul>
@@ -63,10 +63,10 @@
 		<hr>
 		<h2>Observations collected by {{ observer.name }} {{ observer.surname }}</h2>
 		<table>
-		<thead><td>Start</td><td>Duration</td><td>no smoking</td><td>lone adult</td><td>multiple adults</td><td>child</td></thead>
+		<thead><td></td><td>Start</td><td>Duration</td><td>no smoking</td><td>lone adult</td><td>multiple adults</td><td>child</td></thead>
 		<tbody>
 		{% for o in observations %}
-		<tr><td>{{o.start}}</td><td>{{o.finish}}</td>
+		<tr><td>{{forloop.counter}}</td><td>{{o.start|date:"Y-m-d H:i"}}</td><td>{{o.finish|date:"Y-m-d H:i"}}</td>
 		<td>{{o.no_smoking}}</td><td>{{o.lone_adult}}</td><td>{{o.other_adults}}</td><td>{{o.child}}</td></tr>
 		{% endfor %}
 		</tbody>

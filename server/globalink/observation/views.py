@@ -16,6 +16,7 @@ from datetime import datetime
 from globalink.observation.models import RegisteredObserver, Observation
     
 from mongoengine.django.auth import User
+import mongoengine
 
 from globalink.views import redirect_home_with_message
 from globalink.observation.forms import FeedbackForm
@@ -50,7 +51,7 @@ def feedback(request):
                 send_mail(subject,
                           cd['description'],
                           cd.get('email', settings.DEFAULT_FROM_EMAIL),
-                            [settings.DEFAULT_FEEDBACK_EMAIL],)
+                            [settings.DEFAULT_FEEDBACK_EMAIL, ],)
                 
                 form.message = "Thank you for your feedback"
             except:
@@ -81,13 +82,18 @@ def add(request):
             logger.debug("User doesn't exist")
             return HttpResponseForbidden("No user with this email address.")
         data_pass_hash = new_ob.get('pass_hash')
-
+        alongitude = float(new_ob.get('longitude'))
+        alatitude = float(new_ob.get('latitude'))
+        astart = new_ob.get('start')
+        afinish = new_ob.get('finish')
         if (u.password_hash == data_pass_hash) and u.registration_confirmed:
             o = Observation(observation_hash = new_ob.get('hash'),
-                        latitude = float(new_ob.get('latitude')),
-                        longitude = float(new_ob.get('longitude')),
-                        start = datetime.fromtimestamp(float(new_ob.get('start') / 1000.0)),
-                        finish = datetime.fromtimestamp(float(new_ob.get('finish') / 1000.0)),
+                        latitude = alatitude,
+                        longitude = alongitude,
+                        loc = [alongitude, alatitude],
+                        start = datetime.fromtimestamp(astart / 1000.0),
+                        finish = datetime.fromtimestamp(afinish / 1000.0),
+                        duration = afinish - astart,
                         no_smoking = int(new_ob.get('no_smoking')),
                         other_adults = int(new_ob.get('other_adults')),
                         lone_adult = int(new_ob.get('lone_adult')),
