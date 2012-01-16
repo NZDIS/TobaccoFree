@@ -62,7 +62,8 @@ def feedback(request):
                                         context_instance=RequestContext(request))
     
     
-    
+
+   
 @csrf_exempt
 def add(request):
     '''
@@ -86,16 +87,35 @@ def add(request):
         alatitude = float(new_ob.get('latitude'))
         astart = new_ob.get('start')
         afinish = new_ob.get('finish')
+        version = int(new_ob.get('version', '1'))
         if (u.password_hash == data_pass_hash) and u.registration_confirmed:
-            o = Observation(observation_hash = new_ob.get('hash'),
+            if version == 1:
+                o = Observation(
+                        observation_hash = new_ob.get('hash'),
                         latitude = alatitude,
                         longitude = alongitude,
                         loc = [alongitude, alatitude],
                         start = datetime.fromtimestamp(astart / 1000.0),
                         finish = datetime.fromtimestamp(afinish / 1000.0),
-                        duration = afinish - astart,
+                        duration = (afinish - astart),
+                        no_smoking = int(new_ob.get('lone_adult')),
+                        other_adults = int(new_ob.get('child')),
+                        lone_adult = int(new_ob.get('other_adults')),
+                        child = 0,
+                        device_id = new_ob.get('device'),
+                        upload_timestamp = datetime.now(),
+                        user = u)
+            else:
+                o = Observation(
+                        observation_hash = new_ob.get('hash'),
+                        latitude = alatitude,
+                        longitude = alongitude,
+                        loc = [alongitude, alatitude],
+                        start = datetime.fromtimestamp(astart / 1000.0),
+                        finish = datetime.fromtimestamp(afinish / 1000.0),
+                        duration = (afinish - astart),
                         no_smoking = int(new_ob.get('no_smoking')),
-                        other_adults = int(new_ob.get('other_adults')),
+                        other_adults = int(new_ob.get('child')),
                         lone_adult = int(new_ob.get('lone_adult')),
                         child = int(new_ob.get('child')),
                         device_id = new_ob.get('device'),
