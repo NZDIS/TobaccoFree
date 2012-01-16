@@ -84,15 +84,7 @@
 {% block topbar %}
     <div class="topbar">
 
-
-    <div class="right ribbon-holder">
-   		<a href="https://github.com/marni/NZDIS-TobaccoFree" class="orange ribbon">
-      	<span class="text" style='color: #FFFFFF;'>Fork me on GitHub</span>
-   		</a>
-	</div>
-    
-    
-  	{% if form.errors %}
+ 	{% if form.errors %}
 	<div class="alert-message error fade in" data-alert="alert" style="z-index: 101;">
   		<a class="close pull-left" href="#">&times;</a>
   		<p><big><a href="#feedback">Please correct your FORM error{{ form.errors|pluralize }} below</a></big></p>
@@ -113,19 +105,32 @@
             <li class="active"><a href="#home">Home</a></li>
             <li><a href="#awareness">Awareness</a></li>
             <li><a href="#feedback">Feedback</a></li>
-          </ul>
-	      <!--
-	      <form action="/user/login" method="POST" class="pull-right">
+            </ul>	
+        {% if user.is_authenticated %}
+          <form class="pull-right">
+          <ul>
+    	  <a href="/observer/logout">{{ user.username }} &raquo; logout</a>
+    	  </ul>
+    	  </form>
+		{% else %}
+		  </ul>
+    		<form action="/observer/login" method="POST" class="pull-right">
 			{% csrf_token %}
-            <input class="input-small" id="username" name="username" type="text" placeholder="Username">
+            <input class="input-small" id="email" name="email" type="text" placeholder="E-mail">
             <input class="input-small" id="password" name="password" type="password" placeholder="Password">
             <button class="btn" type="submit">Sign in</button>
           </form>
-          -->
+		{% endif %}
         </div>
       </div>
     </div>
 {% endblock %}
+
+    <div class="right ribbon-holder" style="padding-top: 40pt">
+   		<a href="https://github.com/marni/NZDIS-TobaccoFree" class="orange ribbon">
+      	<span class="text" style='color: #FFFFFF;'>Fork me on GitHub</span>
+   		</a>
+	</div>
 	
    <div class="container">
       <div class="content">

@@ -6,6 +6,7 @@ Created on Dec 19, 2011
 
 from django.core.mail import send_mail
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth import login, authenticate, logout
 from django.utils import simplejson as json
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseForbidden
@@ -18,7 +19,7 @@ from globalink.observation.models import RegisteredObserver, Observation,\
 from mongoengine.django.auth import User
 
 from globalink.observation.forms import FeedbackForm, RegistrationForm,\
-    RegistrationConfirmationForm
+    RegistrationConfirmationForm 
 
 import logging
 
@@ -36,14 +37,35 @@ def prepareStatistics():
 
 
 
-def home(request):
+def redirect_home_with_message(request, message):
     params = prepareStatistics()
-    form = FeedbackForm(initial={'subject': 'I love what you have done!'})
+    form = FeedbackForm()
     params['form'] = form
+    form.message = message
     return render_to_response('observation/index.html', 
                               params,
                               context_instance=RequestContext(request))
+    
+def dologin(request):
+    username = request.POST['email']
+    password = request.POST['password']
+    logger.debug("Got user %s %s" % (username, password))
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+            return redirect_home_with_message(request, None)
+        else:
+            return redirect_home_with_message(request, "ERROR: Login failed. This account has been disabled.")
+    else:
+        return redirect_home_with_message(request, "ERROR: Invalid credentials. Login failed.")    
 
+def dologout(request):
+    logout(request)
+    return redirect_home_with_message(request, None)
+
+def home(request):
+    return redirect_home_with_message(request, None)
 
 def register(request):
     '''
