@@ -73,7 +73,7 @@ public class PreferencesActivity extends Activity implements OnClickListener {
 		    Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
 		    emailIntent.setType("plain/text");
 		    emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "[TobbacoFree Android Feedback] ");
-		    emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"support@nzdis.org"}); 
+		    emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"info@nzdis.org"}); 
 		    startActivity(Intent.createChooser(emailIntent, getString(R.string.send_feedback))); 
 		    return;
 		}

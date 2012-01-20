@@ -30,7 +30,7 @@ def prepareStatistics():
     b['number_of_registered_observers'] = RegisteredObserver.objects.count()
     b['number_of_observations'] = Observation.objects.count()
     total_cars = 0
-    total_non_smokers = 1
+    total_non_smokers = 0
     for o in Observation.objects:
         total_non_smokers += o.no_smoking
         total_cars += o.no_smoking + o.lone_adult + o.child + o.other_adults

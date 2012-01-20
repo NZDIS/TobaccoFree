@@ -23,9 +23,9 @@ import android.text.format.DateFormat;
  */
 public class Observation {
 	
-	private int noSmoking = 0, child = 0, other = 0, noOthers = 0;
+	private int noSmoking = 0, child = 0, otherAdults = 0, loneAdult = 0;
 	private Location location;
-	private long start,finish;
+	private long start, finish;
 	private boolean started = false;
 	private long id = -1;
 	
@@ -35,7 +35,7 @@ public class Observation {
 	}
 
 	public String toString(){
-		return "Total: " + (noSmoking + child + other + noOthers);
+		return "Total: " + (noSmoking + child + otherAdults + loneAdult);
 	}
 	
 	
@@ -52,11 +52,11 @@ public class Observation {
 	}
 	
 	public void incrementOther(){
-		other++;
+		otherAdults++;
 	}
 	
-	public void incrementNoOthers(){
-		noOthers++;
+	public void incrementLoneAdult(){
+		loneAdult++;
 	}
 	
 	
@@ -83,26 +83,26 @@ public class Observation {
 		this.child = child;
 	}
 
-	public int getOther() {
-		return other;
+	public int getOtherAdults() {
+		return otherAdults;
 	}
 
-	public void setOther(int other) {
-		if(other < 0){
-			this.other = 0;
+	public void setOtherAdults(int a_otherAduls) {
+		if(a_otherAduls < 0){
+			this.otherAdults = 0;
 		}
-		this.other = other;
+		this.otherAdults = a_otherAduls;
 	}
 
-	public int getNoOthers() {
-		return noOthers;
+	public int getLoneAdult() {
+		return loneAdult;
 	}
 
-	public void setNoOthers(int noOthers) {
-		if(noOthers < 0){
-			this.noOthers = 0;
+	public void setLoneAdult(int a_loneAdult) {
+		if(a_loneAdult < 0){
+			this.loneAdult = 0;
 		}
-		this.noOthers = noOthers;
+		this.loneAdult = a_loneAdult;
 	}
 	
 	public Location getLocation() {
@@ -152,11 +152,18 @@ public class Observation {
 	}
 
 	public int getTotal() {
-		return (noSmoking + child + other + noOthers);
+		return (noSmoking + child + otherAdults + loneAdult);
 	}
 
 	public String getCSV() {
-		return location.getLatitude() + "," + location.getLongitude() + "," + DateFormat.format("dd MMMM, yyyy h:mmaa",start).toString() + "," + DateFormat.format("dd MMMM, yyyy h:mmaa",finish).toString() + "," + noSmoking + "," + other + "," + noOthers + "," + child + "\n";
+		return location.getLatitude() + "," 
+				+ location.getLongitude() + "," 
+				+ DateFormat.format("dd MMMM, yyyy h:mmaa",start).toString() + "," 
+				+ DateFormat.format("dd MMMM, yyyy h:mmaa",finish).toString() + "," 
+				+ noSmoking + "," 
+				+ otherAdults + "," 
+				+ loneAdult + "," 
+				+ child + "\n";
 	}
 	
 	/** 
@@ -165,14 +172,14 @@ public class Observation {
 	 **/
 	public JSONObject getJSON() throws JSONException, NoSuchAlgorithmException{
 		JSONObject json = new JSONObject();
-		
+		json.put("version", Constants.CURRENT_PROTOCOL_VERSION);
 		json.put("latitude", location.getLatitude());
 		json.put("longitude",location.getLongitude());
 		json.put("start", start);
 		json.put("finish", finish);
 		json.put("no_smoking", noSmoking);
-		json.put("other_adults", other);
-		json.put("lone_adult", noOthers);
+		json.put("other_adults", otherAdults);
+		json.put("lone_adult", loneAdult);
 		json.put("child", child);
 		json.put("hash", getHash());
 
@@ -190,7 +197,7 @@ public class Observation {
 		md.reset();
 		final String hashString = location.getLatitude() + location.getLongitude() 
 				+ "salt" + finish + start 
-				+ noSmoking + other + noOthers + child;
+				+ noSmoking + otherAdults + loneAdult + child;
 		
 		md.update(hashString.getBytes());
 		final byte hash[] = md.digest();

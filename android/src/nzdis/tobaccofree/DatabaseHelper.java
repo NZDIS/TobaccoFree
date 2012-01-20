@@ -39,10 +39,10 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 	public static final String DETAILS_TIMESTAMP = "obeservation_time";	
 	
 	//type constants
-	public static final String NO_SMOKING = "No Smokers";
-	public static final String ADULT_SMOKING = "Adult with no other occupants";
-	public static final String ADULT_SMOKING_OTHERS = "Adult with other smoking adults";
-	public static final String ADULT_SMOKING_WITH_CHILD = "Smoking with child <= 12";
+	public static final String NO_SMOKING = "NoSmoking"; //No Smokers
+	public static final String ADULT_SMOKING = "AdultSmoking"; //smoking driver with no other occupants
+	public static final String ADULT_SMOKING_OTHERS = "AdultSmokingOther"; //Adult with other smoking adults
+	public static final String ADULT_SMOKING_WITH_CHILD = "AdultSmokingChild"; //with child <= 12;
 	
 	//user table
 	public static final String TABLE_USER = "user";
@@ -107,7 +107,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 		ContentValues cv = new ContentValues();
 		cv.put(DETAILS_ID, observationId);
 		cv.put(DETAILS_TIMESTAMP,System.currentTimeMillis());
-		cv.put(DETAILS_TYPE, getTypeIdFromName(NO_SMOKING));
+		cv.put(DETAILS_TYPE, SMOKING_ID_NO_SMOKING);
 		SQLiteDatabase db = getWritableDatabase();
 		db.insert(TABLE_DETAILS, null, cv);
 		db.close();
@@ -117,11 +117,11 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 	 * Increments a 'NoOccupants' count for the given observation. Throws
 	 * a DatabaseException if getTypeIdFromName() doesn't exist.
 	 */
-	public void incrementNoOccupants(long observationId) throws DatabaseException{
+	public void incrementLoneAdultSmoking(long observationId) throws DatabaseException{
 		final ContentValues cv = new ContentValues();
 		cv.put(DETAILS_ID, observationId);
 		cv.put(DETAILS_TIMESTAMP,System.currentTimeMillis());
-		cv.put(DETAILS_TYPE, getTypeIdFromName(ADULT_SMOKING));
+		cv.put(DETAILS_TYPE, SMOKING_ID_ADULT_SMOKING_ALONE);
 		final SQLiteDatabase db = getWritableDatabase();
 		db.insert(TABLE_DETAILS, null, cv);
 		db.close();
@@ -135,7 +135,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 		final ContentValues cv = new ContentValues();
 		cv.put(DETAILS_ID, observationId);
 		cv.put(DETAILS_TIMESTAMP, System.currentTimeMillis());
-		cv.put(DETAILS_TYPE, getTypeIdFromName(ADULT_SMOKING_OTHERS));
+		cv.put(DETAILS_TYPE, SMOKING_ID_ADULT_SMOKING_OTHERS);
 		final SQLiteDatabase db = getWritableDatabase();
 		db.insert(TABLE_DETAILS, null, cv);
 		db.close();
@@ -149,7 +149,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 		final ContentValues cv = new ContentValues();
 		cv.put(DETAILS_ID, observationId);
 		cv.put(DETAILS_TIMESTAMP, System.currentTimeMillis());
-		cv.put(DETAILS_TYPE, getTypeIdFromName(ADULT_SMOKING_WITH_CHILD));
+		cv.put(DETAILS_TYPE, SMOKING_ID_ADULT_SMOKING_CHILD);
 		final SQLiteDatabase db = getWritableDatabase();
 		db.insert(TABLE_DETAILS, null, cv);
 		db.close();
@@ -160,7 +160,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 	 * a DatabaseException if the query fails.
 	 */
 	public void decrementNoSmoking(long observationId) throws DatabaseException {
-		final String typeID = getTypeIdFromName(NO_SMOKING) + "";
+		final String typeID = String.valueOf(SMOKING_ID_NO_SMOKING);
 		final SQLiteDatabase db = getWritableDatabase();
 		final Cursor result = db.query(TABLE_DETAILS, new String[]{DETAILS_TIMESTAMP}, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ?", 
 				new String[]{observationId + "",typeID}, null, null, DETAILS_TIMESTAMP + " DESC", 1 + "");
@@ -181,8 +181,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 	 * Decrements a 'NoOccupants' count for the given observation, it will throw
 	 * a DatabaseException if the query fails.
 	 */
-	public void decrementNoOccupants(long observationId) throws DatabaseException {
-		final String typeID = getTypeIdFromName(ADULT_SMOKING) + "";
+	public void decrementLoneAdultSmoking(long observationId) throws DatabaseException {
+		final String typeID = String.valueOf(SMOKING_ID_ADULT_SMOKING_ALONE);
 		final SQLiteDatabase db = getWritableDatabase();
 		final Cursor result = db.query(TABLE_DETAILS, new String[]{DETAILS_TIMESTAMP}, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ?", 
 				new String[]{observationId + "",typeID}, null, null, DETAILS_TIMESTAMP + " DESC", 1 + "");
@@ -203,7 +203,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 	 * a DatabaseException if the query fails.
 	 */
 	public void decrementOtherAdults(long observationId) throws DatabaseException{
-		final String typeID = getTypeIdFromName(ADULT_SMOKING_OTHERS) + "";
+		final String typeID = String.valueOf(SMOKING_ID_ADULT_SMOKING_OTHERS);
 		final SQLiteDatabase db = getWritableDatabase();
 		final Cursor result = db.query(TABLE_DETAILS, new String[]{DETAILS_TIMESTAMP}, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ?", 
 					new String[]{observationId + "",typeID}, null, null, DETAILS_TIMESTAMP + " DESC", 1 + "");
@@ -224,7 +224,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 	 * a DatabaseException if the query fails.
 	 */
 	public void decrementChild(long observationId) throws DatabaseException{
-		final String typeID = getTypeIdFromName(ADULT_SMOKING_WITH_CHILD) + "";
+		final String typeID = String.valueOf(SMOKING_ID_ADULT_SMOKING_CHILD) + "";
 		final SQLiteDatabase db = getWritableDatabase();
 		final Cursor result = db.query(TABLE_DETAILS, new String[]{DETAILS_TIMESTAMP}, DETAILS_ID + " = ? AND " + DETAILS_TYPE + " = ?", new String[]{observationId + "",typeID}, null, null, DETAILS_TIMESTAMP + " DESC", 1 + "");
 		if (result.moveToFirst()) {
@@ -239,21 +239,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 		db.close();
 	}
 	
-	/*
-	 * Returns the observation type ID from the name given. If no match is found for the
-	 * name given, then a DatabaseException is thrown.
-	 */
-	private int getTypeIdFromName(String string) {
-		if (string.equals(NO_SMOKING)) {
-			return 1;
-		} else if (string.equals(ADULT_SMOKING)) {
-			return 2;
-		} else if (string.equals(ADULT_SMOKING_OTHERS)) {
-			return 3;
-		} else {
-			return 4;
-		}
-	}
 
 	/* Checks to see if anything has been counted yet for the given observation id
 	 * 
@@ -320,30 +305,41 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 		db.close();		
 	}
 	
+	private Observation createObservationFromCursor(final Cursor cur) {
+		final Location tempLoc = new Location("TEMP");
+		final Observation temp = new Observation(cur.getLong(cur.getColumnIndex(OBSERVATION_START)));
+		temp.setFinish(cur.getLong(cur.getColumnIndex(OBSERVATION_FINISH)));
+		tempLoc.setLatitude(cur.getDouble(cur.getColumnIndex(OBSERVATION_LATITUDE)));
+		tempLoc.setLongitude(cur.getDouble(cur.getColumnIndex(OBSERVATION_LONGITUDE)));
+		temp.setLocation(tempLoc);
+		temp.setLoneAdult(cur.getInt(cur.getColumnIndex(ADULT_SMOKING)));
+		temp.setNoSmoking(cur.getInt(cur.getColumnIndex(NO_SMOKING)));
+		temp.setOtherAdults(cur.getInt(cur.getColumnIndex(ADULT_SMOKING_OTHERS)));
+		temp.setChild(cur.getInt(cur.getColumnIndex(ADULT_SMOKING_WITH_CHILD)));
+		temp.setId(cur.getLong(cur.getColumnIndex(OBSERVATION_ID)));
+		return temp;
+	}
 	/*
 	 * Returns all of the observations in the database along with the totals of each count.
 	 */
 	public List<Observation> getObservations() {
-		SQLiteDatabase db = this.getReadableDatabase();
-		List<Observation> result = new ArrayList<Observation>();
-		//Cursor cur = db.query(TABLE_OBSERVATION,null,null,null,null,null,OBSERVATION_START + " ASC, " + OBSERVATION_FINISH + " ASC");
+		final SQLiteDatabase db = this.getReadableDatabase();
+		final List<Observation> result = new ArrayList<Observation>();
 		
-		//ugly query
-		String rawQuery = "SELECT observations.*, (SELECT COUNT(observation_id) FROM details WHERE observation_type = 1 AND observation_id = observations.id) AS NoSmoking,(SELECT COUNT(observation_id) FROM details WHERE observation_type = 2 AND observation_id = observations.id) AS AdultSmoking,(SELECT COUNT(observation_id) FROM details WHERE observation_type = 3 AND observation_id = observations.id) AS AdultSmokingOthers,(SELECT COUNT(observation_id) FROM details WHERE observation_type = 4 AND observation_id = observations.id) AS AdultSmokingChild FROM observations WHERE finish_time > 0";
-		Cursor cur = db.rawQuery(rawQuery, null);		
-		while(cur.moveToNext()){
-			Location tempLoc = new Location("TEMP");
-			Observation temp = new Observation(cur.getLong(3));
-			temp.setFinish(cur.getLong(4));
-			tempLoc.setLatitude(cur.getDouble(1));
-			tempLoc.setLongitude(cur.getDouble(2));
-			temp.setLocation(tempLoc);
-			temp.setNoOthers(cur.getInt(7));
-			temp.setNoSmoking(cur.getInt(6));
-			temp.setOther(cur.getInt(8));
-			temp.setChild(cur.getInt(9));
-			temp.setId(cur.getLong(0));
-			result.add(temp);
+		// TODO ugly query. Can we do better than this?
+		final String rawQuery = "SELECT observations.*, " 
+				+ "(SELECT COUNT(observation_id) FROM details WHERE observation_type = " + SMOKING_ID_NO_SMOKING  
+				+ " AND observation_id = observations.id) AS " + NO_SMOKING 
+				+ ", (SELECT COUNT(observation_id) FROM details WHERE observation_type = " + SMOKING_ID_ADULT_SMOKING_ALONE
+				+ " AND observation_id = observations.id) AS " + ADULT_SMOKING 
+				+ ", (SELECT COUNT(observation_id) FROM details WHERE observation_type = " + SMOKING_ID_ADULT_SMOKING_OTHERS 
+				+ " AND observation_id = observations.id) AS " + ADULT_SMOKING_OTHERS 
+				+ ", (SELECT COUNT(observation_id) FROM details WHERE observation_type = " + SMOKING_ID_ADULT_SMOKING_CHILD 
+				+ " AND observation_id = observations.id) AS " + ADULT_SMOKING_WITH_CHILD 
+				+ " FROM observations WHERE finish_time > 0";
+		final Cursor cur = db.rawQuery(rawQuery, null);		
+		while (cur.moveToNext()) {
+			result.add(createObservationFromCursor(cur));
 		}
 		cur.deactivate();
 		db.close();
@@ -354,26 +350,24 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 	 * Returns all of the observations that haven't been marked uploaded in the database along with the totals of each count.
 	 */
 	public List<Observation> getObservationsNotUploaded() {
-		SQLiteDatabase db = this.getReadableDatabase();
-		List<Observation> result = new ArrayList<Observation>();
-		//Cursor cur = db.query(TABLE_OBSERVATION,null,null,null,null,null,OBSERVATION_START + " ASC, " + OBSERVATION_FINISH + " ASC");
+		final SQLiteDatabase db = this.getReadableDatabase();
+		final List<Observation> result = new ArrayList<Observation>();
 		
-		//ugly query
-		String rawQuery = "SELECT observations.*, (SELECT COUNT(observation_id) FROM details WHERE observation_type = 1 AND observation_id = observations.id) AS NoSmoking,(SELECT COUNT(observation_id) FROM details WHERE observation_type = 2 AND observation_id = observations.id) AS AdultSmoking,(SELECT COUNT(observation_id) FROM details WHERE observation_type = 3 AND observation_id = observations.id) AS AdultSmokingOthers,(SELECT COUNT(observation_id) FROM details WHERE observation_type = 4 AND observation_id = observations.id) AS AdultSmokingChild FROM observations WHERE finish_time > 0 AND uploaded = 0";
-		Cursor cur = db.rawQuery(rawQuery, null);		
+		// ugly query
+		final String rawQuery = "SELECT observations.*, " 
+				+ "(SELECT COUNT(observation_id) FROM details WHERE observation_type = " + SMOKING_ID_NO_SMOKING  
+				+ " AND observation_id = observations.id) AS " + NO_SMOKING 
+				+ ", (SELECT COUNT(observation_id) FROM details WHERE observation_type = " + SMOKING_ID_ADULT_SMOKING_ALONE
+				+ " AND observation_id = observations.id) AS " + ADULT_SMOKING 
+				+ ", (SELECT COUNT(observation_id) FROM details WHERE observation_type = " + SMOKING_ID_ADULT_SMOKING_OTHERS 
+				+ " AND observation_id = observations.id) AS " + ADULT_SMOKING_OTHERS 
+				+ ", (SELECT COUNT(observation_id) FROM details WHERE observation_type = " + SMOKING_ID_ADULT_SMOKING_CHILD 
+				+ " AND observation_id = observations.id) AS " + ADULT_SMOKING_WITH_CHILD 
+				+ " FROM observations WHERE finish_time > 0 AND uploaded = 0";
+
+		final Cursor cur = db.rawQuery(rawQuery, null);		
 		while(cur.moveToNext()){
-			Location tempLoc = new Location("TEMP");
-			Observation temp = new Observation(cur.getLong(3));
-			temp.setFinish(cur.getLong(4));
-			tempLoc.setLatitude(cur.getDouble(1));
-			tempLoc.setLongitude(cur.getDouble(2));
-			temp.setLocation(tempLoc);
-			temp.setNoOthers(cur.getInt(7));
-			temp.setNoSmoking(cur.getInt(6));
-			temp.setOther(cur.getInt(8));
-			temp.setChild(cur.getInt(9));
-			temp.setId(cur.getLong(0));
-			result.add(temp);
+			result.add(createObservationFromCursor(cur));
 		}
 		cur.deactivate();
 		db.close();
@@ -383,7 +377,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 	/* Deletes an observation and all of its associated observation data
 	 * 
 	 */
-	public void deleteObservationDeep(long observationId) throws DatabaseException{
+	public void deleteObservationDeep(final long observationId) throws DatabaseException{
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(TABLE_OBSERVATION, OBSERVATION_ID + " = ?", new String[]{observationId + ""});
 		db.delete(TABLE_DETAILS, DETAILS_ID + " = ?", new String[]{observationId + ""});
@@ -395,11 +389,12 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 	/* Returns the number of cars without any smokers for the given observation id
 	 * 
 	 */
-	public int getNoSmokerCount(long id){
+	public int getNoSmokingCount(final long id) {
 		int result = 0;
-		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor curs = db.rawQuery("SELECT COUNT(observation_id) FROM details WHERE observation_type = 1 AND observation_id = ?", new String[]{id+""});
-		if(curs.moveToFirst()){
+		final SQLiteDatabase db = this.getReadableDatabase();
+		final Cursor curs = db.rawQuery("SELECT COUNT(observation_id) FROM details WHERE observation_type = "
+				+ SMOKING_ID_NO_SMOKING + " AND observation_id = ?", new String[]{id+""});
+		if (curs.moveToFirst()){
 			result = curs.getInt(0);
 		}
 		curs.deactivate();
@@ -410,12 +405,13 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 	/* Returns the number of cars with alone adult smokers for the given observation id
 	 * 
 	 */
-	public int getAloneSmokerCount(long id){
+	public int getLoneSmokerCount(final long id) {
 		int result = 0;
-		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor curs = db.rawQuery("SELECT COUNT(observation_id) FROM details WHERE observation_type = 2 AND observation_id = ?", new String[]{id+""});
+		final SQLiteDatabase db = this.getReadableDatabase();
+		final Cursor curs = db.rawQuery("SELECT COUNT(observation_id) FROM details WHERE observation_type = "
+				+ SMOKING_ID_ADULT_SMOKING_ALONE + " AND observation_id = ?", new String[]{id+""});
 		curs.moveToFirst();
-		if(curs.moveToFirst()){
+		if (curs.moveToFirst()){
 			result = curs.getInt(0);
 		}
 		curs.deactivate();
@@ -426,10 +422,11 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 	/* Returns the number of cars with multiple adult smokers for the given observation id
 	 * 
 	 */
-	public int getAdultSmokersCount(long id){
+	public int getOtherAdultsSmokingCount(long id){
 		int result = 0;
-		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor curs = db.rawQuery("SELECT COUNT(observation_id) FROM details WHERE observation_type = 3 AND observation_id = ?", new String[]{id+""});
+		final SQLiteDatabase db = this.getReadableDatabase();
+		final Cursor curs = db.rawQuery("SELECT COUNT(observation_id) FROM details WHERE observation_type = "
+				+ SMOKING_ID_ADULT_SMOKING_OTHERS + " AND observation_id = ?", new String[]{id+""});
 		curs.moveToFirst();
 		if(curs.moveToFirst()){
 			result = curs.getInt(0);
@@ -442,18 +439,74 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 	/* Returns the number of cars with smokers with children under 12 for the given observation id
 	 * 
 	 */
-	public int getAdultChildSmokerCount(long id){
+	public int getChildCount(long id){
 		int result = 0;
-		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor curs = db.rawQuery("SELECT COUNT(observation_id) FROM details WHERE observation_type = 4 AND observation_id = ?", new String[]{id+""});
-		curs.moveToFirst();
-		if(curs.moveToFirst()){
+		final SQLiteDatabase db = this.getReadableDatabase();
+		final Cursor curs = db.rawQuery("SELECT COUNT(observation_id) FROM details WHERE observation_type = "
+				+ SMOKING_ID_ADULT_SMOKING_CHILD + " AND observation_id = ?", new String[]{id+""});		
+		if (curs.moveToFirst()){
 			result = curs.getInt(0);
 		}
 		curs.deactivate();
 		db.close();
 		return result;
 	}
+	
+	public long getObservationStart(long id){
+		long result = 0;
+		final SQLiteDatabase db = this.getReadableDatabase();
+		final Cursor cur = db.query(TABLE_OBSERVATION, new String[] 
+	               {OBSERVATION_START}, 
+	        		OBSERVATION_ID + " = ?", 
+	        		new String[] {String.valueOf(id)}, 
+	        		null, null, null);
+		
+		if(cur.moveToFirst()) {
+			result = cur.getLong(cur.getColumnIndex(OBSERVATION_START));
+		}
+		cur.deactivate();
+		db.close();
+		return result;
+	}
+	
+	public long getObservationFinish(long id){
+		long result = 0;
+		final SQLiteDatabase db = this.getReadableDatabase();
+		final Cursor cur = db.query(TABLE_OBSERVATION, new String[] 
+	               {OBSERVATION_FINISH}, 
+	        		OBSERVATION_ID + " = ?", 
+	        		new String[] {String.valueOf(id)}, 
+	        		null, null, null);
+		
+		if (cur.moveToFirst()) {
+			result = cur.getLong(cur.getColumnIndex(OBSERVATION_FINISH));
+		}
+		cur.deactivate();
+		db.close();
+		return result;
+	}
+	
+
+	public Location getObservationLocation(long id){
+		final Location result = new Location("empty");
+		final SQLiteDatabase db = this.getReadableDatabase();
+		final Cursor cur = db.query(TABLE_OBSERVATION, new String[] 
+	               {OBSERVATION_LATITUDE}, 
+	        		OBSERVATION_LONGITUDE + " = ?", 
+	        		new String[] {String.valueOf(id)}, 
+	        		null, null, null);
+		
+		if (cur.moveToFirst()) {
+			final double latitude = cur.getDouble(cur.getColumnIndex(OBSERVATION_LATITUDE));
+			final double longitude = cur.getDouble(cur.getColumnIndex(OBSERVATION_LONGITUDE));
+			result.setLatitude(latitude);
+			result.setLongitude(longitude);
+		}
+		cur.deactivate();
+		db.close();
+		return result;
+	}
+
 	
 	/*
 	 * Get the users username and password hash
@@ -501,32 +554,17 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 	 * Retrieves a selected observation for a given ID.
 	 */
 	public Observation getObservation(long id) {
-		SQLiteDatabase db = this.getReadableDatabase();
 		Observation result;
-		// Cursor cur = db.query(TABLE_OBSERVATION,null,null,null,null,null,OBSERVATION_START + " ASC, " + OBSERVATION_FINISH + " ASC");
+		result = new Observation(getObservationStart(id));
+		result.setId(id);
+		result.setStart(getObservationStart(id));
+		result.setFinish(getObservationFinish(id));
+		result.setLocation(getObservationLocation(id));
+		result.setLoneAdult(getLoneSmokerCount(id));
 		
-		// TODO ugly query, needs refactoring
-		String rawQuery = "SELECT observations.*, (SELECT COUNT(observation_id) FROM details WHERE observation_type = 1 AND observation_id = observations.id) AS NoSmoking,(SELECT COUNT(observation_id) FROM details WHERE observation_type = 2 AND observation_id = observations.id) AS AdultSmoking,(SELECT COUNT(observation_id) FROM details WHERE observation_type = 3 AND observation_id = observations.id) AS AdultSmokingOthers,(SELECT COUNT(observation_id) FROM details WHERE observation_type = 4 AND observation_id = observations.id) AS AdultSmokingChild FROM observations WHERE finish_time > 0 AND observations.id = " + id;
-		Cursor cur = db.rawQuery(rawQuery, null);		
-		if (cur.moveToNext()) {
-			Location tempLoc = new Location("TEMP");
-			result = new Observation(cur.getLong(3));
-			result.setFinish(cur.getLong(4));
-			tempLoc.setLatitude(cur.getDouble(1));
-			tempLoc.setLongitude(cur.getDouble(2));
-			result.setLocation(tempLoc);
-			result.setNoOthers(cur.getInt(6));
-			result.setNoSmoking(cur.getInt(5));
-			result.setOther(cur.getInt(7));
-			result.setChild(cur.getInt(8));
-			result.setId(cur.getLong(0));
-		} else {
-			cur.deactivate();
-			db.close();
-			return null;
-		}
-		cur.deactivate();
-		db.close();
+		result.setNoSmoking(getNoSmokingCount(id));
+		result.setChild(getChildCount(id));
+		result.setOtherAdults(getOtherAdultsSmokingCount(id));
 		return result;
 	}
 

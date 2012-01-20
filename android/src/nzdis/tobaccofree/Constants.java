@@ -15,10 +15,15 @@ public interface Constants {
 
 // WEB API URLs
 	
-	String URL_OBSERVATION_ADD = "http://tobaccofree.nzdis.org/observation/add";
+	//String URL_OBSERVATION_ADD = "http://tobaccofree.nzdis.org/observation/add";
 	// For local testing on home LAN
-	// String URL_OBSERVATION_ADD = "http://192.168.2.200:8000/observation/add";
+	 String URL_OBSERVATION_ADD = "http://192.168.2.200:8000/observation/add";
 
+	int CURRENT_PROTOCOL_VERSION = 2;
+	
+	
+	
+	
 // DB schema related constants, used for SQLite and JSON
 	
 	String OBSERVATION_LATITUDE = "latitude";
@@ -31,7 +36,13 @@ public interface Constants {
 	String USER_USER_EMAIL = "user_email";
 	
 	String USER_PASSWORD_HASH = "pass_hash";
-	
-	String HASH_SALT_PRE = "put salt here";
-	String HASH_SALT_POST = "put pepper here";
+
+    String HASH_SALT_PRE = "put some salt here";
+    String HASH_SALT_POST = "put some pepper here";
+    
+    int SMOKING_ID_NO_SMOKING = 1;
+    int SMOKING_ID_ADULT_SMOKING_ALONE = 2;
+    int SMOKING_ID_ADULT_SMOKING_OTHERS = 3;
+    int SMOKING_ID_ADULT_SMOKING_CHILD = 4;
+    
 }

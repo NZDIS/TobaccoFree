@@ -114,8 +114,8 @@ public class ViewObservationsActivity extends Activity implements OnClickListene
     private void updateCounts(){
     	int selectedId = spnObservations.getSelectedItemPosition();
     	tvNoSmokersCount.setText(obs.get(selectedId).getNoSmoking() + "");
-    	tvAdultSmokerCount.setText(obs.get(selectedId).getNoOthers() + "");
-    	tvAdultSmokerOthersCount.setText(obs.get(selectedId).getOther() + "");
+    	tvAdultSmokerCount.setText(obs.get(selectedId).getLoneAdult() + "");
+    	tvAdultSmokerOthersCount.setText(obs.get(selectedId).getOtherAdults() + "");
     	tvChildSmokerCount.setText(obs.get(selectedId).getChild() + "");
     	total.setText(obs.get(selectedId).getTotal() + "");
     }

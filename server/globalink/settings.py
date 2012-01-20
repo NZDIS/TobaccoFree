@@ -15,7 +15,7 @@ ADMINS = (
 )
 
 DEFAULT_FEEDBACK_EMAIL = 'info@nzdis.org'
-DEFAULT_FROM_EMAIL = 'support@nzdis.org'
+DEFAULT_FROM_EMAIL = 'info@nzdis.org'
 
 MANAGERS = ADMINS
 
@@ -118,10 +118,7 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    #'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'django.contrib.admin',
-    #'django.contrib.admindocs',
     'observation',
 )
 

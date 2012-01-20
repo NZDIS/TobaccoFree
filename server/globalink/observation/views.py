@@ -115,7 +115,7 @@ def add(request):
                         finish = datetime.fromtimestamp(afinish / 1000.0),
                         duration = (afinish - astart),
                         no_smoking = int(new_ob.get('no_smoking')),
-                        other_adults = int(new_ob.get('child')),
+                        other_adults = int(new_ob.get('other_adults')),
                         lone_adult = int(new_ob.get('lone_adult')),
                         child = int(new_ob.get('child')),
                         device_id = new_ob.get('device'),
