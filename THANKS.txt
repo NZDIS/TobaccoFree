@@ -1,0 +1,11 @@
+These people have helped greatly to improve the quality
+of the system, contributed their time to comment, 
+provided suggestions and time for testing.
+
+
+  Adrian Perreau de Pinninck (Intelligent Pharma)
+  Paul Crane (University of Otago)
+  Antoni Moore (University of Otago)
+
+
+Thank you!
