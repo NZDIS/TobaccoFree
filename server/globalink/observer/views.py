@@ -34,7 +34,7 @@ def dologin(request):
             if user.is_active:                                                                                    
                 login(request, user)
             else:                                                                                                 
-                return redirect_home_with_message(request, "ERROR: Login failed. This account has been disabled.")
+                return redirect_home_with_message(request, "ERROR: Login failed. This account is disabled.")
         else:                                                                                                     
             return redirect_home_with_message(request, "ERROR: Invalid credentials. Login failed.")
     
@@ -45,7 +45,6 @@ def dologout(request):
     logout(request)
     return redirect_home_with_message(request, None)
 
-from django import forms
 
 @login_required
 def profile(request):

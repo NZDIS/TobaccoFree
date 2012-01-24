@@ -120,6 +120,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.staticfiles',
     'observation',
+    'observer',
+    'admin',
 )
 
 AUTHENTICATION_BACKENDS = (

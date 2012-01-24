@@ -66,7 +66,8 @@ class RegistrationManager():
                                                                            
         profile.registration_confirmed = True;                             
         profile.activation_key = "ALREADY_ACTIVATED"
-        profile.user.date_joined = datetime.now()                 
+        profile.user.date_joined = datetime.now()
+        profile.user.is_active = True             
         profile.save()                                                     
         return profile                                                     
 
@@ -82,6 +83,7 @@ class RegistrationManager():
         user = User()
         user.email = email
         user.username = email
+        user.is_active = False
         new_observer.name = name
         new_observer.surname = surname
         user.name = name + surname
