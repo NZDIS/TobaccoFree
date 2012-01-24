@@ -17,8 +17,10 @@ class FullProfileForm(forms.Form):
     affiliation.help_text="Affiliation"
     activation_key = forms.CharField(max_length=64, widget=forms.TextInput(attrs={'class':'xlarge'}))
     activation_key.help_text="Activation key"
-    is_staff = forms.BooleanField()
+    is_active = forms.BooleanField(required=False)
+    is_active.help_text = "Is active?"
+    is_staff = forms.BooleanField(required=False)
     is_staff.help_text = "Staff?"
-    approved = forms.BooleanField()
+    approved = forms.BooleanField(required=False)
     approved.help_text = "Approved?"
     

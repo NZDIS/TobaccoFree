@@ -29,14 +29,28 @@
 			<a class="brand" href="/"><img align="top" src="{{ STATIC_URL }}images/logo.png" height="20" width="20"/>&nbsp;&nbsp;Tobacco Free</a>
 			<ul class="nav">
 	            <li><a href="/#home">Home</a></li>
-	            <li class="active"><a href="/observation/list">My Observations</a></li>
-            	<li><a href="/observer/profile">My Profile</a></li>
+	            <li><a href="/observation/list">My Observations</a></li>
+            	{% if user.is_staff %}
+            	<li class="menu active" data-dropdown="dropdown">                        
+            	    <a href="#" class="menu">Admin</a>                            
+            	    <ul class="menu-dropdown">                                    
+            	      <li><a href="/admin/list_observers">Users</a></li>          
+            	      <li class="divider"></li>                                   
+            	      <li><a href="/admin/list_observations">Observations</a></li>
+            	    </ul>                                                         
+            	</li>                                                             
+            	{% endif %}
             </ul>
-            <form class="pull-right">
-          		<ul>
-    	  			<a href="/observer/logout">{{ user.username }} &raquo; logout</a>
-    	  		</ul>
-    	  	</form>	
+            <ul class="nav secondary-nav">                                                 
+		  	<li class="menu" data-dropdown="dropdown">                                 
+		        <a href="#" class="menu">{{ user.username }}</a>
+		        <ul class="menu-dropdown">                                               
+		          <li><a href="/observer/profile">My Profile</a></li>                        
+		          <li class="divider"></li>                                              
+		          <li><a href="/observer/logout">Logout</a></li>                             
+		        </ul>                                                                    
+		      </li>                                                                      
+		    </ul>	
 		</div>
 	</div>
 </div>
@@ -59,15 +73,32 @@
 {% block content %}
 
 <div class="row">
-	<div class="span11">
+	<div class="span13">
 		<hr>
-		<h2>Observations collected by {{ observer.name }} {{ observer.surname }}</h2>
+		<h2>Observations</h2>
 		<table>
-		<thead><td></td><td>Start</td><td>Duration</td><td>no smoking</td><td>lone adult</td><td>multiple adults</td><td>child</td></thead>
+		<thead>
+			<td></td>
+			<td>User</td>
+			<td>Start</td>
+			<td>Duration</td>
+			<td>NS</td>
+			<td>LA</td>
+			<td>MAs</td>
+			<td>CH</td></thead>
+			<td></td>
 		<tbody>
 		{% for o in observations %}
-		<tr><td>{{forloop.counter}}</td><td>{{o.start|date:"Y-m-d H:i"}}</td><td>{{o.finish|date:"Y-m-d H:i"}}</td>
-		<td>{{o.no_smoking}}</td><td>{{o.lone_adult}}</td><td>{{o.other_adults}}</td><td>{{o.child}}</td></tr>
+		<tr><td>{{forloop.counter}}</td>
+			<td><a href="/admin/profile?observer={{o.user.user.username}}">{{o.user.name}} {{o.user.surname}}</a></td>
+			<td>{{o.start|date:"Y-m-d H:i"}}</td>
+			<td>{{o.duration}}</td>
+			<td>{{o.no_smoking}}</td>
+			<td>{{o.lone_adult}}</td>
+			<td>{{o.other_adults}}</td>
+			<td>{{o.child}}</td>
+			<td><a href="/admin/observation_delete?id={{o.id}}" class="btn danger">Delete</a></td>
+		</tr>
 		{% endfor %}
 		</tbody>
 		</table>

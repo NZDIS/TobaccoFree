@@ -136,7 +136,14 @@ def add(request):
 def do_list(request):
     observer = RegisteredObserver.objects.get(user=request.user)
     obs = Observation.objects(user=observer)
+    obs_conv = []
+    for o in obs:
+        sec = o.duration / 1000
+        min = sec / 60
+        sec = sec - (min * 60)
+        o.duration = '%dmin %dsec' % (min, sec)
+        obs_conv.append(o) 
     return render_to_response('observation/list.html',
                                         {'observer': observer,
-                                         'observations': obs},
+                                         'observations': obs_conv},
                                         context_instance=RequestContext(request))

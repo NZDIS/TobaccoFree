@@ -18,6 +18,7 @@
 
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-alerts.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-dropdown.js"></script>
     
             
     <style type="text/css">
@@ -107,18 +108,29 @@
             <li><a href="/#feedback">Feedback</a></li>
         {% if user.is_authenticated %}
         	<li><a href="/observation/list">My Observations</a></li>
-            <li><a href="/observer/profile">My Profile</a></li>
             {% if user.is_staff %}
-            <li><a href="/admin/list_observers">Admin</a></li>
+            <li class="menu" data-dropdown="dropdown">                                 
+		        <a href="#" class="menu">Admin</a>
+		        <ul class="menu-dropdown">                                               
+		          <li><a href="/admin/list_observers">Users</a></li>                        
+		          <li class="divider"></li>                                              
+		          <li><a href="/admin/list_observations">Observations</a></li>                             
+		        </ul>                                                                    
+		    </li>
             {% endif %}
         {% endif %}
           </ul>
         {% if user.is_authenticated %}
-          <form class="pull-right">
-          <ul>
-    	  <a href="/observer/logout">{{ user.username }} &raquo; logout</a>
-    	  </ul>
-    	  </form>
+		  <ul class="nav secondary-nav">                                                 
+		  	<li class="menu" data-dropdown="dropdown">                                 
+		        <a href="#" class="menu">{{ user.username }}</a>
+		        <ul class="menu-dropdown">                                               
+		          <li><a href="/observer/profile">My Profile</a></li>                        
+		          <li class="divider"></li>                                              
+		          <li><a href="/observer/logout">Logout</a></li>                             
+		        </ul>                                                                    
+		      </li>                                                                      
+		  </ul>                                                                          
 		{% else %}
 		  </ul>
     		<form action="/observer/login" method="POST" class="pull-right">
