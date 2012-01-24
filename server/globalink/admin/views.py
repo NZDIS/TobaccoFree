@@ -84,9 +84,12 @@ def do_profile_delete(request):
     if (current_user.is_staff):        
         email = request.REQUEST["observer"]
         u = User.objects.get(username=email)
-        observer = RegisteredObserver.objects.get(user=u)
-        u.delete(safe=True)
-        observer.delete(safe=True)
+        try:
+            observer = RegisteredObserver.objects.get(user=u)
+            u.delete(safe=True)
+            observer.delete(safe=True)
+        except:
+            pass # ignore request with wrong data
         obs = RegisteredObserver.objects
         return render_to_response('admin/observers_list.html',
                                         {'observers': obs, 
