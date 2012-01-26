@@ -56,10 +56,11 @@ def geocode(lat, lng, **geo_args):
 def do_geocode_data(request):
     obj = Observation.objects
     for o in obj:
-        (city, country) = geocode(o.latitude, o.longitude)
-        o.loc_city = city
-        o.loc_country = country
-        o.save()
+        if o.get('loc_city') == None or o.get('loc_city') == '':
+            (city, country) = geocode(o.latitude, o.longitude)
+            o.loc_city = city
+            o.loc_country = country
+            o.save()
     return redirect_home_with_message(request, "Geocoding done")
 
 
