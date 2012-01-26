@@ -20,7 +20,14 @@
     <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-alerts.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-dropdown.js"></script>
     
-            
+    <!-- 127.0.0.1:8000 KEY
+    <script src="https://www.google.com/jsapi?key=ABQIAAAACaHqSPzHqfwVN22KYziTsRRi_j0U6kJrkFvY4-OX2XYmEAa76BQiz3J39v-PT4dSnT3v_7uHOD-aOQ" type="text/javascript"></script>
+    -->
+    <!-- tobaccofree.nzdis.org KEY -->
+    <script src="https://www.google.com/jsapi?key=ABQIAAAAezuV-NCDVBiP1WVf9ezubRTDt9Neq9z0zAPjB92_W5PAkXCu8BTRUbHPsGmSufT6G9ctE-exE2954w" type="text/javascript"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/nzdis.js"></script>
+      
     <style type="text/css">
       html, body {
         background-color: #eee;
@@ -77,6 +84,17 @@
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    
+    <style type="text/css">
+      #map_canvas {
+        position:inherit;
+        height: 400px;
+        width: 680px;
+        border: 1px solid #333;
+        margin-top: 0.6em;
+      }
+    </style>
+    
   </head>
 
   <body>
@@ -153,25 +171,29 @@
 	
    <div class="container">
       <div class="content">
+<!-- Main hero unit for a primary marketing message and call to action -->
 {% block hero %}	
-        <!-- Main hero unit for a primary marketing message and call to action -->
-          
           <div class="row">
-          	<div class="span8">
-          	   <h1>Tobacco Free <small> smoking in cars study</small> </h1>
+          	<div class="span13">
+          	   <h1>Tobacco Free <small> counting smoking in cars</small> </h1>
 
+			   {% block hero_content %}
                {% if not user.is_authenticated %}          	   
           	   <p>
           	   <a href="https://market.android.com/details?id=nzdis.tobaccofree">
-                  <img height="160" width="284" src="{{ STATIC_URL }}images/screen5.png"/>
+                  <img height="160" width="284" src="{{STATIC_URL}}images/screen5.png"/>
                </a>
+               
+				<a href="https://market.android.com/details?id=nzdis.tobaccofree" class="pull-right">
+       			<img align="top" src="http://chart.apis.google.com/chart?cht=qr&chs=300x300&chld=L&choe=UTF-8&chl=https%3A%2F%2Fmarket.android.com%2Fdetails%3Fid%3Dnzdis.tobaccofree"/></a>	      		
+               
                </p>
           	                                           
                <ul>                                                                                                
                	<li>How many people smoke in cars?</li>                                                           
                	<li>How many passive smokers are affected?</li>                                                   
                	<li>How many children? </li>                                                                      
-                <li>How much the stats differ between cities? Countries?</li>                                     
+                <li>How much the stats differ between countries?</li>                                     
                </ul>                                                                                               
 
                <p>                                                                                                 
@@ -179,14 +201,10 @@
                		<big>Register</big> to participate &raquo;</a>&nbsp;&nbsp;                                                                                        
  			   <a href="#about" class="btn primary large">Learn more &raquo;</a>                                         
                </p>
-               {% endif %}
+
+	      	   {% endif %}
+               {% endblock %}
           	</div>
-          	{% if not user.is_authenticated %}
-          	<div class="span3" align="top">
-          		<a href="https://market.android.com/details?id=nzdis.tobaccofree">
-          		<img align="top" src="http://chart.apis.google.com/chart?cht=qr&chs=350x350&chld=L&choe=UTF-8&chl=https%3A%2F%2Fmarket.android.com%2Fdetails%3Fid%3Dnzdis.tobaccofree"/></a>
-	      	</div>
-	      	{% endif %}
 	      </div>
 {% endblock %}
 
@@ -195,8 +213,7 @@
 	<hr>
 	<div class="row">
 	  <div class="span8">
-	    <h2>Statistics</h2>
-	    <h4>Overall</h4>
+	    <h2>Statistics <small>overall</small></h2>
 	    <ul>
 	      <li><big>{{ number_of_registered_observers }}</big> registered loggers</li>
       	  <li><big>{{ number_of_observations }}</big> stored observations</li>
@@ -205,7 +222,60 @@
 	    </ul>
 	  </div>
 	</div>
+	
+	<div class="row">
+	  <div class="span13">
+	    <h4>Stats per <big>country</big></h4>
+	    <table>
+	    <thead>
+	    <td>Country</td><td>Smoking in cars</td><td>Num. cars</td><td>Num. observations</td>
+	    </thead>
+	    <tbody>
+	    {% for c in countries %}
+	    <tr>
+	    	<td>{{c.country_name}}</td>
+	    	<td>{{c.ratio_of_smokers|floatformat}}%</td>
+	    	<td>{{c.num_cars}}</td>
+	    	<td>{{c.num_observations}}</td>
+	    	
+	    </tr>
+	    {% endfor %}
+	    </tbody>
+	    </table>
+	  </div>
+	</div>
+
+	<div class="row">
+	  <div class="span13">
+	    <h4>Stats per <big>city</big></h4>
+	    <table>
+	    <thead>
+	    <td>City</td><td>Smoking in cars</td><td>Num. cars</td><td>Num. observations</td>
+	    </thead>
+	    <tbody>
+	    {% for c in cities %}
+	    <tr>
+	    	<td>{{c.city_name}}</td>
+	    	<td>{{c.ratio_of_smokers|floatformat}}%</td>
+	    	<td>{{c.num_cars}}</td>
+	    	<td>{{c.num_observations}}</td>
+	    </tr>
+	    {% endfor %}
+	    </tbody>
+	    </table>
+	  </div>
+	</div>	
     
+    
+    <!-- A map with all the observations -->
+ 	<hr>           
+    <div class="row">
+    	<div class="span16">
+        <h2>Observations map</h2>
+        	<p id="map_canvas"></p>
+        </div>
+    </div>
+	
 	
     <!-- About -->
     <a id="about"></a>&nbsp;
@@ -216,15 +286,14 @@
        <p>To collect data from multiple sites, globally, many times a day, 
           over and over again, would be expensive. So expensive, that 
           study like that is impossible	to run through traditional methods.<br>
-	   <p>The idea is to ask volunteers to help. <big>YOU</big> will help us to conduct the study.</p>
+	   <p>The idea is to ask volunteers to help. <big>YOU</big> will help to conduct the study and do the research.</p>
           <ul>
 	      <li>Anyone can participate</li>
-	      <li>Register and we will verify your details</li>
+	      <li><a href="/observer/register">Register</a></li>
 	      <li><a href="https://market.android.com/details?id=nzdis.tobaccofree">Download and install</a> NZDIS TobaccoFree Android application</li>
 	      <li>Agree to University of Otago &raquo;Ethical Conduct and Honour Code&laquo;</big></li>
-	      <li>Start logging the data</li>
+	      <li>Go outside, stand by a busy street, and start logging the data</li>
 	    </ul>
-	    <p>We have developped a mobile application on Android phones. <a href="https://market.android.com/details?id=nzdis.tobaccofree">Download it</a> and use. </p>
 	    <p>The application
 	    allows easy logging of occurances of smoking in cars. Install it, go out, and collect data about particular location. 
 	    Instructions are provided within the application.</p>

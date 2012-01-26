@@ -57,16 +57,8 @@
 {% endblock %} 
 
 
-{% block hero %}
-<h1>
-	NZDIS Tobacco Free <small> smoking in cars study</small>
-</h1>
-<p></p>
-</p>
-<p>&nbsp;</p>
-
+{% block hero_content %}
 {% endblock %} 
-
 
 
 
@@ -80,23 +72,26 @@
 		<thead>
 			<td></td>
 			<td>User</td>
-			<td>Start</td>
-			<td>Duration</td>
-			<td>NS</td>
-			<td>LA</td>
-			<td>MAs</td>
-			<td>CH</td></thead>
+			<td>When</td>
+			<td>Where</td>
+			<td>How long</td>
+			<td><img width="25" height="25" src="{{STATIC_URL}}/images/nosmoking.png"/></td>
+			<td><img width="28" height="28" src="{{STATIC_URL}}/images/lone_adult.png"/></td>
+			<td><img width="28" height="28" src="{{STATIC_URL}}/images/other_adults.png"/></td>
+			<td><img width="28" height="28" src="{{STATIC_URL}}/images/child.png"/></td>
+		</thead>
 			<td></td>
 		<tbody>
 		{% for o in observations %}
 		<tr><td>{{forloop.counter}}</td>
 			<td><a href="/admin/profile?observer={{o.user.user.username}}">{{o.user.name}} {{o.user.surname}}</a></td>
 			<td>{{o.start|date:"Y-m-d H:i"}}</td>
+			<td>{{o.loc_city}}, {{o.loc_country}}</td>
 			<td>{{o.duration}}</td>
-			<td>{{o.no_smoking}}</td>
-			<td>{{o.lone_adult}}</td>
-			<td>{{o.other_adults}}</td>
-			<td>{{o.child}}</td>
+			<td><p align="center">{{o.no_smoking}}</p></td>
+			<td><p align="center">{{o.lone_adult}}</p></td>
+			<td><p align="center">{{o.other_adults}}</p></td>
+			<td><p align="center">{{o.child}}</p></td>
 			<td><a href="/admin/observation_delete?id={{o.id}}" class="btn danger">Delete</a></td>
 		</tr>
 		{% endfor %}

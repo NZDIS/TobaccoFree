@@ -19,6 +19,11 @@ DEFAULT_FROM_EMAIL = 'info@nzdis.org'
 
 MANAGERS = ADMINS
 
+# localhost GOOGLE_KEY = 'ABQIAAAACaHqSPzHqfwVN22KYziTsRRi_j0U6kJrkFvY4-OX2XYmEAa76BQiz3J39v-PT4dSnT3v_7uHOD-aOQ'
+
+# tobaccofree.nzdis.org
+GOOGLE_KEY = 'ABQIAAAAezuV-NCDVBiP1WVf9ezubRTDt9Neq9z0zAPjB92_W5PAkXCu8BTRUbHPsGmSufT6G9ctE-exE2954w'
+
 # This is overwritten in production
 
 

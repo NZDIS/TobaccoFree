@@ -23,20 +23,55 @@ import logging
 logger = logging.getLogger("globalink.custom")
 
 
+def get_cars_and_nonsmokers(obs):
+    total_cars = 0
+    total_non_smokers = 0
+    for o in obs:
+        total_non_smokers += o.no_smoking
+        total_cars += o.no_smoking + o.lone_adult + o.child + o.other_adults
+    return (total_cars, total_non_smokers)
+
+def prepare_stats_per_country():
+    countrynames =  Observation.objects.distinct('loc_country')
+    countries = []
+    for c in countrynames:
+        obs = Observation.objects(loc_country = c)
+        total_cars, total_non_smokers = get_cars_and_nonsmokers(obs)
+        country = {}
+        country['country_name'] = c
+        country['num_cars'] = total_cars
+        country['ratio_of_smokers'] = (1.0 - float(float(total_non_smokers) / float(total_cars))) * 100.0
+        country['num_observations'] = obs.count()
+        countries.append(country)
+    return countries
+
+def prepare_stats_per_city():
+    citynames =  Observation.objects.distinct('loc_city')
+    cities = []
+    for c in citynames:
+        obs = Observation.objects(loc_city = c)
+        total_cars, total_non_smokers = get_cars_and_nonsmokers(obs)
+        country = {}
+        country['city_name'] = c
+        country['num_cars'] = total_cars
+        country['ratio_of_smokers'] = (1.0 - float(float(total_non_smokers) / float(total_cars))) * 100.0
+        country['num_observations'] = obs.count()
+        cities.append(country)
+    return cities
 
 
 def prepareStatistics():
     b = {}
     b['number_of_registered_observers'] = RegisteredObserver.objects.count()
     b['number_of_observations'] = Observation.objects.count()
-    total_cars = 0
-    total_non_smokers = 0
-    for o in Observation.objects:
-        total_non_smokers += o.no_smoking
-        total_cars += o.no_smoking + o.lone_adult + o.child + o.other_adults
+    
+    (total_cars, total_non_smokers) = get_cars_and_nonsmokers(Observation.objects)
     
     b['number_of_cars'] = total_cars
     b['ratio_of_smokers'] = (1.0 - float(float(total_non_smokers) / float(total_cars))) * 100.0
+    
+    b['countries'] = prepare_stats_per_country()
+    b['cities'] = prepare_stats_per_city()
     return b
 
 

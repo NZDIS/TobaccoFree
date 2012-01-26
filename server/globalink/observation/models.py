@@ -10,6 +10,8 @@ from mongoengine import Document, StringField,\
         
 from globalink.observer.models import RegisteredObserver
 
+from django.utils import simplejson as json
+
 import logging
 
 
@@ -25,6 +27,8 @@ class Observation(Document):
     latitude = FloatField()
     longitude = FloatField()
     loc = GeoPointField()
+    loc_city = StringField(max_length=64)
+    loc_country = StringField(max_length=64)
     start = DateTimeField()
     finish = DateTimeField()
     duration = IntField() #duration in milliseconds, finish-start
@@ -39,3 +43,27 @@ class Observation(Document):
     def __unicode__(self):
         return u"Start: {0} Finish: {1} By: {2}".format(self.start, self.finish, self.user)
 
+
+
+class ObservationJSONEncoder(json.JSONEncoder):
+    def encode_object(self, obj):
+        sec = obj.duration / 1000
+        minute = sec / 60
+        sec = sec - (minute * 60)
+        d = '%dmin %dsec' % (minute, sec)
+
+        return {'id':unicode(obj.id), 
+                'latitude': obj.latitude,
+                'longitude': obj.longitude,
+                'date': obj.start,
+                'duration': d,
+                'description': "No Smoking: %d <br>Lone Adult: %d<br> Others: %d<br> Child: %d" % (obj.no_smoking, obj.lone_adult, obj.other_adults, obj.child) 
+                }
+
+    def default(self, obj):
+        if hasattr(obj, 'isoformat'):
+            return obj.isoformat()
+        elif hasattr(obj, '__iter__'):
+            return [ self.encode_object(x) for x in obj ]
+        else:
+            return self.encode_object(obj)

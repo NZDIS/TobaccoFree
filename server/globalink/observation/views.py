@@ -13,7 +13,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from datetime import datetime
 
-from globalink.observation.models import RegisteredObserver, Observation
+from globalink.observation.models import RegisteredObserver, Observation, ObservationJSONEncoder
     
 from mongoengine.django.auth import User
 import mongoengine
@@ -23,12 +23,44 @@ from globalink.observation.forms import FeedbackForm
 
 from globalink import settings
 
+import urllib
 import logging
 
 
 # Get an instance of a logger
 logger = logging.getLogger("globalink.custom")
 
+
+
+GEOCODE_BASE_URL = 'http://maps.googleapis.com/maps/geo?'
+
+def geocode(lat, lng, **geo_args):
+    geo_args.update({
+        'key': settings.GOOGLE_KEY,
+        'output': 'json',
+        'q': str(lat) + ',' + str(lng),
+        'sensor': False  
+    })
+
+    url = GEOCODE_BASE_URL + urllib.urlencode(geo_args)
+    result = json.load(urllib.urlopen(url))
+    
+    try:
+        city = result['Placemark'][0]['AddressDetails']['Country']['AdministrativeArea']['Locality']['LocalityName']
+        country = result['Placemark'][0]['AddressDetails']['Country']['CountryName']
+        return (city, country)
+    except:
+        return ('','')
+    
+    
+def do_geocode_data(request):
+    obj = Observation.objects
+    for o in obj:
+        (city, country) = geocode(o.latitude, o.longitude)
+        o.loc_city = city
+        o.loc_country = country
+        o.save()
+    return redirect_home_with_message(request, "Geocoding done")
 
 
 
@@ -121,6 +153,9 @@ def add(request):
                         device_id = new_ob.get('device'),
                         upload_timestamp = datetime.now(),
                         user = u)
+            (city, country) = geocode(o.latitude, o.longitude)
+            o.loc_city = city
+            o.loc_country = country
             o.save()
             logger.debug("New instance of an Observation has been saved!")
             return HttpResponse("Observation was added. Success.")
@@ -132,18 +167,32 @@ def add(request):
         return HttpResponse('Go back <a href="/">home</a>.')
 
 
+
+
 @login_required
 def do_list(request):
+    print Observation.objects.distinct('loc_city')
+    
     observer = RegisteredObserver.objects.get(user=request.user)
     obs = Observation.objects(user=observer)
     obs_conv = []
     for o in obs:
         sec = o.duration / 1000
-        min = sec / 60
-        sec = sec - (min * 60)
-        o.duration = '%dmin %dsec' % (min, sec)
+        minute = sec / 60
+        sec = sec - (minute * 60)
+        o.duration = '%dmin %dsec' % (minute, sec)
         obs_conv.append(o) 
     return render_to_response('observation/list.html',
                                         {'observer': observer,
                                          'observations': obs_conv},
                                         context_instance=RequestContext(request))
+    
+    
+
+def all_latlng(request):
+    '''
+    Returns a JSON object with an array of all observations coordinates and description.
+    '''
+    obs = Observation.objects
+    return HttpResponse(json.dumps(obs, cls=ObservationJSONEncoder), mimetype='application/json')
+
