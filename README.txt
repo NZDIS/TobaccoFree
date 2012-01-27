@@ -3,7 +3,7 @@
     in partnernship with Globalink
 
      http://tobaccofree.nzdis.org
-    current version: 1.4, code: 5
+    current version: 1.5, code: 6
 
 
 Purpose
