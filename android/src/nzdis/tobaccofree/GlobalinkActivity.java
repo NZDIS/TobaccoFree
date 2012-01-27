@@ -126,11 +126,11 @@ public class GlobalinkActivity extends Activity
 			LocationManager locManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 			if(locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
 				//start new observation
-				Intent i = new Intent(this,ObservationActivity.class);
+				Intent i = new Intent(this, ObservationActivity.class);
 				startActivity(i);			
 			} else {
 				//display gps notification
-				onCreateDialog(GPS_DIALOG);
+				showDialog(GPS_DIALOG);
 			}
 			return;
 		}

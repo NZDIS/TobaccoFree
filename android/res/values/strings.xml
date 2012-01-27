@@ -2,6 +2,9 @@
 <resources>
 
     <string name="app_name">TobaccoFree</string>
+    <string name="app_version">1.7</string>
+    <string name="app_version_string">ver. 1.7</string>
+    
     <string name="new_observation">Record new data</string>
     <string name="existing_observations">Stored data</string>
     <string name="finish_observation">Finish</string>
