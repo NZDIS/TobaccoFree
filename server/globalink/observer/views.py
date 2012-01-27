@@ -144,7 +144,7 @@ def register_confirm(request):
     else:
         form = RegistrationConfirmationForm()
         
-    return render_to_response('observation/register_confirm.html',
+    return render_to_response('observer/register_confirm.html',
                                         {'form': form},
                                         context_instance=RequestContext(request))
     

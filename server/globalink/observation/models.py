@@ -57,7 +57,21 @@ class ObservationJSONEncoder(json.JSONEncoder):
                 'longitude': obj.longitude,
                 'date': obj.start,
                 'duration': d,
-                'description': "No Smoking: %d <br>Lone Adult: %d<br> Others: %d<br> Child: %d" % (obj.no_smoking, obj.lone_adult, obj.other_adults, obj.child) 
+            'description': '''<table>
+                                <thead>
+                                  <td><img src="/static/images/nosmoking.png" width="20" height="20"></img></td>
+                                  <td><img src="/static/images/lone_adult.png" width="25" height="25"></img></td>
+                                  <td><img src="/static/images/other_adults.png" width="25" height="25"></img></td>
+                                  <td><img src="/static/images/child.png" width="25" height="25"></img></td>
+                                </thead>
+                                <tr>
+                                  <td> <big><b>%d</b></big> </td>
+                                  <td> <big><b>%d</b></big> </td>
+                                  <td> <big><b>%d</b></big> </td>
+                                  <td> <big><b>%d</b></big> </td>
+                                </tr>
+                              </table>
+                            ''' % (obj.no_smoking, obj.lone_adult, obj.other_adults, obj.child) 
                 }
 
     def default(self, obj):
