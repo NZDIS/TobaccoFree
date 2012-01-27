@@ -59,7 +59,7 @@ class ObservationJSONEncoder(json.JSONEncoder):
                 'duration': d,
             'description': '''<table>
                                 <thead>
-                                  <td><img src="/static/images/nosmoking.png" width="20" height="20"></img></td>
+                                  <td><img align="center" src="/static/images/nosmoking.png" width="20" height="20"></img></td>
                                   <td><img src="/static/images/lone_adult.png" width="25" height="25"></img></td>
                                   <td><img src="/static/images/other_adults.png" width="25" height="25"></img></td>
                                   <td><img src="/static/images/child.png" width="25" height="25"></img></td>

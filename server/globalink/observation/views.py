@@ -16,7 +16,6 @@ from datetime import datetime
 from globalink.observation.models import RegisteredObserver, Observation, ObservationJSONEncoder
     
 from mongoengine.django.auth import User
-import mongoengine
 
 from globalink.views import redirect_home_with_message
 from globalink.observation.forms import FeedbackForm

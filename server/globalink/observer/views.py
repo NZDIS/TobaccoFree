@@ -5,7 +5,7 @@ Created on Dec 19, 2011
 '''
 
 
-from django.contrib.auth import login, authenticate, logout, get_user
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.shortcuts import render_to_response
