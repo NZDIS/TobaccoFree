@@ -364,6 +364,7 @@ public class UploadActivity extends Activity
 	        		temp.put(USER_DEVICE, deviceID);
 	        		temp.put(USER_USER_EMAIL, user.getUserEmail());
 	        		temp.put(USER_PASSWORD_HASH, user.getPasswordHash());
+
 					final HttpClient client = new DefaultHttpClient();
 		        	final HttpPost post = new HttpPost(URL_OBSERVATION_ADD);
 					

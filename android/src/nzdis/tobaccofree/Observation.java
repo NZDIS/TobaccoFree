@@ -173,8 +173,8 @@ public class Observation {
 	public JSONObject getJSON() throws JSONException, NoSuchAlgorithmException{
 		JSONObject json = new JSONObject();
 		json.put("version", Constants.CURRENT_PROTOCOL_VERSION);
-		json.put("latitude", location.getLatitude());
-		json.put("longitude",location.getLongitude());
+		json.put("latitude", String.valueOf(location.getLatitude()));
+		json.put("longitude", String.valueOf(location.getLongitude()));
 		json.put("start", start);
 		json.put("finish", finish);
 		json.put("no_smoking", noSmoking);

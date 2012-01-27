@@ -491,8 +491,8 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 		final Location result = new Location("empty");
 		final SQLiteDatabase db = this.getReadableDatabase();
 		final Cursor cur = db.query(TABLE_OBSERVATION, new String[] 
-	               {OBSERVATION_LATITUDE}, 
-	        		OBSERVATION_LONGITUDE + " = ?", 
+	               {OBSERVATION_LATITUDE, OBSERVATION_LONGITUDE}, 
+	        		OBSERVATION_ID + " = ?", 
 	        		new String[] {String.valueOf(id)}, 
 	        		null, null, null);
 		
