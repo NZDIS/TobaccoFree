@@ -516,14 +516,15 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor curs = db.query(TABLE_USER, null, null, null, null, null, null, "1");
 		curs.moveToFirst();
-		if(curs.getCount() == 1){
-			result.setUserEmail(curs.getString(0));
-			result.setPasswordHash(curs.getString(1), true);
-		}else{
+		
+		if (curs.getCount() == 0 || curs.getString(0).length() == 0) {
 			curs.deactivate();
 			db.close();
 			throw new UsernameNotSetException("Username and/or password have not been set");
 		}
+		
+		result.setUserEmail(curs.getString(0));
+		result.setPasswordHash(curs.getString(1), true);
 		curs.deactivate();
 		db.close();
 		return result;

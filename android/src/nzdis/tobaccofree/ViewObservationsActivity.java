@@ -36,7 +36,7 @@ import android.widget.TextView;
  */
 public class ViewObservationsActivity extends Activity implements OnClickListener, OnItemSelectedListener {
 
-	private Button btnExportSelected,btnExportAll,btnDeleteSelected,btnDeleteAll,btnEmailObservation,btnEmailAll;
+	private Button btnDeleteSelected,btnDeleteAll,btnEmailObservation,btnEmailAll;
 	private Spinner spnObservations;
 	private List<Observation> obs;
 	private String[] names;
@@ -50,10 +50,6 @@ public class ViewObservationsActivity extends Activity implements OnClickListene
         setContentView(R.layout.activity_view_observations);
         
         //buttons
-        btnExportSelected = (Button)findViewById(R.id.btnExportObservation);
-        btnExportSelected.setOnClickListener(this);
-        btnExportAll = (Button)findViewById(R.id.btnExportAll);
-        btnExportAll.setOnClickListener(this);
         btnDeleteSelected = (Button)findViewById(R.id.btnDeleteSelected);
         btnDeleteSelected.setOnClickListener(this);
         btnDeleteAll = (Button)findViewById(R.id.btnDeleteAll);
@@ -97,8 +93,6 @@ public class ViewObservationsActivity extends Activity implements OnClickListene
         	updateCounts();
         }else{
         	spnObservations.setEnabled(false);
-        	btnExportSelected.setEnabled(false);
-        	btnExportAll.setEnabled(false);
         	btnDeleteSelected.setEnabled(false);
         	btnDeleteAll.setEnabled(false);
         	btnEmailObservation.setEnabled(false);
@@ -122,7 +116,7 @@ public class ViewObservationsActivity extends Activity implements OnClickListene
     
 	@Override
 	public void onClick(View arg0) {
-		if(arg0 == btnExportSelected || arg0 == btnEmailObservation){
+		if(arg0 == btnEmailObservation){
 			//save selected to SD card
 			if(checkedDirectory()){
 				//write here
@@ -136,11 +130,7 @@ public class ViewObservationsActivity extends Activity implements OnClickListene
 					writer.append(outputContent);
 					writer.flush();
 					writer.close();
-					if(arg0 == btnEmailObservation){
-						sendEmail(outputFile);
-					}else{
-						onCreateDialog(SUCCESS);
-					}
+					sendEmail(outputFile);
 				} catch (IOException e) {
 					e.printStackTrace();
 					onCreateDialog(FAIL);
@@ -153,7 +143,7 @@ public class ViewObservationsActivity extends Activity implements OnClickListene
 		}
 
 		
-		if(arg0 == btnExportAll || arg0 == btnEmailAll){
+		if (arg0 == btnEmailAll){
 			if(checkedDirectory()){
 				//write here
 				File outputFile = new File(Environment.getExternalStorageDirectory() + "/tobaccofree/" + DateFormat.format("yyyyMMdd-hh-mmaa", System.currentTimeMillis()).toString() + "-all.csv");
@@ -166,11 +156,7 @@ public class ViewObservationsActivity extends Activity implements OnClickListene
 					}				
 					writer.flush();
 					writer.close();
-					if(arg0 == btnEmailAll){
-						sendEmail(outputFile);
-					}else{
-						onCreateDialog(SUCCESS);
-					}
+					sendEmail(outputFile);
 				} catch (IOException e) {
 					e.printStackTrace();
 					onCreateDialog(FAIL);

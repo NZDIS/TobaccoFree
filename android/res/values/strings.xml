@@ -24,12 +24,15 @@
     <string name="adult_with_others">Adult smoker with others</string>
     <string name="child_smoking">Child smoking</string>
     <string name="total">Total</string>
-    <string name="select_observation">Select Observation:</string>
+    <string name="btnRegister">Sign up</string>
+    <string name="btnSaveCredentials">Save credentials</string>
+    <string name="user_account_settings">User account settings</string>
     <string name="export_all">Export All</string>
     <string name="delete_selected">Delete Selected</string>
     <string name="export_selected">Export Selected</string>
     <string name="delete_all">Delete All</string>
     <string name="ok">Ok</string>
+    <string name="select_observation">Select Observation</string>
     <string name="nosd_title">No SD Card</string>
     <string name="nosd_message">An SD card is required to export to CSV. Please insert a SD card and make sure that it is mounted.</string>
    	<string name="dir_error_title">Error</string>
@@ -86,8 +89,6 @@
    	<string name="preference_button">Preferences</string>
    	<string name="upload_data">Upload data</string>
    	<string name="set_username">Account Details</string>
-   	<string name="upload_selected">Upload Selected</string>
-   	<string name="upload_all">Upload All</string>
    	<string name="no_md5">Sorry your device has insufficient version. Please upgrade.</string>
    	<string name="no_username_set">Please set your email and password in the preferences screen</string>
    	<string name="error">Error</string>
@@ -98,7 +99,7 @@
    	<string name="no_internet">An Internet connection (2/3G or WiFi) is required to upload data</string>
    	<string name="uploading_observation_number">Uploading observation </string>
    	<string name="uploading_observation_of">of </string>
-   	<string name="username_details">An email and password are required to use the uploading function of this application. To setup your account go to http://tobaccofree.nzdis.org and sign up.</string>
+   	<string name="username_details">An email and password are required to use the uploading function of this application. To setup new account press the button above and sign up.</string>
    	<string name="upload_description">To upload an observation, select it from the drop down box and tap \"Upload\" or to upload them all just press \"Upload All\". Only those observations that haven\'t been upload will show in the list.</string>
    	<string name="instructions_upload">How to Upload</string>
    	<string name="upload_error">An error has occurred while uploading. If this continues please use the feedback button in the Preferences menu.</string>
