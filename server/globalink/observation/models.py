@@ -5,8 +5,9 @@ Created on Jan 12, 2012
 '''
 
 
-from mongoengine import Document, StringField,\
-        IntField, FloatField, DateTimeField, ReferenceField, GeoPointField
+from mongoengine import Document, EmbeddedDocument, ListField, StringField,\
+        IntField, FloatField, DateTimeField, ReferenceField, GeoPointField,\
+        EmbeddedDocumentField
         
 from globalink.observer.models import RegisteredObserver
 
@@ -19,7 +20,18 @@ import logging
 logger = logging.getLogger("globalink.custom")
 
 
+SMOKING_ID_NO_SMOKING = 1
+SMOKING_ID_ADULT_SMOKING_ALONE = 2
+SMOKING_ID_ADULT_SMOKING_OTHERS = 3
+SMOKING_ID_ADULT_SMOKING_CHILD = 4
+
    
+class Detail(EmbeddedDocument):
+    timestamp = DateTimeField()
+    smoking_id = IntField()
+    
+    def __unicode__(self):
+        return u"Timestamp: {0} Smoking_ID: {1}".format(self.timestamp, self.smoking_id)
 
 
 class Observation(Document):
@@ -39,6 +51,7 @@ class Observation(Document):
     device_id = StringField(max_length=128)
     upload_timestamp = DateTimeField()
     user = ReferenceField(RegisteredObserver)
+    details = ListField(EmbeddedDocumentField(Detail))
 
     def __unicode__(self):
         return u"Start: {0} Finish: {1} By: {2}".format(self.start, self.finish, self.user)

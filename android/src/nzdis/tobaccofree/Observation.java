@@ -5,7 +5,10 @@ package nzdis.tobaccofree;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,6 +32,10 @@ public class Observation {
 	private boolean started = false;
 	private long id = -1;
 	
+	private List<Detail> details = new ArrayList<Detail>(); 
+	
+	
+	
 	public Observation(long start){
 		this.start = start;
 		location = new Location("empty");
@@ -40,24 +47,10 @@ public class Observation {
 	
 	
 	
-	/* Incrementers */
-	
-	
-	public void incrementNoSmoking(){
-		noSmoking++;
+	public void addDetail(long timestamp, int category) {
+		this.details.add(new Detail(timestamp, category));
 	}
 	
-	public void incrementChild(){
-		child++;
-	}
-	
-	public void incrementOther(){
-		otherAdults++;
-	}
-	
-	public void incrementLoneAdult(){
-		loneAdult++;
-	}
 	
 	
 	/* Setters and getters */
@@ -171,7 +164,7 @@ public class Observation {
 	 * @return JSON representation of this observation.
 	 **/
 	public JSONObject getJSON() throws JSONException, NoSuchAlgorithmException{
-		JSONObject json = new JSONObject();
+		final JSONObject json = new JSONObject();
 		json.put("version", Constants.CURRENT_PROTOCOL_VERSION);
 		json.put("latitude", String.valueOf(location.getLatitude()));
 		json.put("longitude", String.valueOf(location.getLongitude()));
@@ -182,8 +175,19 @@ public class Observation {
 		json.put("lone_adult", loneAdult);
 		json.put("child", child);
 		json.put("hash", getHash());
-
+		json.put("details", getDetailsJSONArray());
 		return json;
+	}
+	
+	private JSONArray getDetailsJSONArray() throws JSONException {
+		final JSONArray json_arr = new JSONArray();
+		for (Detail d : this.details) {
+			final JSONObject json = new JSONObject();
+			json.put("timestamp", d.timestamp);
+			json.put("smoking_id", d.smoking_id);
+			json_arr.put(json);
+		}
+		return json_arr;
 	}
 	
 	/** 
@@ -207,6 +211,17 @@ public class Observation {
 			hex.append(Integer.toHexString(0xFF & hash[i]));
 		}
 		return hex.toString();
+	}
+	
+	
+	public class Detail {
+		public long timestamp;
+		public int smoking_id;
+		
+		public Detail(long timestamp, int type) {
+			this.timestamp = timestamp;
+			this.smoking_id = type;
+		}
 	}
 	
 }

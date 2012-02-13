@@ -13,7 +13,8 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from datetime import datetime
 
-from globalink.observation.models import RegisteredObserver, Observation, ObservationJSONEncoder
+from globalink.observation.models import RegisteredObserver, Observation,\
+                        Detail, ObservationJSONEncoder
     
 from mongoengine.django.auth import User
 
@@ -137,7 +138,7 @@ def add(request):
                         device_id = new_ob.get('device'),
                         upload_timestamp = datetime.now(),
                         user = u)
-            else:
+            elif version == 2:
                 o = Observation(
                         observation_hash = new_ob.get('hash'),
                         latitude = alatitude,
@@ -153,10 +154,33 @@ def add(request):
                         device_id = new_ob.get('device'),
                         upload_timestamp = datetime.now(),
                         user = u)
+            else: #version 3, yay, we have details!
+                o = Observation(
+                        observation_hash = new_ob.get('hash'),
+                        latitude = alatitude,
+                        longitude = alongitude,
+                        loc = [alongitude, alatitude],
+                        start = datetime.fromtimestamp(astart / 1000.0),
+                        finish = datetime.fromtimestamp(afinish / 1000.0),
+                        duration = (afinish - astart),
+                        no_smoking = int(new_ob.get('no_smoking')),
+                        other_adults = int(new_ob.get('other_adults')),
+                        lone_adult = int(new_ob.get('lone_adult')),
+                        child = int(new_ob.get('child')),
+                        device_id = new_ob.get('device'),
+                        upload_timestamp = datetime.now(),
+                        user = u)
+                details = new_ob.get('details')
+                for d in details :
+                    tmp_detail = Detail()
+                    tmp_detail.timestamp = datetime.fromtimestamp(d.get('timestamp') / 1000.0)
+                    tmp_detail.smoking_id = int(d.get('smoking_id'))
+                    o.details.append(tmp_detail)
+                
             (city, country) = geocode(o.latitude, o.longitude)
             o.loc_city = city
             o.loc_country = country
-            o.save()
+            o.save(safe=True)
             logger.debug("New instance of an Observation has been saved!")
             return HttpResponse("Observation was added. Success.")
         else:

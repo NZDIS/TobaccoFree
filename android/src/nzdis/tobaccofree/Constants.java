@@ -13,15 +13,19 @@ package nzdis.tobaccofree;
  */
 public interface Constants {
 
-// WEB API URLs
 	
-	//String URL_OBSERVATION_ADD = "http://tobaccofree.nzdis.org/observation/add";
-	// For local testing on home LAN
-	 String URL_OBSERVATION_ADD = "http://192.168.2.200:8000/observation/add";
-
-	int CURRENT_PROTOCOL_VERSION = 2;
+	/* For local testing on home LAN */
+	String URL_OBSERVATION_ADD = "http://192.168.2.200:8000/observation/add";
+    String HASH_SALT_PRE = "put salt here";
+    String HASH_SALT_POST = "put pepper here";
+    /**/
+    
 	
 	
+    // 1 - broken indexes, incomplete data
+    // 2 - all fine, but only aggregated data
+    // 3 - all fine, aggregated data together with details
+	int CURRENT_PROTOCOL_VERSION = 3;
 	
 	
 // DB schema related constants, used for SQLite and JSON
@@ -31,14 +35,12 @@ public interface Constants {
 	String OBSERVATION_START = "start_time";
 	String OBSERVATION_FINISH = "finish_time";
 	String OBSERVATION_UPLOADED = "uploaded";
+	String DETAILS_UPLOADED = "details_uploaded";
 
 	String USER_DEVICE = "device";
 	String USER_USER_EMAIL = "user_email";
 	
 	String USER_PASSWORD_HASH = "pass_hash";
-
-    String HASH_SALT_PRE = "put some salt here";
-    String HASH_SALT_POST = "put some pepper here";
     
     int SMOKING_ID_NO_SMOKING = 1;
     int SMOKING_ID_ADULT_SMOKING_ALONE = 2;

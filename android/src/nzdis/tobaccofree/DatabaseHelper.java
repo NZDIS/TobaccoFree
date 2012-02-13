@@ -13,6 +13,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
+import android.util.Log;
 
 /**
  * SQLite helper. See also Constants for shared DB and JSON constants.
@@ -26,7 +27,7 @@ import android.location.Location;
 public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 
 	public static final String DATABASE_NAME = "globalink.sqlite";
-	public static final int DATABASE_VESRION = 2;
+	public static final int DATABASE_VESRION = 3;
 	
 	//observation table
 	public static final String TABLE_OBSERVATION = "observations";
@@ -62,14 +63,23 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		if (oldVersion == 1 && newVersion == 2) {
-			//drop types table here
+			//drop types table
 			db.execSQL("DROP TABLE IF EXISTS types"); //old types table, not used
 			//add upload column
 			db.execSQL("ALTER TABLE " + TABLE_OBSERVATION + " ADD " + OBSERVATION_UPLOADED + " INTEGER NOT NULL DEFAULT 0");
 			// create new table that wasn't here in version 1
 			db.execSQL(CREATE_TABLE_User);
-		} else { // for ass possible version upgrades, re-start the DB from scratch
-			//drop types table here
+		} else if (oldVersion == 2 && newVersion == 3) {
+			db.execSQL("ALTER TABLE " + TABLE_OBSERVATION + " ADD " + DETAILS_UPLOADED + " INTEGER NOT NULL DEFAULT 0");
+		} else if (oldVersion == 1 && newVersion == 3) {
+			//drop types table
+			db.execSQL("DROP TABLE IF EXISTS types"); //old types table, not used
+			db.execSQL("ALTER TABLE " + TABLE_OBSERVATION + " ADD " + OBSERVATION_UPLOADED + " INTEGER NOT NULL DEFAULT 0");
+			db.execSQL("ALTER TABLE " + TABLE_OBSERVATION + " ADD " + DETAILS_UPLOADED + " INTEGER NOT NULL DEFAULT 0");
+			// create new table that wasn't here in version 1
+			db.execSQL(CREATE_TABLE_User);
+		} else { // for all other not covered version upgrades, re-start the DB from scratch
+			//drop types table
 			db.execSQL("DROP TABLE IF EXISTS types"); //old types table, not used
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_OBSERVATION);
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
@@ -339,11 +349,39 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 				+ " FROM observations WHERE finish_time > 0";
 		final Cursor cur = db.rawQuery(rawQuery, null);		
 		while (cur.moveToNext()) {
-			result.add(createObservationFromCursor(cur));
+			final Observation obs = createObservationFromCursor(cur); 
+			result.add(obs);
+			setObservationDetails(obs);
 		}
 		cur.deactivate();
 		db.close();
 		return result;
+	}
+	
+	private void setObservationDetails(Observation o) {
+		final SQLiteDatabase db = this.getReadableDatabase();
+		final long id = o.getId();
+// TODO debugging
+Log.i("Globalink","Searching details for id:" + id);
+		final Cursor cur =
+                db.query(true, TABLE_DETAILS, new String[] 
+                               {DETAILS_TIMESTAMP, DETAILS_TYPE}, 
+                		DETAILS_ID + "=?", new String[] {String.valueOf(id)}, 
+                		null, null, null, null);
+        if (cur == null || cur.getCount() == 0) {
+        	cur.close();
+// TODO debugging
+Log.i("Globalink","No Details FOUND!");
+        	return;
+        }
+        while (cur.moveToNext()) {
+// TODO debugging
+Log.i("Globalink","Adding details with timestamp:" + cur.getLong(cur.getColumnIndex(DETAILS_TIMESTAMP)));
+
+        	o.addDetail(cur.getLong(cur.getColumnIndex(DETAILS_TIMESTAMP)), 
+        			cur.getInt(cur.getColumnIndex(DETAILS_TYPE)));
+        }
+        cur.close();
 	}
 	
 	/*
@@ -366,8 +404,10 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 				+ " FROM observations WHERE finish_time > 0 AND uploaded = 0";
 
 		final Cursor cur = db.rawQuery(rawQuery, null);		
-		while(cur.moveToNext()){
-			result.add(createObservationFromCursor(cur));
+		while(cur.moveToNext()) {
+			final Observation obs = createObservationFromCursor(cur);
+			result.add(obs);
+			setObservationDetails(obs);
 		}
 		cur.deactivate();
 		db.close();
@@ -589,8 +629,9 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 			+ OBSERVATION_LATITUDE + " REAL NOT NULL DEFAULT 0, " 
 			+ OBSERVATION_LONGITUDE + " REAL NOT NULL DEFAULT 0, " 
 			+ OBSERVATION_START + " INTEGER NOT NULL DEFAULT 0, " 
-			+ OBSERVATION_FINISH + " INTEGER NOT NULL DEFAULT 0, " 
-			+ OBSERVATION_UPLOADED + " INTEGER NOT NULL DEFAULT 0)";
+			+ OBSERVATION_FINISH + " INTEGER NOT NULL DEFAULT 0, "
+			+ OBSERVATION_UPLOADED + " INTEGER NOT NULL DEFAULT 0, "
+			+ DETAILS_UPLOADED + " INTEGER NOT NULL DEFAULT 0)";
 	
 	static final String CREATE_TABLE_Details = "CREATE TABLE " + TABLE_DETAILS + " (" 
 			+ DETAILS_ID + " INTEGER NOT NULL, " 

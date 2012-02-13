@@ -294,8 +294,8 @@ public class GlobalinkActivity extends Activity
 			}
 		}
         
+        // Upload all the observations in an aggregated format
         List<Observation> observationsForUpload = db.getObservationsNotUploaded();
-		db.close();
 		uploadTask = new UploadTask();
 		Observation[] obs = observationsForUpload.toArray(new Observation[observationsForUpload.size()]);
 		uploadTask.execute(obs);
@@ -330,8 +330,9 @@ public class GlobalinkActivity extends Activity
 				publishProgress(count);
 				count++;
 				
-				/***************************
-				 * Upload code here
+				/*************************************************
+				 * Upload aggregated data together with details of 
+				 * all observations (category + timestamp list)
 				 */
 	        	try {
 	        		temp = observation.getJSON();
