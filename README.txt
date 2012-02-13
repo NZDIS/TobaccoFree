@@ -1,9 +1,12 @@
-      Smoking in the cars study
-          University of Otago 
-    in partnernship with Globalink
+         Smoking in the cars study
+             University of Otago 
+       in partnernship with Globalink
 
-     http://tobaccofree.nzdis.org
-    current version: 1.7, code: 8
+        http://tobaccofree.nzdis.org
+             current version: 1.8
+
+
+[app code: 9, db local: 2, update protocol: 3]
 
 
 Purpose
