@@ -27,7 +27,7 @@ import android.util.Log;
 public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 
 	public static final String DATABASE_NAME = "globalink.sqlite";
-	public static final int DATABASE_VESRION = 3;
+	public static final int DATABASE_VESRION = 2; 
 	
 	//observation table
 	public static final String TABLE_OBSERVATION = "observations";
@@ -67,15 +67,6 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 			db.execSQL("DROP TABLE IF EXISTS types"); //old types table, not used
 			//add upload column
 			db.execSQL("ALTER TABLE " + TABLE_OBSERVATION + " ADD " + OBSERVATION_UPLOADED + " INTEGER NOT NULL DEFAULT 0");
-			// create new table that wasn't here in version 1
-			db.execSQL(CREATE_TABLE_User);
-		} else if (oldVersion == 2 && newVersion == 3) {
-			db.execSQL("ALTER TABLE " + TABLE_OBSERVATION + " ADD " + DETAILS_UPLOADED + " INTEGER NOT NULL DEFAULT 0");
-		} else if (oldVersion == 1 && newVersion == 3) {
-			//drop types table
-			db.execSQL("DROP TABLE IF EXISTS types"); //old types table, not used
-			db.execSQL("ALTER TABLE " + TABLE_OBSERVATION + " ADD " + OBSERVATION_UPLOADED + " INTEGER NOT NULL DEFAULT 0");
-			db.execSQL("ALTER TABLE " + TABLE_OBSERVATION + " ADD " + DETAILS_UPLOADED + " INTEGER NOT NULL DEFAULT 0");
 			// create new table that wasn't here in version 1
 			db.execSQL(CREATE_TABLE_User);
 		} else { // for all other not covered version upgrades, re-start the DB from scratch
@@ -362,7 +353,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 		final SQLiteDatabase db = this.getReadableDatabase();
 		final long id = o.getId();
 // TODO debugging
-Log.i("Globalink","Searching details for id:" + id);
+//Log.i("Globalink","Searching details for id:" + id);
 		final Cursor cur =
                 db.query(true, TABLE_DETAILS, new String[] 
                                {DETAILS_TIMESTAMP, DETAILS_TYPE}, 
@@ -370,14 +361,9 @@ Log.i("Globalink","Searching details for id:" + id);
                 		null, null, null, null);
         if (cur == null || cur.getCount() == 0) {
         	cur.close();
-// TODO debugging
-Log.i("Globalink","No Details FOUND!");
         	return;
         }
         while (cur.moveToNext()) {
-// TODO debugging
-Log.i("Globalink","Adding details with timestamp:" + cur.getLong(cur.getColumnIndex(DETAILS_TIMESTAMP)));
-
         	o.addDetail(cur.getLong(cur.getColumnIndex(DETAILS_TIMESTAMP)), 
         			cur.getInt(cur.getColumnIndex(DETAILS_TYPE)));
         }
@@ -630,8 +616,7 @@ Log.i("Globalink","Adding details with timestamp:" + cur.getLong(cur.getColumnIn
 			+ OBSERVATION_LONGITUDE + " REAL NOT NULL DEFAULT 0, " 
 			+ OBSERVATION_START + " INTEGER NOT NULL DEFAULT 0, " 
 			+ OBSERVATION_FINISH + " INTEGER NOT NULL DEFAULT 0, "
-			+ OBSERVATION_UPLOADED + " INTEGER NOT NULL DEFAULT 0, "
-			+ DETAILS_UPLOADED + " INTEGER NOT NULL DEFAULT 0)";
+			+ OBSERVATION_UPLOADED + " INTEGER NOT NULL DEFAULT 0)";
 	
 	static final String CREATE_TABLE_Details = "CREATE TABLE " + TABLE_DETAILS + " (" 
 			+ DETAILS_ID + " INTEGER NOT NULL, " 

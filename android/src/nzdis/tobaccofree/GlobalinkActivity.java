@@ -356,16 +356,16 @@ public class GlobalinkActivity extends Activity
 						s = s.append(sResponse);
 					}
 // TODO debugging
-Log.i("Globalink","Got from server:" + s);
+// Log.i("Globalink","Got from server:" + s);
 					if (response.getStatusLine().getStatusCode() == 200) {
-						Log.i("Globalink","Data saved correctly to server.");						
+// Log.i("Globalink","Data saved correctly to server.");						
 						// if upload succeeded then set 'upload' tag to 1
 			        	db = new DatabaseHelper(GlobalinkActivity.this);
 						db.setUploaded(observation.getId());
 						db.close();
 					} else {
 						// TODO Debugging printout: Prints out response from server
-						Log.i("Globalink","ERROR: status line " + response.getStatusLine() + " from server.\nResponse: " + s);
+// Log.i("Globalink","ERROR: status line " + response.getStatusLine() + " from server.\nResponse: " + s);
 						errored = true;
 						uploadErrorResponse = s.toString();
 						errorCode = UPLOAD_ERROR_RESPONSE;

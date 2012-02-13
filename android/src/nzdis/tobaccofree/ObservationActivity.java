@@ -20,6 +20,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -119,10 +120,10 @@ public class ObservationActivity extends Activity implements LocationListener, O
             tvAdults.setText(db.getOtherAdultsSmokingCount(observationId) + "");
             tvChild.setText(db.getChildCount(observationId) + "");
             tvNone.setText(db.getNoSmokingCount(observationId)+"");
-        }else{
-		    try{
+        } else {
+		    try {
 		    	observationId = db.getNewObservationId();
-		    }catch(DatabaseException e){
+		    } catch(DatabaseException e){
 		    	Log.e("Globalink",e.getMessage());
 		    	db.close();
 		    	finish();
@@ -184,7 +185,17 @@ public class ObservationActivity extends Activity implements LocationListener, O
     }
     
     @Override
-    public void onBackPressed(){
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        if ((keyCode == KeyEvent.KEYCODE_BACK))
+        {
+            quitPressed();
+            return true;
+        } else { 
+        	return super.onKeyDown(keyCode, event);
+        }
+    }
+    
+    private void quitPressed() {
     	//check to see if the user has actually counted anything
     	DatabaseHelper db = new DatabaseHelper(this);
     	if(db.hasCounted(observationId)){
@@ -193,12 +204,12 @@ public class ObservationActivity extends Activity implements LocationListener, O
     		if(db.hasGPS(observationId)){
     			// ask if finished
     			onCreateDialog(CONFIRM_DIALOG);    			
-    		}else{
+    		} else {
     			// ask to wait for GPS
     			showingGPSDialog = true;
-    			gpsDialog = ProgressDialog.show(this, "",getString(R.string.gps_fix), true,true);
+    			gpsDialog = ProgressDialog.show(this, "", getString(R.string.gps_fix), true, true);
     		}
-    	}else{
+    	} else {
     		//delete unused observation
     		db.deleteObservation(observationId);
         	db.close();
@@ -281,7 +292,7 @@ public class ObservationActivity extends Activity implements LocationListener, O
 	public void onClick(View v) {
 		
 		if(v == btnFinish){
-			onBackPressed();
+			quitPressed();
 			return;
 		}
 		
