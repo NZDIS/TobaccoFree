@@ -74,9 +74,6 @@ def do_geocode_data(request):
 
 
 def home(request):
-    (city, country) = geocode(51.109348490239626, 17.06635959775019)
-    print "City - " + city
-    print "Country - " + country
     return redirect_home_with_message(request, None)
 
 
