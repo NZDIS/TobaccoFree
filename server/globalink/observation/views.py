@@ -44,11 +44,15 @@ def geocode(lat, lng, **geo_args):
 
     url = GEOCODE_BASE_URL + urllib.urlencode(geo_args)
     result = json.load(urllib.urlopen(url))
-    logger.info("Geocoding result\n" + str(result))
+    
     try:
         city = result['Placemark'][0]['AddressDetails']['Country']['AdministrativeArea']['Locality']['LocalityName']
     except:
-        city = '' # problems reading the city
+        try:
+            city = result['Placemark'][0]['AddressDetails']['Country']['AdministrativeArea']['SubAdministrativeArea']['Locality']['LocalityName']
+        except:
+            city = '' # problems reading the city
+        
     try:
         country = result['Placemark'][0]['AddressDetails']['Country']['CountryName']
         return (city, country)
@@ -70,6 +74,9 @@ def do_geocode_data(request):
 
 
 def home(request):
+    (city, country) = geocode(51.109348490239626, 17.06635959775019)
+    print "City - " + city
+    print "Country - " + country
     return redirect_home_with_message(request, None)
 
 
