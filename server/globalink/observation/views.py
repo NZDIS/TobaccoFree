@@ -31,8 +31,8 @@ import logging
 logger = logging.getLogger("globalink.custom")
 
 
-
 GEOCODE_BASE_URL = 'http://maps.googleapis.com/maps/geo?'
+
 
 def geocode(lat, lng, **geo_args):
     geo_args.update({
@@ -44,13 +44,17 @@ def geocode(lat, lng, **geo_args):
 
     url = GEOCODE_BASE_URL + urllib.urlencode(geo_args)
     result = json.load(urllib.urlopen(url))
-    
+    logger.info("Geocoding result\n" + str(result))
     try:
         city = result['Placemark'][0]['AddressDetails']['Country']['AdministrativeArea']['Locality']['LocalityName']
+    except:
+        city = '' # problems reading the city
+    try:
         country = result['Placemark'][0]['AddressDetails']['Country']['CountryName']
         return (city, country)
     except:
-        return ('','')
+        country = ''  # problems reading the country
+    return (city, country)
     
     
 def do_geocode_data(request):
