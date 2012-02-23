@@ -273,7 +273,7 @@ msgstr "Mapa wszystkich obserwacji"
 
 #: templates/base.html:334
 msgid "About"
-msgstr ""
+msgstr "O projekcie"
 
 #: templates/base.html:335
 msgid ""
