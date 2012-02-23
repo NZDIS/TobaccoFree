@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.utils import simplejson as json
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from datetime import datetime
@@ -73,6 +73,7 @@ def do_geocode_data(request):
 
 
 
+   
 def home(request):
     return redirect_home_with_message(request, None)
 

@@ -50,13 +50,25 @@ TIME_ZONE = 'Pacific/Auckland'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+#LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en_NZ'
+LANGUAGES = (
+    ('en', 'English'),
+    ('pl', 'Polski'),
+#    ('de', 'Deutsch'),
+)
 
-SITE_ID = 1
+appdir = os.path.abspath( os.path.dirname( __file__ ) )
+LOCALE_PATHS = ( 
+    os.path.join( appdir, 'conf/locale' ),
+    os.path.join( appdir, 'locale' ),
+ )
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
 USE_I18N = True
+
+SITE_ID = 1
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale
@@ -113,6 +125,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 )
 
 ROOT_URLCONF = 'urls'

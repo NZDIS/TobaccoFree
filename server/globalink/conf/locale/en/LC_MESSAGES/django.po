@@ -1,0 +1,413 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-02-23 18:43+1300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: admin/forms.py:11
+msgid "Your email/Username. Cannot be changed."
+msgstr ""
+
+#: admin/forms.py:13 observer/forms.py:71
+#: templates/admin/observers_list.html:72
+msgid "Name"
+msgstr ""
+
+#: admin/forms.py:15 observer/forms.py:73
+msgid "Surname"
+msgstr ""
+
+#: admin/forms.py:17 observer/forms.py:75
+#: templates/admin/observers_list.html:72
+msgid "Affiliation"
+msgstr ""
+
+#: admin/forms.py:19
+msgid "Activation key"
+msgstr ""
+
+#: admin/forms.py:21
+msgid "Is active?"
+msgstr ""
+
+#: admin/forms.py:23 templates/admin/observers_list.html:73
+msgid "Staff?"
+msgstr ""
+
+#: admin/forms.py:25 templates/admin/observers_list.html:73
+msgid "Approved?"
+msgstr ""
+
+#: observation/forms.py:14 observer/forms.py:18
+msgid "Your email"
+msgstr ""
+
+#: observation/forms.py:16
+msgid "Topic, main subject for your feedback"
+msgstr ""
+
+#: observer/forms.py:20
+msgid "Real name"
+msgstr ""
+
+#: observer/forms.py:22
+msgid "Real surname"
+msgstr ""
+
+#: observer/forms.py:24
+msgid "Your affiliation"
+msgstr ""
+
+#: observer/forms.py:26
+msgid "Your password (at least 6 characters)"
+msgstr ""
+
+#: observer/forms.py:85
+msgid "Existing password"
+msgstr ""
+
+#: observer/forms.py:87
+msgid "New password (at last 6 characters)"
+msgstr ""
+
+#: templates/base.html:121 templates/admin/full_profile.html:12
+#: templates/admin/observations_list.html:12
+#: templates/admin/observers_list.html:12 templates/observation/list.html:12
+#: templates/observer/profile.html:12 templates/observer/register.html:12
+#: templates/observer/register_confirm.html:13
+msgid "Please correct your FORM error below"
+msgstr ""
+
+#: templates/base.html:136 templates/admin/full_profile.html:31
+#: templates/admin/observations_list.html:31
+#: templates/admin/observers_list.html:31 templates/observation/list.html:31
+#: templates/observer/profile.html:31 templates/observer/register.html:31
+#: templates/observer/register_confirm.html:33
+msgid "Home"
+msgstr ""
+
+#: templates/base.html:137 templates/base.html.py:322
+msgid "Awareness"
+msgstr ""
+
+#: templates/base.html:138 templates/base.html.py:367
+msgid "Feedback"
+msgstr ""
+
+#: templates/base.html:140 templates/admin/full_profile.html:32
+#: templates/admin/observations_list.html:32
+#: templates/admin/observers_list.html:32 templates/observation/list.html:32
+#: templates/observer/profile.html:32
+msgid "My Observations"
+msgstr ""
+
+#: templates/base.html:143 templates/admin/full_profile.html:35
+#: templates/admin/observations_list.html:35
+#: templates/admin/observers_list.html:35 templates/observation/list.html:35
+#: templates/observer/profile.html:35
+msgid "Admin"
+msgstr ""
+
+#: templates/base.html:145 templates/admin/full_profile.html:37
+#: templates/admin/observations_list.html:37
+#: templates/admin/observers_list.html:37 templates/observation/list.html:37
+#: templates/observer/profile.html:37
+msgid "Users"
+msgstr ""
+
+#: templates/base.html:147 templates/admin/full_profile.html:39
+#: templates/admin/observations_list.html:39
+#: templates/admin/observations_list.html:70
+#: templates/admin/observers_list.html:39 templates/observation/list.html:39
+#: templates/observer/profile.html:39
+msgid "Observations"
+msgstr ""
+
+#: templates/base.html:158 templates/admin/full_profile.html:48
+#: templates/admin/observations_list.html:48
+#: templates/admin/observers_list.html:48 templates/observation/list.html:49
+#: templates/observer/profile.html:49
+msgid "My Profile"
+msgstr ""
+
+#: templates/base.html:160 templates/admin/full_profile.html:50
+#: templates/admin/observations_list.html:50
+#: templates/admin/observers_list.html:50 templates/observation/list.html:51
+#: templates/observer/profile.html:51
+msgid "Logout"
+msgstr ""
+
+#: templates/base.html:168
+msgid "E-mail"
+msgstr ""
+
+#: templates/base.html:169
+msgid "Password"
+msgstr ""
+
+#: templates/base.html:170
+msgid "Sign in"
+msgstr ""
+
+#: templates/base.html:180
+msgid "Fork me on GitHub"
+msgstr ""
+
+#: templates/base.html:190
+msgid "counting smoking in cars"
+msgstr ""
+
+#: templates/base.html:205
+msgid "How many people smoke in cars?"
+msgstr ""
+
+#: templates/base.html:206
+msgid "How many passive smokers are affected?"
+msgstr ""
+
+#: templates/base.html:207
+msgid "How many children?"
+msgstr ""
+
+#: templates/base.html:208
+msgid "How much the stats differ between countries?"
+msgstr ""
+
+#: templates/base.html:213 templates/base.html.py:306
+#: templates/observer/register.html:51
+msgid "Register"
+msgstr ""
+
+#: templates/base.html:213
+msgid "to participate"
+msgstr ""
+
+#: templates/base.html:214
+msgid "Learn more"
+msgstr ""
+
+#: templates/base.html:228
+msgid "Statistics"
+msgstr ""
+
+#: templates/base.html:228
+msgid "overall"
+msgstr ""
+
+#: templates/base.html:230
+msgid "registered loggers"
+msgstr ""
+
+#: templates/base.html:231
+msgid "stored observations"
+msgstr ""
+
+#: templates/base.html:232
+msgid "cars checked"
+msgstr ""
+
+#: templates/base.html:233
+msgid "of people"
+msgstr ""
+
+#: templates/base.html:233
+msgid "smoke"
+msgstr ""
+
+#: templates/base.html:233
+msgid "in cars"
+msgstr ""
+
+#: templates/base.html:240 templates/base.html.py:263
+msgid "Statistics per"
+msgstr ""
+
+#: templates/base.html:240
+msgid "country"
+msgstr ""
+
+#: templates/base.html:243
+msgid "Country"
+msgstr ""
+
+#: templates/base.html:243 templates/base.html.py:266
+msgid "Smoking in cars"
+msgstr ""
+
+#: templates/base.html:244 templates/base.html.py:267
+msgid "Num. cars"
+msgstr ""
+
+#: templates/base.html:244 templates/base.html.py:267
+msgid "Num. observations"
+msgstr ""
+
+#: templates/base.html:263
+msgid "city"
+msgstr ""
+
+#: templates/base.html:266
+msgid "City"
+msgstr ""
+
+#: templates/base.html:288
+msgid "Observations map"
+msgstr ""
+
+#: templates/base.html:300
+msgid ""
+"To collect data from multiple sites, globally, many times a day, over and "
+"over again, would be expensive. "
+msgstr ""
+
+#: templates/base.html:301
+msgid ""
+"So expensive, that study like that is impossible to run through traditional "
+"methods."
+msgstr ""
+
+#: templates/base.html:302
+msgid "The idea is to ask volunteers to help."
+msgstr ""
+
+#: templates/base.html:302
+msgid "YOU"
+msgstr ""
+
+#: templates/base.html:303
+msgid "will help to conduct the study and do the research."
+msgstr ""
+
+#: templates/base.html:305
+msgid "Anyone can participate"
+msgstr ""
+
+#: templates/base.html:308
+msgid "Agree to"
+msgstr ""
+
+#: templates/base.html:308
+msgid "Ethical Conduct and Honour Code"
+msgstr ""
+
+#: templates/base.html:309
+msgid "Go outside, stand by a busy street, and start logging the data"
+msgstr ""
+
+#: templates/base.html:311
+msgid "The application allows easy logging of occurances of smoking in cars."
+msgstr ""
+
+#: templates/base.html:312
+msgid ""
+"Install it, go out, and collect data about particular location. Instructions "
+"are provided within the application."
+msgstr ""
+
+#: templates/base.html:324
+msgid "World"
+msgstr ""
+
+#: templates/base.html:348
+msgid "Research articles"
+msgstr ""
+
+#: templates/base.html:367
+msgid "tell us what you think"
+msgstr ""
+
+#: templates/base.html:379
+msgid "Send feedback"
+msgstr ""
+
+#: templates/base.html:380 templates/observer/register.html:67
+msgid "Clear form"
+msgstr ""
+
+#: templates/admin/base_site.html:4 templates/admin/base_site.html.py:7
+msgid "TobaccoFree administration"
+msgstr ""
+
+#: templates/admin/full_profile.html:71 templates/observer/profile.html:72
+msgid "Profile of"
+msgstr ""
+
+#: templates/admin/full_profile.html:73
+msgid "Delete this observer"
+msgstr ""
+
+#: templates/admin/full_profile.html:90
+msgid "Update profile"
+msgstr ""
+
+#: templates/admin/observations_list.html:74
+msgid "User"
+msgstr ""
+
+#: templates/admin/observations_list.html:75
+#: templates/observation/list.html:74
+msgid "When"
+msgstr ""
+
+#: templates/admin/observations_list.html:76
+#: templates/observation/list.html:74
+msgid "Where"
+msgstr ""
+
+#: templates/admin/observations_list.html:77
+#: templates/observation/list.html:75
+msgid "How long"
+msgstr ""
+
+#: templates/admin/observations_list.html:95
+msgid "Delete"
+msgstr ""
+
+#: templates/admin/observers_list.html:70
+msgid "Observers"
+msgstr ""
+
+#: templates/admin/observers_list.html:73
+msgid "username/email"
+msgstr ""
+
+#: templates/observation/list.html:72
+msgid "Observations collected by"
+msgstr ""
+
+#: templates/observer/profile.html:88
+msgid "Password change"
+msgstr ""
+
+#: templates/observer/register.html:51
+msgid "and be able to upload data to the server"
+msgstr ""
+
+#: templates/observer/register.html:66
+msgid "Send registration request"
+msgstr ""
+
+#: templates/observer/register_confirm.html:52
+msgid "Confirm your registration"
+msgstr ""
+
+#: templates/observer/register_confirm.html:52
+msgid "to start logging the observations"
+msgstr ""
+
+#: templates/observer/register_confirm.html:63
+msgid "Confirm registration"
+msgstr ""

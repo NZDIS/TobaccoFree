@@ -2,6 +2,8 @@
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import check_password
+from django.utils.translation import ugettext as _
+
 from globalink.observation.models import RegisteredObserver
 from mongoengine.django.auth import User
 
@@ -13,15 +15,15 @@ class RegistrationForm(forms.Form):
     New observers registration form
     '''
     email = forms.EmailField(widget=forms.TextInput(attrs={'class':'xlarge'}))
-    email.help_text="Your email"
+    email.help_text = _("Your email")
     name = forms.CharField(max_length=64, widget=forms.TextInput(attrs={'class':'xlarge'}))
-    name.help_text="Real name"
+    name.help_text = _("Real name")
     surname = forms.CharField(max_length=64, widget=forms.TextInput(attrs={'class':'xlarge'}))
-    surname.help_text="Real surname"
+    surname.help_text = _("Real surname")
     affiliation = forms.CharField(max_length=256, widget=forms.TextInput(attrs={'class':'xlarge'}))
-    affiliation.help_text="Your affiliation"
+    affiliation.help_text = _("Your affiliation")
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'xlarge'}))
-    password.help_text = 'Your password (at least 6 characters)'
+    password.help_text =  _('Your password (at least 6 characters)')
 
 
     def clean_email(self):
@@ -66,11 +68,11 @@ class ProfileForm(forms.Form):
     email = forms.EmailField(widget=forms.TextInput(attrs={'class':'xlarge uneditable-input'}))
     email.help_text="Your email/Username. Cannot be changed."
     name = forms.CharField(max_length=64, widget=forms.TextInput(attrs={'class':'xlarge'}))
-    name.help_text="Name"
+    name.help_text = _("Name")
     surname = forms.CharField(max_length=64, widget=forms.TextInput(attrs={'class':'xlarge'}))
-    surname.help_text="Surname"
+    surname.help_text = _("Surname")
     affiliation = forms.CharField(max_length=256, widget=forms.TextInput(attrs={'class':'xlarge'}))
-    affiliation.help_text="Affiliation"
+    affiliation.help_text = _("Affiliation")
     
     
     
@@ -80,9 +82,9 @@ class PasswordChangeForm(forms.Form):
     '''
     user = None
     old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'xlarge'}))
-    old_password.help_text = 'Existing password'
+    old_password.help_text =  _('Existing password')
     new_password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'xlarge'}))
-    new_password.help_text = 'New password (at last 6 characters)'
+    new_password.help_text =  _('New password (at last 6 characters)')
 
     def __init__(self, user, *args, **kwargs):
         self.user = user;
