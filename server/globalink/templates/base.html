@@ -3,10 +3,14 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>NZDIS Tobacco</title>
-    <meta name="description" content="University of Otago joint project with Globalink. Tobacco Free. Tobacco Awarness. Record smoking in cars. Globally. Share your results.">
+    <title>NZDIS TobaccoFree</title>
+    <meta name="description" content="University of Otago, New Zealand Distributed Information Systems (NZDIS) project. Tobacco Free. Tobacco Awarness. Volunteers record smoking in cars. Globally. Share your data. Spread the results.">
     <meta name="author" content="NZDIS Group. University of Otago">
-
+    
+    <meta property="og:title" content="NZDIS TobaccoFree"/>
+	<meta property="og:description" content="TobaccoFree, volunteers collect data about smoking in cars. Crowdsourcing data with mobile phones.">
+	<meta property="og:type" content="text"/>
+    
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -252,10 +256,39 @@
 	      <li><big>{{ number_of_registered_observers }}</big> {{ _("registered loggers") }}</li>
       	  <li><big>{{ number_of_observations }}</big> {{ _("stored observations") }}</li>
       	  <li><big>{{ number_of_cars }}</big> {{ _("cars checked") }}</li>
-      	  <li><big>{{ ratio_of_smokers|floatformat }}</big> {{ _("of people") }} <big>{{ _("smoke") }}</big> {{ _("in cars") }}</li>
+      	  <li><big>{{ ratio_of_smokers|floatformat }}%</big> {{ _("of people") }} <big>{{ _("smoke") }}</big> {{ _("in cars") }}</li>
 	    </ul>
 	  </div>
+	
+	<div id="fb-root"></div>
+	<script>
+	(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+	</script>
+	
+	<div class="fb-like" data-href="http://tobaccofree.nzdis.org" 
+		data-send="true" data-layout="button_count" 
+		data-width="150" data-show-faces="false" 
+		data-action="like">
 	</div>
+
+	<a href="https://twitter.com/share" 
+		class="twitter-share-button" 
+		data-url="http://tobaccofree.nzdis.org"
+		data-counturl="http://tobaccofree.nzdis.org"
+		data-text="#TobaccoFree {{ number_of_registered_observers }} {{ _('registered loggers') }}, {{ number_of_observations }} {{ _('stored observations') }}, {{ number_of_cars }} {{ _('cars checked') }}, {{ ratio_of_smokers|floatformat }}% {{ _('of people') }} {{ _('smoke') }} {{ _('in cars') }}" 
+		data-via="nzdis"
+		data-rel="canonical" 
+		data-related="nzdis:New Zealand Distributed Information Systems., ognus:Developer - PhD student - University of Otago, praeteritio:Researcher - Lecturer - University of Otago." 
+		data-count="horizontal">{{ _("Tweet") }}</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</div>
+	
 	
 	<div class="row">
 	  <div class="span13">
@@ -318,7 +351,7 @@
 	<hr>
     <div class="row">    
        <div class="span8">
-       <h2>{{ _("About") %}</h2>
+       <h2>{{ _("About") }}</h2>
        <p>{{ _("To collect data from multiple sites, globally, many times a day, over and over again, would be expensive. ") }}
           {{ _("So expensive, that study like that is impossible to run through traditional methods.") }}<br>
 	   <p>{{ _("The idea is to ask volunteers to help.") }} <big>{{ _("YOU") }}</big>
