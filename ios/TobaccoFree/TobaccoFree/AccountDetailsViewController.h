@@ -1,5 +1,5 @@
 //
-//  NGSecondViewController.h
+//  AccountDetailsViewController.h
 //  TobaccoFree
 //
 //  Created by Mariusz Nowostawski on 24/02/12.
@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NGSecondViewController : UIViewController
+@interface AccountDetailsViewController : UIViewController <UITextFieldDelegate>
+
+@property (weak, nonatomic) IBOutlet UITextField *txtEmail;
+@property (weak, nonatomic) IBOutlet UITextField *txtPassword;
+
+- (IBAction) saveCredentials;
+- (IBAction) openTobaccoFreeWebsite;
 
 @end

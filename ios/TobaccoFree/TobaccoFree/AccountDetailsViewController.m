@@ -1,20 +1,46 @@
 //
-//  NGSecondViewController.m
+//  AccountDetailsViewController.m
 //  TobaccoFree
 //
 //  Created by Mariusz Nowostawski on 24/02/12.
 //  Copyright (c) 2012 Ngarua Technologies Ltd. All rights reserved.
 //
 
-#import "NGSecondViewController.h"
+#import "AccountDetailsViewController.h"
 
-@implementation NGSecondViewController
+@implementation AccountDetailsViewController
+
+@synthesize txtEmail;
+@synthesize txtPassword;
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
 }
+
+#pragma mark - Action handlers
+
+- (IBAction) saveCredentials {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"hej stary"
+                                                    message:[@"Email: " stringByAppendingString:txtEmail.text]
+                                                   delegate:self
+                                          cancelButtonTitle:@"Ok"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
+- (IBAction) openTobaccoFreeWebsite
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://tobaccofree.nzdis.org"]];
+}
+
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
 
 #pragma mark - View lifecycle
 
@@ -26,6 +52,8 @@
 
 - (void)viewDidUnload
 {
+    [self setTxtEmail:nil];
+    [self setTxtPassword:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

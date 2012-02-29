@@ -6,9 +6,9 @@
 //  Copyright (c) 2012 Ngarua Technologies Ltd. All rights reserved.
 //
 
-#import "NGFirstViewController.h"
+#import "MainViewController.h"
 
-@implementation NGFirstViewController
+@implementation MainViewController
 
 - (void)didReceiveMemoryWarning
 {

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NGFirstViewController : UIViewController
+@interface MainViewController : UIViewController
 
 @end
