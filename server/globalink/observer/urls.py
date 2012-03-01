@@ -1,6 +1,7 @@
 from django.conf.urls.defaults import patterns, url
 
 urlpatterns = patterns('globalink.observer.views',
+    url(r'^hall_of_fame', 'hall_of_fame'),
     url(r'^register', 'register'),
     url(r'^login', 'dologin'),
     url(r'^logout', 'dologout'),

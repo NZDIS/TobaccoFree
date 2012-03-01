@@ -141,6 +141,7 @@
             <li class="active"><a href="#home">{{ _("Home") }}</a></li>
             <li><a href="/#awareness">{{ _("Awareness") }}</a></li>
             <li><a href="/#feedback">{{ _("Feedback") }}</a></li>
+            <li><a href="/observer/hall_of_fame">{{ _("People") }}</a></li>
         {% if user.is_authenticated %}
         	<li><a href="/observation/list">{{ _("My Observations") }}</a></li>
             {% if user.is_staff %}
@@ -155,8 +156,18 @@
             {% endif %}
         {% endif %}
           </ul>
-          <ul class="nav secondary-nav pull-right">
-          	<li class="menu" data-dropdown="dropdown">
+        {% if user.is_authenticated %}
+		  <ul class="nav secondary-nav">
+		  	<li class="menu" data-dropdown="dropdown">                                 
+		        <a href="#" class="menu">{{ user.username }}</a>
+		        <ul class="menu-dropdown">                                               
+		          <li><a href="/observer/profile">{{ _("My Profile") }}</a></li>                        
+		          <li class="divider"></li>                                              
+		          <li><a href="/observer/logout">{{ _("Logout") }}</a></li>                             
+		        </ul>                                                                    
+		      </li>
+
+           	<li class="menu" data-dropdown="dropdown">
           		<a href="#" class="menu">
           			<img style="position:absolute; top:5px;" src="{{ STATIC_URL }}images/lang_world.png" height="28" width="28"/>
           		</a>
@@ -174,18 +185,7 @@
         	        </li>
             	{% endfor %}    
           		</ul>
-          	</li>
-          </ul>
-        {% if user.is_authenticated %}
-		  <ul class="nav secondary-nav">
-		  	<li class="menu" data-dropdown="dropdown">                                 
-		        <a href="#" class="menu">{{ user.username }}</a>
-		        <ul class="menu-dropdown">                                               
-		          <li><a href="/observer/profile">{{ _("My Profile") }}</a></li>                        
-		          <li class="divider"></li>                                              
-		          <li><a href="/observer/logout">{{ _("Logout") }}</a></li>                             
-		        </ul>                                                                    
-		      </li>                                                                      
+          	</li>                                                                      
 		  </ul>                                                                          
 		{% else %}
 		  </ul>
@@ -195,6 +195,29 @@
             <input class="input-small" id="password" name="password" type="password" placeholder="{{ _('Password') }}">
             <button class="btn" type="submit">{{ _("Sign in") }}</button>
           </form>
+          <ul class="nav secondary-nav pull-right">
+  	        <li class="menu" data-dropdown="dropdown">
+          		<a href="#" class="menu">
+          			<img style="position:absolute; top:5px;" src="{{ STATIC_URL }}images/lang_world.png" height="28" width="28"/>
+          		</a>
+          		<ul class="menu-dropdown">
+        	    {% for lang in LANGUAGES %}
+			        <li>
+			        <div>
+                    <form name="setLang{{ lang.1}}" action="/i18n/setlang/" method="POST">
+                    	{% csrf_token %}
+                        <input name="next" type="hidden" value="/" />
+                        <input type="hidden" name="language" value="{{ lang.0 }}" />
+                        <a href="#" onclick="document.setLang{{ lang.1 }}.submit();return false;">{{ lang.1 }}</a>
+                    </form>
+                   </div>
+        	        </li>
+            	{% endfor %}    
+          		</ul>
+          	</li>                                                                      
+
+          </ul>
+
 		{% endif %}
         </div>
       </div>
