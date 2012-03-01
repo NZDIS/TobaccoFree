@@ -33,6 +33,13 @@
 		6F91A71114F76EE800B5477D /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F91A70F14F76EE800B5477D /* MainStoryboard_iPad.storyboard */; };
 		6F91A71414F76EE800B5477D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F91A71314F76EE800B5477D /* MainViewController.m */; };
 		6F91A71B14F76EE800B5477D /* AccountDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F91A71A14F76EE800B5477D /* AccountDetailsViewController.m */; };
+		6FE5C07914FF5780006665E2 /* RecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE5C07814FF5780006665E2 /* RecordingViewController.m */; };
+		6FE5C07C14FF5FB2006665E2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE5C07B14FF5FB2006665E2 /* QuartzCore.framework */; };
+		6FE5C07E14FF5FBC006665E2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE5C07D14FF5FBC006665E2 /* CoreLocation.framework */; };
+		6FE5C08014FF5FC5006665E2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE5C07F14FF5FC5006665E2 /* CoreData.framework */; };
+		6FE5C08614FF650A006665E2 /* ObservationsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6FE5C08414FF650A006665E2 /* ObservationsModel.xcdatamodeld */; };
+		6FE5C08C14FF686A006665E2 /* Details.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE5C08B14FF686A006665E2 /* Details.m */; };
+		6FE5C08F14FF6E52006665E2 /* DataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE5C08E14FF6E52006665E2 /* DataViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +75,16 @@
 		6F91A71314F76EE800B5477D /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		6F91A71914F76EE800B5477D /* AccountDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountDetailsViewController.h; sourceTree = "<group>"; };
 		6F91A71A14F76EE800B5477D /* AccountDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountDetailsViewController.m; sourceTree = "<group>"; };
+		6FE5C07714FF5780006665E2 /* RecordingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingViewController.h; sourceTree = "<group>"; };
+		6FE5C07814FF5780006665E2 /* RecordingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingViewController.m; sourceTree = "<group>"; };
+		6FE5C07B14FF5FB2006665E2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		6FE5C07D14FF5FBC006665E2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		6FE5C07F14FF5FC5006665E2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		6FE5C08514FF650A006665E2 /* ObservationsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ObservationsModel.xcdatamodel; sourceTree = "<group>"; };
+		6FE5C08A14FF686A006665E2 /* Details.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Details.h; path = ../Details.h; sourceTree = "<group>"; };
+		6FE5C08B14FF686A006665E2 /* Details.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Details.m; path = ../Details.m; sourceTree = "<group>"; };
+		6FE5C08D14FF6E52006665E2 /* DataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataViewController.h; sourceTree = "<group>"; };
+		6FE5C08E14FF6E52006665E2 /* DataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +92,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FE5C08014FF5FC5006665E2 /* CoreData.framework in Frameworks */,
+				6FE5C07E14FF5FBC006665E2 /* CoreLocation.framework in Frameworks */,
+				6FE5C07C14FF5FB2006665E2 /* QuartzCore.framework in Frameworks */,
 				6F91A6FB14F76EE800B5477D /* UIKit.framework in Frameworks */,
 				6F91A6FD14F76EE800B5477D /* Foundation.framework in Frameworks */,
 				6F91A6FF14F76EE800B5477D /* CoreGraphics.framework in Frameworks */,
@@ -128,6 +148,9 @@
 		6F91A6F914F76EE800B5477D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6FE5C07F14FF5FC5006665E2 /* CoreData.framework */,
+				6FE5C07D14FF5FBC006665E2 /* CoreLocation.framework */,
+				6FE5C07B14FF5FB2006665E2 /* QuartzCore.framework */,
 				6F91A6FA14F76EE800B5477D /* UIKit.framework */,
 				6F91A6FC14F76EE800B5477D /* Foundation.framework */,
 				6F91A6FE14F76EE800B5477D /* CoreGraphics.framework */,
@@ -138,6 +161,11 @@
 		6F91A70014F76EE800B5477D /* TobaccoFree */ = {
 			isa = PBXGroup;
 			children = (
+				6FE5C08A14FF686A006665E2 /* Details.h */,
+				6FE5C08B14FF686A006665E2 /* Details.m */,
+				6FE5C08414FF650A006665E2 /* ObservationsModel.xcdatamodeld */,
+				6FE5C08D14FF6E52006665E2 /* DataViewController.h */,
+				6FE5C08E14FF6E52006665E2 /* DataViewController.m */,
 				6F91A70914F76EE800B5477D /* NGAppDelegate.h */,
 				6F91A70A14F76EE800B5477D /* NGAppDelegate.m */,
 				6F91A70C14F76EE800B5477D /* MainStoryboard_iPhone.storyboard */,
@@ -147,6 +175,8 @@
 				6F91A71914F76EE800B5477D /* AccountDetailsViewController.h */,
 				6F91A71A14F76EE800B5477D /* AccountDetailsViewController.m */,
 				6F91A70114F76EE800B5477D /* Supporting Files */,
+				6FE5C07714FF5780006665E2 /* RecordingViewController.h */,
+				6FE5C07814FF5780006665E2 /* RecordingViewController.m */,
 			);
 			path = TobaccoFree;
 			sourceTree = "<group>";
@@ -246,6 +276,10 @@
 				6F91A70B14F76EE800B5477D /* NGAppDelegate.m in Sources */,
 				6F91A71414F76EE800B5477D /* MainViewController.m in Sources */,
 				6F91A71B14F76EE800B5477D /* AccountDetailsViewController.m in Sources */,
+				6FE5C07914FF5780006665E2 /* RecordingViewController.m in Sources */,
+				6FE5C08614FF650A006665E2 /* ObservationsModel.xcdatamodeld in Sources */,
+				6FE5C08C14FF686A006665E2 /* Details.m in Sources */,
+				6FE5C08F14FF6E52006665E2 /* DataViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,6 +404,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6FE5C08414FF650A006665E2 /* ObservationsModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6FE5C08514FF650A006665E2 /* ObservationsModel.xcdatamodel */,
+			);
+			currentVersion = 6FE5C08514FF650A006665E2 /* ObservationsModel.xcdatamodel */;
+			name = ObservationsModel.xcdatamodeld;
+			path = ../ObservationsModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 6F91A6ED14F76EE800B5477D /* Project object */;
 }
