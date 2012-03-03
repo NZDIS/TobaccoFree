@@ -23,6 +23,7 @@
 		6F67E85814FE2204004D5DE5 /* tab_icon_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E85514FE2204004D5DE5 /* tab_icon_home.png */; };
 		6F67E85914FE2204004D5DE5 /* tab_icon_user.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E85614FE2204004D5DE5 /* tab_icon_user.png */; };
 		6F67E85B14FE26A9004D5DE5 /* otago_horizontal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E85A14FE26A9004D5DE5 /* otago_horizontal.jpg */; };
+		6F8F17531502C25700DD9BAC /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8F17521502C25700DD9BAC /* Constants.m */; };
 		6F91A6FB14F76EE800B5477D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F91A6FA14F76EE800B5477D /* UIKit.framework */; };
 		6F91A6FD14F76EE800B5477D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F91A6FC14F76EE800B5477D /* Foundation.framework */; };
 		6F91A6FF14F76EE800B5477D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F91A6FE14F76EE800B5477D /* CoreGraphics.framework */; };
@@ -60,6 +61,8 @@
 		6F67E85514FE2204004D5DE5 /* tab_icon_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tab_icon_home.png; path = TobaccoFree/tab_icon_home.png; sourceTree = "<group>"; };
 		6F67E85614FE2204004D5DE5 /* tab_icon_user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tab_icon_user.png; path = TobaccoFree/tab_icon_user.png; sourceTree = "<group>"; };
 		6F67E85A14FE26A9004D5DE5 /* otago_horizontal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = otago_horizontal.jpg; path = TobaccoFree/otago_horizontal.jpg; sourceTree = "<group>"; };
+		6F8F17511502C25600DD9BAC /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		6F8F17521502C25700DD9BAC /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		6F91A6F614F76EE800B5477D /* TobaccoFree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TobaccoFree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F91A6FA14F76EE800B5477D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6F91A6FC14F76EE800B5477D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -163,22 +166,24 @@
 		6F91A70014F76EE800B5477D /* TobaccoFree */ = {
 			isa = PBXGroup;
 			children = (
+				6F8F17511502C25600DD9BAC /* Constants.h */,
+				6F8F17521502C25700DD9BAC /* Constants.m */,
 				6FE5C08A14FF686A006665E2 /* Details.h */,
 				6FE5C08B14FF686A006665E2 /* Details.m */,
-				6FE5C08414FF650A006665E2 /* ObservationsModel.xcdatamodeld */,
-				6FE5C08D14FF6E52006665E2 /* DataViewController.h */,
-				6FE5C08E14FF6E52006665E2 /* DataViewController.m */,
 				6F91A70914F76EE800B5477D /* NGAppDelegate.h */,
 				6F91A70A14F76EE800B5477D /* NGAppDelegate.m */,
-				6F91A70C14F76EE800B5477D /* MainStoryboard_iPhone.storyboard */,
-				6F91A70F14F76EE800B5477D /* MainStoryboard_iPad.storyboard */,
 				6F91A71214F76EE800B5477D /* MainViewController.h */,
 				6F91A71314F76EE800B5477D /* MainViewController.m */,
+				6FE5C08D14FF6E52006665E2 /* DataViewController.h */,
+				6FE5C08E14FF6E52006665E2 /* DataViewController.m */,
 				6F91A71914F76EE800B5477D /* AccountDetailsViewController.h */,
 				6F91A71A14F76EE800B5477D /* AccountDetailsViewController.m */,
-				6F91A70114F76EE800B5477D /* Supporting Files */,
 				6FE5C07714FF5780006665E2 /* RecordingViewController.h */,
 				6FE5C07814FF5780006665E2 /* RecordingViewController.m */,
+				6FE5C08414FF650A006665E2 /* ObservationsModel.xcdatamodeld */,
+				6F91A70C14F76EE800B5477D /* MainStoryboard_iPhone.storyboard */,
+				6F91A70F14F76EE800B5477D /* MainStoryboard_iPad.storyboard */,
+				6F91A70114F76EE800B5477D /* Supporting Files */,
 			);
 			path = TobaccoFree;
 			sourceTree = "<group>";
@@ -284,6 +289,7 @@
 				6FE5C08614FF650A006665E2 /* ObservationsModel.xcdatamodeld in Sources */,
 				6FE5C08C14FF686A006665E2 /* Details.m in Sources */,
 				6FE5C08F14FF6E52006665E2 /* DataViewController.m in Sources */,
+				6F8F17531502C25700DD9BAC /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
