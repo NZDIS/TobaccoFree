@@ -67,7 +67,7 @@
    	<string name="instuctions_choosing_title">Choosing an observation site</string>
    	<string name="instructions_choosing_text">The ideal site will have high vehicle flows (but low vehicle speed) and good visibility of vehicle occupants.</string>
    	<string name="instructions_what_title">What to observe</string>
-   	<string name="instructions_what_text">Smoking in vehicles and the other presence of other (adult or child) occupants</string>
+   	<string name="instructions_what_text">Smoking in vehicles and the presence of other (adult or child) occupants</string>
    	<string name="instructions_how_title">How to observe</string>
    	<string name="instructions_how_text">Only include vehicles in the lane of traffic nearest to you. For each vehicle, tap one of the following buttons:</string>
    	<string name="instructions_no_smoking">No smoking.</string>
@@ -103,7 +103,7 @@
    	<string name="uploading_observation_number">Uploading observation </string>
    	<string name="uploading_observation_of">of </string>
    	<string name="username_details">An email and password are required to use the uploading function of this application. To setup new account press the button above and sign up.</string>
-   	<string name="upload_description">To upload an observation, select it from the drop down box and tap \"Upload\" or to upload them all just press \"Upload All\". Only those observations that haven\'t been upload will show in the list.</string>
+   	<string name="upload_description">To upload your observations press \'Upload data\' button on the main screen of TobaccoFree. App will upload all observations that haven\'t been upload yet.</string>
    	<string name="instructions_upload">How to Upload</string>
    	<string name="upload_error">An error has occurred while uploading. If this continues please use the feedback button in the Preferences menu.</string>
 	<string name="right_hand">Right Handed Mode</string>

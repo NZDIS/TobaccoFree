@@ -18,4 +18,6 @@
 @property (nonatomic, retain) CLLocationManager *locationManager;
 
 
+- (IBAction)finishRecording:(id)sender;
+
 @end

@@ -29,9 +29,6 @@
 {
     [super viewDidLoad];
     
-    // Set the title.
-    self.title = @"Stored Observations";
-    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  

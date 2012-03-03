@@ -10,10 +10,12 @@
 
 @interface AccountDetailsViewController : UIViewController <UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField *txtEmail;
-@property (weak, nonatomic) IBOutlet UITextField *txtPassword;
+@property (weak, nonatomic) IBOutlet UITextField *txtFieldEmail;
+@property (weak, nonatomic) IBOutlet UITextField *txtFieldPassword;
 
 - (IBAction) saveCredentials;
 - (IBAction) openTobaccoFreeWebsite;
+- (IBAction) textFieldShouldReturn:(id)sender;
+- (IBAction) backgroundTouched:(id)sender;
 
 @end

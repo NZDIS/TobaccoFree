@@ -11,6 +11,10 @@
 
 @implementation RecordingViewController
 
+
+@synthesize locationManager;
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -22,6 +26,14 @@
 
 
 #pragma mark - Location management
+
+- (IBAction)finishRecording:(id)sender {
+    
+    
+    
+    // Go back to the main screen
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (CLLocationManager *)locationManager {
     
@@ -74,8 +86,12 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+     
     double currentTime = CACurrentMediaTime(); 
     long ct = (long)(currentTime * 1000);
+    
+    // Hide the back button
+    self.navigationItem.hidesBackButton = YES;
     
     NSLog(@"Got timestamp: %d", ct);
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Info"
@@ -99,7 +115,8 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return (interfaceOrientation == UIInterfaceOrientationPortrait || 
+            interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
 }
 
 
