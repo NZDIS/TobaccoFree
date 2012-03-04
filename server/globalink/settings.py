@@ -1,4 +1,6 @@
 #
+# -*- coding: utf-8 -*-
+#
 # Django settings for GlobaLink_server project.
 #
 #
@@ -55,6 +57,8 @@ LANGUAGE_CODE = 'en_NZ'
 LANGUAGES = (
     ('en', 'English'),
     ('pl', 'Polski'),
+    ('pt', 'Português'),
+    ('pt_BR', 'Português Brasileiro'),
 #    ('de', 'Deutsch'),
 )
 
