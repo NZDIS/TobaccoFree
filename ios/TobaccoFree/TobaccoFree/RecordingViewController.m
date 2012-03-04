@@ -34,6 +34,20 @@
             self.count_child;
 }
 
+- (void) prepareRecording {
+    if ([self numOfObservedCars] == 0) 
+    {
+        if (observation == nil) // we check again, because perhaps user added and removed a car, but observation has been initialised already
+        {
+            // create new observation record
+            observation = (Observations *)[NSEntityDescription insertNewObjectForEntityForName:@"Observations" inManagedObjectContext:managedObjectContext];
+            // currentTimeInMillis
+            long ct = (long)(CACurrentMediaTime() * 1000);
+            observation.timestamp_start = ct;
+        }
+    }
+}
+
 
 - (Details *) recordDetails:(int) type {
     // currentTimeInMillis
@@ -63,21 +77,32 @@
 #pragma mark - Location management
 
 - (IBAction)finishRecording:(id)sender {
-    
-    // record the finish time of the recording
-    long ct = (long)(CACurrentMediaTime() * 1000);
-    observation.timestamp_stop = ct;
 
-    NSError *error = nil;
-    if (![managedObjectContext save:&error]) {
-        NSLog(@"Error %@", error.localizedDescription);
+    if ([self numOfObservedCars] > 0)
+    {
+        // record the finish time of the recording
+        long ct = (long)(CACurrentMediaTime() * 1000);
+        observation.timestamp_stop = ct;
+
+        NSError *error = nil;
+        if (![managedObjectContext save:&error]) {
+            NSLog(@"Error %@", error.localizedDescription);
+        }
+
+        // Debugging NSLog(@"Got timestamp: %ld", ct);
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Thanks you"
+                                                    message:[@"You have observed " stringByAppendingString:[NSString stringWithFormat:@"%d cars", [self numOfObservedCars]]]
+                                                   delegate:self
+                                          cancelButtonTitle:@"Ok"
+                                          otherButtonTitles:nil];
+        [alert show];
     }
-
     // Go back to the main screen
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)add_no_smoking:(id)sender {
+    [self prepareRecording];
     self.count_no_smoking++;
     self.txt_no_smoking.text = [NSString stringWithFormat:@"%d", self.count_no_smoking];
     [self recordDetails:SMOKING_ID_NO_SMOKING];
@@ -85,18 +110,21 @@
 }
 
 - (IBAction)add_sole_adult:(id)sender {
+    [self prepareRecording];
     self.count_sole_adult++;
     self.txt_sole_adult.text = [NSString stringWithFormat:@"%d", self.count_sole_adult];
     [self recordDetails:SMOKING_ID_ADULT_SMOKING_ALONE];
 }
 
 - (IBAction)add_other_adults:(id)sender {
+    [self prepareRecording];    
     self.count_other_adults++;
     self.txt_other_adults.text = [NSString stringWithFormat:@"%d", self.count_other_adults];
     [self recordDetails:SMOKING_ID_ADULT_SMOKING_OTHERS];
 }
 
 - (IBAction)add_child:(id)sender {
+    [self prepareRecording];    
     self.count_child++;
     self.txt_child.text = [NSString stringWithFormat:@"%d", self.count_child];
     [self recordDetails:SMOKING_ID_ADULT_SMOKING_CHILD];
@@ -134,6 +162,9 @@
 {
     [super viewDidLoad];
 
+    // Hide the back button
+    self.navigationItem.hidesBackButton = YES;
+
     // Start the location manager.
     [[self locationManager] startUpdatingLocation];
     
@@ -143,17 +174,7 @@
         NSLog(@"After managedObjectContext: %@",  managedObjectContext);
     }
     
-    NSLog(@"Loaded Data Recording view");
-    
-    if (observation == nil)
-    {
-        // create new observation record
-        observation = (Observations *)[NSEntityDescription insertNewObjectForEntityForName:@"Observations" inManagedObjectContext:managedObjectContext];
-        // currentTimeInMillis
-        long ct = (long)(CACurrentMediaTime() * 1000);
-        observation.timestamp_start = ct;
-    }
-
+    // Debugging NSLog(@"Loaded Data Recording view");
 }
 
 - (void)viewDidUnload
@@ -176,6 +197,7 @@
 {
     [super viewDidAppear:animated];
      
+    /*
     double currentTime = CACurrentMediaTime(); 
     long ct = (long)(currentTime * 1000);
     
@@ -189,7 +211,7 @@
                                           cancelButtonTitle:@"Ok"
                                           otherButtonTitles:nil];
     [alert show];
-    
+    */
 }
 
 - (void)viewWillDisappear:(BOOL)animated

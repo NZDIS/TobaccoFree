@@ -17,8 +17,6 @@
 		6F67E84014FDF3AE004D5DE5 /* smokersand.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E83714FDF3AE004D5DE5 /* smokersand.png */; };
 		6F67E84314FDF3F4004D5DE5 /* help_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E84114FDF3F4004D5DE5 /* help_selected.png */; };
 		6F67E84414FDF3F4004D5DE5 /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E84214FDF3F4004D5DE5 /* help.png */; };
-		6F67E84A14FE1912004D5DE5 /* icon_main_57.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E84914FE1912004D5DE5 /* icon_main_57.png */; };
-		6F67E84C14FE191F004D5DE5 /* icon_main_114.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E84B14FE191F004D5DE5 /* icon_main_114.png */; };
 		6F67E85714FE2204004D5DE5 /* tab_icon_data.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E85414FE2204004D5DE5 /* tab_icon_data.png */; };
 		6F67E85814FE2204004D5DE5 /* tab_icon_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E85514FE2204004D5DE5 /* tab_icon_home.png */; };
 		6F67E85914FE2204004D5DE5 /* tab_icon_user.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E85614FE2204004D5DE5 /* tab_icon_user.png */; };
@@ -44,8 +42,6 @@
 		6FE5C07C14FF5FB2006665E2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE5C07B14FF5FB2006665E2 /* QuartzCore.framework */; };
 		6FE5C07E14FF5FBC006665E2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE5C07D14FF5FBC006665E2 /* CoreLocation.framework */; };
 		6FE5C08014FF5FC5006665E2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE5C07F14FF5FC5006665E2 /* CoreData.framework */; };
-		6FE5C08614FF650A006665E2 /* ObservationsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6FE5C08414FF650A006665E2 /* ObservationsModel.xcdatamodeld */; };
-		6FE5C08C14FF686A006665E2 /* Details.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE5C08B14FF686A006665E2 /* Details.m */; };
 		6FE5C08F14FF6E52006665E2 /* DataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE5C08E14FF6E52006665E2 /* DataViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -60,8 +56,6 @@
 		6F67E83714FDF3AE004D5DE5 /* smokersand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smokersand.png; path = TobaccoFree/smokersand.png; sourceTree = "<group>"; };
 		6F67E84114FDF3F4004D5DE5 /* help_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = help_selected.png; path = TobaccoFree/help_selected.png; sourceTree = "<group>"; };
 		6F67E84214FDF3F4004D5DE5 /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = help.png; path = TobaccoFree/help.png; sourceTree = "<group>"; };
-		6F67E84914FE1912004D5DE5 /* icon_main_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_main_57.png; sourceTree = "<group>"; };
-		6F67E84B14FE191F004D5DE5 /* icon_main_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_main_114.png; sourceTree = "<group>"; };
 		6F67E85414FE2204004D5DE5 /* tab_icon_data.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tab_icon_data.png; path = TobaccoFree/tab_icon_data.png; sourceTree = "<group>"; };
 		6F67E85514FE2204004D5DE5 /* tab_icon_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tab_icon_home.png; path = TobaccoFree/tab_icon_home.png; sourceTree = "<group>"; };
 		6F67E85614FE2204004D5DE5 /* tab_icon_user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tab_icon_user.png; path = TobaccoFree/tab_icon_user.png; sourceTree = "<group>"; };
@@ -89,17 +83,14 @@
 		6FA9FFCE150180FA00286E71 /* User.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = User.plist; sourceTree = "<group>"; };
 		6FD658EA15041E4F00008D13 /* Details.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Details.h; sourceTree = "<group>"; };
 		6FD658EB15041E4F00008D13 /* Details.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Details.m; sourceTree = "<group>"; };
-		6FD658EC15041E4F00008D13 /* icon_main_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_main_57.png; sourceTree = "<group>"; };
-		6FD658ED15041E4F00008D13 /* icon_main_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_main_114.png; sourceTree = "<group>"; };
+		6FD658EC15041E4F00008D13 /* icon_main_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_main_57.png; path = TobaccoFree/icon_main_57.png; sourceTree = "<group>"; };
+		6FD658ED15041E4F00008D13 /* icon_main_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_main_114.png; path = TobaccoFree/icon_main_114.png; sourceTree = "<group>"; };
 		6FD658EF15041E4F00008D13 /* ObservationsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ObservationsModel.xcdatamodel; sourceTree = "<group>"; };
 		6FE5C07714FF5780006665E2 /* RecordingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingViewController.h; sourceTree = "<group>"; };
 		6FE5C07814FF5780006665E2 /* RecordingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingViewController.m; sourceTree = "<group>"; };
 		6FE5C07B14FF5FB2006665E2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6FE5C07D14FF5FBC006665E2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		6FE5C07F14FF5FC5006665E2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		6FE5C08514FF650A006665E2 /* ObservationsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ObservationsModel.xcdatamodel; sourceTree = "<group>"; };
-		6FE5C08A14FF686A006665E2 /* Details.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Details.h; path = ../Details.h; sourceTree = "<group>"; };
-		6FE5C08B14FF686A006665E2 /* Details.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Details.m; path = ../Details.m; sourceTree = "<group>"; };
 		6FE5C08D14FF6E52006665E2 /* DataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataViewController.h; sourceTree = "<group>"; };
 		6FE5C08E14FF6E52006665E2 /* DataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -124,8 +115,8 @@
 		6F67E84D14FE19D5004D5DE5 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				6F67E84B14FE191F004D5DE5 /* icon_main_114.png */,
-				6F67E84914FE1912004D5DE5 /* icon_main_57.png */,
+				6FD658EC15041E4F00008D13 /* icon_main_57.png */,
+				6FD658ED15041E4F00008D13 /* icon_main_114.png */,
 				6F67E85A14FE26A9004D5DE5 /* otago_horizontal.jpg */,
 				6F67E85414FE2204004D5DE5 /* tab_icon_data.png */,
 				6F67E85514FE2204004D5DE5 /* tab_icon_home.png */,
@@ -182,13 +173,8 @@
 				6F8F17521502C25700DD9BAC /* Constants.m */,
 				6FA35F0E15040698002BEF40 /* Observations.h */,
 				6FA35F0F15040698002BEF40 /* Observations.m */,
-				6FE5C08A14FF686A006665E2 /* Details.h */,
 				6FD658EA15041E4F00008D13 /* Details.h */,
 				6FD658EB15041E4F00008D13 /* Details.m */,
-				6FD658EC15041E4F00008D13 /* icon_main_57.png */,
-				6FD658ED15041E4F00008D13 /* icon_main_114.png */,
-				6FD658EE15041E4F00008D13 /* ObservationsModel.xcdatamodeld */,
-				6FE5C08B14FF686A006665E2 /* Details.m */,
 				6F91A70914F76EE800B5477D /* NGAppDelegate.h */,
 				6F91A70A14F76EE800B5477D /* NGAppDelegate.m */,
 				6F91A71214F76EE800B5477D /* MainViewController.h */,
@@ -199,7 +185,7 @@
 				6F91A71A14F76EE800B5477D /* AccountDetailsViewController.m */,
 				6FE5C07714FF5780006665E2 /* RecordingViewController.h */,
 				6FE5C07814FF5780006665E2 /* RecordingViewController.m */,
-				6FE5C08414FF650A006665E2 /* ObservationsModel.xcdatamodeld */,
+				6FD658EE15041E4F00008D13 /* ObservationsModel.xcdatamodeld */,
 				6F91A70C14F76EE800B5477D /* MainStoryboard_iPhone.storyboard */,
 				6F91A70F14F76EE800B5477D /* MainStoryboard_iPad.storyboard */,
 				6F91A70114F76EE800B5477D /* Supporting Files */,
@@ -283,8 +269,6 @@
 				6F67E84014FDF3AE004D5DE5 /* smokersand.png in Resources */,
 				6F67E84314FDF3F4004D5DE5 /* help_selected.png in Resources */,
 				6F67E84414FDF3F4004D5DE5 /* help.png in Resources */,
-				6F67E84A14FE1912004D5DE5 /* icon_main_57.png in Resources */,
-				6F67E84C14FE191F004D5DE5 /* icon_main_114.png in Resources */,
 				6F67E85714FE2204004D5DE5 /* tab_icon_data.png in Resources */,
 				6F67E85814FE2204004D5DE5 /* tab_icon_home.png in Resources */,
 				6F67E85914FE2204004D5DE5 /* tab_icon_user.png in Resources */,
@@ -307,8 +291,6 @@
 				6F91A71414F76EE800B5477D /* MainViewController.m in Sources */,
 				6F91A71B14F76EE800B5477D /* AccountDetailsViewController.m in Sources */,
 				6FE5C07914FF5780006665E2 /* RecordingViewController.m in Sources */,
-				6FE5C08614FF650A006665E2 /* ObservationsModel.xcdatamodeld in Sources */,
-				6FE5C08C14FF686A006665E2 /* Details.m in Sources */,
 				6FE5C08F14FF6E52006665E2 /* DataViewController.m in Sources */,
 				6F8F17531502C25700DD9BAC /* Constants.m in Sources */,
 				6FA35F1015040698002BEF40 /* Observations.m in Sources */,
@@ -447,17 +429,6 @@
 			);
 			currentVersion = 6FD658EF15041E4F00008D13 /* ObservationsModel.xcdatamodel */;
 			path = ObservationsModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		6FE5C08414FF650A006665E2 /* ObservationsModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				6FE5C08514FF650A006665E2 /* ObservationsModel.xcdatamodel */,
-			);
-			currentVersion = 6FE5C08514FF650A006665E2 /* ObservationsModel.xcdatamodel */;
-			name = ObservationsModel.xcdatamodeld;
-			path = ../ObservationsModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
