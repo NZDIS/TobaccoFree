@@ -13,7 +13,7 @@
 
 @implementation RecordingViewController
 
-
+@synthesize observation;
 @synthesize locationManager;
 @synthesize managedObjectContext;
 
@@ -43,10 +43,10 @@
     Details *d = (Details *)[NSEntityDescription insertNewObjectForEntityForName:@"Details" inManagedObjectContext:managedObjectContext];
     d.timestamp = ct;
     d.type = type;
-    NSError *error = nil;
-    if (![managedObjectContext save:&error]) {
-        NSLog(@"Error %@", error.localizedDescription);
-    }
+    [self.observation addDetailsObject:d];
+
+    NSLog(@"Got so far no_smoking - %d - %d", [self.observation noSmoking], count_no_smoking);
+    
     return d;
 }
 
@@ -64,8 +64,15 @@
 
 - (IBAction)finishRecording:(id)sender {
     
-    
-    
+    // record the finish time of the recording
+    long ct = (long)(CACurrentMediaTime() * 1000);
+    observation.timestamp_stop = ct;
+
+    NSError *error = nil;
+    if (![managedObjectContext save:&error]) {
+        NSLog(@"Error %@", error.localizedDescription);
+    }
+
     // Go back to the main screen
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -135,6 +142,18 @@
         managedObjectContext = [(NGAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext]; 
         NSLog(@"After managedObjectContext: %@",  managedObjectContext);
     }
+    
+    NSLog(@"Loaded Data Recording view");
+    
+    if (observation == nil)
+    {
+        // create new observation record
+        observation = (Observations *)[NSEntityDescription insertNewObjectForEntityForName:@"Observations" inManagedObjectContext:managedObjectContext];
+        // currentTimeInMillis
+        long ct = (long)(CACurrentMediaTime() * 1000);
+        observation.timestamp_start = ct;
+    }
+
 }
 
 - (void)viewDidUnload
@@ -163,7 +182,7 @@
     // Hide the back button
     self.navigationItem.hidesBackButton = YES;
     
-    NSLog(@"Got timestamp: %d", ct);
+    NSLog(@"Got timestamp: %ld", ct);
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Info"
                                                     message:[@"View has loaded. Ready to record data. Time stamp:" stringByAppendingString:[NSString stringWithFormat:@"%d", ct]]
                                                    delegate:self

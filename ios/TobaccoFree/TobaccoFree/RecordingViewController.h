@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+
+#import "Observations.h"
 #import "Details.h"
 
 @interface RecordingViewController : UIViewController <CLLocationManagerDelegate> {
@@ -17,11 +19,14 @@
     int count_other_adults;
     int count_child;
     
+    Observations *observation;
+    
     CLLocationManager *locationManager;
     NSManagedObjectContext *managedObjectContext;
     
 }
 
+@property (nonatomic, retain) Observations *observation;
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 

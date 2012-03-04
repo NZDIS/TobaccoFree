@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
+@class Observations;
 
 @interface Details : NSManagedObject
 
-@property (nonatomic) int32_t details_id;
-@property (nonatomic) int16_t type;
-@property (nonatomic) int32_t timestamp;
+@property (nonatomic) uint16_t type;
+@property (nonatomic) uint32_t timestamp;
+@property (nonatomic, retain) Observations *observation;
 
 @end

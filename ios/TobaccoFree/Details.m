@@ -7,12 +7,12 @@
 //
 
 #import "Details.h"
-
+#import "Observations.h"
 
 @implementation Details
 
-@dynamic details_id;
 @dynamic type;
 @dynamic timestamp;
+@dynamic observation;
 
 @end
