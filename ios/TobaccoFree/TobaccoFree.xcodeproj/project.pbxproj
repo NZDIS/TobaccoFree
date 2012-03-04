@@ -34,7 +34,12 @@
 		6F91A71114F76EE800B5477D /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F91A70F14F76EE800B5477D /* MainStoryboard_iPad.storyboard */; };
 		6F91A71414F76EE800B5477D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F91A71314F76EE800B5477D /* MainViewController.m */; };
 		6F91A71B14F76EE800B5477D /* AccountDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F91A71A14F76EE800B5477D /* AccountDetailsViewController.m */; };
+		6FA35F1015040698002BEF40 /* Observations.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA35F0F15040698002BEF40 /* Observations.m */; };
 		6FA9FFCF150180FA00286E71 /* User.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6FA9FFCE150180FA00286E71 /* User.plist */; };
+		6FD658F015041E4F00008D13 /* Details.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD658EB15041E4F00008D13 /* Details.m */; };
+		6FD658F115041E4F00008D13 /* icon_main_57.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD658EC15041E4F00008D13 /* icon_main_57.png */; };
+		6FD658F215041E4F00008D13 /* icon_main_114.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD658ED15041E4F00008D13 /* icon_main_114.png */; };
+		6FD658F315041E4F00008D13 /* ObservationsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6FD658EE15041E4F00008D13 /* ObservationsModel.xcdatamodeld */; };
 		6FE5C07914FF5780006665E2 /* RecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE5C07814FF5780006665E2 /* RecordingViewController.m */; };
 		6FE5C07C14FF5FB2006665E2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE5C07B14FF5FB2006665E2 /* QuartzCore.framework */; };
 		6FE5C07E14FF5FBC006665E2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE5C07D14FF5FBC006665E2 /* CoreLocation.framework */; };
@@ -79,7 +84,14 @@
 		6F91A71314F76EE800B5477D /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		6F91A71914F76EE800B5477D /* AccountDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountDetailsViewController.h; sourceTree = "<group>"; };
 		6F91A71A14F76EE800B5477D /* AccountDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountDetailsViewController.m; sourceTree = "<group>"; };
+		6FA35F0E15040698002BEF40 /* Observations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Observations.h; sourceTree = "<group>"; };
+		6FA35F0F15040698002BEF40 /* Observations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Observations.m; sourceTree = "<group>"; };
 		6FA9FFCE150180FA00286E71 /* User.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = User.plist; sourceTree = "<group>"; };
+		6FD658EA15041E4F00008D13 /* Details.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Details.h; sourceTree = "<group>"; };
+		6FD658EB15041E4F00008D13 /* Details.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Details.m; sourceTree = "<group>"; };
+		6FD658EC15041E4F00008D13 /* icon_main_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_main_57.png; sourceTree = "<group>"; };
+		6FD658ED15041E4F00008D13 /* icon_main_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_main_114.png; sourceTree = "<group>"; };
+		6FD658EF15041E4F00008D13 /* ObservationsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ObservationsModel.xcdatamodel; sourceTree = "<group>"; };
 		6FE5C07714FF5780006665E2 /* RecordingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingViewController.h; sourceTree = "<group>"; };
 		6FE5C07814FF5780006665E2 /* RecordingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingViewController.m; sourceTree = "<group>"; };
 		6FE5C07B14FF5FB2006665E2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -168,7 +180,14 @@
 			children = (
 				6F8F17511502C25600DD9BAC /* Constants.h */,
 				6F8F17521502C25700DD9BAC /* Constants.m */,
+				6FA35F0E15040698002BEF40 /* Observations.h */,
+				6FA35F0F15040698002BEF40 /* Observations.m */,
 				6FE5C08A14FF686A006665E2 /* Details.h */,
+				6FD658EA15041E4F00008D13 /* Details.h */,
+				6FD658EB15041E4F00008D13 /* Details.m */,
+				6FD658EC15041E4F00008D13 /* icon_main_57.png */,
+				6FD658ED15041E4F00008D13 /* icon_main_114.png */,
+				6FD658EE15041E4F00008D13 /* ObservationsModel.xcdatamodeld */,
 				6FE5C08B14FF686A006665E2 /* Details.m */,
 				6F91A70914F76EE800B5477D /* NGAppDelegate.h */,
 				6F91A70A14F76EE800B5477D /* NGAppDelegate.m */,
@@ -271,6 +290,8 @@
 				6F67E85914FE2204004D5DE5 /* tab_icon_user.png in Resources */,
 				6F67E85B14FE26A9004D5DE5 /* otago_horizontal.jpg in Resources */,
 				6FA9FFCF150180FA00286E71 /* User.plist in Resources */,
+				6FD658F115041E4F00008D13 /* icon_main_57.png in Resources */,
+				6FD658F215041E4F00008D13 /* icon_main_114.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,6 +311,9 @@
 				6FE5C08C14FF686A006665E2 /* Details.m in Sources */,
 				6FE5C08F14FF6E52006665E2 /* DataViewController.m in Sources */,
 				6F8F17531502C25700DD9BAC /* Constants.m in Sources */,
+				6FA35F1015040698002BEF40 /* Observations.m in Sources */,
+				6FD658F015041E4F00008D13 /* Details.m in Sources */,
+				6FD658F315041E4F00008D13 /* ObservationsModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +440,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
+		6FD658EE15041E4F00008D13 /* ObservationsModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6FD658EF15041E4F00008D13 /* ObservationsModel.xcdatamodel */,
+			);
+			currentVersion = 6FD658EF15041E4F00008D13 /* ObservationsModel.xcdatamodel */;
+			path = ObservationsModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
 		6FE5C08414FF650A006665E2 /* ObservationsModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
