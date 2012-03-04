@@ -27,6 +27,9 @@
 @synthesize txt_child;
 
 
+
+#pragma mark - Utilities
+
 - (int) numOfObservedCars {
     return self.count_no_smoking +
             self.count_sole_adult +
@@ -34,6 +37,9 @@
             self.count_child;
 }
 
+/*! 
+ Prepares recording of data. Used upon first car observation.
+ */
 - (void) prepareRecording {
     if ([self numOfObservedCars] == 0) 
     {
@@ -49,6 +55,24 @@
 }
 
 
+/*!
+ @brief Returns the last Detail of a given type
+ */
+- (Details *) getLastDetailForType:(int)type {
+    NSEnumerator *e = [observation.details objectEnumerator];
+    Details *obs, *result_obs = nil;
+    while ((obs = [e nextObject])) {
+        if (obs.type == type && obs.timestamp > result_obs.timestamp) 
+        {
+            result_obs = obs;
+        }
+    }
+    return result_obs;
+}
+
+/*!
+ @brief Prepares a persistant storage for a Detail of a given type.
+ */
 - (Details *) recordDetails:(int) type {
     // currentTimeInMillis
     long ct = (long)(CACurrentMediaTime() * 1000);
@@ -58,77 +82,12 @@
     d.timestamp = ct;
     d.type = type;
     [self.observation addDetailsObject:d];
-
-    NSLog(@"Got so far no_smoking - %d - %d", [self.observation noSmoking], count_no_smoking);
     
     return d;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 
 #pragma mark - Location management
-
-- (IBAction)finishRecording:(id)sender {
-
-    if ([self numOfObservedCars] > 0)
-    {
-        // record the finish time of the recording
-        long ct = (long)(CACurrentMediaTime() * 1000);
-        observation.timestamp_stop = ct;
-
-        NSError *error = nil;
-        if (![managedObjectContext save:&error]) {
-            NSLog(@"Error %@", error.localizedDescription);
-        }
-
-        // Debugging NSLog(@"Got timestamp: %ld", ct);
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Thanks you"
-                                                    message:[@"You have observed " stringByAppendingString:[NSString stringWithFormat:@"%d cars", [self numOfObservedCars]]]
-                                                   delegate:self
-                                          cancelButtonTitle:@"Ok"
-                                          otherButtonTitles:nil];
-        [alert show];
-    }
-    // Go back to the main screen
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (IBAction)add_no_smoking:(id)sender {
-    [self prepareRecording];
-    self.count_no_smoking++;
-    self.txt_no_smoking.text = [NSString stringWithFormat:@"%d", self.count_no_smoking];
-    [self recordDetails:SMOKING_ID_NO_SMOKING];
-    
-}
-
-- (IBAction)add_sole_adult:(id)sender {
-    [self prepareRecording];
-    self.count_sole_adult++;
-    self.txt_sole_adult.text = [NSString stringWithFormat:@"%d", self.count_sole_adult];
-    [self recordDetails:SMOKING_ID_ADULT_SMOKING_ALONE];
-}
-
-- (IBAction)add_other_adults:(id)sender {
-    [self prepareRecording];    
-    self.count_other_adults++;
-    self.txt_other_adults.text = [NSString stringWithFormat:@"%d", self.count_other_adults];
-    [self recordDetails:SMOKING_ID_ADULT_SMOKING_OTHERS];
-}
-
-- (IBAction)add_child:(id)sender {
-    [self prepareRecording];    
-    self.count_child++;
-    self.txt_child.text = [NSString stringWithFormat:@"%d", self.count_child];
-    [self recordDetails:SMOKING_ID_ADULT_SMOKING_CHILD];
-}
 
 - (CLLocationManager *)locationManager {
     
@@ -156,7 +115,140 @@
 
 
 
+#pragma mark - Button press handling
+
+- (IBAction)finishRecording:(id)sender {
+
+    if ([self numOfObservedCars] > 0)
+    {
+        // record the finish time of the recording
+        long ct = (long)(CACurrentMediaTime() * 1000);
+        observation.timestamp_stop = ct;
+
+        NSError *error = nil;
+        if (![managedObjectContext save:&error]) {
+            NSLog(@"Error %@", error.localizedDescription);
+        }
+
+        // Debugging NSLog(@"Got timestamp: %ld", ct);
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Thanks you"
+                                                    message:[@"You have observed " stringByAppendingString:[NSString stringWithFormat:@"%d cars", [self numOfObservedCars]]]
+                                                   delegate:self
+                                          cancelButtonTitle:@"Ok"
+                                          otherButtonTitles:nil];
+        [alert show];
+    }
+    // Go back to the main screen
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+- (IBAction)add_no_smoking:(id)sender {
+    [self prepareRecording];
+    self.count_no_smoking++;
+    self.txt_no_smoking.text = [NSString stringWithFormat:@"%d", self.count_no_smoking];
+    [self recordDetails:SMOKING_ID_NO_SMOKING];
+    
+}
+
+- (IBAction)substract_no_smoking:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        // do nothing at the end
+    } else {
+        if (count_no_smoking > 0) 
+        {
+            Details *d = [self getLastDetailForType:SMOKING_ID_NO_SMOKING];
+            [observation removeDetailsObject:d];
+            [managedObjectContext deleteObject:d];
+            
+            self.count_no_smoking--;
+            self.txt_no_smoking.text = [NSString stringWithFormat:@"%d", self.count_no_smoking];
+        }
+    }
+}
+
+- (IBAction)add_sole_adult:(id)sender {
+    [self prepareRecording];
+    self.count_sole_adult++;
+    self.txt_sole_adult.text = [NSString stringWithFormat:@"%d", self.count_sole_adult];
+    [self recordDetails:SMOKING_ID_ADULT_SMOKING_ALONE];
+}
+
+- (IBAction)substract_sole_adult:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        // do nothing at the end
+    } else {
+        if (count_sole_adult > 0) 
+        {
+            Details *d = [self getLastDetailForType:SMOKING_ID_ADULT_SMOKING_ALONE];
+            [observation removeDetailsObject:d];
+            [managedObjectContext deleteObject:d];
+            
+            self.count_sole_adult--;
+            self.txt_sole_adult.text = [NSString stringWithFormat:@"%d", self.count_sole_adult];
+        }
+    }
+}
+
+- (IBAction)add_other_adults:(id)sender {
+    [self prepareRecording];    
+    self.count_other_adults++;
+    self.txt_other_adults.text = [NSString stringWithFormat:@"%d", self.count_other_adults];
+    [self recordDetails:SMOKING_ID_ADULT_SMOKING_OTHERS];
+}
+
+- (IBAction)substract_other_adults:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        // do nothing at the end
+    } else {
+        if (count_other_adults > 0) 
+        {
+            Details *d = [self getLastDetailForType:SMOKING_ID_ADULT_SMOKING_OTHERS];
+            [observation removeDetailsObject:d];
+            [managedObjectContext deleteObject:d];
+            
+            self.count_other_adults--;
+            self.txt_other_adults.text = [NSString stringWithFormat:@"%d", self.count_other_adults];
+        }
+    }
+}
+
+- (IBAction)add_child:(id)sender {
+    [self prepareRecording];    
+    self.count_child++;
+    self.txt_child.text = [NSString stringWithFormat:@"%d", self.count_child];
+    [self recordDetails:SMOKING_ID_ADULT_SMOKING_CHILD];
+}
+
+- (IBAction)substract_child:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        // do nothing at the end
+    } else {
+        if (count_child > 0) 
+        {
+            Details *d = [self getLastDetailForType:SMOKING_ID_ADULT_SMOKING_CHILD];
+            [observation removeDetailsObject:d];
+            [managedObjectContext deleteObject:d];
+            
+            self.count_child--;
+            self.txt_child.text = [NSString stringWithFormat:@"%d", self.count_child];
+        }
+    }
+}
+
+
+
+
 #pragma mark - View Lifecycle
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {

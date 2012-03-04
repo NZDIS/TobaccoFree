@@ -314,6 +314,7 @@
                                 <rect key="frame" x="98" y="64" width="125" height="125"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration" label="btn_no_smoking"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="nosmoking_enabled.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -324,6 +325,7 @@
                                 </state>
                                 <connections>
                                     <action selector="add_no_smoking:" destination="iUm-WF-qyi" eventType="touchUpInside" id="x6N-FL-aBo"/>
+                                    <outletCollection property="gestureRecognizers" destination="vsf-g7-5Xj" appends="YES" id="2Wp-FK-lz5"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="smokersand.png" id="3oW-1j-3kq">
@@ -374,6 +376,7 @@
                                 <rect key="frame" x="27" y="286" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration" label="btn_lone_adult"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="nooccupants.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -384,12 +387,14 @@
                                 </state>
                                 <connections>
                                     <action selector="add_sole_adult:" destination="iUm-WF-qyi" eventType="touchUpInside" id="QOc-A1-dyj"/>
+                                    <outletCollection property="gestureRecognizers" destination="lng-5c-2Uy" appends="YES" id="7aY-bd-sg7"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="q98-mq-Zm9">
                                 <rect key="frame" x="130" y="286" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration" label="btn_other_adults"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="otheradults.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -400,12 +405,14 @@
                                 </state>
                                 <connections>
                                     <action selector="add_other_adults:" destination="iUm-WF-qyi" eventType="touchUpInside" id="9Lm-Pd-9qv"/>
+                                    <outletCollection property="gestureRecognizers" destination="wsw-r6-18H" appends="YES" id="Dvh-0M-Ulo"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="RZX-wz-ZFt">
                                 <rect key="frame" x="233" y="286" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration" label="btn_child"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="child.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -416,6 +423,7 @@
                                 </state>
                                 <connections>
                                     <action selector="add_child:" destination="iUm-WF-qyi" eventType="touchUpInside" id="ZyO-JX-YSF"/>
+                                    <outletCollection property="gestureRecognizers" destination="JmN-iX-KMN" appends="YES" id="s8x-9F-Ot7"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="79N-wZ-42j">
@@ -462,6 +470,26 @@
                         <outlet property="txt_sole_adult" destination="IQJ-MS-BqP" id="5Y7-up-f3k"/>
                     </connections>
                 </viewController>
+                <pongPressGestureRecognizer delaysTouchesEnded="NO" allowableMovement="10" minimumPressDuration="0.5" id="vsf-g7-5Xj" userLabel="no_smoking long press">
+                    <connections>
+                        <action selector="substract_no_smoking:" destination="iUm-WF-qyi" id="9Go-8j-TYl"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer delaysTouchesEnded="NO" allowableMovement="10" minimumPressDuration="0.5" id="JmN-iX-KMN" userLabel="child long press">
+                    <connections>
+                        <action selector="substract_child:" destination="iUm-WF-qyi" id="I1l-MX-xMF"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="wsw-r6-18H" userLabel="other adults long press">
+                    <connections>
+                        <action selector="substract_other_adults:" destination="iUm-WF-qyi" id="kho-St-Pyc"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="lng-5c-2Uy" userLabel="sole adult long press">
+                    <connections>
+                        <action selector="substract_sole_adult:" destination="iUm-WF-qyi" id="hYk-gs-7aT"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="777" y="-423"/>
         </scene>
@@ -608,39 +636,6 @@
         <image name="tab_icon_home.png" width="32" height="32"/>
         <image name="tab_icon_user.png" width="32" height="32"/>
     </resources>
-    <classes>
-        <class className="AccountDetailsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AccountDetailsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="backgroundTouched:"/>
-                <relationship kind="action" name="openTobaccoFreeWebsite"/>
-                <relationship kind="action" name="saveCredentials"/>
-                <relationship kind="action" name="textFieldShouldReturn:"/>
-                <relationship kind="outlet" name="txtFieldEmail" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldPassword" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="DataViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DataViewController.h"/>
-        </class>
-        <class className="MainViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainViewController.h"/>
-        </class>
-        <class className="RecordingViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RecordingViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="add_child:"/>
-                <relationship kind="action" name="add_no_smoking:"/>
-                <relationship kind="action" name="add_other_adults:"/>
-                <relationship kind="action" name="add_sole_adult:"/>
-                <relationship kind="action" name="finishRecording:"/>
-                <relationship kind="outlet" name="txt_child" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="txt_no_smoking" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="txt_other_adults" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="txt_sole_adult" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

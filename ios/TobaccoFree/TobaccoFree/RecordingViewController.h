@@ -45,9 +45,16 @@
 - (IBAction) finishRecording:(id) sender;
 
 - (IBAction) add_no_smoking:(id) sender;
+- (IBAction) substract_no_smoking:(id)sender;
+
 - (IBAction) add_sole_adult:(id) sender;
+- (IBAction) substract_sole_adult:(id)sender;
+
 - (IBAction) add_other_adults:(id) sender;
+- (IBAction)substract_other_adults:(id)sender;
+
 - (IBAction) add_child:(id)sender;
+- (IBAction)substract_child:(id)sender;
 
 
 - (int) numOfObservedCars;
