@@ -263,7 +263,6 @@
     if (managedObjectContext == nil)
     { 
         managedObjectContext = [(NGAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext]; 
-        NSLog(@"After managedObjectContext: %@",  managedObjectContext);
     }
     
     // Debugging NSLog(@"Loaded Data Recording view");

@@ -8,6 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MainViewController : UIViewController
+@interface MainViewController : UIViewController {
+    
+    NSMutableArray *observationsForUpload;
+    NSManagedObjectContext *managedObjectContext;
+    
+}
+
+@property (weak, nonatomic) IBOutlet UIButton *btnUloadData;
+
+@property (nonatomic, retain) NSMutableArray *observationsForUpload;
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+
+
+
+- (IBAction)uploadData:(id)sender;
+
 
 @end
