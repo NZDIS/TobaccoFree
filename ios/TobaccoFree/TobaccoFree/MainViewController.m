@@ -50,12 +50,18 @@
 
 - (NSDictionary *) prepareDictionary:(NSMutableArray *) array {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+    NSLog(@"%@", [[UIDevice currentDevice] uniqueIdentifier]);
+    
     for (Observations *item in array) 
     {
+        [dict setValue:[NSNumber numberWithInt:CURRENT_PROTOCOL_VERSION] forKey:OBSERVATION_PROTOCOL_VERSION];
         [dict setValue:[NSNumber numberWithDouble:item.longitude] forKey:OBSERVATION_LONGITUDE];
         [dict setValue:[NSNumber numberWithDouble:item.latitude] forKey:OBSERVATION_LATITUDE];
         [dict setValue:[NSNumber numberWithUnsignedInt:item.timestamp_start] forKey:OBSERVATION_START];
         [dict setValue:[NSNumber numberWithUnsignedInt:item.timestamp_stop] forKey:OBSERVATION_FINISH];
+        [dict setValue:[item observationHash] forKey:OBSERVATION_HASH];
+        break;
     }
     return dict;
 }

@@ -31,7 +31,10 @@ NSString * const OBSERVATION_LATITUDE = @"latitude";
 NSString * const OBSERVATION_LONGITUDE = @"longitude";
 NSString * const OBSERVATION_START = @"start_time";
 NSString * const OBSERVATION_FINISH = @"finish_time";
+NSString * const OBSERVATION_HASH = @"hash";
 NSString * const OBSERVATION_UPLOADED = @"uploaded";
+
+NSString * const OBSERVATION_PROTOCOL_VERSION = @"version";
 
 NSString * const USER_DEVICE = @"device";
 NSString * const USER_USER_EMAIL = @"user_email";

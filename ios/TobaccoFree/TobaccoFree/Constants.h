@@ -22,7 +22,10 @@ extern NSString * const OBSERVATION_LATITUDE;
 extern NSString * const OBSERVATION_LONGITUDE;
 extern NSString * const OBSERVATION_START;
 extern NSString * const OBSERVATION_FINISH;
+extern NSString * const OBSERVATION_HASH;
 extern NSString * const OBSERVATION_UPLOADED;
+
+extern NSString * const OBSERVATION_PROTOCOL_VERSION;
 
 extern NSString * const USER_DEVICE;
 extern NSString * const USER_USER_EMAIL;
