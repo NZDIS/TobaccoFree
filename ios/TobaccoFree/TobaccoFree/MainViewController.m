@@ -6,8 +6,10 @@
 //  Copyright (c) 2012 Ngarua Technologies Ltd. All rights reserved.
 //
 
+#import "SBJson.h"
 #import "MainViewController.h"
 #import "NGAppDelegate.h"
+#import "Observations.h"
 
 
 @implementation MainViewController
@@ -38,12 +40,34 @@
         // Handle the error.
         NSLog(@"Error executing the query %@", error);
     }
-    
+
     if ([observationsForUpload count] > 0 ) {
         [self.btnUloadData setEnabled:YES];
     } else {
         [self.btnUloadData setEnabled:NO];
     }
+}
+
+- (NSDictionary *) prepareDictionary:(NSMutableArray *) array {
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    for (Observations *item in array) 
+    {
+        [dict setValue:[NSNumber numberWithDouble:item.longitude] forKey:OBSERVATION_LONGITUDE];
+        [dict setValue:[NSNumber numberWithDouble:item.latitude] forKey:OBSERVATION_LATITUDE];
+        [dict setValue:[NSNumber numberWithUnsignedInt:item.timestamp_start] forKey:OBSERVATION_START];
+        [dict setValue:[NSNumber numberWithUnsignedInt:item.timestamp_stop] forKey:OBSERVATION_FINISH];
+    }
+    return dict;
+}
+    
+
+- (IBAction)uploadData:(id)sender {
+    SBJsonWriter *writer = [[SBJsonWriter alloc] init];
+    // prepare Dictionary first.
+    NSDictionary *data = [self prepareDictionary:observationsForUpload];
+    NSString *json = [writer stringWithObject:data];
+    NSLog(@"got observations: %@", [data description]);
+    NSLog(@"Got json: %@", json);
 }
 
 
@@ -102,6 +126,4 @@
             interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown);
 }
 
-- (IBAction)uploadData:(id)sender {
-}
 @end
