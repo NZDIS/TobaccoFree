@@ -15,4 +15,14 @@
 @dynamic timestamp;
 @dynamic observation;
 
+/*!
+ Returns a dictionary representation of this object.
+ */
+- (NSDictionary *) toDictionary {
+    NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
+    [dict setValue:[NSNumber numberWithInt:self.type] forKey:DETAILS_TYPE];
+    [dict setValue:[NSNumber numberWithLong:self.timestamp] forKey:DETAILS_TIMESTAMP];
+    return dict;
+}
+
 @end

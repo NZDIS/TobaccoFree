@@ -15,7 +15,7 @@
     
 }
 
-@property (weak, nonatomic) IBOutlet UIButton *btnUloadData;
+@property (nonatomic, weak) IBOutlet UIButton *btnUloadData;
 
 @property (nonatomic, retain) NSMutableArray *observationsForUpload;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;

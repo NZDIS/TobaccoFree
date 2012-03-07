@@ -70,42 +70,32 @@
     if (!temp) {
         NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
     }
-    [dict setValue:[temp objectForKey:@"user_email"] forKey:USER_USER_EMAIL];
-    [dict setValue:[temp objectForKey:@"user_password_hash"] forKey:USER_PASSWORD_HASH];
+    [dict setValue:[temp objectForKey:USER_USER_EMAIL] forKey:USER_USER_EMAIL];
+    [dict setValue:[temp objectForKey:USER_PASSWORD_HASH] forKey:USER_PASSWORD_HASH];
+    [dict setValue:[temp objectForKey:USER_DEVICE] forKey:USER_DEVICE];
+    [dict setValue:[temp objectForKey:USER_DEVICE_TYPE] forKey:USER_DEVICE_TYPE];
 }
 
-/*!
- Prepare the Json for a given observation record
- */
-- (NSDictionary *) prepareDictionary:(Observations *)item {
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    
-    NSLog(@"%@", [[UIDevice currentDevice] uniqueIdentifier]);
-    
-    [dict setValue:[NSNumber numberWithInt:CURRENT_PROTOCOL_VERSION] forKey:OBSERVATION_PROTOCOL_VERSION];
-    [dict setValue:[NSNumber numberWithDouble:item.longitude] forKey:OBSERVATION_LONGITUDE];
-    [dict setValue:[NSNumber numberWithDouble:item.latitude] forKey:OBSERVATION_LATITUDE];
-    [dict setValue:[NSNumber numberWithUnsignedInt:item.timestamp_start] forKey:OBSERVATION_START];
-    [dict setValue:[NSNumber numberWithUnsignedInt:item.timestamp_stop] forKey:OBSERVATION_FINISH];
-    [dict setValue:[item observationHash] forKey:OBSERVATION_HASH];
-    [dict setValue:[NSNumber numberWithUnsignedInt:[item noSmoking]] forKey:OBSERVATION_NO_SMOKING];
-    [dict setValue:[NSNumber numberWithUnsignedInt:[item smokingLoneAdult]] forKey:OBSERVATION_LONE_ADULT];
-    [dict setValue:[NSNumber numberWithUnsignedInt:[item smokingAdultOthers]] forKey:OBSERVATION_OTHER_ADULTS];
-    [dict setValue:[NSNumber numberWithUnsignedInt:[item smokingChild]] forKey:OBSERVATION_CHILD];
-    [self setUserCredentials:dict];
-    return dict;
-}
     
 
 - (IBAction)uploadData:(id)sender {
     for (Observations *o in observationsForUpload) {
-        SBJsonWriter *writer = [[SBJsonWriter alloc] init];
         // prepare Dictionary first.
-        
-        NSDictionary *data = [self prepareDictionary:o];
-        NSString *json = [writer stringWithObject:data];
-        NSLog(@"got observations: %@", [data description]);
-        NSLog(@"Got json: %@", json);
+        NSMutableDictionary *dict = [o toDictionary];
+        [self setUserCredentials:dict];
+        /* 
+         
+         SBJson version, compatible with iOS 4.xx
+         
+         SBJsonWriter *writer = [[SBJsonWriter alloc] init];
+         NSString *json = [writer stringWithObject:data];
+         
+         For iOS 5.xx we use native JSON support
+        */
+        NSError *error = nil;  
+        NSData *json = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
+        NSLog(@"got observations: %@", [dict description]);
+        NSLog(@"Got json: %@", [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding]);
     }
 }
 
@@ -113,7 +103,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
 }
 
 #pragma mark - View lifecycle

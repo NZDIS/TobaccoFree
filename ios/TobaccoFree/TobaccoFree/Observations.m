@@ -68,6 +68,32 @@
 }
 
 
+/*!
+ Prepare the Json for this observation record.
+ */
+- (NSMutableDictionary *) toDictionary {
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+    [dict setValue:[NSNumber numberWithInt:CURRENT_PROTOCOL_VERSION] forKey:OBSERVATION_PROTOCOL_VERSION];
+    [dict setValue:[NSNumber numberWithDouble:self.longitude] forKey:OBSERVATION_LONGITUDE];
+    [dict setValue:[NSNumber numberWithDouble:self.latitude] forKey:OBSERVATION_LATITUDE];
+    [dict setValue:[NSNumber numberWithUnsignedInt:self.timestamp_start] forKey:OBSERVATION_START];
+    [dict setValue:[NSNumber numberWithUnsignedInt:self.timestamp_stop] forKey:OBSERVATION_FINISH];
+    [dict setValue:[self observationHash] forKey:OBSERVATION_HASH];
+    [dict setValue:[NSNumber numberWithUnsignedInt:[self noSmoking]] forKey:OBSERVATION_NO_SMOKING];
+    [dict setValue:[NSNumber numberWithUnsignedInt:[self smokingLoneAdult]] forKey:OBSERVATION_LONE_ADULT];
+    [dict setValue:[NSNumber numberWithUnsignedInt:[self smokingAdultOthers]] forKey:OBSERVATION_OTHER_ADULTS];
+    [dict setValue:[NSNumber numberWithUnsignedInt:[self smokingChild]] forKey:OBSERVATION_CHILD];
+    // Prepare Details for Json serialization
+    NSMutableArray *a = [[NSMutableArray alloc] init];
+    for (Details *d in self.details) { 
+        [a addObject:d.toDictionary];
+    }
+    [dict setValue:a forKey:OBSERVATION_DETAILS];
+
+    return dict;
+}
+
 
 /*!
  @brief Unique hash for this observation instance

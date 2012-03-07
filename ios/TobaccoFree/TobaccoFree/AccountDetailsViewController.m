@@ -16,7 +16,8 @@
 
 @synthesize txtFieldEmail;
 @synthesize txtFieldPassword;
-
+@synthesize txtDeviceID;
+@synthesize txtDeviceType;
 
 
 - (void)didReceiveMemoryWarning
@@ -43,6 +44,17 @@
 
 #pragma mark - Action handlers
 
+/*!
+ Create universally unique identifier (object)
+ */
+- (NSString *)createUUID {
+    CFUUIDRef uuidObject = CFUUIDCreate(kCFAllocatorDefault);
+    // Get the string representation of CFUUID object.
+    NSString *uuidStr = (__bridge NSString *)CFUUIDCreateString(kCFAllocatorDefault, uuidObject);
+    CFRelease(uuidObject);
+    return uuidStr;
+}
+
 - (IBAction) saveCredentials {
     /*
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"hej stary"
@@ -52,14 +64,31 @@
                                           otherButtonTitles:nil];
     [alert show];
     */
+    if (self.txtDeviceID == nil || [self.txtDeviceID isEqualToString:@""]) {
+        self.txtDeviceID = [self createUUID];
+    }
+    
+    self.txtDeviceType = [NSString stringWithFormat:@"%@, %@, %@, %@", 
+        [UIDevice currentDevice].model, 
+        [UIDevice currentDevice].name,
+        [UIDevice currentDevice].systemName,
+        [UIDevice currentDevice].systemVersion];
+    
     NSString *error;
     NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *plistPath = [rootPath stringByAppendingPathComponent:@"User.plist"];
-    NSDictionary *plistDict = [NSDictionary dictionaryWithObjects:
-                               [NSArray arrayWithObjects: 
+    NSDictionary *plistDict = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:
+                                self.txtDeviceID,
+                                self.txtDeviceType,
                                 txtFieldEmail.text, 
-                                [self hashPassword:txtFieldPassword.text], nil]
-                                                          forKeys:[NSArray arrayWithObjects: @"user_email", @"user_password_hash", nil]];
+                                [self hashPassword:txtFieldPassword.text], 
+                                nil]
+                            forKeys:[NSArray arrayWithObjects: 
+                                USER_DEVICE,
+                                USER_DEVICE_TYPE,
+                                USER_USER_EMAIL, 
+                                USER_PASSWORD_HASH, 
+                                nil]];
     NSData *plistData = [NSPropertyListSerialization dataFromPropertyList:plistDict
                                                                    format:NSPropertyListXMLFormat_v1_0
                                                          errorDescription:&error];
@@ -117,8 +146,10 @@
     if (!temp) {
         NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
     }
-    self.txtFieldEmail.text = [temp objectForKey:@"user_email"];
-    self.txtFieldPassword.text = [temp objectForKey:@"user_password_hash"];
+    self.txtFieldEmail.text = [temp objectForKey:USER_USER_EMAIL];
+    self.txtFieldPassword.text = [temp objectForKey:USER_PASSWORD_HASH];
+    self.txtDeviceID = [temp objectForKey:USER_DEVICE];
+    self.txtDeviceType = [temp objectForKey:USER_DEVICE_TYPE];
 }
 
 - (void)viewDidUnload

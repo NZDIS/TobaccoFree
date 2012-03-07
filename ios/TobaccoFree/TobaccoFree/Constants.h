@@ -21,6 +21,9 @@ extern int const SMOKING_ID_ADULT_SMOKING_CHILD;
 
 extern int const CURRENT_PROTOCOL_VERSION;
 
+extern NSString * const DETAILS_TYPE;
+extern NSString * const DETAILS_TIMESTAMP;
+
 extern NSString * const DATA_MODEL_NAME;
 extern NSString * const DATA_MODEL_FILENAME;
 
@@ -28,7 +31,7 @@ extern NSString * const OBSERVATION_NO_SMOKING;
 extern NSString * const OBSERVATION_LONE_ADULT;
 extern NSString * const OBSERVATION_OTHER_ADULTS;
 extern NSString * const OBSERVATION_CHILD;
-
+extern NSString * const OBSERVATION_DETAILS;
 extern NSString * const OBSERVATION_LATITUDE;
 extern NSString * const OBSERVATION_LONGITUDE;
 extern NSString * const OBSERVATION_START;
@@ -39,6 +42,7 @@ extern NSString * const OBSERVATION_UPLOADED;
 extern NSString * const OBSERVATION_PROTOCOL_VERSION;
 
 extern NSString * const USER_DEVICE;
+extern NSString * const USER_DEVICE_TYPE;
 extern NSString * const USER_USER_EMAIL;
 
 extern NSString * const USER_PASSWORD_HASH;

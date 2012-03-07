@@ -21,11 +21,13 @@
 @property (nonatomic, retain) NSSet *details;
 
 
-- (NSString *) observationHash;
 - (int) noSmoking;
 - (int) smokingLoneAdult;
 - (int) smokingAdultOthers;
 - (int) smokingChild;
+
+- (NSString *) observationHash;
+- (NSMutableDictionary *) toDictionary;
 
 @end
 

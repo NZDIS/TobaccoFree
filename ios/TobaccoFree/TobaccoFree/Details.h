@@ -16,4 +16,6 @@
 @property (nonatomic) uint32_t timestamp;
 @property (nonatomic, retain) Observations *observation;
 
+- (NSDictionary *) toDictionary;
+
 @end

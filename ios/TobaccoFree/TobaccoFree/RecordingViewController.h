@@ -31,16 +31,16 @@
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 @property (nonatomic) int count_no_smoking;
-@property (weak, nonatomic) IBOutlet UILabel *txt_no_smoking;
+@property (nonatomic, weak) IBOutlet UILabel *txt_no_smoking;
 
 @property (nonatomic) int count_sole_adult;
-@property (weak, nonatomic) IBOutlet UILabel *txt_sole_adult;
+@property (nonatomic, weak) IBOutlet UILabel *txt_sole_adult;
 
 @property (nonatomic) int count_other_adults;
-@property (weak, nonatomic) IBOutlet UILabel *txt_other_adults;
+@property (nonatomic, weak) IBOutlet UILabel *txt_other_adults;
 
 @property (nonatomic) int count_child;
-@property (weak, nonatomic) IBOutlet UILabel *txt_child;
+@property (nonatomic, weak) IBOutlet UILabel *txt_child;
 
 - (IBAction) finishRecording:(id) sender;
 
