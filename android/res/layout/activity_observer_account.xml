@@ -10,41 +10,71 @@
 	        android:orientation="vertical">
 
 	    <TextView
-	        android:id="@+id/textView1"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:gravity="center"
-	        android:text="@string/select_observation"
+	        android:text="@string/user_account_settings"
 	        android:textAppearance="?android:attr/textAppearanceMedium" />
-	
-	    <Spinner
-	        android:id="@+id/spnUploadObservations"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content" />
-	
+	    
+	    
 	    <Button
-	        android:id="@+id/btnUploadObservation"
+	        android:id="@+id/btnRegister"
 	        android:layout_width="200dp"
 	        android:layout_height="40dp"
 	        android:layout_gravity="center_horizontal"
 	        android:layout_margin="5dp"
 	        android:background="@drawable/button_selector"
-	        android:text="@string/upload_selected"
-	        android:textSize="19dip"
+	        android:text="@string/btnRegister"
+	        android:textSize="20dip"
 	        android:textStyle="bold"
 	        android:typeface="monospace" />
-	
+	    
+	    	<TextView
+        	android:id="@+id/textView1"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+      		android:text="@string/username_details" />
+
+
+    	<EditText
+        	android:id="@+id/edtEmail"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:layout_marginTop="5dp"
+        	android:hint="@string/email"
+        	android:inputType="textEmailAddress" >
+
+        	<requestFocus />
+    	</EditText>
+
+    	
+    	<EditText
+        	android:id="@+id/edtPassword"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:hint="@string/password"
+        	android:inputType="textPassword" />
+
+
+    	<LinearLayout
+        	android:id="@+id/linearLayout1"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:gravity="center" >
+
+
 	    <Button
-	        android:id="@+id/btnUploadAll"
+	        android:id="@+id/btnSaveCredentials"
 	        android:layout_width="200dp"
 	        android:layout_height="40dp"
 	        android:layout_gravity="center_horizontal"
 	        android:layout_margin="5dp"
 	        android:background="@drawable/button_selector"
-	        android:text="@string/upload_all"
+	        android:text="@string/btnSaveCredentials"
 	        android:textSize="19dip"
 	        android:textStyle="bold"
 	        android:typeface="monospace" />
 	
+		</LinearLayout>
 	</LinearLayout>
 </ScrollView>

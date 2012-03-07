@@ -10,7 +10,7 @@
 		style="z-index: 101;">
 		<a class="close pull-left" href="#">&times;</a>
 		<p>
-			<big>Please correct your FORM error{{form.errors|pluralize }} below</big>
+			<big>{{ _("Please correct your FORM error below") }}</big>
 		</p>
 	</div>
 	{% endif %} 
@@ -30,7 +30,7 @@
 			<a class="brand" href="/"><img align="top" src="{{ STATIC_URL }}images/logo.png" height="20" width="20"/>&nbsp;&nbsp;
 			Tobacco Free</a>
 			<ul class="nav">
-	            <li><a href="/#home">Home</a></li>
+	            <li><a href="/#home">{{ _("Home") }}</a></li>
             </ul>	
 		</div>
 	</div>
@@ -38,17 +38,8 @@
 {% endblock %} 
 
 
-
-{% block hero %}
-<!-- Main hero unit for a primary marketing message and call to action -->
-<h1>
-	NZDIS Tobacco Free <small> smoking in cars study</small>
-</h1>
-<p></p>
-</p>
-<p>&nbsp;</p>
+{% block hero_content %}
 {% endblock %} 
-
 
 
 
@@ -58,7 +49,7 @@
 	<div class="span11">
 		<hr>
 		<h2>
-			Confirm your registration <small> to start logging the observations</small>
+			{{ _("Confirm your registration") }} <small> {{ _("to start logging the observations") }}</small>
 		</h2>
 		<h3>Please copy and paste your activation key</h3>
 		<form action="/observer/confirm" method="POST">
@@ -69,7 +60,7 @@
 				
 				<div class="actions">
 					<input type="submit" class="btn primary"
-						value="Confirm registration &raquo;"></input>
+						value="{{ _('Confirm registration') }} &raquo;"></input>
 				</div>
 			</fieldset>
 		</form>

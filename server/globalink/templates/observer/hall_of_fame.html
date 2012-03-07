@@ -1,0 +1,134 @@
+{% extends "base.html" %} 
+
+
+{% block topbar %}
+<div class="topbar">
+
+	<div class="topbar-inner">
+		<div class="container-fluid">
+			<a class="brand" href="/"><img align="top" src="{{ STATIC_URL }}images/logo.png" height="20" width="20"/>&nbsp;&nbsp;Tobacco Free</a>
+			<ul class="nav">
+	            <li><a href="/#home">{{ _("Home") }}</a></li>
+	            <li class="active"><a href="/observer/hall_of_fame">{{ _("People") }}</a></li>
+        {% if user.is_authenticated %}
+        	<li><a href="/observation/list">{{ _("My Observations") }}</a></li>
+            {% if user.is_staff %}
+            <li class="menu" data-dropdown="dropdown">                                 
+		        <a href="#" class="menu">{{ _("Admin") }}</a>
+		        <ul class="menu-dropdown">                                               
+		          <li><a href="/admin/list_observers">{{ _("Users") }}</a></li>                        
+		          <li class="divider"></li>                                              
+		          <li><a href="/admin/list_observations">{{ _("Observations") }}</a></li>                             
+		        </ul>                                                                    
+		    </li>
+            {% endif %}
+        {% endif %}
+          </ul>
+        {% if user.is_authenticated %}
+		  <ul class="nav secondary-nav">
+		  	<li class="menu" data-dropdown="dropdown">                                 
+		        <a href="#" class="menu">{{ user.username }}</a>
+		        <ul class="menu-dropdown">                                               
+		          <li><a href="/observer/profile">{{ _("My Profile") }}</a></li>                        
+		          <li class="divider"></li>                                              
+		          <li><a href="/observer/logout">{{ _("Logout") }}</a></li>                             
+		        </ul>                                                                    
+		      </li>
+
+           	<li class="menu" data-dropdown="dropdown">
+          		<a href="#" class="menu">
+          			<img style="position:absolute; top:5px;" src="{{ STATIC_URL }}images/lang_world.png" height="28" width="28"/>
+          		</a>
+          		<ul class="menu-dropdown">
+        	    {% for lang in LANGUAGES %}
+			        <li>
+			        <div>
+                    <form name="setLang{{ lang.1}}" action="/i18n/setlang/" method="POST">
+                    	{% csrf_token %}
+                        <input name="next" type="hidden" value="/" />
+                        <input type="hidden" name="language" value="{{ lang.0 }}" />
+                        <a href="#" onclick="document.setLang{{ lang.1 }}.submit();return false;">{{ lang.1 }}</a>
+                    </form>
+                   </div>
+        	        </li>
+            	{% endfor %}    
+          		</ul>
+          	</li>                                                                      
+		  </ul>                                                                          
+		{% else %}
+		  </ul>
+          <ul class="nav secondary-nav pull-right">
+  	        <li class="menu" data-dropdown="dropdown">
+          		<a href="#" class="menu">
+          			<img style="position:absolute; top:5px;" src="{{ STATIC_URL }}images/lang_world.png" height="28" width="28"/>
+          		</a>
+          		<ul class="menu-dropdown">
+        	    {% for lang in LANGUAGES %}
+			        <li>
+			        <div>
+                    <form name="setLang{{ lang.1}}" action="/i18n/setlang/" method="POST">
+                    	{% csrf_token %}
+                        <input name="next" type="hidden" value="/" />
+                        <input type="hidden" name="language" value="{{ lang.0 }}" />
+                        <a href="#" onclick="document.setLang{{ lang.1 }}.submit();return false;">{{ lang.1 }}</a>
+                    </form>
+                   </div>
+        	        </li>
+            	{% endfor %}    
+          		</ul>
+          	</li>                                                                      
+
+          </ul>
+
+		{% endif %}	
+		</div>
+	</div>
+</div>
+{% endblock %} 
+
+
+{% block hero_content %}
+{% endblock %} 
+
+
+
+{% block content %}
+
+<div class="row">
+	<div class="span13">
+		<hr>
+		<h2>{{ _("Top volunteers") }}</h2>
+		<table>
+		<thead><td></td><td><b>{{ _("Name") }}</b></td><td><b>{{ _("Affiliation") }}</b></td>
+			<td># {{ _("Cars") }}</td><td># {{ _("Observations") }}</td><td></td><td></thead>
+		<tbody>
+		{% for o in observers %}
+		<tr><td>{{forloop.counter}}</td>
+		<td>{{o.name}}</a></td>
+		<td>{{o.affiliation}}</td>
+		<td>{{o.num_of_cars}}</td>
+		<td>{{o.num_of_observations}}</td>
+		<td>
+			{% if user.is_authenticated %}
+			{% if user.username == o.user.username %}
+				<a href="https://twitter.com/share" 
+					class="twitter-share-button" 
+					data-url="http://tobaccofree.nzdis.org"
+					data-counturl="http://tobaccofree.nzdis.org"
+					data-text="{{ _('I am') }} {{ forloop.counter }} {{ _('top volunteer on') }} #TobaccoFree -  {{ o.num_of_observations }} {{ _('observations') }} {{ _('and') }} {{ o.num_of_cars }} {{ _('cars checked') }}" 
+					data-via="nzdis"
+					data-rel="canonical" 
+					data-related="nzdis:New Zealand Distributed Information Systems., ognus:Developer - PhD student - University of Otago, praeteritio:Researcher - Lecturer - University of Otago." 
+					data-count="horizontal">{{ _("Tweet") }}</a>
+			{% endif %}
+			{% endif %}
+		</td>
+		</tr>
+		{% endfor %}
+		</tbody>
+		</table>
+		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</div>
+</div>
+
+{% endblock %}

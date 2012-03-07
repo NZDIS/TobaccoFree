@@ -1,4 +1,6 @@
 #
+# -*- coding: utf-8 -*-
+#
 # Django settings for GlobaLink_server project.
 #
 #
@@ -15,9 +17,14 @@ ADMINS = (
 )
 
 DEFAULT_FEEDBACK_EMAIL = 'info@nzdis.org'
-DEFAULT_FROM_EMAIL = 'support@nzdis.org'
+DEFAULT_FROM_EMAIL = 'info@nzdis.org'
 
 MANAGERS = ADMINS
+
+# localhost GOOGLE_KEY = 'ABQIAAAACaHqSPzHqfwVN22KYziTsRRi_j0U6kJrkFvY4-OX2XYmEAa76BQiz3J39v-PT4dSnT3v_7uHOD-aOQ'
+
+# tobaccofree.nzdis.org
+GOOGLE_KEY = 'ABQIAAAAezuV-NCDVBiP1WVf9ezubRTDt9Neq9z0zAPjB92_W5PAkXCu8BTRUbHPsGmSufT6G9ctE-exE2954w'
 
 # This is overwritten in production
 
@@ -45,13 +52,27 @@ TIME_ZONE = 'Pacific/Auckland'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+#LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en_NZ'
+LANGUAGES = (
+    ('en', 'English'),
+    ('pl', 'Polski'),
+    ('pt', 'Português'),
+    ('pt_BR', 'Português Brasileiro'),
+#    ('de', 'Deutsch'),
+)
 
-SITE_ID = 1
+appdir = os.path.abspath( os.path.dirname( __file__ ) )
+LOCALE_PATHS = ( 
+    os.path.join( appdir, 'conf/locale' ),
+    os.path.join( appdir, 'locale' ),
+ )
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
 USE_I18N = True
+
+SITE_ID = 1
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale
@@ -108,6 +129,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 )
 
 ROOT_URLCONF = 'urls'
@@ -118,11 +140,10 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    #'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'django.contrib.admin',
-    #'django.contrib.admindocs',
     'observation',
+    'observer',
+    'admin',
 )
 
 AUTHENTICATION_BACKENDS = (

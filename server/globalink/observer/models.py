@@ -66,7 +66,8 @@ class RegistrationManager():
                                                                            
         profile.registration_confirmed = True;                             
         profile.activation_key = "ALREADY_ACTIVATED"
-        profile.user.date_joined = datetime.now()                 
+        profile.user.date_joined = datetime.now()
+        profile.user.is_active = True             
         profile.save()                                                     
         return profile                                                     
 
@@ -82,6 +83,7 @@ class RegistrationManager():
         user = User()
         user.email = email
         user.username = email
+        user.is_active = False
         new_observer.name = name
         new_observer.surname = surname
         user.name = name + surname
@@ -94,7 +96,7 @@ class RegistrationManager():
         sha1.update(str(random.random()))
         salt = sha1.hexdigest()[:5]
         sha1 = hashlib.sha1()
-        sha1.update(salt + email + name + affiliation)
+        sha1.update(salt.encode('ascii', 'ignore') + email.encode('ascii', 'ignore') + name.encode('ascii', 'ignore') + affiliation.encode('ascii', 'ignore'))
         new_observer.activation_key = sha1.hexdigest()
         user.save()
         new_observer.user = user

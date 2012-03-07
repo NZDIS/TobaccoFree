@@ -8,4 +8,6 @@ urlpatterns = patterns('globalink.observation.views',
 urlpatterns += patterns('',
     url(r'^observation/', include('globalink.observation.urls')),
     url(r'^observer/', include('globalink.observer.urls')),
+    url(r'^admin/', include('globalink.admin.urls')),
+    url(r'^i18n/', include('django.conf.urls.i18n')),
 )

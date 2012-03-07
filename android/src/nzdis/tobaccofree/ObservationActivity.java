@@ -20,6 +20,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -115,14 +116,14 @@ public class ObservationActivity extends Activity implements LocationListener, O
             	showingGPSDialog = true;
             }
             
-            tvAlone.setText(db.getAloneSmokerCount(observationId) + "");
-            tvAdults.setText(db.getAdultSmokersCount(observationId) + "");
-            tvChild.setText(db.getAdultChildSmokerCount(observationId) + "");
-            tvNone.setText(db.getNoSmokerCount(observationId)+"");
-        }else{
-		    try{
+            tvAlone.setText(db.getLoneSmokerCount(observationId) + "");
+            tvAdults.setText(db.getOtherAdultsSmokingCount(observationId) + "");
+            tvChild.setText(db.getChildCount(observationId) + "");
+            tvNone.setText(db.getNoSmokingCount(observationId)+"");
+        } else {
+		    try {
 		    	observationId = db.getNewObservationId();
-		    }catch(DatabaseException e){
+		    } catch(DatabaseException e){
 		    	Log.e("Globalink",e.getMessage());
 		    	db.close();
 		    	finish();
@@ -184,7 +185,17 @@ public class ObservationActivity extends Activity implements LocationListener, O
     }
     
     @Override
-    public void onBackPressed(){
+    public boolean onKeyDown(int keyCode, KeyEvent event){
+        if ((keyCode == KeyEvent.KEYCODE_BACK))
+        {
+            quitPressed();
+            return true;
+        } else { 
+        	return super.onKeyDown(keyCode, event);
+        }
+    }
+    
+    private void quitPressed() {
     	//check to see if the user has actually counted anything
     	DatabaseHelper db = new DatabaseHelper(this);
     	if(db.hasCounted(observationId)){
@@ -193,12 +204,12 @@ public class ObservationActivity extends Activity implements LocationListener, O
     		if(db.hasGPS(observationId)){
     			// ask if finished
     			onCreateDialog(CONFIRM_DIALOG);    			
-    		}else{
+    		} else {
     			// ask to wait for GPS
     			showingGPSDialog = true;
-    			gpsDialog = ProgressDialog.show(this, "",getString(R.string.gps_fix), true,true);
+    			gpsDialog = ProgressDialog.show(this, "", getString(R.string.gps_fix), true, true);
     		}
-    	}else{
+    	} else {
     		//delete unused observation
     		db.deleteObservation(observationId);
         	db.close();
@@ -281,7 +292,7 @@ public class ObservationActivity extends Activity implements LocationListener, O
 	public void onClick(View v) {
 		
 		if(v == btnFinish){
-			onBackPressed();
+			quitPressed();
 			return;
 		}
 		
@@ -294,7 +305,7 @@ public class ObservationActivity extends Activity implements LocationListener, O
 		if(v == btnNoSmoking){
 			DatabaseHelper db = new DatabaseHelper(this);
 			db.incrementNoSmoking(observationId);
-			tvNone.setText(db.getNoSmokerCount(observationId)+"");
+			tvNone.setText(db.getNoSmokingCount(observationId)+"");
 			db.close();
 			playSound();
 			return;
@@ -302,8 +313,8 @@ public class ObservationActivity extends Activity implements LocationListener, O
 		
 		if(v == btnNoOccupants){
 			DatabaseHelper db = new DatabaseHelper(this);
-			db.incrementNoOccupants(observationId);
-			tvAlone.setText(db.getAloneSmokerCount(observationId) + "");
+			db.incrementLoneAdultSmoking(observationId);
+			tvAlone.setText(db.getLoneSmokerCount(observationId) + "");
 			db.close();
 			playSound();
 			return;
@@ -312,7 +323,7 @@ public class ObservationActivity extends Activity implements LocationListener, O
 		if(v == btnOtherAdults){
 			DatabaseHelper db = new DatabaseHelper(this);
 			db.incrementOtherAdults(observationId);
-			tvAdults.setText(db.getAdultSmokersCount(observationId) + "");
+			tvAdults.setText(db.getOtherAdultsSmokingCount(observationId) + "");
 			db.close();
 			playSound();            
 			return;
@@ -321,7 +332,7 @@ public class ObservationActivity extends Activity implements LocationListener, O
 		if(v == btnChild){
 			DatabaseHelper db = new DatabaseHelper(this);
 			db.incrementChild(observationId);
-			tvChild.setText(db.getAdultChildSmokerCount(observationId) + "");
+			tvChild.setText(db.getChildCount(observationId) + "");
 			db.close();
 			playSound();
 			return;
@@ -402,10 +413,10 @@ public class ObservationActivity extends Activity implements LocationListener, O
         registerForContextMenu(btnChild);
         
 		DatabaseHelper db = new DatabaseHelper(this);
-		tvNone.setText(db.getNoSmokerCount(observationId)+"");
-		tvChild.setText(db.getAdultChildSmokerCount(observationId) + "");
-		tvAdults.setText(db.getAdultSmokersCount(observationId) + "");
-		tvAlone.setText(db.getAloneSmokerCount(observationId) + "");
+		tvNone.setText(db.getNoSmokingCount(observationId)+"");
+		tvChild.setText(db.getChildCount(observationId) + "");
+		tvAdults.setText(db.getOtherAdultsSmokingCount(observationId) + "");
+		tvAlone.setText(db.getLoneSmokerCount(observationId) + "");
 		db.close();
 	}
 	
@@ -446,33 +457,33 @@ public class ObservationActivity extends Activity implements LocationListener, O
 			switch(contextSelected){
 			case CONTEXT_CHILD:
 				db = new DatabaseHelper(this);
-				if(db.getAdultChildSmokerCount(observationId) > 0){
+				if(db.getChildCount(observationId) > 0){
 					db.decrementChild(observationId);
-					tvChild.setText(db.getAdultChildSmokerCount(observationId) + "");
+					tvChild.setText(db.getChildCount(observationId) + "");
 				}
 				db.close();			
 				break;
 			case CONTEXT_ADULTS:
 				db = new DatabaseHelper(this);
-				if(db.getAdultSmokersCount(observationId) > 0){
+				if(db.getOtherAdultsSmokingCount(observationId) > 0){
 					db.decrementOtherAdults(observationId);
-					tvAdults.setText(db.getAdultSmokersCount(observationId) + "");
+					tvAdults.setText(db.getOtherAdultsSmokingCount(observationId) + "");
 				}
 				db.close();		
 				break;
 			case CONTEXT_ALONE:
 				db = new DatabaseHelper(this);
-				if(db.getAloneSmokerCount(observationId) > 0){
-					db.decrementNoOccupants(observationId);
-					tvAlone.setText(db.getAloneSmokerCount(observationId) + "");
+				if(db.getLoneSmokerCount(observationId) > 0){
+					db.decrementLoneAdultSmoking(observationId);
+					tvAlone.setText(db.getLoneSmokerCount(observationId) + "");
 				}
 				db.close();	
 				break;
 			case CONTEXT_NONE:
 				db = new DatabaseHelper(this);
-				if(db.getNoSmokerCount(observationId) > 0){
+				if(db.getNoSmokingCount(observationId) > 0){
 					db.decrementNoSmoking(observationId);
-					tvNone.setText(db.getNoSmokerCount(observationId) + "");
+					tvNone.setText(db.getNoSmokingCount(observationId) + "");
 				}
 				db.close();	
 				break;

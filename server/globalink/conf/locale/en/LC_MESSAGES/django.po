@@ -1,0 +1,454 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-03-02 10:51+1300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: admin/forms.py:11
+msgid "Your email/Username. Cannot be changed."
+msgstr ""
+
+#: admin/forms.py:13 observer/forms.py:71
+#: templates/admin/observers_list.html:72
+#: templates/observer/hall_of_fame.html:102
+msgid "Name"
+msgstr ""
+
+#: admin/forms.py:15 observer/forms.py:73
+msgid "Surname"
+msgstr ""
+
+#: admin/forms.py:17 observer/forms.py:75
+#: templates/admin/observers_list.html:72
+#: templates/observer/hall_of_fame.html:102
+msgid "Affiliation"
+msgstr ""
+
+#: admin/forms.py:19
+msgid "Activation key"
+msgstr ""
+
+#: admin/forms.py:21
+msgid "Is active?"
+msgstr ""
+
+#: admin/forms.py:23 templates/admin/observers_list.html:73
+msgid "Staff?"
+msgstr ""
+
+#: admin/forms.py:25 templates/admin/observers_list.html:73
+msgid "Approved?"
+msgstr ""
+
+#: observation/forms.py:14 observer/forms.py:18
+msgid "Your email"
+msgstr ""
+
+#: observation/forms.py:16
+msgid "Topic, main subject for your feedback"
+msgstr ""
+
+#: observer/forms.py:20
+msgid "Real name"
+msgstr ""
+
+#: observer/forms.py:22
+msgid "Real surname"
+msgstr ""
+
+#: observer/forms.py:24
+msgid "Your affiliation"
+msgstr ""
+
+#: observer/forms.py:26
+msgid "Your password (at least 6 characters)"
+msgstr ""
+
+#: observer/forms.py:85
+msgid "Existing password"
+msgstr ""
+
+#: observer/forms.py:87
+msgid "New password (at last 6 characters)"
+msgstr ""
+
+#: templates/base.html:125 templates/admin/full_profile.html:12
+#: templates/admin/observations_list.html:12
+#: templates/admin/observers_list.html:12 templates/observation/list.html:12
+#: templates/observer/profile.html:12 templates/observer/register.html:12
+#: templates/observer/register_confirm.html:13
+msgid "Please correct your FORM error below"
+msgstr ""
+
+#: templates/base.html:141 templates/admin/full_profile.html:31
+#: templates/admin/observations_list.html:31
+#: templates/admin/observers_list.html:31 templates/observation/list.html:31
+#: templates/observer/hall_of_fame.html:11 templates/observer/profile.html:31
+#: templates/observer/register.html:31
+#: templates/observer/register_confirm.html:33
+msgid "Home"
+msgstr ""
+
+#: templates/base.html:142 templates/base.html.py:400
+msgid "Awareness"
+msgstr ""
+
+#: templates/base.html:143 templates/base.html.py:445
+msgid "Feedback"
+msgstr ""
+
+#: templates/base.html:144 templates/observer/hall_of_fame.html:12
+msgid "People"
+msgstr ""
+
+#: templates/base.html:146 templates/admin/full_profile.html:32
+#: templates/admin/observations_list.html:32
+#: templates/admin/observers_list.html:32 templates/observation/list.html:32
+#: templates/observer/hall_of_fame.html:14 templates/observer/profile.html:32
+msgid "My Observations"
+msgstr ""
+
+#: templates/base.html:149 templates/admin/full_profile.html:35
+#: templates/admin/observations_list.html:35
+#: templates/admin/observers_list.html:35 templates/observation/list.html:35
+#: templates/observer/hall_of_fame.html:17 templates/observer/profile.html:35
+msgid "Admin"
+msgstr ""
+
+#: templates/base.html:151 templates/admin/full_profile.html:37
+#: templates/admin/observations_list.html:37
+#: templates/admin/observers_list.html:37 templates/observation/list.html:37
+#: templates/observer/hall_of_fame.html:19 templates/observer/profile.html:37
+msgid "Users"
+msgstr ""
+
+#: templates/base.html:153 templates/admin/full_profile.html:39
+#: templates/admin/observations_list.html:39
+#: templates/admin/observations_list.html:70
+#: templates/admin/observers_list.html:39 templates/observation/list.html:39
+#: templates/observer/hall_of_fame.html:21
+#: templates/observer/hall_of_fame.html:103 templates/observer/profile.html:39
+msgid "Observations"
+msgstr ""
+
+#: templates/base.html:164 templates/admin/full_profile.html:48
+#: templates/admin/observations_list.html:48
+#: templates/admin/observers_list.html:48 templates/observation/list.html:49
+#: templates/observer/hall_of_fame.html:32 templates/observer/profile.html:49
+msgid "My Profile"
+msgstr ""
+
+#: templates/base.html:166 templates/admin/full_profile.html:50
+#: templates/admin/observations_list.html:50
+#: templates/admin/observers_list.html:50 templates/observation/list.html:51
+#: templates/observer/hall_of_fame.html:34 templates/observer/profile.html:51
+msgid "Logout"
+msgstr ""
+
+#: templates/base.html:194
+msgid "E-mail"
+msgstr ""
+
+#: templates/base.html:195
+msgid "Password"
+msgstr ""
+
+#: templates/base.html:196
+msgid "Sign in"
+msgstr ""
+
+#: templates/base.html:229
+msgid "Fork me on GitHub"
+msgstr ""
+
+#: templates/base.html:239
+msgid "counting smoking in cars"
+msgstr ""
+
+#: templates/base.html:254
+msgid "How many people smoke in cars?"
+msgstr ""
+
+#: templates/base.html:255
+msgid "How many passive smokers are affected?"
+msgstr ""
+
+#: templates/base.html:256
+msgid "How many children?"
+msgstr ""
+
+#: templates/base.html:257
+msgid "How much the stats differ between countries?"
+msgstr ""
+
+#: templates/base.html:262 templates/base.html.py:384
+#: templates/observer/register.html:51
+msgid "Register"
+msgstr ""
+
+#: templates/base.html:262
+msgid "to participate"
+msgstr ""
+
+#: templates/base.html:263
+msgid "Learn more"
+msgstr ""
+
+#: templates/base.html:277
+msgid "Statistics"
+msgstr ""
+
+#: templates/base.html:277
+msgid "overall"
+msgstr ""
+
+#: templates/base.html:279 templates/base.html.py:307
+msgid "registered loggers"
+msgstr ""
+
+#: templates/base.html:280 templates/base.html.py:307
+msgid "stored observations"
+msgstr ""
+
+#: templates/base.html:281 templates/base.html.py:307
+#: templates/observer/hall_of_fame.html:118
+msgid "cars checked"
+msgstr ""
+
+#: templates/base.html:282 templates/base.html.py:307
+msgid "of people"
+msgstr ""
+
+#: templates/base.html:282 templates/base.html.py:307
+msgid "smoke"
+msgstr ""
+
+#: templates/base.html:282 templates/base.html.py:307
+msgid "in cars"
+msgstr ""
+
+#: templates/base.html:311 templates/observer/hall_of_fame.html:122
+msgid "Tweet"
+msgstr ""
+
+#: templates/base.html:318 templates/base.html.py:341
+msgid "Statistics per"
+msgstr ""
+
+#: templates/base.html:318
+msgid "country"
+msgstr ""
+
+#: templates/base.html:321
+msgid "Country"
+msgstr ""
+
+#: templates/base.html:321 templates/base.html.py:344
+msgid "Smoking in cars"
+msgstr ""
+
+#: templates/base.html:322 templates/base.html.py:345
+msgid "Num. cars"
+msgstr ""
+
+#: templates/base.html:322 templates/base.html.py:345
+msgid "Num. observations"
+msgstr ""
+
+#: templates/base.html:341
+msgid "city"
+msgstr ""
+
+#: templates/base.html:344
+msgid "City"
+msgstr ""
+
+#: templates/base.html:366
+msgid "Observations map"
+msgstr ""
+
+#: templates/base.html:377
+msgid "About"
+msgstr ""
+
+#: templates/base.html:378
+msgid ""
+"To collect data from multiple sites, globally, many times a day, over and "
+"over again, would be expensive. "
+msgstr ""
+
+#: templates/base.html:379
+msgid ""
+"So expensive, that study like that is impossible to run through traditional "
+"methods."
+msgstr ""
+
+#: templates/base.html:380
+msgid "The idea is to ask volunteers to help."
+msgstr ""
+
+#: templates/base.html:380
+msgid "YOU"
+msgstr ""
+
+#: templates/base.html:381
+msgid "will help to conduct the study and do the research."
+msgstr ""
+
+#: templates/base.html:383
+msgid "Anyone can participate"
+msgstr ""
+
+#: templates/base.html:386
+msgid "Agree to"
+msgstr ""
+
+#: templates/base.html:386
+msgid "Ethical Conduct and Honour Code"
+msgstr ""
+
+#: templates/base.html:387
+msgid "Go outside, stand by a busy street, and start logging the data"
+msgstr ""
+
+#: templates/base.html:389
+msgid "The application allows easy logging of occurances of smoking in cars."
+msgstr ""
+
+#: templates/base.html:390
+msgid ""
+"Install it, go out, and collect data about particular location. Instructions "
+"are provided within the application."
+msgstr ""
+
+#: templates/base.html:402
+msgid "World"
+msgstr ""
+
+#: templates/base.html:426
+msgid "Research articles"
+msgstr ""
+
+#: templates/base.html:445
+msgid "tell us what you think"
+msgstr ""
+
+#: templates/base.html:457
+msgid "Send feedback"
+msgstr ""
+
+#: templates/base.html:458 templates/observer/register.html:67
+msgid "Clear form"
+msgstr ""
+
+#: templates/admin/base_site.html:4 templates/admin/base_site.html.py:7
+msgid "TobaccoFree administration"
+msgstr ""
+
+#: templates/admin/full_profile.html:71 templates/observer/profile.html:72
+msgid "Profile of"
+msgstr ""
+
+#: templates/admin/full_profile.html:73
+msgid "Delete this observer"
+msgstr ""
+
+#: templates/admin/full_profile.html:90
+msgid "Update profile"
+msgstr ""
+
+#: templates/admin/observations_list.html:74
+msgid "User"
+msgstr ""
+
+#: templates/admin/observations_list.html:75
+#: templates/observation/list.html:74
+msgid "When"
+msgstr ""
+
+#: templates/admin/observations_list.html:76
+#: templates/observation/list.html:74
+msgid "Where"
+msgstr ""
+
+#: templates/admin/observations_list.html:77
+#: templates/observation/list.html:75
+msgid "How long"
+msgstr ""
+
+#: templates/admin/observations_list.html:95
+msgid "Delete"
+msgstr ""
+
+#: templates/admin/observers_list.html:70
+msgid "Observers"
+msgstr ""
+
+#: templates/admin/observers_list.html:73
+msgid "username/email"
+msgstr ""
+
+#: templates/observation/list.html:72
+msgid "Observations collected by"
+msgstr ""
+
+#: templates/observer/hall_of_fame.html:100
+msgid "Top volunteers"
+msgstr ""
+
+#: templates/observer/hall_of_fame.html:103
+msgid "Cars"
+msgstr ""
+
+#: templates/observer/hall_of_fame.html:118
+msgid "I am"
+msgstr ""
+
+#: templates/observer/hall_of_fame.html:118
+msgid "top volunteer on"
+msgstr ""
+
+#: templates/observer/hall_of_fame.html:118
+msgid "observations"
+msgstr ""
+
+#: templates/observer/hall_of_fame.html:118
+msgid "and"
+msgstr ""
+
+#: templates/observer/profile.html:88
+msgid "Password change"
+msgstr ""
+
+#: templates/observer/register.html:51
+msgid "and be able to upload data to the server"
+msgstr ""
+
+#: templates/observer/register.html:66
+msgid "Send registration request"
+msgstr ""
+
+#: templates/observer/register_confirm.html:52
+msgid "Confirm your registration"
+msgstr ""
+
+#: templates/observer/register_confirm.html:52
+msgid "to start logging the observations"
+msgstr ""
+
+#: templates/observer/register_confirm.html:63
+msgid "Confirm registration"
+msgstr ""

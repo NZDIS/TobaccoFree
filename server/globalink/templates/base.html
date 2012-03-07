@@ -3,10 +3,14 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>NZDIS Tobacco</title>
-    <meta name="description" content="University of Otago joint project with Globalink. Tobacco Free. Tobacco Awarness. Record smoking in cars. Globally. Share your results.">
+    <title>NZDIS TobaccoFree</title>
+    <meta name="description" content="University of Otago, New Zealand Distributed Information Systems (NZDIS) project. Tobacco Free. Tobacco Awarness. Volunteers record smoking in cars. Globally. Share your data. Spread the results.">
     <meta name="author" content="NZDIS Group. University of Otago">
-
+    
+    <meta property="og:title" content="NZDIS TobaccoFree"/>
+	<meta property="og:description" content="TobaccoFree, volunteers collect data about smoking in cars. Crowdsourcing data with mobile phones.">
+	<meta property="og:type" content="text"/>
+    
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -18,8 +22,16 @@
 
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.7.1.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-alerts.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap-dropdown.js"></script>
     
-            
+    <!-- 127.0.0.1:8000 KEY
+    <script src="https://www.google.com/jsapi?key=ABQIAAAACaHqSPzHqfwVN22KYziTsRRi_j0U6kJrkFvY4-OX2XYmEAa76BQiz3J39v-PT4dSnT3v_7uHOD-aOQ" type="text/javascript"></script>
+    -->
+    <!-- tobaccofree.nzdis.org KEY -->
+    <script src="https://www.google.com/jsapi?key=ABQIAAAAezuV-NCDVBiP1WVf9ezubRTDt9Neq9z0zAPjB92_W5PAkXCu8BTRUbHPsGmSufT6G9ctE-exE2954w" type="text/javascript"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/nzdis.js"></script>
+      
     <style type="text/css">
       html, body {
         background-color: #eee;
@@ -76,6 +88,29 @@
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
     <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    
+    <style type="text/css">
+      #map_canvas {
+        position:inherit;
+        height: 400px;
+        width: 680px;
+        border: 1px solid #333;
+        margin-top: 0.6em;
+      }
+    </style>
+    
+    <!--  Google Analytics -->
+    <script type="text/javascript">
+	  	var _gaq = _gaq || [];
+  		_gaq.push(['_setAccount', 'UA-28696610-1']);
+  		_gaq.push(['_trackPageview']);
+
+  		(function() {
+    		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  		})();
+	</script>
   </head>
 
   <body>
@@ -87,7 +122,7 @@
  	{% if form.errors %}
 	<div class="alert-message error fade in" data-alert="alert" style="z-index: 101;">
   		<a class="close pull-left" href="#">&times;</a>
-  		<p><big><a href="#feedback">Please correct your FORM error{{ form.errors|pluralize }} below</a></big></p>
+  		<p><big><a href="#feedback">{{ _("Please correct your FORM error below") }}</a></big></p>
 	</div>
     {% endif %}
     
@@ -100,33 +135,89 @@
 
       <div class="topbar-inner">
         <div class="container-fluid">
-          <a class="brand" href="/"><img align="top" src="{{ STATIC_URL }}images/logo.png" height="20" width="20"/>&nbsp;&nbsp;Tobacco Free</a>
+          <a class="brand" href="/">
+          	<img align="top" src="{{ STATIC_URL }}images/logo.png" height="20" width="20"/>&nbsp;&nbsp;Tobacco Free</a>
           <ul class="nav">
-            <li class="active"><a href="#home">Home</a></li>
-            <li><a href="/#awareness">Awareness</a></li>
-            <li><a href="/#feedback">Feedback</a></li>
+            <li class="active"><a href="#home">{{ _("Home") }}</a></li>
+            <li><a href="/#awareness">{{ _("Awareness") }}</a></li>
+            <li><a href="/#feedback">{{ _("Feedback") }}</a></li>
+            <li><a href="/observer/hall_of_fame">{{ _("People") }}</a></li>
         {% if user.is_authenticated %}
-        	<li><a href="/observation/list">My Observations</a></li>
-            <li><a href="/observer/profile">My Profile</a></li>
+        	<li><a href="/observation/list">{{ _("My Observations") }}</a></li>
             {% if user.is_staff %}
-            <li><a href="/admin">Administration</a></li>
+            <li class="menu" data-dropdown="dropdown">                                 
+		        <a href="#" class="menu">{{ _("Admin") }}</a>
+		        <ul class="menu-dropdown">                                               
+		          <li><a href="/admin/list_observers">{{ _("Users") }}</a></li>                        
+		          <li class="divider"></li>                                              
+		          <li><a href="/admin/list_observations">{{ _("Observations") }}</a></li>                             
+		        </ul>                                                                    
+		    </li>
             {% endif %}
         {% endif %}
           </ul>
         {% if user.is_authenticated %}
-          <form class="pull-right">
-          <ul>
-    	  <a href="/observer/logout">{{ user.username }} &raquo; logout</a>
-    	  </ul>
-    	  </form>
+		  <ul class="nav secondary-nav">
+		  	<li class="menu" data-dropdown="dropdown">                                 
+		        <a href="#" class="menu">{{ user.username }}</a>
+		        <ul class="menu-dropdown">                                               
+		          <li><a href="/observer/profile">{{ _("My Profile") }}</a></li>                        
+		          <li class="divider"></li>                                              
+		          <li><a href="/observer/logout">{{ _("Logout") }}</a></li>                             
+		        </ul>                                                                    
+		      </li>
+
+           	<li class="menu" data-dropdown="dropdown">
+          		<a href="#" class="menu">
+          			<img style="position:absolute; top:5px;" src="{{ STATIC_URL }}images/lang_world.png" height="28" width="28"/>
+          		</a>
+          		<ul class="menu-dropdown">
+        	    {% for lang in LANGUAGES %}
+			        <li>
+			        <div>
+                    <form name="setLang{{ lang.1}}" action="/i18n/setlang/" method="POST">
+                    	{% csrf_token %}
+                        <input name="next" type="hidden" value="/" />
+                        <input type="hidden" name="language" value="{{ lang.0 }}" />
+                        <a href="#" onclick="document.setLang{{ lang.1 }}.submit();return false;">{{ lang.1 }}</a>
+                    </form>
+                   </div>
+        	        </li>
+            	{% endfor %}    
+          		</ul>
+          	</li>                                                                      
+		  </ul>                                                                          
 		{% else %}
 		  </ul>
     		<form action="/observer/login" method="POST" class="pull-right">
 			{% csrf_token %}
-            <input class="input-small" id="email" name="email" type="text" placeholder="E-mail">
-            <input class="input-small" id="password" name="password" type="password" placeholder="Password">
-            <button class="btn" type="submit">Sign in</button>
+            <input class="input-small" id="email" name="email" type="text" placeholder="{{ _('E-mail') }}">
+            <input class="input-small" id="password" name="password" type="password" placeholder="{{ _('Password') }}">
+            <button class="btn" type="submit">{{ _("Sign in") }}</button>
           </form>
+          <ul class="nav secondary-nav pull-right">
+  	        <li class="menu" data-dropdown="dropdown">
+          		<a href="#" class="menu">
+          			<img style="position:absolute; top:5px;" src="{{ STATIC_URL }}images/lang_world.png" height="28" width="28"/>
+          		</a>
+          		<ul class="menu-dropdown">
+        	    {% for lang in LANGUAGES %}
+			        <li>
+			        <div>
+                    <form name="setLang{{ lang.1}}" action="/i18n/setlang/" method="POST">
+                    	{% csrf_token %}
+                        <input name="next" type="hidden" value="/" />
+                        <input type="hidden" name="language" value="{{ lang.0 }}" />
+                        <a href="#" onclick="document.setLang{{ lang.1 }}.submit();return false;">{{ lang.1 }}</a>
+                    </form>
+                   </div>
+        	        </li>
+            	{% endfor %}    
+          		</ul>
+          	</li>                                                                      
+
+          </ul>
+
 		{% endif %}
         </div>
       </div>
@@ -135,46 +226,46 @@
 
     <div class="right ribbon-holder" style="padding-top: 40pt">
    		<a href="https://github.com/marni/NZDIS-TobaccoFree" class="orange ribbon">
-      	<span class="text" style='color: #FFFFFF;'>Fork me on GitHub</span>
+      	<span class="text" style='color: #FFFFFF;'>{{ _("Fork me on GitHub") }}</span>
    		</a>
 	</div>
 	
    <div class="container">
       <div class="content">
+<!-- Main hero unit for a primary marketing message and call to action -->
 {% block hero %}	
-        <!-- Main hero unit for a primary marketing message and call to action -->
-          
           <div class="row">
-          	<div class="span8">
-          	   <h1>Tobacco Free <small> smoking in cars study</small> </h1>
+          	<div class="span13">
+          	   <h1>Tobacco Free <small> {{ _("counting smoking in cars") }}</small> </h1>
 
+			   {% block hero_content %}
                {% if not user.is_authenticated %}          	   
           	   <p>
           	   <a href="https://market.android.com/details?id=nzdis.tobaccofree">
-                  <img height="160" width="284" src="{{ STATIC_URL }}images/screen5.png"/>
+                  <img height="160" width="284" src="{{STATIC_URL}}images/screen5.png"/>
                </a>
+               
+				<a href="https://market.android.com/details?id=nzdis.tobaccofree" class="pull-right">
+       			<img align="top" src="http://chart.apis.google.com/chart?cht=qr&chs=300x300&chld=L&choe=UTF-8&chl=https%3A%2F%2Fmarket.android.com%2Fdetails%3Fid%3Dnzdis.tobaccofree"/></a>	      		
+               
                </p>
           	                                           
                <ul>                                                                                                
-               	<li>How many people smoke in cars?</li>                                                           
-               	<li>How many passive smokers are affected?</li>                                                   
-               	<li>How many children? </li>                                                                      
-                <li>How much the stats differ between cities? Countries?</li>                                     
+               	<li>{{ _("How many people smoke in cars?") }}</li>                                                           
+               	<li>{{ _("How many passive smokers are affected?") }}</li>                                                   
+               	<li>{{ _("How many children?") }}</li>                                                     
+                <li>{{ _("How much the stats differ between countries?") }}</li>                                     
                </ul>                                                                                               
 
                <p>                                                                                                 
                <a href="/observer/register" class="btn success large pull-left">
-               		<big>Register</big> to participate &raquo;</a>&nbsp;&nbsp;                                                                                        
- 			   <a href="#about" class="btn primary large">Learn more &raquo;</a>                                         
+               		<big>{{ _("Register") }}</big> {{ _("to participate") }} &raquo;</a>&nbsp;&nbsp;                                                                                        
+ 			   <a href="#about" class="btn primary large">{{ _("Learn more") }} &raquo;</a>                                         
                </p>
-               {% endif %}
+
+	      	   {% endif %}
+               {% endblock %}
           	</div>
-          	{% if not user.is_authenticated %}
-          	<div class="span3" align="top">
-          		<a href="https://market.android.com/details?id=nzdis.tobaccofree">
-          		<img align="top" src="http://chart.apis.google.com/chart?cht=qr&chs=350x350&chld=L&choe=UTF-8&chl=https%3A%2F%2Fmarket.android.com%2Fdetails%3Fid%3Dnzdis.tobaccofree"/></a>
-	      	</div>
-	      	{% endif %}
 	      </div>
 {% endblock %}
 
@@ -183,39 +274,120 @@
 	<hr>
 	<div class="row">
 	  <div class="span8">
-	    <h2>Statistics</h2>
-	    <h4>Overall</h4>
+	    <h2>{{ _("Statistics") }} <small>{{ _("overall") }}</small></h2>
 	    <ul>
-	      <li><big>{{ number_of_registered_observers }}</big> registered loggers</li>
-      	  <li><big>{{ number_of_observations }}</big> stored observations</li>
-      	  <li><big>{{ number_of_cars }}</big> cars checked</li>
-      	  <li><big>{{ ratio_of_smokers|floatformat }}%</big> of people <big>smoke</big> in cars</li>
+	      <li><big>{{ number_of_registered_observers }}</big> {{ _("registered loggers") }}</li>
+      	  <li><big>{{ number_of_observations }}</big> {{ _("stored observations") }}</li>
+      	  <li><big>{{ number_of_cars }}</big> {{ _("cars checked") }}</li>
+      	  <li><big>{{ ratio_of_smokers|floatformat }}%</big> {{ _("of people") }} <big>{{ _("smoke") }}</big> {{ _("in cars") }}</li>
 	    </ul>
 	  </div>
+	
+	<div id="fb-root"></div>
+	<script>
+	(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+	</script>
+	
+	<div class="fb-like" data-href="http://tobaccofree.nzdis.org" 
+		data-send="true" data-layout="button_count" 
+		data-width="150" data-show-faces="false" 
+		data-action="like">
 	</div>
+
+	<a href="https://twitter.com/share" 
+		class="twitter-share-button" 
+		data-url="http://tobaccofree.nzdis.org"
+		data-counturl="http://tobaccofree.nzdis.org"
+		data-text="#TobaccoFree {{ number_of_registered_observers }} {{ _('registered loggers') }}, {{ number_of_observations }} {{ _('stored observations') }}, {{ number_of_cars }} {{ _('cars checked') }}, {{ ratio_of_smokers|floatformat }}% {{ _('of people') }} {{ _('smoke') }} {{ _('in cars') }}" 
+		data-via="nzdis"
+		data-rel="canonical" 
+		data-related="nzdis:New Zealand Distributed Information Systems., ognus:Developer - PhD student - University of Otago, praeteritio:Researcher - Lecturer - University of Otago." 
+		data-count="horizontal">{{ _("Tweet") }}</a>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	</div>
+	
+	
+	<div class="row">
+	  <div class="span13">
+	    <h4>{{ _("Statistics per") }} <big>{{ _("country") }}</big></h4>
+	    <table>
+	    <thead>
+	    <td>{{ _("Country") }}</td><td>{{ _("Smoking in cars") }}</td>
+	    <td>{{ _("Num. cars") }}</td><td>{{ _("Num. observations") }}</td>
+	    </thead>
+	    <tbody>
+	    {% for c in countries %}
+	    <tr>
+	    	<td>{{c.country_name}}</td>
+	    	<td>{{c.ratio_of_smokers|floatformat}}%</td>
+	    	<td>{{c.num_cars}}</td>
+	    	<td>{{c.num_observations}}</td>
+	    	
+	    </tr>
+	    {% endfor %}
+	    </tbody>
+	    </table>
+	  </div>
+	</div>
+
+	<div class="row">
+	  <div class="span13">
+	    <h4>{{ _("Statistics per") }} <big>{{ _("city") }}</big></h4>
+	    <table>
+	    <thead>
+	    <td>{{ _("City") }}</td><td>{{ _("Smoking in cars") }}</td>
+	    <td>{{ _("Num. cars") }}</td><td>{{ _("Num. observations") }}</td>
+	    </thead>
+	    <tbody>
+	    {% for c in cities %}
+	    <tr>
+	    	<td>{{c.city_name}}</td>
+	    	<td>{{c.ratio_of_smokers|floatformat}}%</td>
+	    	<td>{{c.num_cars}}</td>
+	    	<td>{{c.num_observations}}</td>
+	    </tr>
+	    {% endfor %}
+	    </tbody>
+	    </table>
+	  </div>
+	</div>	
     
+    
+    <!-- A map with all the observations -->
+ 	<hr>           
+    <div class="row">
+    	<div class="span16">
+        <h2>{{ _("Observations map") }}</h2>
+        	<p id="map_canvas"></p>
+        </div>
+    </div>
+	
 	
     <!-- About -->
     <a id="about"></a>&nbsp;
 	<hr>
     <div class="row">    
        <div class="span8">
-       <h2>About</h2>
-       <p>To collect data from multiple sites, globally, many times a day, 
-          over and over again, would be expensive. So expensive, that 
-          study like that is impossible	to run through traditional methods.<br>
-	   <p>The idea is to ask volunteers to help. <big>YOU</big> will help us to conduct the study.</p>
+       <h2>{{ _("About") }}</h2>
+       <p>{{ _("To collect data from multiple sites, globally, many times a day, over and over again, would be expensive. ") }}
+          {{ _("So expensive, that study like that is impossible to run through traditional methods.") }}<br>
+	   <p>{{ _("The idea is to ask volunteers to help.") }} <big>{{ _("YOU") }}</big>
+	   	 {{ _("will help to conduct the study and do the research.") }}</p>
           <ul>
-	      <li>Anyone can participate</li>
-	      <li>Register and we will verify your details</li>
+	      <li>{{ _("Anyone can participate") }}</li>
+	      <li><a href="/observer/register">{{ _("Register") }}</a></li>
 	      <li><a href="https://market.android.com/details?id=nzdis.tobaccofree">Download and install</a> NZDIS TobaccoFree Android application</li>
-	      <li>Agree to University of Otago &raquo;Ethical Conduct and Honour Code&laquo;</big></li>
-	      <li>Start logging the data</li>
+	      <li>{{ _("Agree to") }} &raquo; {{ _("Ethical Conduct and Honour Code") }} &laquo;</big></li>
+	      <li>{{ _("Go outside, stand by a busy street, and start logging the data") }}</li>
 	    </ul>
-	    <p>We have developped a mobile application on Android phones. <a href="https://market.android.com/details?id=nzdis.tobaccofree">Download it</a> and use. </p>
-	    <p>The application
-	    allows easy logging of occurances of smoking in cars. Install it, go out, and collect data about particular location. 
-	    Instructions are provided within the application.</p>
+	    <p>{{ _("The application allows easy logging of occurances of smoking in cars.") }}
+	       {{ _("Install it, go out, and collect data about particular location. Instructions are provided within the application.") }}</p>
 	    <p></p>
       </div>
 	</div>
@@ -225,16 +397,16 @@
 	<div class="row">
        <div class="span11">
        <a name="about"></a>
-       <h2>Awareness</h2>
+       <h2>{{ _("Awareness") }}</h2>
 	   <p></p>
-	   <h3>World</h3>
+	   <h3>{{ _("World") }}</h3>
         <ul>
           <li><a href="http://www.globalink.org">GlobaLink</a> &laquo;
 	      	GlobaLink - the International Tobacco Control Community</li>
 	      <li><a href="http://en.wikipedia.org/wiki/Tobacco_control">Tobacco control</a> &laquo;
 	      	Article on Wikipedia about Tobacco control and the history of the movement</li>
-	      <li><a href="http://en.wikipedia.org/wiki/Tobacco_control">Tobacco Free movement</a> &laquo;
-	      	Another Article on Tobacco control movement</li>
+	      <li><a href="http://en.wikipedia.org/wiki/World_Health_Organization_Framework_Convention_on_Tobacco_Control">WHO Convention</a> &laquo;
+	      	Article on World Health Organization Framework Convention on Tobacco control</li>
 	    </ul>
 	    <h3>New Zealand</h3>
         <ul>
@@ -248,6 +420,18 @@
       </div>
 	</div>
 	
+	<div class="row">
+		<div class="span11">
+		<p></p>
+		<h2>{{ _("Research articles") }}</h2>
+		<ul>
+			<li><a href="http://www.ncbi.nlm.nih.gov/pubmed/16998177">Observed smoking in cars: a method and differences by socioeconomic area</a> Tob Control. 2006 Oct;15(5):409-11</li>
+			<li><a href="http://www.ncbi.nlm.nih.gov/pubmed/19052041">Public attitudes to laws for smoke-free private vehicles: a brief review</a> Tob Control. 2009 Aug;18(4):256-61. Epub 2008 Dec 3</li>
+			<li><a href="http://www.ncbi.nlm.nih.gov/pubmed/20696742">A qualitative case study of policy maker views about the protection of children from smoking in cars</a>Nicotine Tob Res. 2010 Sep;12(9):970-7. Epub 2010 Aug 9</li>
+		</ul>
+		</div>
+	</div>
+	
 	<script type="text/javascript">
 		$(".alert-message").alert()
 	</script>
@@ -258,7 +442,7 @@
        <div class="span11">
        <a name="about"></a>
 
-       <h2>Feedback <small>tell us what you think</small></h2>
+       <h2>{{ _("Feedback") }} <small>{{ _("tell us what you think") }}</small></h2>
 
         <form action="/feedback/send" method="POST">
 	          {% csrf_token %}
@@ -270,8 +454,8 @@
 				{% include "observation/parts/field.html" with field=form.description %}
 				
 				<div class="actions">
-	            	<input type="submit" class="btn primary" value="Send feedback &raquo;">&nbsp;
-	                <button type="reset" class="btn">Clear form</button>
+	            	<input type="submit" class="btn primary" value="{{ _("Send feedback") }} &raquo;">&nbsp;
+	                <button type="reset" class="btn">{{ _("Clear form") }}</button>
 	            </div>
 			  </fieldset>
 		</form>

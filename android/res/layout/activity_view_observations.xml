@@ -149,17 +149,6 @@
         </TableLayout>
 
         <Button
-            android:id="@+id/btnExportObservation"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="5dp"
-            android:background="@drawable/button_selector"
-            android:text="@string/export_selected"
-            android:textStyle="bold"
-            android:typeface="monospace" />
-
-        <Button
             android:id="@+id/btnEmailObservation"
             android:layout_width="200dp"
             android:layout_height="40dp"
@@ -167,17 +156,6 @@
             android:background="@drawable/button_selector"
             android:layout_gravity="center_horizontal"
             android:text="@string/email_selected"
-            android:textStyle="bold"
-            android:typeface="monospace" />
-
-        <Button
-            android:id="@+id/btnExportAll"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="5dp"
-            android:background="@drawable/button_selector"
-            android:text="@string/export_all"
             android:textStyle="bold"
             android:typeface="monospace" />
 
@@ -191,7 +169,13 @@
             android:text="@string/email_all"
             android:textStyle="bold"
             android:typeface="monospace" />
-
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:padding="15dp"/>
+        		
         <Button
             android:id="@+id/btnDeleteSelected"
             android:layout_width="200dp"
@@ -201,6 +185,7 @@
             android:background="@drawable/button_selector"
             android:text="@string/delete_selected"
             android:textStyle="bold"
+            android:textColor="#FF0000"
             android:typeface="monospace" />
 
         <Button
@@ -211,6 +196,7 @@
             android:layout_margin="5dp"
             android:background="@drawable/button_selector"
             android:text="@string/delete_all"
+            android:textColor="#FF0000"
             android:textStyle="bold"
             android:typeface="monospace" />
     </LinearLayout>

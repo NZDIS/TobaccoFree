@@ -5,7 +5,10 @@ package nzdis.tobaccofree;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,11 +26,15 @@ import android.text.format.DateFormat;
  */
 public class Observation {
 	
-	private int noSmoking = 0, child = 0, other = 0, noOthers = 0;
+	private int noSmoking = 0, child = 0, otherAdults = 0, loneAdult = 0;
 	private Location location;
-	private long start,finish;
+	private long start, finish;
 	private boolean started = false;
 	private long id = -1;
+	
+	private List<Detail> details = new ArrayList<Detail>(); 
+	
+	
 	
 	public Observation(long start){
 		this.start = start;
@@ -35,29 +42,15 @@ public class Observation {
 	}
 
 	public String toString(){
-		return "Total: " + (noSmoking + child + other + noOthers);
+		return "Total: " + (noSmoking + child + otherAdults + loneAdult);
 	}
 	
 	
 	
-	/* Incrementers */
-	
-	
-	public void incrementNoSmoking(){
-		noSmoking++;
+	public void addDetail(long timestamp, int category) {
+		this.details.add(new Detail(timestamp, category));
 	}
 	
-	public void incrementChild(){
-		child++;
-	}
-	
-	public void incrementOther(){
-		other++;
-	}
-	
-	public void incrementNoOthers(){
-		noOthers++;
-	}
 	
 	
 	/* Setters and getters */
@@ -83,26 +76,26 @@ public class Observation {
 		this.child = child;
 	}
 
-	public int getOther() {
-		return other;
+	public int getOtherAdults() {
+		return otherAdults;
 	}
 
-	public void setOther(int other) {
-		if(other < 0){
-			this.other = 0;
+	public void setOtherAdults(int a_otherAduls) {
+		if(a_otherAduls < 0){
+			this.otherAdults = 0;
 		}
-		this.other = other;
+		this.otherAdults = a_otherAduls;
 	}
 
-	public int getNoOthers() {
-		return noOthers;
+	public int getLoneAdult() {
+		return loneAdult;
 	}
 
-	public void setNoOthers(int noOthers) {
-		if(noOthers < 0){
-			this.noOthers = 0;
+	public void setLoneAdult(int a_loneAdult) {
+		if(a_loneAdult < 0){
+			this.loneAdult = 0;
 		}
-		this.noOthers = noOthers;
+		this.loneAdult = a_loneAdult;
 	}
 	
 	public Location getLocation() {
@@ -152,11 +145,18 @@ public class Observation {
 	}
 
 	public int getTotal() {
-		return (noSmoking + child + other + noOthers);
+		return (noSmoking + child + otherAdults + loneAdult);
 	}
 
 	public String getCSV() {
-		return location.getLatitude() + "," + location.getLongitude() + "," + DateFormat.format("dd MMMM, yyyy h:mmaa",start).toString() + "," + DateFormat.format("dd MMMM, yyyy h:mmaa",finish).toString() + "," + noSmoking + "," + other + "," + noOthers + "," + child + "\n";
+		return location.getLatitude() + "," 
+				+ location.getLongitude() + "," 
+				+ DateFormat.format("dd MMMM, yyyy h:mmaa",start).toString() + "," 
+				+ DateFormat.format("dd MMMM, yyyy h:mmaa",finish).toString() + "," 
+				+ noSmoking + "," 
+				+ otherAdults + "," 
+				+ loneAdult + "," 
+				+ child + "\n";
 	}
 	
 	/** 
@@ -164,19 +164,30 @@ public class Observation {
 	 * @return JSON representation of this observation.
 	 **/
 	public JSONObject getJSON() throws JSONException, NoSuchAlgorithmException{
-		JSONObject json = new JSONObject();
-		
-		json.put("latitude", location.getLatitude());
-		json.put("longitude",location.getLongitude());
+		final JSONObject json = new JSONObject();
+		json.put("version", Constants.CURRENT_PROTOCOL_VERSION);
+		json.put("latitude", String.valueOf(location.getLatitude()));
+		json.put("longitude", String.valueOf(location.getLongitude()));
 		json.put("start", start);
 		json.put("finish", finish);
 		json.put("no_smoking", noSmoking);
-		json.put("other_adults", other);
-		json.put("lone_adult", noOthers);
+		json.put("other_adults", otherAdults);
+		json.put("lone_adult", loneAdult);
 		json.put("child", child);
 		json.put("hash", getHash());
-
+		json.put("details", getDetailsJSONArray());
 		return json;
+	}
+	
+	private JSONArray getDetailsJSONArray() throws JSONException {
+		final JSONArray json_arr = new JSONArray();
+		for (Detail d : this.details) {
+			final JSONObject json = new JSONObject();
+			json.put("timestamp", d.timestamp);
+			json.put("smoking_id", d.smoking_id);
+			json_arr.put(json);
+		}
+		return json_arr;
 	}
 	
 	/** 
@@ -190,7 +201,7 @@ public class Observation {
 		md.reset();
 		final String hashString = location.getLatitude() + location.getLongitude() 
 				+ "salt" + finish + start 
-				+ noSmoking + other + noOthers + child;
+				+ noSmoking + otherAdults + loneAdult + child;
 		
 		md.update(hashString.getBytes());
 		final byte hash[] = md.digest();
@@ -200,6 +211,17 @@ public class Observation {
 			hex.append(Integer.toHexString(0xFF & hash[i]));
 		}
 		return hex.toString();
+	}
+	
+	
+	public class Detail {
+		public long timestamp;
+		public int smoking_id;
+		
+		public Detail(long timestamp, int type) {
+			this.timestamp = timestamp;
+			this.smoking_id = type;
+		}
 	}
 	
 }

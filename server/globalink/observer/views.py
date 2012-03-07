@@ -5,7 +5,7 @@ Created on Dec 19, 2011
 '''
 
 
-from django.contrib.auth import login, authenticate, logout, get_user
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -16,6 +16,7 @@ from globalink.observer.forms import ProfileForm, RegistrationForm,\
 from globalink.views import redirect_home_with_message
 
 import logging
+from globalink.observation.models import Observation
 
 
 # Get an instance of a logger
@@ -34,7 +35,7 @@ def dologin(request):
             if user.is_active:                                                                                    
                 login(request, user)
             else:                                                                                                 
-                return redirect_home_with_message(request, "ERROR: Login failed. This account has been disabled.")
+                return redirect_home_with_message(request, "ERROR: Login failed. This account is disabled.")
         else:                                                                                                     
             return redirect_home_with_message(request, "ERROR: Invalid credentials. Login failed.")
     
@@ -45,7 +46,6 @@ def dologout(request):
     logout(request)
     return redirect_home_with_message(request, None)
 
-from django import forms
 
 @login_required
 def profile(request):
@@ -96,6 +96,54 @@ def password_change(request):
                                 context_instance=RequestContext(request))
 
 
+def count_observations_for_observer(o):
+    return Observation.objects(user=o).count()
+
+def count_cars_for_observer(o):
+    cars = 0
+    observations = Observation.objects(user=o)
+    for obs in observations:
+        cars = cars + obs.no_smoking + obs.lone_adult + obs.other_adults + obs.child 
+    return cars
+
+def count_duration_for_observer(o):
+    duration = 0
+    observations = Observation.objects(user=o)
+    for obs in observations:
+        duration = duration + obs.duration
+    return duration
+
+def sort_observers_for_hall_of_fame(list):
+    '''
+    each Observation is worth 1 point (scaling factor 1)
+    each 80 cars is worth 1 point (scaling factor 80)
+    each 10min (600k millis) of observing is worth 1 point (scaling factor 600 000)
+    '''
+    # lets calculate the ranking 
+    observation_scale = 1
+    duration_scale = 600000
+    cars_scale = 80
+    for o in list:
+        o.ranking = o.num_of_observations / observation_scale + \
+                    o.duration / duration_scale + \
+                    o.num_of_cars / cars_scale
+    # now we just sort the list according to the ranking
+    return sorted(list, key=lambda x: x.ranking, reverse=True)
+
+def hall_of_fame(request):
+    obs = RegisteredObserver.objects
+    result = []
+    for o in obs:
+        o.num_of_observations = count_observations_for_observer(o)
+        o.num_of_cars = count_cars_for_observer(o)
+        o.duration = count_duration_for_observer(o)
+        result.append(o)
+        
+    result_sorted = sort_observers_for_hall_of_fame(result)
+    return render_to_response('observer/hall_of_fame.html',
+                                        {'observers': result_sorted },
+                                        context_instance=RequestContext(request))
+
 
 def register(request):
     '''
@@ -145,7 +193,7 @@ def register_confirm(request):
     else:
         form = RegistrationConfirmationForm()
         
-    return render_to_response('observation/register_confirm.html',
+    return render_to_response('observer/register_confirm.html',
                                         {'form': form},
                                         context_instance=RequestContext(request))
     

@@ -4,7 +4,6 @@
 package nzdis.tobaccofree;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -73,7 +72,7 @@ public class PreferencesActivity extends Activity implements OnClickListener {
 		    Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
 		    emailIntent.setType("plain/text");
 		    emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "[TobbacoFree Android Feedback] ");
-		    emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"support@nzdis.org"}); 
+		    emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"info@nzdis.org"}); 
 		    startActivity(Intent.createChooser(emailIntent, getString(R.string.send_feedback))); 
 		    return;
 		}
@@ -97,7 +96,8 @@ public class PreferencesActivity extends Activity implements OnClickListener {
 		}
 		
 		if(arg0 == btnSetUserCredentials){
-			showDialog(SET_DETAILS);
+			final Intent user_credentials = new Intent(this, ObserverAccountActivity.class);
+			startActivity(user_credentials);
 			return;
 		}
 		
@@ -113,15 +113,5 @@ public class PreferencesActivity extends Activity implements OnClickListener {
 			return;
 		}
 	}
-	
-	@Override
-	protected Dialog onCreateDialog(int d){
-		switch(d){
-			case SET_DETAILS:
-				return new UserDetailsDialog(this);			
-			default:
-				return null;
-		}
-	}
-	
+
 }

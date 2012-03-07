@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1170" systemVersion="11D50b" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Details" representedClassName="Details" syncable="YES">
+        <attribute name="timestamp" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="type" attributeType="Integer 16" defaultValueString="1" syncable="YES"/>
+        <relationship name="observation_id" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Observations" inverseName="details" inverseEntity="Observations" syncable="YES"/>
+    </entity>
+    <entity name="Observations" representedClassName="Observations" syncable="YES">
+        <attribute name="latitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="timestamp_start" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="timestamp_stop" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="uploaded" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <relationship name="details" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Details" inverseName="observation_id" inverseEntity="Details" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Details" positionX="160" positionY="99" width="128" height="90"/>
+        <element name="Observations" positionX="-56" positionY="102" width="128" height="135"/>
+    </elements>
+</model>

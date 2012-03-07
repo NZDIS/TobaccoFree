@@ -1,0 +1,440 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6F67E83814FDF3AE004D5DE5 /* child.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E82F14FDF3AE004D5DE5 /* child.png */; };
+		6F67E83914FDF3AE004D5DE5 /* finish_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E83014FDF3AE004D5DE5 /* finish_selected.png */; };
+		6F67E83A14FDF3AE004D5DE5 /* finish.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E83114FDF3AE004D5DE5 /* finish.png */; };
+		6F67E83C14FDF3AE004D5DE5 /* nooccupants.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E83314FDF3AE004D5DE5 /* nooccupants.png */; };
+		6F67E83D14FDF3AE004D5DE5 /* nosmoking_enabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E83414FDF3AE004D5DE5 /* nosmoking_enabled.png */; };
+		6F67E83E14FDF3AE004D5DE5 /* nosmoking_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E83514FDF3AE004D5DE5 /* nosmoking_selected.png */; };
+		6F67E83F14FDF3AE004D5DE5 /* otheradults.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E83614FDF3AE004D5DE5 /* otheradults.png */; };
+		6F67E84014FDF3AE004D5DE5 /* smokersand.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E83714FDF3AE004D5DE5 /* smokersand.png */; };
+		6F67E84314FDF3F4004D5DE5 /* help_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E84114FDF3F4004D5DE5 /* help_selected.png */; };
+		6F67E84414FDF3F4004D5DE5 /* help.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E84214FDF3F4004D5DE5 /* help.png */; };
+		6F67E85714FE2204004D5DE5 /* tab_icon_data.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E85414FE2204004D5DE5 /* tab_icon_data.png */; };
+		6F67E85814FE2204004D5DE5 /* tab_icon_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E85514FE2204004D5DE5 /* tab_icon_home.png */; };
+		6F67E85914FE2204004D5DE5 /* tab_icon_user.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E85614FE2204004D5DE5 /* tab_icon_user.png */; };
+		6F67E85B14FE26A9004D5DE5 /* otago_horizontal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E85A14FE26A9004D5DE5 /* otago_horizontal.jpg */; };
+		6F8F17531502C25700DD9BAC /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8F17521502C25700DD9BAC /* Constants.m */; };
+		6F91A6FB14F76EE800B5477D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F91A6FA14F76EE800B5477D /* UIKit.framework */; };
+		6F91A6FD14F76EE800B5477D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F91A6FC14F76EE800B5477D /* Foundation.framework */; };
+		6F91A6FF14F76EE800B5477D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F91A6FE14F76EE800B5477D /* CoreGraphics.framework */; };
+		6F91A70514F76EE800B5477D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6F91A70314F76EE800B5477D /* InfoPlist.strings */; };
+		6F91A70714F76EE800B5477D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F91A70614F76EE800B5477D /* main.m */; };
+		6F91A70B14F76EE800B5477D /* NGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F91A70A14F76EE800B5477D /* NGAppDelegate.m */; };
+		6F91A70E14F76EE800B5477D /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F91A70C14F76EE800B5477D /* MainStoryboard_iPhone.storyboard */; };
+		6F91A71114F76EE800B5477D /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F91A70F14F76EE800B5477D /* MainStoryboard_iPad.storyboard */; };
+		6F91A71414F76EE800B5477D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F91A71314F76EE800B5477D /* MainViewController.m */; };
+		6F91A71B14F76EE800B5477D /* AccountDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F91A71A14F76EE800B5477D /* AccountDetailsViewController.m */; };
+		6FA35F1015040698002BEF40 /* Observations.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA35F0F15040698002BEF40 /* Observations.m */; };
+		6FA9FFCF150180FA00286E71 /* User.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6FA9FFCE150180FA00286E71 /* User.plist */; };
+		6FD658F015041E4F00008D13 /* Details.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD658EB15041E4F00008D13 /* Details.m */; };
+		6FD658F115041E4F00008D13 /* icon_main_57.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD658EC15041E4F00008D13 /* icon_main_57.png */; };
+		6FD658F215041E4F00008D13 /* icon_main_114.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD658ED15041E4F00008D13 /* icon_main_114.png */; };
+		6FD658F315041E4F00008D13 /* ObservationsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6FD658EE15041E4F00008D13 /* ObservationsModel.xcdatamodeld */; };
+		6FE5C07914FF5780006665E2 /* RecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE5C07814FF5780006665E2 /* RecordingViewController.m */; };
+		6FE5C07C14FF5FB2006665E2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE5C07B14FF5FB2006665E2 /* QuartzCore.framework */; };
+		6FE5C07E14FF5FBC006665E2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE5C07D14FF5FBC006665E2 /* CoreLocation.framework */; };
+		6FE5C08014FF5FC5006665E2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FE5C07F14FF5FC5006665E2 /* CoreData.framework */; };
+		6FE5C08F14FF6E52006665E2 /* DataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE5C08E14FF6E52006665E2 /* DataViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		6F67E82F14FDF3AE004D5DE5 /* child.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = child.png; path = TobaccoFree/child.png; sourceTree = "<group>"; };
+		6F67E83014FDF3AE004D5DE5 /* finish_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = finish_selected.png; path = TobaccoFree/finish_selected.png; sourceTree = "<group>"; };
+		6F67E83114FDF3AE004D5DE5 /* finish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = finish.png; path = TobaccoFree/finish.png; sourceTree = "<group>"; };
+		6F67E83314FDF3AE004D5DE5 /* nooccupants.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nooccupants.png; path = TobaccoFree/nooccupants.png; sourceTree = "<group>"; };
+		6F67E83414FDF3AE004D5DE5 /* nosmoking_enabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nosmoking_enabled.png; path = TobaccoFree/nosmoking_enabled.png; sourceTree = "<group>"; };
+		6F67E83514FDF3AE004D5DE5 /* nosmoking_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nosmoking_selected.png; path = TobaccoFree/nosmoking_selected.png; sourceTree = "<group>"; };
+		6F67E83614FDF3AE004D5DE5 /* otheradults.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = otheradults.png; path = TobaccoFree/otheradults.png; sourceTree = "<group>"; };
+		6F67E83714FDF3AE004D5DE5 /* smokersand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smokersand.png; path = TobaccoFree/smokersand.png; sourceTree = "<group>"; };
+		6F67E84114FDF3F4004D5DE5 /* help_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = help_selected.png; path = TobaccoFree/help_selected.png; sourceTree = "<group>"; };
+		6F67E84214FDF3F4004D5DE5 /* help.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = help.png; path = TobaccoFree/help.png; sourceTree = "<group>"; };
+		6F67E85414FE2204004D5DE5 /* tab_icon_data.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tab_icon_data.png; path = TobaccoFree/tab_icon_data.png; sourceTree = "<group>"; };
+		6F67E85514FE2204004D5DE5 /* tab_icon_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tab_icon_home.png; path = TobaccoFree/tab_icon_home.png; sourceTree = "<group>"; };
+		6F67E85614FE2204004D5DE5 /* tab_icon_user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tab_icon_user.png; path = TobaccoFree/tab_icon_user.png; sourceTree = "<group>"; };
+		6F67E85A14FE26A9004D5DE5 /* otago_horizontal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = otago_horizontal.jpg; path = TobaccoFree/otago_horizontal.jpg; sourceTree = "<group>"; };
+		6F8F17511502C25600DD9BAC /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		6F8F17521502C25700DD9BAC /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		6F91A6F614F76EE800B5477D /* TobaccoFree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TobaccoFree.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F91A6FA14F76EE800B5477D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		6F91A6FC14F76EE800B5477D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		6F91A6FE14F76EE800B5477D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		6F91A70214F76EE800B5477D /* TobaccoFree-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TobaccoFree-Info.plist"; sourceTree = "<group>"; };
+		6F91A70414F76EE800B5477D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		6F91A70614F76EE800B5477D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6F91A70814F76EE800B5477D /* TobaccoFree-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TobaccoFree-Prefix.pch"; sourceTree = "<group>"; };
+		6F91A70914F76EE800B5477D /* NGAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGAppDelegate.h; sourceTree = "<group>"; };
+		6F91A70A14F76EE800B5477D /* NGAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NGAppDelegate.m; sourceTree = "<group>"; };
+		6F91A70D14F76EE800B5477D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		6F91A71014F76EE800B5477D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		6F91A71214F76EE800B5477D /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		6F91A71314F76EE800B5477D /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		6F91A71914F76EE800B5477D /* AccountDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountDetailsViewController.h; sourceTree = "<group>"; };
+		6F91A71A14F76EE800B5477D /* AccountDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountDetailsViewController.m; sourceTree = "<group>"; };
+		6FA35F0E15040698002BEF40 /* Observations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Observations.h; sourceTree = "<group>"; };
+		6FA35F0F15040698002BEF40 /* Observations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Observations.m; sourceTree = "<group>"; };
+		6FA9FFCE150180FA00286E71 /* User.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = User.plist; sourceTree = "<group>"; };
+		6FD658EA15041E4F00008D13 /* Details.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Details.h; sourceTree = "<group>"; };
+		6FD658EB15041E4F00008D13 /* Details.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Details.m; sourceTree = "<group>"; };
+		6FD658EC15041E4F00008D13 /* icon_main_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_main_57.png; path = TobaccoFree/icon_main_57.png; sourceTree = "<group>"; };
+		6FD658ED15041E4F00008D13 /* icon_main_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_main_114.png; path = TobaccoFree/icon_main_114.png; sourceTree = "<group>"; };
+		6FD658EF15041E4F00008D13 /* ObservationsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ObservationsModel.xcdatamodel; sourceTree = "<group>"; };
+		6FE5C07714FF5780006665E2 /* RecordingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingViewController.h; sourceTree = "<group>"; };
+		6FE5C07814FF5780006665E2 /* RecordingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingViewController.m; sourceTree = "<group>"; };
+		6FE5C07B14FF5FB2006665E2 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		6FE5C07D14FF5FBC006665E2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		6FE5C07F14FF5FC5006665E2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		6FE5C08D14FF6E52006665E2 /* DataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataViewController.h; sourceTree = "<group>"; };
+		6FE5C08E14FF6E52006665E2 /* DataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6F91A6F314F76EE800B5477D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FE5C08014FF5FC5006665E2 /* CoreData.framework in Frameworks */,
+				6FE5C07E14FF5FBC006665E2 /* CoreLocation.framework in Frameworks */,
+				6FE5C07C14FF5FB2006665E2 /* QuartzCore.framework in Frameworks */,
+				6F91A6FB14F76EE800B5477D /* UIKit.framework in Frameworks */,
+				6F91A6FD14F76EE800B5477D /* Foundation.framework in Frameworks */,
+				6F91A6FF14F76EE800B5477D /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6F67E84D14FE19D5004D5DE5 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				6FD658EC15041E4F00008D13 /* icon_main_57.png */,
+				6FD658ED15041E4F00008D13 /* icon_main_114.png */,
+				6F67E85A14FE26A9004D5DE5 /* otago_horizontal.jpg */,
+				6F67E85414FE2204004D5DE5 /* tab_icon_data.png */,
+				6F67E85514FE2204004D5DE5 /* tab_icon_home.png */,
+				6F67E85614FE2204004D5DE5 /* tab_icon_user.png */,
+				6F67E84114FDF3F4004D5DE5 /* help_selected.png */,
+				6F67E84214FDF3F4004D5DE5 /* help.png */,
+				6F67E82F14FDF3AE004D5DE5 /* child.png */,
+				6F67E83014FDF3AE004D5DE5 /* finish_selected.png */,
+				6F67E83114FDF3AE004D5DE5 /* finish.png */,
+				6F67E83314FDF3AE004D5DE5 /* nooccupants.png */,
+				6F67E83414FDF3AE004D5DE5 /* nosmoking_enabled.png */,
+				6F67E83514FDF3AE004D5DE5 /* nosmoking_selected.png */,
+				6F67E83614FDF3AE004D5DE5 /* otheradults.png */,
+				6F67E83714FDF3AE004D5DE5 /* smokersand.png */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
+		6F91A6EB14F76EE800B5477D = {
+			isa = PBXGroup;
+			children = (
+				6F67E84D14FE19D5004D5DE5 /* images */,
+				6F91A70014F76EE800B5477D /* TobaccoFree */,
+				6F91A6F914F76EE800B5477D /* Frameworks */,
+				6F91A6F714F76EE800B5477D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6F91A6F714F76EE800B5477D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6F91A6F614F76EE800B5477D /* TobaccoFree.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6F91A6F914F76EE800B5477D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6FE5C07F14FF5FC5006665E2 /* CoreData.framework */,
+				6FE5C07D14FF5FBC006665E2 /* CoreLocation.framework */,
+				6FE5C07B14FF5FB2006665E2 /* QuartzCore.framework */,
+				6F91A6FA14F76EE800B5477D /* UIKit.framework */,
+				6F91A6FC14F76EE800B5477D /* Foundation.framework */,
+				6F91A6FE14F76EE800B5477D /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6F91A70014F76EE800B5477D /* TobaccoFree */ = {
+			isa = PBXGroup;
+			children = (
+				6F8F17511502C25600DD9BAC /* Constants.h */,
+				6F8F17521502C25700DD9BAC /* Constants.m */,
+				6FA35F0E15040698002BEF40 /* Observations.h */,
+				6FA35F0F15040698002BEF40 /* Observations.m */,
+				6FD658EA15041E4F00008D13 /* Details.h */,
+				6FD658EB15041E4F00008D13 /* Details.m */,
+				6F91A70914F76EE800B5477D /* NGAppDelegate.h */,
+				6F91A70A14F76EE800B5477D /* NGAppDelegate.m */,
+				6F91A71214F76EE800B5477D /* MainViewController.h */,
+				6F91A71314F76EE800B5477D /* MainViewController.m */,
+				6FE5C08D14FF6E52006665E2 /* DataViewController.h */,
+				6FE5C08E14FF6E52006665E2 /* DataViewController.m */,
+				6F91A71914F76EE800B5477D /* AccountDetailsViewController.h */,
+				6F91A71A14F76EE800B5477D /* AccountDetailsViewController.m */,
+				6FE5C07714FF5780006665E2 /* RecordingViewController.h */,
+				6FE5C07814FF5780006665E2 /* RecordingViewController.m */,
+				6FD658EE15041E4F00008D13 /* ObservationsModel.xcdatamodeld */,
+				6F91A70C14F76EE800B5477D /* MainStoryboard_iPhone.storyboard */,
+				6F91A70F14F76EE800B5477D /* MainStoryboard_iPad.storyboard */,
+				6F91A70114F76EE800B5477D /* Supporting Files */,
+			);
+			path = TobaccoFree;
+			sourceTree = "<group>";
+		};
+		6F91A70114F76EE800B5477D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6F91A70214F76EE800B5477D /* TobaccoFree-Info.plist */,
+				6F91A70314F76EE800B5477D /* InfoPlist.strings */,
+				6F91A70614F76EE800B5477D /* main.m */,
+				6F91A70814F76EE800B5477D /* TobaccoFree-Prefix.pch */,
+				6FA9FFCE150180FA00286E71 /* User.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6F91A6F514F76EE800B5477D /* TobaccoFree */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6F91A72214F76EE800B5477D /* Build configuration list for PBXNativeTarget "TobaccoFree" */;
+			buildPhases = (
+				6F91A6F214F76EE800B5477D /* Sources */,
+				6F91A6F314F76EE800B5477D /* Frameworks */,
+				6F91A6F414F76EE800B5477D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TobaccoFree;
+			productName = TobaccoFree;
+			productReference = 6F91A6F614F76EE800B5477D /* TobaccoFree.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6F91A6ED14F76EE800B5477D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "Ngarua Technologies Ltd";
+			};
+			buildConfigurationList = 6F91A6F014F76EE800B5477D /* Build configuration list for PBXProject "TobaccoFree" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 6F91A6EB14F76EE800B5477D;
+			productRefGroup = 6F91A6F714F76EE800B5477D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6F91A6F514F76EE800B5477D /* TobaccoFree */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6F91A6F414F76EE800B5477D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F91A70514F76EE800B5477D /* InfoPlist.strings in Resources */,
+				6F91A70E14F76EE800B5477D /* MainStoryboard_iPhone.storyboard in Resources */,
+				6F91A71114F76EE800B5477D /* MainStoryboard_iPad.storyboard in Resources */,
+				6F67E83814FDF3AE004D5DE5 /* child.png in Resources */,
+				6F67E83914FDF3AE004D5DE5 /* finish_selected.png in Resources */,
+				6F67E83A14FDF3AE004D5DE5 /* finish.png in Resources */,
+				6F67E83C14FDF3AE004D5DE5 /* nooccupants.png in Resources */,
+				6F67E83D14FDF3AE004D5DE5 /* nosmoking_enabled.png in Resources */,
+				6F67E83E14FDF3AE004D5DE5 /* nosmoking_selected.png in Resources */,
+				6F67E83F14FDF3AE004D5DE5 /* otheradults.png in Resources */,
+				6F67E84014FDF3AE004D5DE5 /* smokersand.png in Resources */,
+				6F67E84314FDF3F4004D5DE5 /* help_selected.png in Resources */,
+				6F67E84414FDF3F4004D5DE5 /* help.png in Resources */,
+				6F67E85714FE2204004D5DE5 /* tab_icon_data.png in Resources */,
+				6F67E85814FE2204004D5DE5 /* tab_icon_home.png in Resources */,
+				6F67E85914FE2204004D5DE5 /* tab_icon_user.png in Resources */,
+				6F67E85B14FE26A9004D5DE5 /* otago_horizontal.jpg in Resources */,
+				6FA9FFCF150180FA00286E71 /* User.plist in Resources */,
+				6FD658F115041E4F00008D13 /* icon_main_57.png in Resources */,
+				6FD658F215041E4F00008D13 /* icon_main_114.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6F91A6F214F76EE800B5477D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F91A70714F76EE800B5477D /* main.m in Sources */,
+				6F91A70B14F76EE800B5477D /* NGAppDelegate.m in Sources */,
+				6F91A71414F76EE800B5477D /* MainViewController.m in Sources */,
+				6F91A71B14F76EE800B5477D /* AccountDetailsViewController.m in Sources */,
+				6FE5C07914FF5780006665E2 /* RecordingViewController.m in Sources */,
+				6FE5C08F14FF6E52006665E2 /* DataViewController.m in Sources */,
+				6F8F17531502C25700DD9BAC /* Constants.m in Sources */,
+				6FA35F1015040698002BEF40 /* Observations.m in Sources */,
+				6FD658F015041E4F00008D13 /* Details.m in Sources */,
+				6FD658F315041E4F00008D13 /* ObservationsModel.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		6F91A70314F76EE800B5477D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6F91A70414F76EE800B5477D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		6F91A70C14F76EE800B5477D /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6F91A70D14F76EE800B5477D /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		6F91A70F14F76EE800B5477D /* MainStoryboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6F91A71014F76EE800B5477D /* en */,
+			);
+			name = MainStoryboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6F91A72014F76EE800B5477D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6F91A72114F76EE800B5477D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6F91A72314F76EE800B5477D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TobaccoFree/TobaccoFree-Prefix.pch";
+				INFOPLIST_FILE = "TobaccoFree/TobaccoFree-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		6F91A72414F76EE800B5477D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TobaccoFree/TobaccoFree-Prefix.pch";
+				INFOPLIST_FILE = "TobaccoFree/TobaccoFree-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6F91A6F014F76EE800B5477D /* Build configuration list for PBXProject "TobaccoFree" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6F91A72014F76EE800B5477D /* Debug */,
+				6F91A72114F76EE800B5477D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6F91A72214F76EE800B5477D /* Build configuration list for PBXNativeTarget "TobaccoFree" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6F91A72314F76EE800B5477D /* Debug */,
+				6F91A72414F76EE800B5477D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6FD658EE15041E4F00008D13 /* ObservationsModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6FD658EF15041E4F00008D13 /* ObservationsModel.xcdatamodel */,
+			);
+			currentVersion = 6FD658EF15041E4F00008D13 /* ObservationsModel.xcdatamodel */;
+			path = ObservationsModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 6F91A6ED14F76EE800B5477D /* Project object */;
+}

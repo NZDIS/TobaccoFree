@@ -8,21 +8,22 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.utils import simplejson as json
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from datetime import datetime
 
-from globalink.observation.models import RegisteredObserver, Observation
+from globalink.observation.models import RegisteredObserver, Observation,\
+                        Detail, ObservationJSONEncoder
     
 from mongoengine.django.auth import User
-import mongoengine
 
 from globalink.views import redirect_home_with_message
 from globalink.observation.forms import FeedbackForm
 
 from globalink import settings
 
+import urllib
 import logging
 
 
@@ -30,8 +31,49 @@ import logging
 logger = logging.getLogger("globalink.custom")
 
 
+GEOCODE_BASE_URL = 'http://maps.googleapis.com/maps/geo?'
 
 
+def geocode(lat, lng, **geo_args):
+    geo_args.update({
+        'key': settings.GOOGLE_KEY,
+        'output': 'json',
+        'q': str(lat) + ',' + str(lng),
+        'sensor': False  
+    })
+
+    url = GEOCODE_BASE_URL + urllib.urlencode(geo_args)
+    result = json.load(urllib.urlopen(url))
+    
+    try:
+        city = result['Placemark'][0]['AddressDetails']['Country']['AdministrativeArea']['Locality']['LocalityName']
+    except:
+        try:
+            city = result['Placemark'][0]['AddressDetails']['Country']['AdministrativeArea']['SubAdministrativeArea']['Locality']['LocalityName']
+        except:
+            city = '' # problems reading the city
+        
+    try:
+        country = result['Placemark'][0]['AddressDetails']['Country']['CountryName']
+        return (city, country)
+    except:
+        country = ''  # problems reading the country
+    return (city, country)
+    
+    
+def do_geocode_data(request):
+    obj = Observation.objects
+    for o in obj:
+        if o.loc_city == None or o.loc_city == '':
+            (city, country) = geocode(o.latitude, o.longitude)
+            o.loc_city = city
+            o.loc_country = country
+            o.save()
+    return redirect_home_with_message(request, "Geocoding done")
+
+
+
+   
 def home(request):
     return redirect_home_with_message(request, None)
 
@@ -105,7 +147,7 @@ def add(request):
                         device_id = new_ob.get('device'),
                         upload_timestamp = datetime.now(),
                         user = u)
-            else:
+            elif version == 2:
                 o = Observation(
                         observation_hash = new_ob.get('hash'),
                         latitude = alatitude,
@@ -115,13 +157,39 @@ def add(request):
                         finish = datetime.fromtimestamp(afinish / 1000.0),
                         duration = (afinish - astart),
                         no_smoking = int(new_ob.get('no_smoking')),
-                        other_adults = int(new_ob.get('child')),
+                        other_adults = int(new_ob.get('other_adults')),
                         lone_adult = int(new_ob.get('lone_adult')),
                         child = int(new_ob.get('child')),
                         device_id = new_ob.get('device'),
                         upload_timestamp = datetime.now(),
                         user = u)
-            o.save()
+            else: #version 3, yay, we have details!
+                o = Observation(
+                        observation_hash = new_ob.get('hash'),
+                        latitude = alatitude,
+                        longitude = alongitude,
+                        loc = [alongitude, alatitude],
+                        start = datetime.fromtimestamp(astart / 1000.0),
+                        finish = datetime.fromtimestamp(afinish / 1000.0),
+                        duration = (afinish - astart),
+                        no_smoking = int(new_ob.get('no_smoking')),
+                        other_adults = int(new_ob.get('other_adults')),
+                        lone_adult = int(new_ob.get('lone_adult')),
+                        child = int(new_ob.get('child')),
+                        device_id = new_ob.get('device'),
+                        upload_timestamp = datetime.now(),
+                        user = u)
+                details = new_ob.get('details')
+                for d in details :
+                    tmp_detail = Detail()
+                    tmp_detail.timestamp = datetime.fromtimestamp(d.get('timestamp') / 1000.0)
+                    tmp_detail.smoking_id = int(d.get('smoking_id'))
+                    o.details.append(tmp_detail)
+                
+            (city, country) = geocode(o.latitude, o.longitude)
+            o.loc_city = city
+            o.loc_country = country
+            o.save(safe=True)
             logger.debug("New instance of an Observation has been saved!")
             return HttpResponse("Observation was added. Success.")
         else:
@@ -132,11 +200,32 @@ def add(request):
         return HttpResponse('Go back <a href="/">home</a>.')
 
 
+
+
 @login_required
 def do_list(request):
+    print Observation.objects.distinct('loc_city')
+    
     observer = RegisteredObserver.objects.get(user=request.user)
     obs = Observation.objects(user=observer)
+    obs_conv = []
+    for o in obs:
+        sec = o.duration / 1000
+        minute = sec / 60
+        sec = sec - (minute * 60)
+        o.duration = '%dmin %dsec' % (minute, sec)
+        obs_conv.append(o) 
     return render_to_response('observation/list.html',
                                         {'observer': observer,
-                                         'observations': obs},
+                                         'observations': obs_conv},
                                         context_instance=RequestContext(request))
+    
+    
+
+def all_latlng(request):
+    '''
+    Returns a JSON object with an array of all observations coordinates and description.
+    '''
+    obs = Observation.objects
+    return HttpResponse(json.dumps(obs, cls=ObservationJSONEncoder), mimetype='application/json')
+
