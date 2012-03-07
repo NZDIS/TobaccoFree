@@ -105,7 +105,9 @@
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation {
-    // TODO implement the location update
+    CLLocationCoordinate2D loc = [newLocation coordinate];
+    self.observation.latitude = loc.latitude;
+    self.observation.longitude = loc.longitude;
 }
 
 - (void)locationManager:(CLLocationManager *)manager

@@ -48,32 +48,65 @@
     }
 }
 
-- (NSDictionary *) prepareDictionary:(NSMutableArray *) array {
+/*!
+ setup the credentials in the Json structure.
+ */
+- (void) setUserCredentials:(NSMutableDictionary *)dict {
+    NSString *errorDesc = nil;
+    NSPropertyListFormat format;
+    NSString *plistPath;
+    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                              NSUserDomainMask, YES) objectAtIndex:0];
+    plistPath = [rootPath stringByAppendingPathComponent:@"User.plist"];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
+        plistPath = [[NSBundle mainBundle] pathForResource:@"User" ofType:@"plist"];
+    }
+    NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
+    NSDictionary *temp = (NSDictionary *)[NSPropertyListSerialization
+                                          propertyListFromData:plistXML
+                                          mutabilityOption:NSPropertyListMutableContainersAndLeaves
+                                          format:&format
+                                          errorDescription:&errorDesc];
+    if (!temp) {
+        NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
+    }
+    [dict setValue:[temp objectForKey:@"user_email"] forKey:USER_USER_EMAIL];
+    [dict setValue:[temp objectForKey:@"user_password_hash"] forKey:USER_PASSWORD_HASH];
+}
+
+/*!
+ Prepare the Json for a given observation record
+ */
+- (NSDictionary *) prepareDictionary:(Observations *)item {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
     
     NSLog(@"%@", [[UIDevice currentDevice] uniqueIdentifier]);
     
-    for (Observations *item in array) 
-    {
-        [dict setValue:[NSNumber numberWithInt:CURRENT_PROTOCOL_VERSION] forKey:OBSERVATION_PROTOCOL_VERSION];
-        [dict setValue:[NSNumber numberWithDouble:item.longitude] forKey:OBSERVATION_LONGITUDE];
-        [dict setValue:[NSNumber numberWithDouble:item.latitude] forKey:OBSERVATION_LATITUDE];
-        [dict setValue:[NSNumber numberWithUnsignedInt:item.timestamp_start] forKey:OBSERVATION_START];
-        [dict setValue:[NSNumber numberWithUnsignedInt:item.timestamp_stop] forKey:OBSERVATION_FINISH];
-        [dict setValue:[item observationHash] forKey:OBSERVATION_HASH];
-        break;
-    }
+    [dict setValue:[NSNumber numberWithInt:CURRENT_PROTOCOL_VERSION] forKey:OBSERVATION_PROTOCOL_VERSION];
+    [dict setValue:[NSNumber numberWithDouble:item.longitude] forKey:OBSERVATION_LONGITUDE];
+    [dict setValue:[NSNumber numberWithDouble:item.latitude] forKey:OBSERVATION_LATITUDE];
+    [dict setValue:[NSNumber numberWithUnsignedInt:item.timestamp_start] forKey:OBSERVATION_START];
+    [dict setValue:[NSNumber numberWithUnsignedInt:item.timestamp_stop] forKey:OBSERVATION_FINISH];
+    [dict setValue:[item observationHash] forKey:OBSERVATION_HASH];
+    [dict setValue:[NSNumber numberWithUnsignedInt:[item noSmoking]] forKey:OBSERVATION_NO_SMOKING];
+    [dict setValue:[NSNumber numberWithUnsignedInt:[item smokingLoneAdult]] forKey:OBSERVATION_LONE_ADULT];
+    [dict setValue:[NSNumber numberWithUnsignedInt:[item smokingAdultOthers]] forKey:OBSERVATION_OTHER_ADULTS];
+    [dict setValue:[NSNumber numberWithUnsignedInt:[item smokingChild]] forKey:OBSERVATION_CHILD];
+    [self setUserCredentials:dict];
     return dict;
 }
     
 
 - (IBAction)uploadData:(id)sender {
-    SBJsonWriter *writer = [[SBJsonWriter alloc] init];
-    // prepare Dictionary first.
-    NSDictionary *data = [self prepareDictionary:observationsForUpload];
-    NSString *json = [writer stringWithObject:data];
-    NSLog(@"got observations: %@", [data description]);
-    NSLog(@"Got json: %@", json);
+    for (Observations *o in observationsForUpload) {
+        SBJsonWriter *writer = [[SBJsonWriter alloc] init];
+        // prepare Dictionary first.
+        
+        NSDictionary *data = [self prepareDictionary:o];
+        NSString *json = [writer stringWithObject:data];
+        NSLog(@"got observations: %@", [data description]);
+        NSLog(@"Got json: %@", json);
+    }
 }
 
 

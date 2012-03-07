@@ -8,6 +8,14 @@
 
 #import "Constants.h"
 
+/* For local testing on home LAN */ 
+NSString * const URL_OBSERVATION_ADD;
+NSString * const HASH_SALT_PRE;
+NSString * const HASH_SALT_POST;
+/**/
+
+
+
 // Details constants
 int const SMOKING_ID_NO_SMOKING = 1;
 int const SMOKING_ID_ADULT_SMOKING_ALONE = 2;
@@ -27,6 +35,11 @@ NSString * const DATA_MODEL_FILENAME = @"ObservationsModel.sqlite";
 
 
 // DB schema related constants, used for SQLite and JSON
+NSString * const OBSERVATION_NO_SMOKING = @"no_smoking";
+NSString * const OBSERVATION_LONE_ADULT = @"lone_adult";
+NSString * const OBSERVATION_OTHER_ADULTS = @"other_adults";
+NSString * const OBSERVATION_CHILD = @"child";
+
 NSString * const OBSERVATION_LATITUDE = @"latitude";
 NSString * const OBSERVATION_LONGITUDE = @"longitude";
 NSString * const OBSERVATION_START = @"start_time";
@@ -38,5 +51,4 @@ NSString * const OBSERVATION_PROTOCOL_VERSION = @"version";
 
 NSString * const USER_DEVICE = @"device";
 NSString * const USER_USER_EMAIL = @"user_email";
-
 NSString * const USER_PASSWORD_HASH = @"pass_hash";

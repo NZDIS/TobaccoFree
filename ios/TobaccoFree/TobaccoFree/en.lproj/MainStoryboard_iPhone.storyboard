@@ -608,12 +608,18 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
+                                <connections>
+                                    <action selector="textFieldPasswordFocus:" destination="3" eventType="editingDidEndOnExit" id="QNb-Rl-6Vj"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" minimumFontSize="17" id="tBo-dT-SpW">
                                 <rect key="frame" x="39" y="161" width="243" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
+                                <connections>
+                                    <action selector="textFieldShouldReturn:" destination="3" eventType="editingDidEndOnExit" id="QwW-Ef-R3M"/>
+                                </connections>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -645,47 +651,6 @@
         <image name="tab_icon_home.png" width="32" height="32"/>
         <image name="tab_icon_user.png" width="32" height="32"/>
     </resources>
-    <classes>
-        <class className="AccountDetailsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AccountDetailsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="backgroundTouched:"/>
-                <relationship kind="action" name="openTobaccoFreeWebsite"/>
-                <relationship kind="action" name="saveCredentials"/>
-                <relationship kind="action" name="textFieldShouldReturn:"/>
-                <relationship kind="outlet" name="txtFieldEmail" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="txtFieldPassword" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="DataViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DataViewController.h"/>
-        </class>
-        <class className="MainViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="uploadData:"/>
-                <relationship kind="outlet" name="btnUloadData" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="RecordingViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RecordingViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="add_child:"/>
-                <relationship kind="action" name="add_no_smoking:"/>
-                <relationship kind="action" name="add_other_adults:"/>
-                <relationship kind="action" name="add_sole_adult:"/>
-                <relationship kind="action" name="finishRecording:"/>
-                <relationship kind="action" name="substract_child:"/>
-                <relationship kind="action" name="substract_no_smoking:"/>
-                <relationship kind="action" name="substract_other_adults:"/>
-                <relationship kind="action" name="substract_sole_adult:"/>
-                <relationship kind="outlet" name="txt_child" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="txt_no_smoking" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="txt_other_adults" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="txt_sole_adult" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
