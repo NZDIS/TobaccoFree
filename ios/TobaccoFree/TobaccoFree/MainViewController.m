@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 Ngarua Technologies Ltd. All rights reserved.
 //
 
-#import "SBJson.h"
 #import "MainViewController.h"
+#import "AccountDetailsViewController.h"
 #import "NGAppDelegate.h"
 #import "Observations.h"
 
@@ -23,6 +23,7 @@
 
 
 #pragma mark - Utilities
+
 
 - (void) toggleUploadButton 
 {
@@ -48,10 +49,8 @@
     }
 }
 
-/*!
- setup the credentials in the Json structure.
- */
-- (void) setUserCredentials:(NSMutableDictionary *)dict {
+
+- (NSDictionary *) userAccountPreferences {
     NSString *errorDesc = nil;
     NSPropertyListFormat format;
     NSString *plistPath;
@@ -70,6 +69,21 @@
     if (!temp) {
         NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
     }
+    return temp;
+}
+
+
+- (BOOL) isCredentialsReady {
+    NSDictionary *pref = [self userAccountPreferences];
+    return ([pref objectForKey:USER_USER_EMAIL] != nil) && (![[pref objectForKey:USER_USER_EMAIL] isEqualToString:@""]);
+}
+
+
+/*!
+ setup the credentials in the Json structure.
+ */
+- (void) setUserCredentials:(NSMutableDictionary *)dict {
+    NSDictionary *temp = [self userAccountPreferences];
     [dict setValue:[temp objectForKey:USER_USER_EMAIL] forKey:USER_USER_EMAIL];
     [dict setValue:[temp objectForKey:USER_PASSWORD_HASH] forKey:USER_PASSWORD_HASH];
     [dict setValue:[temp objectForKey:USER_DEVICE] forKey:USER_DEVICE];
@@ -79,6 +93,10 @@
     
 
 - (IBAction)uploadData:(id)sender {
+    if ([self isCredentialsReady] == NO) {
+        [self performSegueWithIdentifier:@"AccountViewSegue" sender:self];
+        return;
+    } 
     for (Observations *o in observationsForUpload) {
         // prepare Dictionary first.
         NSMutableDictionary *dict = [o toDictionary];

@@ -23,6 +23,7 @@
 
 
 - (IBAction)uploadData:(id)sender;
-
+- (BOOL) isCredentialsReady;
+- (NSDictionary *) userAccountPreferences;
 
 @end

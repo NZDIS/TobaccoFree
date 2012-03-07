@@ -90,7 +90,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="3" kind="push" id="23I-KV-ui4"/>
+                                    <segue destination="3" kind="push" identifier="AccountViewSegue" id="23I-KV-ui4"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Smoking Monitor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="gAZ-0k-f98">
@@ -527,11 +527,11 @@
             </objects>
             <point key="canvasLocation" x="1160" y="-423"/>
         </scene>
-        <!--Account Details View Controller - Account-->
+        <!--AccountView-->
         <scene sceneID="13">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="12" sceneMemberID="firstResponder"/>
-                <viewController title="Account" id="3" customClass="AccountDetailsViewController" sceneMemberID="viewController">
+                <viewController title="Account" id="3" userLabel="AccountView" customClass="AccountDetailsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="17">
                         <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
