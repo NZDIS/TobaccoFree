@@ -6,7 +6,10 @@
 //  Copyright (c) 2012 Ngarua Technologies Ltd. All rights reserved.
 //
 
+#import <CommonCrypto/CommonDigest.h>
+
 #import "AccountDetailsViewController.h"
+
 
 @implementation AccountDetailsViewController
 
@@ -22,11 +25,25 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+
+- (NSString *) hashPassword:(NSString *) pass {
+    NSMutableString *input = [[NSMutableString alloc] initWithFormat:@"%@%@%@", HASH_SALT_PRE, pass, HASH_SALT_POST];
+
+    const char* str = [input UTF8String];
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(str, strlen(str), result);
+    
+    NSMutableString *ret = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH*2];
+    for(int i = 0; i<CC_MD5_DIGEST_LENGTH; i++) {
+        [ret appendFormat:@"%02x",result[i]];
+    }
+    return ret;
+}
+
+
 #pragma mark - Action handlers
 
 - (IBAction) saveCredentials {
-    NSLog(@"Got email: %@", txtFieldEmail);
-    
     /*
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"hej stary"
                                                     message:[@"Email: " stringByAppendingString:self.txtFieldEmail.text]
@@ -39,7 +56,9 @@
     NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *plistPath = [rootPath stringByAppendingPathComponent:@"User.plist"];
     NSDictionary *plistDict = [NSDictionary dictionaryWithObjects:
-                               [NSArray arrayWithObjects: txtFieldEmail.text, txtFieldPassword.text, nil]
+                               [NSArray arrayWithObjects: 
+                                txtFieldEmail.text, 
+                                [self hashPassword:txtFieldPassword.text], nil]
                                                           forKeys:[NSArray arrayWithObjects: @"user_email", @"user_password_hash", nil]];
     NSData *plistData = [NSPropertyListSerialization dataFromPropertyList:plistDict
                                                                    format:NSPropertyListXMLFormat_v1_0
@@ -58,6 +77,10 @@
 - (IBAction) openTobaccoFreeWebsite
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://tobaccofree.nzdis.org"]];
+}
+
+- (IBAction)textFieldPasswordFocus:(id)sender {
+    [self.txtFieldPassword becomeFirstResponder];
 }
 
 

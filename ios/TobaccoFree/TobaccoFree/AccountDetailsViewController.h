@@ -15,6 +15,7 @@
 
 - (IBAction) saveCredentials;
 - (IBAction) openTobaccoFreeWebsite;
+- (IBAction)textFieldPasswordFocus:(id)sender;
 - (IBAction) textFieldShouldReturn:(id)sender;
 - (IBAction) backgroundTouched:(id)sender;
 
