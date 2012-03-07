@@ -19,7 +19,8 @@
 
 @property (nonatomic, retain) NSMutableArray *observationsForUpload;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
-
+@property (nonatomic, retain) NSData *receivedData;
+@property (nonatomic, retain) NSHTTPURLResponse *receivedResponse;
 
 
 - (IBAction)uploadData:(id)sender;

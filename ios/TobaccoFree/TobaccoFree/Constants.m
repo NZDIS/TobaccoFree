@@ -9,9 +9,9 @@
 #import "Constants.h"
 
 /* For local testing on home LAN */ 
-NSString * const URL_OBSERVATION_ADD;
-NSString * const HASH_SALT_PRE;
-NSString * const HASH_SALT_POST;
+NSString * const URL_OBSERVATION_ADD = @"http://192.168.2.200:8000/observation/add";
+NSString * const HASH_SALT_PRE = @"put salt here";
+NSString * const HASH_SALT_POST = @"put pepper here";
 /**/
 
 
@@ -35,7 +35,7 @@ NSString * const DATA_MODEL_FILENAME = @"ObservationsModel.sqlite";
 
 
 // DB schema related constants, used for SQLite and JSON
-NSString * const DETAILS_TYPE = @"type";
+NSString * const DETAILS_TYPE = @"smoking_id";
 NSString * const DETAILS_TIMESTAMP = @"timestamp";
 
 NSString * const OBSERVATION_NO_SMOKING = @"no_smoking";

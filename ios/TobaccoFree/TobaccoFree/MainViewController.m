@@ -19,11 +19,63 @@
 
 @synthesize observationsForUpload;
 @synthesize managedObjectContext;
+@synthesize receivedData;
+@synthesize receivedResponse;
+
+
+
+#pragma mark - URL connection handling
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    NSLog(@"connectionDidReceiveResponse: %@", response);
+    self.receivedResponse = (NSHTTPURLResponse *)response;
+}
+
+- (void)connection:(NSURLConnection *)theConnection didReceiveData:(NSData *)data {
+    NSLog(@"connectionDidReceivedata");
+}
+
+- (void)connection:(NSURLConnection *)theConnection didFailWithError:(NSError *)error {
+    NSLog(@"connectionDidFail");
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                    message:[@"Connection to server failed: " stringByAppendingFormat:@"%@", 
+                                                              [error localizedDescription]]
+                                                   delegate:self
+                                          cancelButtonTitle:@"Ok"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)theConnection {
+    NSLog(@"connectionDidFinishLoading");
+    UIAlertView *alert;
+    if ([self.receivedResponse statusCode] == 403) {
+        alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                           message:@"Wrong credentials. User authentication failed."
+                                          delegate:self
+                                 cancelButtonTitle:@"Ok"
+                                 otherButtonTitles:nil];
+        
+    } else if([self.receivedResponse statusCode] == 200) {
+        alert = [[UIAlertView alloc] initWithTitle:@"Info"
+                                           message:@"Data uploaded. Thank you."
+                                          delegate:self
+                                 cancelButtonTitle:@"Ok"
+                                 otherButtonTitles:nil];
+    } else {
+        alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                           message:@"Connection to server failed. Please try again later."
+                                          delegate:self
+                                 cancelButtonTitle:@"Ok"
+                                 otherButtonTitles:nil];
+    }
+    [alert show];
+}
+
 
 
 
 #pragma mark - Utilities
-
 
 - (void) toggleUploadButton 
 {
@@ -101,6 +153,9 @@
         // prepare Dictionary first.
         NSMutableDictionary *dict = [o toDictionary];
         [self setUserCredentials:dict];
+        NSMutableDictionary *dictAll = [[NSMutableDictionary alloc] init];
+        [dictAll setValue:dict forKey:@"Observation"];
+        
         /* 
          
          SBJson version, compatible with iOS 4.xx
@@ -111,9 +166,32 @@
          For iOS 5.xx we use native JSON support
         */
         NSError *error = nil;  
-        NSData *json = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictAll options:NSJSONWritingPrettyPrinted error:&error];
+        /* DEBUGGING */
         NSLog(@"got observations: %@", [dict description]);
-        NSLog(@"Got json: %@", [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding]);
+        NSLog(@"Got json: %@", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
+        /**/
+        // Prepare the payload
+        NSString *requestString = [NSString stringWithFormat:@"Observation=%@",
+                                   [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
+        //requestString = [myRequestString stringByAddingPercentEscapesUsingEncoding:4];
+        NSData *requestData = [NSData dataWithBytes:[requestString UTF8String] length:[requestString length]];
+        // Let's create asynchronous HTTP POST call
+        NSURL *url = [NSURL URLWithString:URL_OBSERVATION_ADD];
+        NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
+        [req setHTTPMethod:@"POST"];
+        [req setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [req setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [req setValue:[NSString stringWithFormat:@"%d", [requestData length]] forHTTPHeaderField:@"Content-Length"];
+        [req setHTTPBody: requestData];
+        
+        NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:req delegate:self];
+        if (connection) {
+            self.receivedData = [NSMutableData data];
+            NSLog(@"Got receivedData pass here");
+        } else {
+            NSLog(@"Got connection empty");
+        }
     }
 }
 
