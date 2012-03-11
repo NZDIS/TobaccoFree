@@ -27,16 +27,16 @@
 #pragma mark - URL connection handling
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    NSLog(@"connectionDidReceiveResponse: %@", response);
     self.receivedResponse = (NSHTTPURLResponse *)response;
+    DLog(@"connectionDidReceiveResponse: %d -- %@", [receivedResponse statusCode], receivedResponse.description);
 }
 
 - (void)connection:(NSURLConnection *)theConnection didReceiveData:(NSData *)data {
-    NSLog(@"connectionDidReceivedata");
+    DLog(@"connectionDidReceivedata: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 }
 
 - (void)connection:(NSURLConnection *)theConnection didFailWithError:(NSError *)error {
-    NSLog(@"connectionDidFail");
+    DLog(@"connectionDidFail");
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
                                                     message:[@"Connection to server failed: " stringByAppendingFormat:@"%@", 
                                                               [error localizedDescription]]
@@ -47,7 +47,7 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)theConnection {
-    NSLog(@"connectionDidFinishLoading");
+    DLog(@"connectionDidFinishLoading");
     UIAlertView *alert;
     if ([self.receivedResponse statusCode] == 403) {
         alert = [[UIAlertView alloc] initWithTitle:@"Error"
@@ -153,8 +153,6 @@
         // prepare Dictionary first.
         NSMutableDictionary *dict = [o toDictionary];
         [self setUserCredentials:dict];
-        NSMutableDictionary *dictAll = [[NSMutableDictionary alloc] init];
-        [dictAll setValue:dict forKey:@"Observation"];
         
         /* 
          
@@ -166,10 +164,10 @@
          For iOS 5.xx we use native JSON support
         */
         NSError *error = nil;  
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictAll options:NSJSONWritingPrettyPrinted error:&error];
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
         /* DEBUGGING */
-        NSLog(@"got observations: %@", [dict description]);
-        NSLog(@"Got json: %@", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
+        DLog(@"got observations: %@", [dict description]);
+        DLog(@"Got json: %@", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
         /**/
         // Prepare the payload
         NSString *requestString = [NSString stringWithFormat:@"Observation=%@",
@@ -188,9 +186,9 @@
         NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:req delegate:self];
         if (connection) {
             self.receivedData = [NSMutableData data];
-            NSLog(@"Got receivedData pass here");
+            DLog(@"Got receivedData pass here");
         } else {
-            NSLog(@"Got connection empty");
+            DLog(@"Got connection empty");
         }
     }
 }

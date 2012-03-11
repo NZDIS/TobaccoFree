@@ -12,5 +12,14 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
+    #import <AudioToolbox/AudioToolbox.h>
     #import "Constants.h"
 #endif
+
+#ifdef DEBUG
+#define DLog(__FORMAT__, ...) NSLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#else
+#define DLog(...) 
+#endif
+// ALog always displays output regardless of the DEBUG setting
+#define ALog(__FORMAT__, ...) NSLog((@"%s [Line %d] " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)

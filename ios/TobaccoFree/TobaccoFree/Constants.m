@@ -26,7 +26,7 @@ int const SMOKING_ID_ADULT_SMOKING_CHILD = 4;
 // 1 - broken indexes, incomplete data
 // 2 - all fine, but only aggregated data
 // 3 - all fine, aggregated data together with details
-int const CURRENT_PROTOCOL_VERSION = 3;
+int const CURRENT_PROTOCOL_VERSION = 4;
 
 
 // constants for the SQLite datastore
@@ -45,8 +45,8 @@ NSString * const OBSERVATION_CHILD = @"child";
 NSString * const OBSERVATION_DETAILS = @"details";
 NSString * const OBSERVATION_LATITUDE = @"latitude";
 NSString * const OBSERVATION_LONGITUDE = @"longitude";
-NSString * const OBSERVATION_START = @"start_time";
-NSString * const OBSERVATION_FINISH = @"finish_time";
+NSString * const OBSERVATION_START = @"start";
+NSString * const OBSERVATION_FINISH = @"finish";
 NSString * const OBSERVATION_HASH = @"hash";
 NSString * const OBSERVATION_UPLOADED = @"uploaded";
 

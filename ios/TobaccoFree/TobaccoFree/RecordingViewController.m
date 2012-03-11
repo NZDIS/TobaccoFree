@@ -119,6 +119,22 @@
 
 #pragma mark - Button press handling
 
+- (void) clickSound {
+    //Get the filename of the sound file:
+	NSString *path = [NSString stringWithFormat:@"%@%@", [[NSBundle mainBundle] resourcePath], @"/click.wav"];
+    
+	//declare a system sound
+	SystemSoundID soundID;
+    
+	//Get a URL for the sound file
+	NSURL *filePath = [NSURL fileURLWithPath:path isDirectory:NO];
+    
+	//Use audio sevices to create the sound
+	AudioServicesCreateSystemSoundID((__bridge CFURLRef)filePath, &soundID);
+	//Use audio services to play the sound
+	AudioServicesPlaySystemSound(soundID);
+}
+
 - (IBAction)finishRecording:(id)sender {
 
     if ([self numOfObservedCars] > 0)
@@ -146,6 +162,7 @@
 
 
 - (IBAction)add_no_smoking:(id)sender {
+    [self clickSound];
     [self prepareRecording];
     self.count_no_smoking++;
     self.txt_no_smoking.text = [NSString stringWithFormat:@"%d", self.count_no_smoking];
@@ -170,6 +187,7 @@
 }
 
 - (IBAction)add_sole_adult:(id)sender {
+    [self clickSound];
     [self prepareRecording];
     self.count_sole_adult++;
     self.txt_sole_adult.text = [NSString stringWithFormat:@"%d", self.count_sole_adult];
@@ -193,6 +211,7 @@
 }
 
 - (IBAction)add_other_adults:(id)sender {
+    [self clickSound];
     [self prepareRecording];    
     self.count_other_adults++;
     self.txt_other_adults.text = [NSString stringWithFormat:@"%d", self.count_other_adults];
@@ -216,6 +235,7 @@
 }
 
 - (IBAction)add_child:(id)sender {
+    [self clickSound];
     [self prepareRecording];    
     self.count_child++;
     self.txt_child.text = [NSString stringWithFormat:@"%d", self.count_child];
