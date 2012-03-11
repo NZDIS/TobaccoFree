@@ -49,6 +49,7 @@ class Observation(Document):
     lone_adult = IntField()
     child = IntField()
     device_id = StringField(max_length=128)
+    device_type = StringField(max_length=128)
     upload_timestamp = DateTimeField()
     user = ReferenceField(RegisteredObserver)
     details = ListField(EmbeddedDocumentField(Detail))

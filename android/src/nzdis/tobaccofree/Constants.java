@@ -14,18 +14,17 @@ package nzdis.tobaccofree;
 public interface Constants {
 
 	
-	/* For local testing on home LAN */
+	/* For local testing on home LAN */ 
 	String URL_OBSERVATION_ADD = "http://192.168.2.200:8000/observation/add";
     String HASH_SALT_PRE = "put salt here";
     String HASH_SALT_POST = "put pepper here";
     /**/
-    
-	
+
 	
     // 1 - broken indexes, incomplete data
     // 2 - all fine, but only aggregated data
     // 3 - all fine, aggregated data together with details
-	int CURRENT_PROTOCOL_VERSION = 3;
+	int CURRENT_PROTOCOL_VERSION = 4;
 	
 	
 // DB schema related constants, used for SQLite and JSON
@@ -35,9 +34,9 @@ public interface Constants {
 	String OBSERVATION_START = "start_time";
 	String OBSERVATION_FINISH = "finish_time";
 	String OBSERVATION_UPLOADED = "uploaded";
-	String DETAILS_UPLOADED = "details_uploaded";
 
 	String USER_DEVICE = "device";
+	String USER_DEVICE_TYPE = "device_type";
 	String USER_USER_EMAIL = "user_email";
 	
 	String USER_PASSWORD_HASH = "pass_hash";

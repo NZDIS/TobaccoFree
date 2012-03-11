@@ -113,7 +113,7 @@ def add(request):
     '''
 #    logger.debug("Got a request.POST: {0}".format(request.POST))
     json_str = request.POST.get('Observation')
-    logger.debug("Got a request.POST.Observation: {0}".format(json_str))
+#   logger.debug("Got a request.POST.Observation: {0}".format(json_str))
     
     if request.method == "POST":
         new_ob = json.loads(json_str)
@@ -163,7 +163,9 @@ def add(request):
                         device_id = new_ob.get('device'),
                         upload_timestamp = datetime.now(),
                         user = u)
-            else: #version 3, yay, we have details!
+            else:
+                #version 3, we have details! 
+                #version 4, we have phone type!
                 o = Observation(
                         observation_hash = new_ob.get('hash'),
                         latitude = alatitude,
@@ -185,11 +187,16 @@ def add(request):
                     tmp_detail.timestamp = datetime.fromtimestamp(d.get('timestamp') / 1000.0)
                     tmp_detail.smoking_id = int(d.get('smoking_id'))
                     o.details.append(tmp_detail)
+                # version 4, device type check:
+                device_type = new_ob.get('device_type')
+                if (device_type != None and device_type != ''):
+                    o.device_type = device_type
                 
             (city, country) = geocode(o.latitude, o.longitude)
             o.loc_city = city
             o.loc_country = country
             o.save(safe=True)
+            print "Adding observation", o
             logger.debug("New instance of an Observation has been saved!")
             return HttpResponse("Observation was added. Success.")
         else:
@@ -197,7 +204,7 @@ def add(request):
             return HttpResponseForbidden("Bad credentials.")
     else:
         logger.debug("got GET instead of POST")
-        return HttpResponse('Go back <a href="/">home</a>.')
+        return HttpResponse('Go back <a href="/">to TobaccoFree home</a>.')
 
 
 

@@ -303,6 +303,12 @@ public class GlobalinkActivity extends Activity
 	
 	
 	
+	private String deviceTypeString() {
+		return ""  
+				+ android.os.Build.MODEL + ", "
+				+ android.os.Build.DEVICE + " ("+ android.os.Build.PRODUCT + "), "
+				+ System.getProperty("os.version") + " (" + android.os.Build.VERSION.INCREMENTAL + ")";
+	}
 	
 	
 	private class UploadTask extends AsyncTask<Observation,Integer,Boolean>{
@@ -336,6 +342,7 @@ public class GlobalinkActivity extends Activity
 				 */
 	        	try {
 	        		temp = observation.getJSON();
+	        		temp.put(USER_DEVICE_TYPE, deviceTypeString());
 	        		temp.put(USER_DEVICE, deviceID);
 	        		temp.put(USER_USER_EMAIL, user.getUserEmail());
 	        		temp.put(USER_PASSWORD_HASH, user.getPasswordHash());
