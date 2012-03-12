@@ -35,6 +35,9 @@
 
 @interface Observations (CoreDataGeneratedAccessors)
 
+
+- (int) countCars;
+
 - (void)addDetailsObject:(Details *)value;
 - (void)removeDetailsObject:(Details *)value;
 - (void)addDetails:(NSSet *)values;

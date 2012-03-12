@@ -48,7 +48,8 @@
             // create new observation record
             observation = (Observations *)[NSEntityDescription insertNewObjectForEntityForName:@"Observations" inManagedObjectContext:managedObjectContext];
             // currentTimeInMillis
-            long ct = (long)(CACurrentMediaTime() * 1000);
+            // long ct = (long)(CACurrentMediaTime() * 1000);
+            NSTimeInterval ct = [[NSDate date] timeIntervalSince1970];
             observation.timestamp_start = ct;
         }
     }
@@ -75,11 +76,13 @@
  */
 - (Details *) recordDetails:(int) type {
     // currentTimeInMillis
-    long ct = (long)(CACurrentMediaTime() * 1000);
+    // long ct = (long)(CACurrentMediaTime() * 1000);
+    NSDate *now = [NSDate date];
     
     // create a record
     Details *d = (Details *)[NSEntityDescription insertNewObjectForEntityForName:@"Details" inManagedObjectContext:managedObjectContext];
-    d.timestamp = ct;
+    d.timestamp = [now timeIntervalSince1970];
+    NSLog(@"TIMESTAMP %d", d.timestamp);
     d.type = type;
     [self.observation addDetailsObject:d];
     
@@ -140,7 +143,8 @@
     if ([self numOfObservedCars] > 0)
     {
         // record the finish time of the recording
-        long ct = (long)(CACurrentMediaTime() * 1000);
+        // long ct = (long)(CACurrentMediaTime() * 1000);
+        NSTimeInterval ct = [[NSDate date] timeIntervalSince1970];
         observation.timestamp_stop = ct;
 
         NSError *error = nil;

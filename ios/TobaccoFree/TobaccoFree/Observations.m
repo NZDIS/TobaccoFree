@@ -24,6 +24,14 @@
 
 
 /*!
+ Returns the number of observed cars.
+ */
+- (int) countCars {
+    return [self.details count];
+}
+
+
+/*!
  @brief Count number of records of particular smoking type.
  @param smoking type constant
  @return number of instances of particular smoking type.

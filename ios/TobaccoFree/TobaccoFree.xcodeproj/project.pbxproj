@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6F01FFDA150D53B10057A162 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6F01FFD9150D53B10057A162 /* click.wav */; };
 		6F01FFDC150D546D0057A162 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F01FFDB150D546D0057A162 /* AudioToolbox.framework */; };
+		6F01FFDF150D66360057A162 /* ObservationsDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F01FFDE150D66360057A162 /* ObservationsDataCell.m */; };
 		6F67E83814FDF3AE004D5DE5 /* child.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E82F14FDF3AE004D5DE5 /* child.png */; };
 		6F67E83914FDF3AE004D5DE5 /* finish_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E83014FDF3AE004D5DE5 /* finish_selected.png */; };
 		6F67E83A14FDF3AE004D5DE5 /* finish.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E83114FDF3AE004D5DE5 /* finish.png */; };
@@ -50,6 +51,8 @@
 /* Begin PBXFileReference section */
 		6F01FFD9150D53B10057A162 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = click.wav; path = TobaccoFree/click.wav; sourceTree = "<group>"; };
 		6F01FFDB150D546D0057A162 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		6F01FFDD150D66360057A162 /* ObservationsDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObservationsDataCell.h; sourceTree = "<group>"; };
+		6F01FFDE150D66360057A162 /* ObservationsDataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObservationsDataCell.m; sourceTree = "<group>"; };
 		6F67E82F14FDF3AE004D5DE5 /* child.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = child.png; path = TobaccoFree/child.png; sourceTree = "<group>"; };
 		6F67E83014FDF3AE004D5DE5 /* finish_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = finish_selected.png; path = TobaccoFree/finish_selected.png; sourceTree = "<group>"; };
 		6F67E83114FDF3AE004D5DE5 /* finish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = finish.png; path = TobaccoFree/finish.png; sourceTree = "<group>"; };
@@ -188,6 +191,8 @@
 				6F8F17521502C25700DD9BAC /* Constants.m */,
 				6FA35F0E15040698002BEF40 /* Observations.h */,
 				6FA35F0F15040698002BEF40 /* Observations.m */,
+				6F01FFDD150D66360057A162 /* ObservationsDataCell.h */,
+				6F01FFDE150D66360057A162 /* ObservationsDataCell.m */,
 				6FD658EA15041E4F00008D13 /* Details.h */,
 				6FD658EB15041E4F00008D13 /* Details.m */,
 				6F91A70914F76EE800B5477D /* NGAppDelegate.h */,
@@ -312,6 +317,7 @@
 				6FA35F1015040698002BEF40 /* Observations.m in Sources */,
 				6FD658F015041E4F00008D13 /* Details.m in Sources */,
 				6FD658F315041E4F00008D13 /* ObservationsModel.xcdatamodeld in Sources */,
+				6F01FFDF150D66360057A162 /* ObservationsDataCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

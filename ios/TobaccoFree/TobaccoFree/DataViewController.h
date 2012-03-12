@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DataViewController : UITableViewController {
+@interface DataViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource> {
 
     NSMutableArray *observationsArray;
     NSManagedObjectContext *managedObjContext;
