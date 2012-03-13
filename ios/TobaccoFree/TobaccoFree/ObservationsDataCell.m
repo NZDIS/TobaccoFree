@@ -16,6 +16,7 @@
 @synthesize label_lone_adult;
 @synthesize label_other_adults;
 @synthesize label_child;
+@synthesize label_not_uploaded;
 
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

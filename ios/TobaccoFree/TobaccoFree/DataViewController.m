@@ -42,8 +42,6 @@
         // Handle the error.
         NSLog(@"Error executing the query %@", error);
     }
-    
-    NSLog(@"We got %d rows of data", [observationsArray count]);
 }
 
 - (void)viewDidLoad
@@ -81,27 +79,21 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    NSLog(@"number of sections");
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    NSLog(@"number of observations, %d", [observationsArray count]);
-    
     return [observationsArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"rendering view");
     static NSString *CellIdentifier = @"ObservationsDataCell";
-    NSLog(@"static string got, %@", CellIdentifier);
-    
+   
     ObservationsDataCell *cell = (ObservationsDataCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    NSLog(@"cell instance, %@", cell.description);
-    
+   
     Observations *obs = [self.observationsArray objectAtIndex:indexPath.row];
     
     cell.label_num_cars.text = [NSString stringWithFormat:@"%d", [obs countCars]];
@@ -115,31 +107,38 @@
     cell.label_other_adults.text = [NSString stringWithFormat:@"%d", obs.smokingAdultOthers];
     cell.label_child.text = [NSString stringWithFormat:@"%d", obs.smokingChild];
     
+    if (obs.uploaded) {
+        [cell.label_not_uploaded setHidden:YES];
+    }
     return cell;
 }
 
-/*
+
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the observation from the data array and from the DB
+        Observations *o = [self.observationsArray objectAtIndex:indexPath.row];
+        [self.observationsArray removeObjectAtIndex:indexPath.row];
+        [self.managedObjContext deleteObject:o];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }   
+    else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }
+//    [tableView reloadData];
+}
+
+
+
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
 
 /*
 // Override to support rearranging the table view.
@@ -156,6 +155,7 @@
     return YES;
 }
 */
+
 
 #pragma mark - Table view delegate
 

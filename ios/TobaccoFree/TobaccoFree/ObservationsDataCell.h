@@ -18,4 +18,6 @@
 @property (nonatomic, strong) IBOutlet UILabel *label_other_adults;
 @property (nonatomic, strong) IBOutlet UILabel *label_child;
 
+@property (nonatomic, strong) IBOutlet UILabel *label_not_uploaded;
+
 @end

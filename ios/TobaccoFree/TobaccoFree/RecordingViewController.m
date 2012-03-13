@@ -153,7 +153,7 @@
         }
 
         // Debugging NSLog(@"Got timestamp: %ld", ct);
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Thanks you"
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Thank you"
                                                     message:[@"You have observed " stringByAppendingString:[NSString stringWithFormat:@"%d cars", [self numOfObservedCars]]]
                                                    delegate:self
                                           cancelButtonTitle:@"Ok"

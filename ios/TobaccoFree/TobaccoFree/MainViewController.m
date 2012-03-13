@@ -6,6 +6,9 @@
 //  Copyright (c) 2012 Ngarua Technologies Ltd. All rights reserved.
 //
 
+#import <SystemConfiguration/SCNetworkReachability.h>
+#include <netinet/in.h>
+
 #import "MainViewController.h"
 #import "AccountDetailsViewController.h"
 #import "NGAppDelegate.h"
@@ -16,6 +19,7 @@
 
 
 @synthesize btnUloadData;
+@synthesize activityIndicator;
 
 @synthesize observationsForUpload;
 @synthesize managedObjectContext;
@@ -23,8 +27,10 @@
 @synthesize receivedResponse;
 
 
+BOOL connectionFailed = NO;
 
-#pragma mark - URL connection handling
+#pragma mark - Connection handling
+/*
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     self.receivedResponse = (NSHTTPURLResponse *)response;
@@ -37,6 +43,7 @@
 
 - (void)connection:(NSURLConnection *)theConnection didFailWithError:(NSError *)error {
     DLog(@"connectionDidFail");
+    connectionFailed = YES;
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
                                                     message:[@"Connection to server failed: " stringByAppendingFormat:@"%@", 
                                                               [error localizedDescription]]
@@ -72,13 +79,68 @@
     [alert show];
 }
 
+*/
+
+- (BOOL) checkDataSubmission {
+    BOOL resultOK = NO;
+    if ([self.receivedResponse statusCode] == 403) {
+        [self showUserErrorDialog:@"Wrong credentials. User authentication failed."];
+    } else if ([self.receivedResponse statusCode] == 400) {
+        [self showUserErrorDialog:@"Bad data request. Please try again later."];
+    } else if([self.receivedResponse statusCode] == 200) {
+        resultOK = YES;
+    } else {
+        [self showUserErrorDialog:@"Connection to server failed. Please try again later."];
+    }
+    return resultOK;
+}
+
+
+- (BOOL) isConnectedToNetwork {
+    struct sockaddr_in zeroAddress;
+    bzero(&zeroAddress, sizeof(zeroAddress));
+    zeroAddress.sin_len = sizeof(zeroAddress);
+    zeroAddress.sin_family = AF_INET;
+	
+    // Recover reachability flags
+    SCNetworkReachabilityRef defaultRouteReachability = SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *)&zeroAddress);
+    SCNetworkReachabilityFlags flags;
+	
+    BOOL didRetrieveFlags = SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags);
+    CFRelease(defaultRouteReachability);
+	
+    if (!didRetrieveFlags){
+        NSLog(@"Error. Could not recover network reachability flags.");
+        return NO;
+    }
+	
+    BOOL isReachable = flags & kSCNetworkFlagsReachable;
+    BOOL needsConnection = flags & kSCNetworkFlagsConnectionRequired;
+    BOOL nonWiFi = flags & kSCNetworkReachabilityFlagsTransientConnection;
+    return ((isReachable && !needsConnection) || nonWiFi) ? YES : NO;
+}
+
+- (BOOL) isConnectedToNZDIS {
+    NSError *error;
+    NSString *hack = [NSString stringWithContentsOfURL:[NSURL URLWithString:URL_OBSERVATION_ADD] encoding:NSUTF8StringEncoding error:&error];
+    if (hack != NULL) return YES;
+    return NO;
+}
+
+- (void) showUserErrorDialog:(NSString *)msg {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                       message:msg
+                                      delegate:self
+                             cancelButtonTitle:@"Ok"
+                             otherButtonTitles:nil];
+    [alert show];
+}
 
 
 
 #pragma mark - Utilities
 
-- (void) toggleUploadButton 
-{
+- (void) toggleUploadButton {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Observations" inManagedObjectContext:managedObjectContext];
     [request setEntity:entity];
@@ -144,35 +206,70 @@
 
     
 
-- (IBAction)uploadData:(id)sender {
+- (BOOL) prePOSTChecksFailed {
+    // check credentials
     if ([self isCredentialsReady] == NO) {
         [self performSegueWithIdentifier:@"AccountViewSegue" sender:self];
-        return;
+        return YES;
     } 
+    // check network availability
+    if (![self isConnectedToNetwork]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unable to upload"
+                                                        message:@"No Internet. Connect your iPhone to 3G or WiFi."
+                                                       delegate:self
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return YES;
+    }
+    // check if server is online
+    if (![self isConnectedToNZDIS]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unable to upload"
+                                                        message:@"Connection to server failed. Please try again later."
+                                                       delegate:self
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles:nil];
+        [alert show];
+        return YES;
+    }
+    return NO;
+}
+
+
+#pragma mark - Button actions
+
+- (IBAction) uploadData:(id)sender {
+    if ([self prePOSTChecksFailed]) return;
+    [self.activityIndicator setHidden:NO];
+    [self.activityIndicator startAnimating];
+    [self performSelector:@selector(uploadAllObservationData) withObject:nil afterDelay:0];
+}
+
+
+- (void) uploadAllObservationData {
+    BOOL allWentWell = YES;
     for (Observations *o in observationsForUpload) {
         // prepare Dictionary first.
         NSMutableDictionary *dict = [o toDictionary];
         [self setUserCredentials:dict];
         
         /* 
-         
-         SBJson version, compatible with iOS 4.xx
-         
+         // SBJson version, compatible with iOS 4.xx
          SBJsonWriter *writer = [[SBJsonWriter alloc] init];
          NSString *json = [writer stringWithObject:data];
-         
-         For iOS 5.xx we use native JSON support
         */
+        
+        // For iOS 5.xx we use native JSON support
         NSError *error = nil;  
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
-        /* DEBUGGING */
+        /* DEBUGGING
         DLog(@"got observations: %@", [dict description]);
-        DLog(@"Got json: %@", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
-        /**/
+        DLog(@"Prepared json: %@", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
+        */
         // Prepare the payload
         NSString *requestString = [NSString stringWithFormat:@"Observation=%@",
                                    [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]];
-        //requestString = [myRequestString stringByAddingPercentEscapesUsingEncoding:4];
+        // requestString = [requestString stringByAddingPercentEscapesUsingEncoding:4];
         NSData *requestData = [NSData dataWithBytes:[requestString UTF8String] length:[requestString length]];
         // Let's create asynchronous HTTP POST call
         NSURL *url = [NSURL URLWithString:URL_OBSERVATION_ADD];
@@ -183,23 +280,59 @@
         [req setValue:[NSString stringWithFormat:@"%d", [requestData length]] forHTTPHeaderField:@"Content-Length"];
         [req setHTTPBody: requestData];
         
+        /* Asynchronous call
         NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:req delegate:self];
         if (connection) {
             self.receivedData = [NSMutableData data];
             DLog(@"Got receivedData pass here");
+            if (connectionFailed) return;
         } else {
             DLog(@"Got connection empty");
+            return;
+        }*/
+        
+        // Synchronous version
+        NSURLResponse *response;
+        self.receivedData = [NSURLConnection sendSynchronousRequest:req returningResponse:&response error:&error];
+        self.receivedResponse = (NSHTTPURLResponse *) response;
+        DLog(@"finishedJsonPOST and got data back: %@", [[NSString alloc] initWithData:self.receivedData encoding:NSUTF8StringEncoding]);
+        if ([self checkDataSubmission]) {
+            o.uploaded = YES;
+            error = nil;
+            if (![self.managedObjectContext save:&error]) {
+                NSLog(@"Saving of the data to SQLite DB failed.");
+                [self showUserErrorDialog:@"Saving data to DB failed."];
+            }
+        } else {
+            // something went wrong, so we do not try to send the rest of data records
+            allWentWell = NO;
+            break;
         }
+    }
+    [self.activityIndicator startAnimating];
+    [self.activityIndicator setHidden:YES];
+    [self toggleUploadButton];
+    if (allWentWell) {
+        UIAlertView *alert;
+        alert = [[UIAlertView alloc] initWithTitle:@"Info"
+                                           message:@"Data uploaded. Thank you."
+                                          delegate:self
+                                 cancelButtonTitle:@"Ok"
+                                 otherButtonTitles:nil];
+        [alert show];
     }
 }
 
+
+
+
+#pragma mark - View lifecycle
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
 }
 
-#pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
@@ -215,6 +348,7 @@
 - (void)viewDidUnload
 {
     [self setBtnUloadData:nil];
+    [self setActivityIndicator:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -228,6 +362,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self.activityIndicator setHidden:YES];
     [self toggleUploadButton];
 }
 

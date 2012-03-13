@@ -10,6 +10,8 @@
 		6F01FFDA150D53B10057A162 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6F01FFD9150D53B10057A162 /* click.wav */; };
 		6F01FFDC150D546D0057A162 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F01FFDB150D546D0057A162 /* AudioToolbox.framework */; };
 		6F01FFDF150D66360057A162 /* ObservationsDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F01FFDE150D66360057A162 /* ObservationsDataCell.m */; };
+		6F5FB859150ED68C00275F7E /* nosmoking_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5FB858150ED68C00275F7E /* nosmoking_black.png */; };
+		6F5FB85E150EE21000275F7E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5FB85D150EE21000275F7E /* SystemConfiguration.framework */; };
 		6F67E83814FDF3AE004D5DE5 /* child.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E82F14FDF3AE004D5DE5 /* child.png */; };
 		6F67E83914FDF3AE004D5DE5 /* finish_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E83014FDF3AE004D5DE5 /* finish_selected.png */; };
 		6F67E83A14FDF3AE004D5DE5 /* finish.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E83114FDF3AE004D5DE5 /* finish.png */; };
@@ -53,6 +55,8 @@
 		6F01FFDB150D546D0057A162 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		6F01FFDD150D66360057A162 /* ObservationsDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObservationsDataCell.h; sourceTree = "<group>"; };
 		6F01FFDE150D66360057A162 /* ObservationsDataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObservationsDataCell.m; sourceTree = "<group>"; };
+		6F5FB858150ED68C00275F7E /* nosmoking_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nosmoking_black.png; path = TobaccoFree/nosmoking_black.png; sourceTree = "<group>"; };
+		6F5FB85D150EE21000275F7E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6F67E82F14FDF3AE004D5DE5 /* child.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = child.png; path = TobaccoFree/child.png; sourceTree = "<group>"; };
 		6F67E83014FDF3AE004D5DE5 /* finish_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = finish_selected.png; path = TobaccoFree/finish_selected.png; sourceTree = "<group>"; };
 		6F67E83114FDF3AE004D5DE5 /* finish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = finish.png; path = TobaccoFree/finish.png; sourceTree = "<group>"; };
@@ -107,6 +111,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F5FB85E150EE21000275F7E /* SystemConfiguration.framework in Frameworks */,
 				6F01FFDC150D546D0057A162 /* AudioToolbox.framework in Frameworks */,
 				6FE5C08014FF5FC5006665E2 /* CoreData.framework in Frameworks */,
 				6FE5C07E14FF5FBC006665E2 /* CoreLocation.framework in Frameworks */,
@@ -131,6 +136,7 @@
 		6F67E84D14FE19D5004D5DE5 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				6F5FB858150ED68C00275F7E /* nosmoking_black.png */,
 				6FD658EC15041E4F00008D13 /* icon_main_57.png */,
 				6FD658ED15041E4F00008D13 /* icon_main_114.png */,
 				6F67E85A14FE26A9004D5DE5 /* otago_horizontal.jpg */,
@@ -154,7 +160,6 @@
 		6F91A6EB14F76EE800B5477D = {
 			isa = PBXGroup;
 			children = (
-				6F01FFDB150D546D0057A162 /* AudioToolbox.framework */,
 				6F67E84D14FE19D5004D5DE5 /* images */,
 				6F01FFD5150D534E0057A162 /* sounds */,
 				6F91A70014F76EE800B5477D /* TobaccoFree */,
@@ -174,6 +179,8 @@
 		6F91A6F914F76EE800B5477D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6F5FB85D150EE21000275F7E /* SystemConfiguration.framework */,
+				6F01FFDB150D546D0057A162 /* AudioToolbox.framework */,
 				6FE5C07F14FF5FC5006665E2 /* CoreData.framework */,
 				6FE5C07D14FF5FBC006665E2 /* CoreLocation.framework */,
 				6FE5C07B14FF5FB2006665E2 /* QuartzCore.framework */,
@@ -297,6 +304,7 @@
 				6FD658F115041E4F00008D13 /* icon_main_57.png in Resources */,
 				6FD658F215041E4F00008D13 /* icon_main_114.png in Resources */,
 				6F01FFDA150D53B10057A162 /* click.wav in Resources */,
+				6F5FB859150ED68C00275F7E /* nosmoking_black.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
