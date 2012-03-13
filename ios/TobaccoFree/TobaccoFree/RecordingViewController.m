@@ -82,7 +82,6 @@
     // create a record
     Details *d = (Details *)[NSEntityDescription insertNewObjectForEntityForName:@"Details" inManagedObjectContext:managedObjectContext];
     d.timestamp = [now timeIntervalSince1970];
-    NSLog(@"TIMESTAMP %d", d.timestamp);
     d.type = type;
     [self.observation addDetailsObject:d];
     
