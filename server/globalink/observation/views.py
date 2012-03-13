@@ -8,7 +8,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.utils import simplejson as json
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseForbidden, \
+                    HttpResponseRedirect, HttpResponseBadRequest
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from datetime import datetime
@@ -111,12 +112,22 @@ def add(request):
     '''
     Processes a POST request with Observation data, and puts new record into a DB.
     '''
-#    logger.debug("Got a request.POST: {0}".format(request.POST))
+#   logger.debug("Got a request.POST: {0}".format(request.POST))
     json_str = request.POST.get('Observation')
-#   logger.debug("Got a request.POST.Observation: {0}".format(json_str))
-    
+#   logger.debug(u"Got a request.POST.Observation string: {0}".format(json_str))
+    json
     if request.method == "POST":
-        new_ob = json.loads(json_str)
+#       logger.debug('parsing...')
+        try:
+            new_ob = json.loads(json_str)
+        except:
+            try:
+#               logger.debug('Workaround missing closing } in json stream')
+                new_ob = json.loads(json_str + '}')
+            except:
+#               logger.debug("Json malformed")
+                return HttpResponseBadRequest("Data malformed, cannot complete the upload.")
+        logger.debug(u"new_ob after parsing: {0}".format(new_ob))
         email_str = new_ob.get('user_email')
         try:
             userId = User.objects.get(username=email_str)
