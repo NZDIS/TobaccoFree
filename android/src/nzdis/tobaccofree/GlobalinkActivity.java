@@ -48,6 +48,7 @@ import android.widget.Button;
  * Represents the top level activity for the smoking in cars logger.
  * 
  * @author Hamish Medlin
+ * @author Mariusz Nowostawski <mariusz@nowostawski.org>
  *
  * @version $Revision$ <br>
  * Created: Jan 13, 2012 12:48:02 PM
@@ -123,8 +124,8 @@ public class GlobalinkActivity extends Activity
 	public void onClick(View arg0) {
 		if (arg0 == btnNew) {			
 			//check if gps is enabled
-			LocationManager locManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-			if(locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+			LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			if (locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 				//start new observation
 				Intent i = new Intent(this, ObservationActivity.class);
 				startActivity(i);			
@@ -136,13 +137,13 @@ public class GlobalinkActivity extends Activity
 		}
 		
 		if (arg0 == btnExisting) {
-		 	Intent i = new Intent(this,ViewObservationsActivity.class);
+		 	Intent i = new Intent(this, ViewObservationsActivity.class);
 			startActivity(i);
 			return;
 		}
 		
 		if (arg0 == btnPreferences) {
-	        Intent i = new Intent(this,PreferencesActivity.class);
+	        Intent i = new Intent(this, PreferencesActivity.class);
 	        startActivity(i);
 	        return;
 		}

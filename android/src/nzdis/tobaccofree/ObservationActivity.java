@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -35,6 +36,7 @@ import android.widget.Toast;
  * Represents the act of logging smoking.
  * 
  * @author Hamish Medlin
+ * @author Mariusz Nowostawski <mariusz@nowostawski.org>
  *
  * @version $Revision$ <br>
  * Created: Dec 2011
@@ -55,8 +57,9 @@ public class ObservationActivity extends Activity implements LocationListener, O
 	
 	private static final int CONTEXT_CHILD = 1,CONTEXT_NONE = 2,CONTEXT_ALONE = 3,CONTEXT_ADULTS = 4;
 	
-	
-	private boolean debug = !true;
+	// GPS constants
+	private static long GPS_UPDATE_TIME_INTERVAL = 1000;
+	private static long GPS_UPDATE_DISTANCE_INTERVAL = 10;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,15 +94,14 @@ public class ObservationActivity extends Activity implements LocationListener, O
         btnOtherAdults.setOnClickListener(this);
         btnChild.setOnClickListener(this);
         
-        
         registerForContextMenu(btnNoSmoking);
         registerForContextMenu(btnNoOccupants);
         registerForContextMenu(btnOtherAdults);
         registerForContextMenu(btnChild);
         
-        DatabaseHelper db = new DatabaseHelper(this);
-        if(savedInstanceState != null){
-        	observationId = savedInstanceState.getLong("observationId",-1);
+        final DatabaseHelper db = new DatabaseHelper(this);
+        if(savedInstanceState != null) {
+        	observationId = savedInstanceState.getLong("observationId", -1);
         	
             if(observationId < 1){		    
     		    try{
@@ -111,8 +113,8 @@ public class ObservationActivity extends Activity implements LocationListener, O
     		    }		    
             }
             
-            if(savedInstanceState.getBoolean("showingGPSDialog",false)){
-            	gpsDialog = ProgressDialog.show(this, "",getString(R.string.gps_fix), true,true);
+            if (savedInstanceState.getBoolean("showingGPSDialog", false)) {
+            	gpsDialog = ProgressDialog.show(this, "", getString(R.string.gps_fix), true, true);
             	showingGPSDialog = true;
             }
             
@@ -130,13 +132,13 @@ public class ObservationActivity extends Activity implements LocationListener, O
 		    }
         }
     
-
-       	locManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
-        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        checkLastKnownLocation();
+       	locManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, GPS_UPDATE_TIME_INTERVAL, GPS_UPDATE_DISTANCE_INTERVAL, this);
         
         db.close();
         
-        clickSound = MediaPlayer.create(this,R.raw.click);
+        clickSound = MediaPlayer.create(this, R.raw.click);
     }
     
     @Override
@@ -157,30 +159,27 @@ public class ObservationActivity extends Activity implements LocationListener, O
     }
     
     
-    /* if started then possibly save data to the database
-     * incase of app being closed by the OS so that the
+    /**
+     * If started then possibly save data to the database
+     * in case of app being closed by the OS so that the
      * current observation can be restored
      */
     @Override
-    protected void onPause(){   	    	
+    protected void onPause() {   	    	
     	locManager.removeUpdates(this);
-    	
-    	try{
+    	try {
     		gpsDialog.dismiss();
-    	}catch(NullPointerException e){
-    		
+    	} catch (NullPointerException e) {
     	}
-    	
     	clickSound.release();
-    	
+    	locManager = null;
     	super.onPause();   	
-    	
     }
     
     @Override
     protected void onResume(){
-       	locManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
-        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+       	locManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, GPS_UPDATE_TIME_INTERVAL, GPS_UPDATE_DISTANCE_INTERVAL, this);
         super.onResume();
     }
     
@@ -195,13 +194,25 @@ public class ObservationActivity extends Activity implements LocationListener, O
         }
     }
     
+    private void checkLastKnownLocation() {
+    	final DatabaseHelper db = new DatabaseHelper(this);
+    	// Get the location manager
+    	final LocationManager locManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+		Criteria criteria = new Criteria();
+		criteria.setAccuracy(Criteria.ACCURACY_FINE);
+		final String bestProvider = locManager.getBestProvider(criteria, false);
+		final Location location = locManager.getLastKnownLocation(bestProvider);
+		db.saveGPSLocation(observationId, location);
+		db.close();
+    }
+    
     private void quitPressed() {
+    	locManager.removeUpdates(this);
     	//check to see if the user has actually counted anything
     	DatabaseHelper db = new DatabaseHelper(this);
-    	if(db.hasCounted(observationId)){
-    		
+    	if(db.hasCounted(observationId)) {
     		//check if gps position has been found
-    		if(db.hasGPS(observationId)){
+    		if(db.hasGPS(observationId)) {
     			// ask if finished
     			onCreateDialog(CONFIRM_DIALOG);    			
     		} else {
@@ -217,24 +228,8 @@ public class ObservationActivity extends Activity implements LocationListener, O
     	}
     }
     
-    /* 
-     * Saves the given GPS Location to the current observation
-     */
-	private void finishGPS(Location loc) {
-		locManager.removeUpdates(this);
-		DatabaseHelper db = new DatabaseHelper(this);
-		db.saveGPSLocation(observationId,loc);
-		db.close();
-		
-		if(showingGPSDialog){
-			//user must have selected finish button without a fix,
-			//remove dialog and confirm finish observation
-			gpsDialog.dismiss();
-			onCreateDialog(CONFIRM_DIALOG);
-		}
-	}
     
-	private void finishObservation(){
+	private void finishObservation() {
 		//save finish time
 		DatabaseHelper db = new DatabaseHelper(this);
 		db.setFinishTime(observationId);
@@ -243,13 +238,18 @@ public class ObservationActivity extends Activity implements LocationListener, O
 	}
 	
 	@Override
-	public void onLocationChanged(Location arg0) {
-		if(arg0.hasAccuracy() || debug){
-			if((arg0.getAccuracy() <= 10 && arg0.getAccuracy() > 0) || debug){
-				finishGPS(arg0);
-			}
-		}
+	public void onLocationChanged(Location loc) {
+		locManager.removeUpdates(this);
+		DatabaseHelper db = new DatabaseHelper(this);
+		db.saveGPSLocation(observationId, loc);
+		db.close();
 		
+		if (showingGPSDialog) {
+			//user must have selected finish button without a fix,
+			//remove dialog and confirm finish observation
+			gpsDialog.dismiss();
+			showDialog(CONFIRM_DIALOG);
+		}
 	}
 
 	@Override
