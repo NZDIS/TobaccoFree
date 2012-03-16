@@ -123,12 +123,14 @@ def sort_observers_for_hall_of_fame(list):
     observation_scale = 1
     duration_scale = 600000
     cars_scale = 80
+    result = []
     for o in list:
         o.ranking = o.num_of_observations / observation_scale + \
                     o.duration / duration_scale + \
                     o.num_of_cars / cars_scale
+        result.append(o)
     # now we just sort the list according to the ranking
-    return sorted(list, key=lambda x: x.ranking, reverse=True)
+    return sorted(result, key=lambda x: x.ranking, reverse=True)
 
 def hall_of_fame(request):
     obs = RegisteredObserver.objects
