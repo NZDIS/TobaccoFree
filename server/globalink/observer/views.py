@@ -120,9 +120,9 @@ def sort_observers_for_hall_of_fame(list):
     each 10min (600k millis) of observing is worth 1 point (scaling factor 600 000)
     '''
     # lets calculate the ranking 
-    observation_scale = 1
-    duration_scale = 600000
-    cars_scale = 80
+    observation_scale = 1.0
+    duration_scale = 600000.0
+    cars_scale = 80.0
     result = []
     for o in list:
         o.ranking = o.num_of_observations / observation_scale + \
