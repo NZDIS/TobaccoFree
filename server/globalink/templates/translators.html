@@ -1,0 +1,102 @@
+{% extends "base.html" %} 
+
+
+
+{% block topbar %}
+<div class="topbar">
+
+	<div class="topbar-inner">
+		<div class="container-fluid">
+			<a class="brand" href="/"><img align="top" src="{{ STATIC_URL }}images/logo.png" height="20" width="20"/>&nbsp;&nbsp;
+			Tobacco Free</a>
+			<ul class="nav">
+	            <li><a href="/#home">{{ _("Home") }}</a></li>
+            </ul>	
+		</div>
+	</div>
+</div>
+{% endblock %} 
+
+
+{% block hero_content %}
+{% endblock %} 
+
+
+{% block content %}
+
+<div class="row">
+	<div class="span14">
+		<hr>
+		<h2>{{ _("Translators") }} <small>{{ _("People who made the website accessible in other countries") }}</small></h2>
+		<ul>
+			<li><p>Nanyan Guo, {{ _("Japanese")}} <small>Nichibunken Research Center, Kyoto, Japan</small></p></li>
+			<li><p>Julian Muenster, {{ _("German")}} <small>University of Otago, Dunedin, New Zealand</small></p></li>
+			<li><p>Mariusz Nowostawski, {{ _("Polish")}} <small>University of Otago, Dunedin, New Zealand</small></p></li>
+			<li><p>Marcos de Oliveira, {{ _("Brazilian Portuguese")}} <small>Federal University of Ceara, Fortaleze, Brazil</small></p></li>
+		</ul>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="span14">
+		<hr>
+		<h2>{{ _("Existing translations") }} <small> {{ _("Help us to fix the problems") }}</h2>
+		<p>{{ _("You can help by correcting existing translations.") }}
+		{{ _("To do that, grab one of the existing translation files and make the necessary changes.") }}</p>
+		<p>{{ _("After you correct the file simply send the file to: ")}} info_at_nzdis.org</p> 
+		<p>{{ _("We will take care of the rest.") }}
+		{{ _("Remember to put your name and affiliation in the file. We will use it to give you credits.") }}</p>
+		
+		<ul>
+			<li><a href="https://raw.github.com/marni/NZDIS-TobaccoFree/master/server/globalink/conf/locale/de/LC_MESSAGES/django.po">{{ _("German")}}</a></li>
+			<li><a href="https://raw.github.com/marni/NZDIS-TobaccoFree/master/server/globalink/conf/locale/jp/LC_MESSAGES/django.po">{{ _("Japanese")}}</a></li>
+			<li><a href="https://raw.github.com/marni/NZDIS-TobaccoFree/master/server/globalink/conf/locale/pl/LC_MESSAGES/django.po">{{ _("Polish")}}</a></li>
+			<li><a href="https://raw.github.com/marni/NZDIS-TobaccoFree/master/server/globalink/conf/locale/pt/LC_MESSAGES/django.po">{{ _("Portuguese")}}</a></li>
+			<li><a href="https://raw.github.com/marni/NZDIS-TobaccoFree/master/server/globalink/conf/locale/pt_BR/LC_MESSAGES/django.po">{{ _("Brazilian Portuguese")}}</a></li>	
+		</ul>
+		
+		<h2>{{_("Thank you") }}</h2>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="span14">
+		<hr>
+		<h2>{{ _("New translations needed") }} <small>{{ _("Help us to spread the news") }}</small></h2>
+		<p>{{ _("Please help us by making new translations. It is easy. But you need to know English.") }}<br>
+		{{ _("To make a translation, you need to download") }} 
+		<big><a href="https://github.com/marni/NZDIS-TobaccoFree/blob/master/server/globalink/conf/locale/en/LC_MESSAGES/django.po">{{ _("this file")}}</a></big>
+		{{ _("and translate all English phrases into your language.") }}<br>
+		{{ _("For example, the file contains a fragment:") }} 
+		<pre>msgid "You email/Username. Cannot be changed."
+msgstr ""</pre> 
+		{{ _("Your task is to fill in that empty space that would be the phrase in your language that translates the identifier above.") }}
+		<pre>msgid "You email/Username. Cannot be changed."
+msgstr "here comes translation of the above text"</pre>
+		{{ _("If the translation is longer than a single line, for example") }}
+		<pre>#: templates/base.html:378
+msgid ""
+"To collect data from multiple sites, globally, many times a day, over and "
+"over again, would be expensive. "
+msgstr ""	
+		</pre>
+		{{ _("You simply fill in and follow the same pattern, or you can translate both lines into a single line.") }} 
+		<pre>msgid ""
+"To collect data from multiple sites, globally, many times a day, over and "
+"over again, would be expensive. "
+msgstr ""	
+"translation of the first line comes here "
+"translation of the second line comes here "</pre></p>
+		<p>{{ _("After you translate all the phrases, simply send the file to: ")}} info_at_nzdis.org</p> 
+		<p>{{ _("We will take care of the rest.") }}
+		{{ _("Remember to put your name and affiliation in the file. We will use it to give you credits.") }}</p>
+		
+		<h2>{{_("Thank you") }}</h2>
+	</div>
+</div>
+
+
+
+{% endblock %}

@@ -238,7 +238,6 @@ def do_list(request):
                                          'observations': obs_conv},
                                         context_instance=RequestContext(request))
     
-    
 
 def all_latlng(request):
     '''
@@ -247,3 +246,16 @@ def all_latlng(request):
     obs = Observation.objects
     return HttpResponse(json.dumps(obs, cls=ObservationJSONEncoder), mimetype='application/json')
 
+
+
+def translators(request):
+    return render_to_response('translators.html',
+                                       context_instance=RequestContext(request))
+
+def contributors(request):
+    return render_to_response('contributors.html',
+                                       context_instance=RequestContext(request))
+    
+def api_info(request):
+    return render_to_response('api_info.html',
+                                       context_instance=RequestContext(request))

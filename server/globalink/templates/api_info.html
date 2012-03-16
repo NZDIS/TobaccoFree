@@ -1,0 +1,95 @@
+{% extends "base.html" %} 
+
+
+
+{% block topbar %}
+<div class="topbar">
+
+	<div class="topbar-inner">
+		<div class="container-fluid">
+			<a class="brand" href="/"><img align="top" src="{{ STATIC_URL }}images/logo.png" height="20" width="20"/>&nbsp;&nbsp;
+			Tobacco Free</a>
+			<ul class="nav">
+	            <li><a href="/#home">{{ _("Home") }}</a></li>
+            </ul>	
+		</div>
+	</div>
+</div>
+{% endblock %} 
+
+
+{% block hero_content %}
+
+{% endblock %} 
+
+
+{% block content %}
+
+<div class="row">
+	<div class="span13">
+		<hr>
+		<h1>
+			{{ _("Web Data API") }} <small> {{ _("Making the access to the data free and easy") }}</small>
+		</h1>
+		<p>{{ _("If you are developer and can access and process json, xml or yaml, this is for you.") }}</p>
+		<p>
+    		TobaccoFree {{ _("provides RESTful API for third party tools and services.") }}
+    		{{ _("Try it out. Let us know what you use it for and if it works well for you.") }}</p>
+    		
+    	<h2>{{ _("Serialization")}}</h2>
+    		<p>{{ _("YAML, JSON and XML serializers are available.") }}
+    		{{ _("For example") }} {{ _("to use YAML attach '?format=yaml' to your URL request.") }}
+    		{{ _("Similarily for json and xml") }}.</p>
+    	
+    	<h2>{{ _("Schema") }}</h2>
+    	<p>{{ _("The resources schema for") }} <b>API version 1</b> {{ _("is available at the following URL:") }}</p>
+    	<pre>
+http://tobaccofree.nzdis.org/api/v1/?format=json</pre>
+
+		<h2>{{ _("Observations") }}</h2>
+		
+		<p>{{_("To get the list of all observations")}} {{_("use")}}:
+			<pre>http://tobaccofree.nzdis.org/api/v1/observation/?format=json</pre>
+			{{_("To get a single record of a given observation")}} {{_("use")}}:
+			<pre>http://tobaccofree.nzdis.org/api/v1/observation/observation_ID/?format=json</pre>
+		</p>
+		<p> {{ _("Observation fields") }}:
+			<ul>
+				<li>start: {{ _("observation start timestamp") }}</li>
+				<li>finish: {{ _("observation finish timestamp") }}</li>
+				<li>duration: {{ _("observation duration in milliseconds") }}</li>
+				<li>no_smoking: {{ _("number of vehicles with no smoking")}}</li>
+				<li>lone_adult: {{ _("number of vehicles with driver smoking alone")}}</li>
+				<li>other_adults: {{ _("number of vehicles with no smoking in a presence of other occupants")}}</li>
+				<li>child: {{ _("number of vehicles with smoking in a presence of children")}}</li>
+				<li>city: {{ _("city of the observation")}}</li>
+				<li>country: {{ _("country of the observation")}}</li>
+				<li>latitude: {{ _("latitude of the observation")}}</li>
+				<li>longitude: {{ _("longitude of the observation")}}</li>
+			</ul>
+		</p>
+		
+		<h2>{{ _("Filtering") }}</h2>
+		<p>{{ _("You can use one of many available filters in the URL")}}.  
+			{{ _("For example, to filter data for a given country, or city")}}.</p>
+		<p>{{ _("Available text filters:")}}
+			<ul>
+				<li>exact (just use the: field=value), eg. city=Dunedin</li>
+				<li>startswith (use the format: field__startswith=value), eg. city__startswith=Dun</li>
+				<li>endswith (use the format: field__endswith=value)</li>
+				<li>contains (use the format: field__contains=value)</li>
+			</ul>
+		</p>
+		<p>{{ _("Available number filters:")}}
+			<ul>
+				<li>exact (just use the: field=value), eg. no_smoking=30</li>
+				<li>greater than (use the format: field__gt=value), eg. no_smoking__gt=50</li>
+				<li>greater or equals than (use the format: field__gte=value), eg. no_smoking__gte=50</li>
+				<li>less than (use the format: field__lt=value)</li>
+				<li>less or equals than (use the format: field__lte=value)</li>
+			</ul>
+		</p>
+	</div>
+</div>
+
+{% endblock %}

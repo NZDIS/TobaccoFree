@@ -10,6 +10,7 @@
 		6F01FFDA150D53B10057A162 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6F01FFD9150D53B10057A162 /* click.wav */; };
 		6F01FFDC150D546D0057A162 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F01FFDB150D546D0057A162 /* AudioToolbox.framework */; };
 		6F01FFDF150D66360057A162 /* ObservationsDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F01FFDE150D66360057A162 /* ObservationsDataCell.m */; };
+		6F099AA915130B1A003ABA44 /* icon_main_72.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F099AA815130B1A003ABA44 /* icon_main_72.png */; };
 		6F5FB859150ED68C00275F7E /* nosmoking_black.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5FB858150ED68C00275F7E /* nosmoking_black.png */; };
 		6F5FB85E150EE21000275F7E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5FB85D150EE21000275F7E /* SystemConfiguration.framework */; };
 		6F67E83814FDF3AE004D5DE5 /* child.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E82F14FDF3AE004D5DE5 /* child.png */; };
@@ -26,7 +27,6 @@
 		6F67E85814FE2204004D5DE5 /* tab_icon_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E85514FE2204004D5DE5 /* tab_icon_home.png */; };
 		6F67E85914FE2204004D5DE5 /* tab_icon_user.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E85614FE2204004D5DE5 /* tab_icon_user.png */; };
 		6F67E85B14FE26A9004D5DE5 /* otago_horizontal.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6F67E85A14FE26A9004D5DE5 /* otago_horizontal.jpg */; };
-		6F89B412150F692B00D44911 /* icon_main_72.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F89B411150F692B00D44911 /* icon_main_72.png */; };
 		6F8F17531502C25700DD9BAC /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F8F17521502C25700DD9BAC /* Constants.m */; };
 		6F91A6FB14F76EE800B5477D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F91A6FA14F76EE800B5477D /* UIKit.framework */; };
 		6F91A6FD14F76EE800B5477D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F91A6FC14F76EE800B5477D /* Foundation.framework */; };
@@ -56,6 +56,7 @@
 		6F01FFDB150D546D0057A162 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		6F01FFDD150D66360057A162 /* ObservationsDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObservationsDataCell.h; sourceTree = "<group>"; };
 		6F01FFDE150D66360057A162 /* ObservationsDataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObservationsDataCell.m; sourceTree = "<group>"; };
+		6F099AA815130B1A003ABA44 /* icon_main_72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_main_72.png; path = TobaccoFree/icon_main_72.png; sourceTree = "<group>"; };
 		6F5FB858150ED68C00275F7E /* nosmoking_black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nosmoking_black.png; path = TobaccoFree/nosmoking_black.png; sourceTree = "<group>"; };
 		6F5FB85D150EE21000275F7E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6F67E82F14FDF3AE004D5DE5 /* child.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = child.png; path = TobaccoFree/child.png; sourceTree = "<group>"; };
@@ -72,7 +73,6 @@
 		6F67E85514FE2204004D5DE5 /* tab_icon_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tab_icon_home.png; path = TobaccoFree/tab_icon_home.png; sourceTree = "<group>"; };
 		6F67E85614FE2204004D5DE5 /* tab_icon_user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tab_icon_user.png; path = TobaccoFree/tab_icon_user.png; sourceTree = "<group>"; };
 		6F67E85A14FE26A9004D5DE5 /* otago_horizontal.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = otago_horizontal.jpg; path = TobaccoFree/otago_horizontal.jpg; sourceTree = "<group>"; };
-		6F89B411150F692B00D44911 /* icon_main_72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_main_72.png; sourceTree = "<group>"; };
 		6F8F17511502C25600DD9BAC /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		6F8F17521502C25700DD9BAC /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		6F91A6F614F76EE800B5477D /* TobaccoFree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TobaccoFree.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -140,7 +140,7 @@
 			children = (
 				6F5FB858150ED68C00275F7E /* nosmoking_black.png */,
 				6FD658EC15041E4F00008D13 /* icon_main_57.png */,
-				6F89B411150F692B00D44911 /* icon_main_72.png */,
+				6F099AA815130B1A003ABA44 /* icon_main_72.png */,
 				6FD658ED15041E4F00008D13 /* icon_main_114.png */,
 				6F67E85A14FE26A9004D5DE5 /* otago_horizontal.jpg */,
 				6F67E85414FE2204004D5DE5 /* tab_icon_data.png */,
@@ -308,7 +308,7 @@
 				6FD658F215041E4F00008D13 /* icon_main_114.png in Resources */,
 				6F01FFDA150D53B10057A162 /* click.wav in Resources */,
 				6F5FB859150ED68C00275F7E /* nosmoking_black.png in Resources */,
-				6F89B412150F692B00D44911 /* icon_main_72.png in Resources */,
+				6F099AA915130B1A003ABA44 /* icon_main_72.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

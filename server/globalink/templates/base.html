@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
     "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
@@ -133,6 +134,10 @@
 	</div>
     {% endif %}	
 
+	<script type="text/javascript">
+		$(".alert-message").alert()
+	</script>
+
       <div class="topbar-inner">
         <div class="container-fluid">
           <a class="brand" href="/">
@@ -188,15 +193,17 @@
           	</li>                                                                      
 		  </ul>                                                                          
 		{% else %}
-		  </ul>
-    		<form action="/observer/login" method="POST" class="pull-right">
-			{% csrf_token %}
-            <input class="input-small" id="email" name="email" type="text" placeholder="{{ _('E-mail') }}">
-            <input class="input-small" id="password" name="password" type="password" placeholder="{{ _('Password') }}">
-            <button class="btn" type="submit">{{ _("Sign in") }}</button>
-          </form>
+		</ul>
           <ul class="nav secondary-nav pull-right">
-  	        <li class="menu" data-dropdown="dropdown">
+          	<li>
+    		<form action="/observer/login" method="POST" class="pull-right">
+				{% csrf_token %}
+        	    <input class="input-small" id="email" name="email" type="text" placeholder="{{ _('E-mail') }}">
+            	<input class="input-small" id="password" name="password" type="password" placeholder="{{ _('Password') }}">
+            	<button class="btn" type="submit">{{ _("Sign in") }}</button>
+	          </form>
+          	</li>
+  	        <li class="menu pull-right" data-dropdown="dropdown">
           		<a href="#" class="menu">
           			<img style="position:absolute; top:5px;" src="{{ STATIC_URL }}images/lang_world.png" height="28" width="28"/>
           		</a>
@@ -235,19 +242,25 @@
 <!-- Main hero unit for a primary marketing message and call to action -->
 {% block hero %}	
           <div class="row">
-          	<div class="span13">
+           	<div class="span11">
           	   <h1>Tobacco Free <small> {{ _("counting smoking in cars") }}</small> </h1>
-
-			   {% block hero_content %}
-               {% if not user.is_authenticated %}          	   
+			</div>
+            {% block hero_content %}
+            {% if not user.is_authenticated %}
+            <div class="span4">
+            	<div>
+	      		<a href="http://play.google.com/store/apps/details?id=nzdis.tobaccofree" class="pull-right">
+	      		<img alt="Android app on Galaxy Nexus" width="200" height="370" src="{{ STATIC_URL }}images/galaxy_home_screen.png" />
+	      		<img alt="Android app on Google Play" src="http://www.android.com/images/brand/android_app_on_play_logo_large.png" /></a>
+				<!-- <img align="top" src="http://chart.apis.google.com/chart?cht=qr&chs=200x200&chld=L&choe=UTF-8&chl=https%3A%2F%2Fmarket.android.com%2Fdetails%3Fid%3Dnzdis.tobaccofree"/> -->
+				</div>     		
+            </div>
+            
+          	<div class="span7">          	   
           	   <p>
           	   <a href="https://market.android.com/details?id=nzdis.tobaccofree">
                   <img height="160" width="284" src="{{STATIC_URL}}images/screen5.png"/>
                </a>
-               
-				<a href="https://market.android.com/details?id=nzdis.tobaccofree" class="pull-right">
-       			<img align="top" src="http://chart.apis.google.com/chart?cht=qr&chs=300x300&chld=L&choe=UTF-8&chl=https%3A%2F%2Fmarket.android.com%2Fdetails%3Fid%3Dnzdis.tobaccofree"/></a>	      		
-               
                </p>
           	                                           
                <ul>                                                                                                
@@ -262,10 +275,19 @@
                		<big>{{ _("Register") }}</big> {{ _("to participate") }} &raquo;</a>&nbsp;&nbsp;                                                                                        
  			   <a href="#about" class="btn primary large">{{ _("Learn more") }} &raquo;</a>                                         
                </p>
-
-	      	   {% endif %}
-               {% endblock %}
           	</div>
+	      
+	        <div class="span3">
+	        	<br>
+	        	<div>
+	      		<a href="http://itunes.apple.com/us/app/tobaccofree/id510309016"" class="pull-right">
+	      		<img alt="iPhone app " width="180" height="340" src="{{ STATIC_URL }}images/iphone_home_screen.png" />
+  				<img alt="iPhone app on iTunes" src="{{ STATIC_URL }}images/apple_appstore_icon.png" />
+				</a>
+				</div>	      		
+            </div>
+            {% endif %}
+            {% endblock %}
 	      </div>
 {% endblock %}
 
@@ -373,18 +395,21 @@
     <a id="about"></a>&nbsp;
 	<hr>
     <div class="row">    
-       <div class="span8">
+       <div class="span11">
        <h2>{{ _("About") }}</h2>
        <p>{{ _("To collect data from multiple sites, globally, many times a day, over and over again, would be expensive. ") }}
           {{ _("So expensive, that study like that is impossible to run through traditional methods.") }}<br>
 	   <p>{{ _("The idea is to ask volunteers to help.") }} <big>{{ _("YOU") }}</big>
 	   	 {{ _("will help to conduct the study and do the research.") }}</p>
           <ul>
-	      <li>{{ _("Anyone can participate") }}</li>
 	      <li><a href="/observer/register">{{ _("Register") }}</a></li>
-	      <li><a href="https://market.android.com/details?id=nzdis.tobaccofree">Download and install</a> NZDIS TobaccoFree Android application</li>
+	      <li>{{ _("Download and install")}} <a href="https://market.android.com/details?id=nzdis.tobaccofree">Android</a> 
+	      		{{ _("or") }} <a href="http://itunes.apple.com/us/app/tobaccofree/id510309016">iPhone</a> NZDIS TobaccoFree application</li> 
+	      
 	      <li>{{ _("Agree to") }} &raquo; {{ _("Ethical Conduct and Honour Code") }} &laquo;</big></li>
 	      <li>{{ _("Go outside, stand by a busy street, and start logging the data") }}</li>
+	      <li>{{ _("Anyone can participate") }}</li>
+	      <li>{{ _("Anyone can use") }} <a href="/api">{{ _("the data collected by volunteers") }}.</a></li>
 	    </ul>
 	    <p>{{ _("The application allows easy logging of occurances of smoking in cars.") }}
 	       {{ _("Install it, go out, and collect data about particular location. Instructions are provided within the application.") }}</p>
@@ -425,16 +450,45 @@
 		<p></p>
 		<h2>{{ _("Research articles") }}</h2>
 		<ul>
-			<li><a href="http://www.ncbi.nlm.nih.gov/pubmed/16998177">Observed smoking in cars: a method and differences by socioeconomic area</a> Tob Control. 2006 Oct;15(5):409-11</li>
+			<li><a href="http://www.ncbi.nlm.nih.gov/pubmed/20696742">A qualitative case study of policy maker views about the protection of children from smoking in cars</a> Nicotine Tob Res. 2010 Sep;12(9):970-7. Epub 2010 Aug 9</li>
 			<li><a href="http://www.ncbi.nlm.nih.gov/pubmed/19052041">Public attitudes to laws for smoke-free private vehicles: a brief review</a> Tob Control. 2009 Aug;18(4):256-61. Epub 2008 Dec 3</li>
-			<li><a href="http://www.ncbi.nlm.nih.gov/pubmed/20696742">A qualitative case study of policy maker views about the protection of children from smoking in cars</a>Nicotine Tob Res. 2010 Sep;12(9):970-7. Epub 2010 Aug 9</li>
+			<li><a href="http://www.ncbi.nlm.nih.gov/pubmed/16998177">Observed smoking in cars: a method and differences by socioeconomic area</a> Tob Control. 2006 Oct;15(5):409-11</li>
 		</ul>
 		</div>
 	</div>
 	
-	<script type="text/javascript">
-		$(".alert-message").alert()
-	</script>
+	<hr>
+	<div class="row">
+		<div class="span11">
+		<p></p>
+		<h2>{{ _("Development and contribution") }}</h2>
+		<p>
+		<ul>
+			<li><big><a href="/api">{{ _("Data API")}}</a></big><p>
+			{{ _("Data collected by volunteers is free and we make it easily accessible to researchers and students.")}}
+			{{ _("We have designed a set of web APIs through which the data records can be accessed.") }}
+			{{ _("The data is provided through json, xml or yaml. Make use of it.")}}
+			{{ _("Please give us feedback and let us know if you have a good way to process or visualise the data.")}}
+			{{ _("Thank you.")}}
+			</p></li>
+
+			<li><big><a href="/translators">{{ _("Translations")}}</a></big><p>
+			{{ _("The system will have impact in your country only when people who do not speak English will be able to view the data.")}}
+			{{ _("If you know English and you know another language, please help in translating the website.") }}
+			{{ _("Thank you.")}}
+			</p></li>
+			
+			<li><a href="/contributors">{{ _("Project contributors")}}</a><p>
+			{{ _("Many people have helped in making this system possible.")}}
+			{{ _("They provided help through testing, feedback, research, data collection.") }}
+			{{ _("All the work and efforts are appreciated.")}}
+			{{ _("Thank you.")}}
+			</p></li>			
+		</ul>
+			
+		</p>
+		</div>
+	</div>
 	
 	<hr>
 	<a id="feedback"></a>
@@ -466,7 +520,9 @@
 
 {% block footer %}   
         <footer>
+        <center>
           <p>&copy; 2011-2012 <a href="http://nzdis.org">NZDIS Group</a> and <a href="http://otago.ac.nz">University of Otago</a></p>
+        </center>
         </footer>
 {% endblock %}
         

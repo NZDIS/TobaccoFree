@@ -51,7 +51,7 @@
 		<h2>
 			{{ _("Confirm your registration") }} <small> {{ _("to start logging the observations") }}</small>
 		</h2>
-		<h3>Please copy and paste your activation key</h3>
+		<h3>{{ _("Please copy and paste your activation key") }}</h3>
 		<form action="/observer/confirm" method="POST">
 			{% csrf_token %} {{ form.non_field_errors }}
 			<fieldset>
