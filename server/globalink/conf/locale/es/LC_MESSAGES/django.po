@@ -91,7 +91,7 @@ msgstr "Nuevo password (al menos 6 caracteres)"
 #: templates/admin/observations_list.html:31
 #: templates/admin/observers_list.html:31 templates/observation/list.html:31
 #: templates/observer/hall_of_fame.html:11
-templates/observer/profile.html:31
+#: templates/observer/profile.html:31
 #: templates/observer/register.html:31
 #: templates/observer/register_confirm.html:33
 msgid "Home"
@@ -107,12 +107,9 @@ msgstr "Acceso a los datos gratuito y fácil "
 
 #: templates/api_info.html:34
 msgid ""
-"If you are developer and can access and process json, xml or yaml, this is
-"
-"for you."
-msgstr "Si eres un desarrollador y puedes acceder y procesar json, xml o
-yaml,"
-“esto es para ti.”
+"If you are developer and can access and process json, xml or yaml, this is for you."
+msgstr ""
+"Si eres un desarrollador y puedes acceder y procesar json, xml o yaml, esto es para ti."
 
 #: templates/api_info.html:36
 msgid "provides RESTful API for third party tools and services."
@@ -162,7 +159,7 @@ msgstr "está disponible en la URL siguiente"
 #: templates/admin/observers_list.html:39 templates/observation/list.html:39
 #: templates/observer/hall_of_fame.html:21
 #: templates/observer/hall_of_fame.html:103
-templates/observer/profile.html:39
+#: templates/observer/profile.html:39
 msgid "Observations"
 msgstr "Observaciones"
 
@@ -270,7 +267,7 @@ msgstr "Personas"
 #: templates/admin/observations_list.html:32
 #: templates/admin/observers_list.html:32 templates/observation/list.html:32
 #: templates/observer/hall_of_fame.html:14
-templates/observer/profile.html:32
+#: templates/observer/profile.html:32
 msgid "My Observations"
 msgstr "Mis Observaciones"
 
@@ -278,7 +275,7 @@ msgstr "Mis Observaciones"
 #: templates/admin/observations_list.html:35
 #: templates/admin/observers_list.html:35 templates/observation/list.html:35
 #: templates/observer/hall_of_fame.html:17
-templates/observer/profile.html:35
+#: templates/observer/profile.html:35
 msgid "Admin"
 msgstr "Admin"
 
@@ -286,7 +283,7 @@ msgstr "Admin"
 #: templates/admin/observations_list.html:37
 #: templates/admin/observers_list.html:37 templates/observation/list.html:37
 #: templates/observer/hall_of_fame.html:19
-templates/observer/profile.html:37
+#: templates/observer/profile.html:37
 msgid "Users"
 msgstr "Usuarios"
 
@@ -294,7 +291,7 @@ msgstr "Usuarios"
 #: templates/admin/observations_list.html:48
 #: templates/admin/observers_list.html:48 templates/observation/list.html:49
 #: templates/observer/hall_of_fame.html:32
-templates/observer/profile.html:49
+#: templates/observer/profile.html:49
 msgid "My Profile"
 msgstr "My Perfil"
 
@@ -302,7 +299,7 @@ msgstr "My Perfil"
 #: templates/admin/observations_list.html:50
 #: templates/admin/observers_list.html:50 templates/observation/list.html:51
 #: templates/observer/hall_of_fame.html:34
-templates/observer/profile.html:51
+#: templates/observer/profile.html:51
 msgid "Logout"
 msgstr "Salir"
 
@@ -437,16 +434,14 @@ msgid ""
 "To collect data from multiple sites, globally, many times a day, over and "
 "over again, would be expensive. "
 msgstr ""
-"Para recoger datos desde múltiples sitios, globalmente, varias veces al
-día,"
-"una vez y otra, sería muy caro"
+"Para recoger datos desde múltiples sitios, globalmente, varias veces al día, "
+"una vez y otra, sería muy caro. "
 
 #: templates/base.html:401
 msgid ""
-"So expensive, that study like that is impossible to run through traditional
-"
+"So expensive, that study like that is impossible to run through traditional "
 "methods."
-msgstr "Tan caro, que un estudio como este es imposible de realizar"
+msgstr "Tan caro, que un estudio como este es imposible de realizar "
 "mediante un método tradicional."
 
 #: templates/base.html:402
@@ -479,8 +474,7 @@ msgstr "Conducta ética y código de honor"
 
 #: templates/base.html:410
 msgid "Go outside, stand by a busy street, and start logging the data"
-msgstr "Ves a fuera, quédate en una calle ajetreada, y empieza a registrar
-los datos"
+msgstr "Ves a fuera, quédate en una calle ajetreada, y empieza a registrar los datos"
 
 #: templates/base.html:411
 msgid "Anyone can participate"
@@ -495,19 +489,15 @@ msgid "the data collected by volunteers"
 msgstr "los datos se recogen gracias a voluntarios"
 
 #: templates/base.html:414
-msgid "The application allows easy logging of occurances of smoking in
-cars."
-msgstr "La aplicación permite registrar fácilmente las eventos de fumadores
-en los coches"
+msgid "The application allows easy logging of occurances of smoking in cars."
+msgstr "La aplicación permite registrar fácilmente las eventos de fumadores en los coches"
 
 #: templates/base.html:415
 msgid ""
-"Install it, go out, and collect data about particular location.
-Instructions "
+"Install it, go out, and collect data about particular location. Instructions "
 "are provided within the application."
 msgstr ""
-"Instálalo, ves a fuera, y recoge los datos de un lugar concreto. Las
-instrucciones"
+"Instálalo, ves a fuera, y recoge los datos de un lugar concreto. Las instrucciones "
 "se proporcionan dentro de la aplicación."
 
 #: templates/base.html:427
@@ -539,8 +529,7 @@ msgid ""
 "We have designed a set of web APIs through which the data records can be "
 "accessed."
 msgstr ""
-"Hemos diseñado un conjunto de APIs a través de las cuales se pueden
-acceder"
+"Hemos diseñado un conjunto de APIs a través de las cuales se pueden acceder"
 " a los datos."
 
 #: templates/base.html:470
@@ -551,15 +540,15 @@ msgstr ""
 
 #: templates/base.html:471
 msgid ""
-"Please give us feedback and let us know if you have a good way to process
-or "
+"Please give us feedback and let us know if you have a good way to process or "
 "visualise the data."
 msgstr ""
 "Por favor, proporciona comentarios y haznos saber si puedes procesar o "
 "visualizar bien los datos."
 
-#: templates/base.html:472 templates/base.html.py:478
-templates/base.html:485
+#: templates/base.html:472 
+#: templates/base.html.py:478
+#: templates/base.html:485
 msgid "Thank you."
 msgstr "Gracias."
 
@@ -572,8 +561,7 @@ msgid ""
 "The system will have impact in your country only when people who do not "
 "speak English will be able to view the data."
 msgstr ""
-"El sistema tundra impacto en tu país cuando las personas que no hablan
-inglés"
+"El sistema tundra impacto en tu país cuando las personas que no hablan inglés"
 "puedan entender los datos."
 
 #: templates/base.html:477
@@ -596,7 +584,7 @@ msgstr "Muchas personas han hecho posible este sistema."
 msgid ""
 "They provided help through testing, feedback, research, data collection."
 msgstr ""
-"Han proporcionado su ayuda a través de tests, comentarios, investigación," 
+"Han proporcionado su ayuda a través de tests, comentarios, investigación, " 
 "recogida de datos"
 
 #: templates/base.html:484
@@ -709,12 +697,10 @@ msgstr "Ayúdanos a expandir la noticia"
 
 #: templates/translators.html:68
 msgid ""
-"Please help us by making new translations. It is easy. But you need to know
-"
+"Please help us by making new translations. It is easy. But you need to know "
 "English."
 msgstr ""
-"Por favor, ayúdanos a realizar nuevas traducciones. Es fácil. Pero
-necesitas saber "
+"Por favor, ayúdanos a realizar nuevas traducciones. Es fácil. Pero necesitas saber "
 "inglés."
 
 #: templates/translators.html:69
@@ -738,8 +724,7 @@ msgid ""
 "Your task is to fill in that empty space that would be the phrase in your "
 "language that translates the identifier above."
 msgstr ""
-"Tu tarea consiste en rellenar el espacio en blanco con la frase en tu
-idioma"
+"Tu tarea consiste en rellenar el espacio en blanco con la frase en tu idioma"
 "que traduzca el identificador de arriba."
 
 #: templates/translators.html:78
