@@ -56,6 +56,7 @@ TIME_ZONE = 'Pacific/Auckland'
 LANGUAGE_CODE = 'en_NZ'
 LANGUAGES = (
     ('en', 'English'),
+    ('es', 'Español'),
     ('pl', 'Polski'),
     ('pt', 'Português'),
     ('pt_BR', 'Português Brasileiro'),
