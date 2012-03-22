@@ -14,8 +14,8 @@
             android:id="@+id/linearLayout5"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_marginRight="30dp"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
             android:gravity="center"
             android:orientation="vertical" >
 
@@ -33,7 +33,8 @@
                 android:layout_margin="5dp"
                 android:gravity="center"
                 android:text="0"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="22dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -62,15 +63,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/line_shape_vertical_horizontal" />
-
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout3"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_toLeftOf="@id/linearLayout4"
             android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@id/linearLayout4"
             android:gravity="center"
             android:orientation="vertical" >
 
@@ -107,24 +107,24 @@
             android:layout_alignParentTop="true"
             android:orientation="vertical" >
 
-	        <Button
-	            android:id="@+id/btnHelp"
-	            android:layout_width="40dp"
-	            android:layout_height="40dp"
-	            android:layout_alignParentBottom="true"
-	            android:layout_alignParentLeft="true"
-	            android:background="@drawable/button_help_selector"
-	            android:text="" />
-	
-	        <Button
-	            android:id="@+id/btnFinish"
-	            android:layout_width="40dp"
-	            android:layout_height="40dp"
-	            android:layout_alignParentLeft="true"
-	            android:layout_alignParentTop="true"
-	            android:background="@drawable/button_finish_selector"
-	            android:enabled="true"
-	            android:text="" />
+            <Button
+                android:id="@+id/btnHelp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/button_help_selector"
+                android:text="" />
+
+            <Button
+                android:id="@+id/btnFinish"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/button_finish_selector"
+                android:enabled="true"
+                android:text="" />
         </RelativeLayout>
 
         <LinearLayout
@@ -143,7 +143,8 @@
                 android:layout_margin="5dp"
                 android:gravity="center"
                 android:text="0"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="22dp" />
 
             <TextView
                 android:id="@+id/tvMultipleAdultCount"
@@ -152,7 +153,8 @@
                 android:layout_margin="5dp"
                 android:gravity="center"
                 android:text="0"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="22dp" />
 
             <TextView
                 android:id="@+id/tvChildCount"
@@ -161,7 +163,8 @@
                 android:layout_margin="5dp"
                 android:gravity="center"
                 android:text="0"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="22dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -178,9 +181,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:src="@drawable/smokersand" />
-
         </LinearLayout>
-
     </RelativeLayout>
 
 </LinearLayout>

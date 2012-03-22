@@ -32,7 +32,9 @@
                 android:layout_margin="5dp"
                 android:gravity="center"
                 android:text="0"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="22dp" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -142,7 +144,8 @@
                 android:layout_margin="5dp"
                 android:gravity="center"
                 android:text="0"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="22dp" />
 
             <TextView
                 android:id="@+id/tvMultipleAdultCount"
@@ -151,7 +154,8 @@
                 android:layout_margin="5dp"
                 android:gravity="center"
                 android:text="0"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="22dp" />
 
             <TextView
                 android:id="@+id/tvChildCount"
@@ -160,7 +164,9 @@
                 android:layout_margin="5dp"
                 android:gravity="center"
                 android:text="0"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="22dp" />
+
         </LinearLayout>
 
         <LinearLayout
