@@ -253,6 +253,7 @@
 	      		<img alt="Android app on Galaxy Nexus" width="200" height="370" src="{{ STATIC_URL }}images/galaxy_home_screen.png" />
 	      		<img alt="Android app on Google Play" src="http://www.android.com/images/brand/android_app_on_play_logo_large.png" /></a>
 				<!-- <img align="top" src="http://chart.apis.google.com/chart?cht=qr&chs=200x200&chld=L&choe=UTF-8&chl=https%3A%2F%2Fmarket.android.com%2Fdetails%3Fid%3Dnzdis.tobaccofree"/> -->
+				<h1>{{ number_of_android_observations }}<small>{{ _("observations") }}</small></h1>
 				</div>     		
             </div>
             
@@ -284,6 +285,7 @@
 	      		<img alt="iPhone app " width="180" height="340" src="{{ STATIC_URL }}images/iphone_home_screen.png" />
   				<img alt="iPhone app on iTunes" src="{{ STATIC_URL }}images/apple_appstore_icon.png" />
 				</a>
+				<h1>{{ number_of_iphone_observations }}<small>{{ _("observations") }}</small></h1>
 				</div>	      		
             </div>
             {% endif %}
@@ -298,8 +300,9 @@
 	  <div class="span8">
 	    <h2>{{ _("Statistics") }} <small>{{ _("overall") }}</small></h2>
 	    <ul>
-	      <li><big>{{ number_of_registered_observers }}</big> {{ _("registered loggers") }}</li>
-      	  <li><big>{{ number_of_observations }}</big> {{ _("stored observations") }}</li>
+	      <li><big>{{ number_of_registered_observers }}</big> {{ _("registered loggers") }} (<big>{{ number_of_active_observers }}</big> {{ _("active")}}) </li>
+      	  <li><big>{{ number_of_observations }}</big> {{ _("stored observations") }} 
+      	  	({{ number_of_android_observations }} Android, {{ number_of_iphone_observations }} iPhone)</li> 
       	  <li><big>{{ number_of_cars }}</big> {{ _("cars checked") }}</li>
       	  <li><big>{{ ratio_of_smokers|floatformat }}%</big> {{ _("of people") }} <big>{{ _("smoke") }}</big> {{ _("in cars") }}</li>
 	    </ul>

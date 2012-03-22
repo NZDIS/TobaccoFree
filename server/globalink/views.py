@@ -63,7 +63,14 @@ def prepare_stats_per_city():
 def prepareStatistics():
     b = {}
     b['number_of_registered_observers'] = RegisteredObserver.objects.count()
-    b['number_of_observations'] = Observation.objects.count()
+    b['number_of_active_observers'] = len(Observation.objects().distinct("user"))
+    
+    number_of_observations = Observation.objects.count()
+    b['number_of_observations'] = number_of_observations
+    number_of_iphone_observations = Observation.objects(device_type__icontains='iphone').count()
+    b['number_of_iphone_observations'] = number_of_iphone_observations
+    b['number_of_android_observations'] = number_of_observations - number_of_iphone_observations
+    
     
     (total_cars, total_non_smokers) = get_cars_and_nonsmokers(Observation.objects)
     
