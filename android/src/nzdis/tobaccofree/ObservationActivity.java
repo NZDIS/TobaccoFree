@@ -202,8 +202,13 @@ public class ObservationActivity extends Activity implements LocationListener, O
 		criteria.setAccuracy(Criteria.ACCURACY_FINE);
 		final String bestProvider = locManager.getBestProvider(criteria, false);
 		final Location location = locManager.getLastKnownLocation(bestProvider);
-		db.saveGPSLocation(observationId, location);
-		db.close();
+		if(location == null){
+			return;
+		}else{
+			db.saveGPSLocation(observationId, location);
+			db.close();
+		}
+
     }
     
     private void quitPressed() {
