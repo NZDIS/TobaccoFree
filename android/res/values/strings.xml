@@ -107,4 +107,10 @@
    	<string name="instructions_upload">How to Upload</string>
    	<string name="upload_error">An error has occurred while uploading. If this continues please use the feedback button in the Preferences menu.</string>
 	<string name="right_hand">Right Handed Mode</string>
+	<string name="stats">Statistics</string>
+	<string name="update_stats">Update</string>
+	<string name="view_map">View Map</string>
+	<string name="street_view">Street View</string>
+	<string name="close">Close</string>
+	<string name="adult">Adult Smoker</string>
 </resources>

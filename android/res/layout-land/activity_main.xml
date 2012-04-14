@@ -25,7 +25,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_launcher" />
-
+    <TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="@string/app_version_string"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textSize="15sp"
+		android:textStyle="bold" />
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="fill_parent"
@@ -85,4 +91,15 @@
             android:typeface="monospace" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btnStats"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:layout_marginBottom="20dip"
+        android:background="@drawable/button_selector"
+        android:text="@string/stats"
+        android:textSize="19dip"
+        android:textStyle="bold"
+        android:typeface="monospace" />
 </LinearLayout>

@@ -18,7 +18,7 @@ import android.text.format.DateFormat;
 /**
  * Represents a single observation.
  * 
- * @author Hemish Medlin
+ * @author Hamish Medlin
  * @author Mariusz Nowostawski <mariusz@nowostawski.org>
  *
  * @version $Revision$ <br>

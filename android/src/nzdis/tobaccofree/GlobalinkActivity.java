@@ -56,7 +56,7 @@ import android.widget.Button;
 public class GlobalinkActivity extends Activity 
 	implements Constants, OnClickListener {
 	
-	private Button btnNew,btnExisting,btnPreferences,btnUpload;
+	private Button btnNew,btnExisting,btnPreferences,btnUpload,btnStats;
 
 	
 	private UsersDetails user;
@@ -87,11 +87,13 @@ public class GlobalinkActivity extends Activity
         btnExisting = (Button)findViewById(R.id.btnExisting);
         btnPreferences = (Button)findViewById(R.id.btnPreferences);
         btnUpload = (Button)findViewById(R.id.btnUpload);
+        btnStats = (Button)findViewById(R.id.btnStats);
         
         btnNew.setOnClickListener(this);
         btnExisting.setOnClickListener(this);
         btnPreferences.setOnClickListener(this);
         btnUpload.setOnClickListener(this);
+        btnStats.setOnClickListener(this);
         
 		final DatabaseHelper db = new DatabaseHelper(this);
 		try {
@@ -150,6 +152,12 @@ public class GlobalinkActivity extends Activity
 		
 		if (arg0 == btnUpload) {
 	        uploadData();
+	        return;
+		}
+		
+		if (arg0 == btnStats) {
+	        Intent i = new Intent(this, DownloadedObservationActivity.class);
+	        startActivity(i);
 	        return;
 		}
 	}

@@ -7,6 +7,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.OverlayItem;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -27,7 +30,7 @@ import android.util.Log;
 public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 
 	public static final String DATABASE_NAME = "globalink.sqlite";
-	public static final int DATABASE_VESRION = 2; 
+	public static final int DATABASE_VESRION = 3; 
 	
 	//observation table
 	public static final String TABLE_OBSERVATION = "observations";
@@ -49,6 +52,23 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 	public static final String TABLE_USER = "user";
 
 	
+	//database for downloaded observations to show on map
+	public static final String TABLE_DL_OBSERVATIONS = "download_obs";
+	public static final String DL_ID = "id";
+	public static final String DL_CHILDREN = "child";
+	public static final String DL_LONE_ADULT = "lone_adult";
+	public static final String DL_OTHER_ADULTS = "adult_other";
+	public static final String DL_NO_SMOKING = "no_smoking";
+	public static final String DL_CITY = "city";
+	public static final String DL_COUNTRY = "country";
+	public static final String DL_DURATION = "duration";
+	public static final String DL_START = "start";
+	public static final String DL_FINISH = "finish";
+	public static final String DL_LATITUDE = "latitude";
+	public static final String DL_LONGITUDE = "longitude";
+	public static final String DL_URI = "uri";
+	
+	
 	public DatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VESRION);
 	}
@@ -58,27 +78,39 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 		db.execSQL(CREATE_TABLE_Observation);
 		db.execSQL(CREATE_TABLE_Details);
 		db.execSQL(CREATE_TABLE_User);
+		db.execSQL(CREATE_TABLE_Download);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		if (oldVersion == 1 && newVersion == 2) {
+		
+		switch(oldVersion){
+		case 1:
 			//drop types table
 			db.execSQL("DROP TABLE IF EXISTS types"); //old types table, not used
 			//add upload column
 			db.execSQL("ALTER TABLE " + TABLE_OBSERVATION + " ADD " + OBSERVATION_UPLOADED + " INTEGER NOT NULL DEFAULT 0");
 			// create new table that wasn't here in version 1
 			db.execSQL(CREATE_TABLE_User);
-		} else { // for all other not covered version upgrades, re-start the DB from scratch
+			db.execSQL(CREATE_TABLE_Download);
+			break;
+		case 2:
+			//create new table for downloaded observations
+			db.execSQL(CREATE_TABLE_Download);
+			break;
+		default:
 			//drop types table
 			db.execSQL("DROP TABLE IF EXISTS types"); //old types table, not used
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_OBSERVATION);
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
 			db.execSQL("DROP TABLE IF EXISTS " + TABLE_DETAILS);
+			db.execSQL("DROP TABLE IF EXISTS " + TABLE_DL_OBSERVATIONS);
 			
 			db.execSQL(CREATE_TABLE_User);
 			db.execSQL(CREATE_TABLE_Observation);
 			db.execSQL(CREATE_TABLE_Details);
+			db.execSQL(CREATE_TABLE_Download);
+			break;
 		}
 	}
 
@@ -607,7 +639,171 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 	}
 	
 	
+	/**
+	 * Inserts a List of downloaded observations into the database. Removes existing
+	 * entries in the database first if the given list isn't empty 
+	 * existing downloaded observations
+	 */
+	public void insertDownloadedObservations(List<DownloadedObservation> obs) throws DatabaseException{
+		if(obs.isEmpty()){
+			return;
+		}		
+		final ContentValues cv = new ContentValues();
+		SQLiteDatabase db = getWritableDatabase();
+		db.delete(TABLE_DL_OBSERVATIONS, null, null);
+		for(DownloadedObservation dlOb : obs){
+			cv.clear();
+			cv.put(DL_LATITUDE,dlOb.getLatitude());
+			cv.put(DL_LONGITUDE,dlOb.getLongitude());
+			cv.put(DL_START,dlOb.getStart());			
+			cv.put(DL_FINISH,dlOb.getFinish());
+			cv.put(DL_CHILDREN,dlOb.getChild());
+			cv.put(DL_LONE_ADULT,dlOb.getAdult());
+			cv.put(DL_OTHER_ADULTS,dlOb.getAdults());
+			cv.put(DL_NO_SMOKING,dlOb.getNoSmokers());
+			cv.put(DL_DURATION, dlOb.getDuration());
+			cv.put(DL_CITY,dlOb.getCity());
+			cv.put(DL_COUNTRY,dlOb.getCountry());
+			cv.put(DL_URI,dlOb.getUri());
+			db.insert(TABLE_DL_OBSERVATIONS, null, cv);
+		}
+		db.close();
+	}
 	
+	/**
+	 * Retrieves all of the countries in the Download Observation table along
+	 * with a overview of their stats
+	 */
+	public ObservationStat[] getDownloadedCountryStats(){
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor curs = db.query(TABLE_DL_OBSERVATIONS, new String[]{DL_COUNTRY,"SUM(" + DL_LONE_ADULT + ")","SUM(" + DL_CHILDREN + ")","SUM(" + DL_OTHER_ADULTS + ")","SUM(" + DL_NO_SMOKING + ")"}, null, null, DL_COUNTRY, null, DL_COUNTRY);
+		ObservationStat[] result = new ObservationStat[curs.getCount()];
+				
+		int i = 0,cars = 0,smokers = 0;
+		double percentage = 0;
+		while(curs.moveToNext()){
+			cars += curs.getInt(1);
+			cars += curs.getInt(2);
+			cars += curs.getInt(3);
+			smokers = cars;
+			cars += curs.getInt(4);
+			
+			//percentage to 1dp
+			percentage = (int)((double)smokers/(double)cars * 1000);
+			percentage /= 10;
+			
+			result[i] = new ObservationStat(curs.getString(0),"Vehicles: " + cars + ", Smokers: " + smokers + " (" + percentage + "%)");
+			i++;
+			cars = 0;
+		}
+		curs.deactivate();
+		db.close();
+		return result;
+	}
+	
+	/**
+	 * Retrieves all of the cities in the Download Observation table along
+	 * with a overview of their stats for the given country
+	 */
+	public ObservationStat[] getDownloadedCityStatsForCountry(String country){
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor curs = db.query(TABLE_DL_OBSERVATIONS, new String[]{DL_CITY,"SUM(" + DL_LONE_ADULT + ")","SUM(" + DL_CHILDREN + ")","SUM(" + DL_OTHER_ADULTS + ")","SUM(" + DL_NO_SMOKING + ")"}, DL_COUNTRY + " = ?", new String[]{country}, DL_CITY, null, DL_CITY);
+		ObservationStat[] result = new ObservationStat[(curs.getCount() + 1)]; //for back to countries button
+		
+		//back to countries button
+		result[0] = new ObservationStat("Back to Countries","");
+		
+		int i = 1,cars = 0,smokers = 0;
+		double percentage = 0;
+		while(curs.moveToNext()){
+			cars += curs.getInt(1);
+			cars += curs.getInt(2);
+			cars += curs.getInt(3);
+			smokers = cars;
+			cars += curs.getInt(4);
+			
+			//percentage to 1dp
+			percentage = (int)((double)smokers/(double)cars * 1000);
+			percentage /= 10;
+			
+			result[i] = new ObservationStat(curs.getString(0),"Vehicles: " + cars + ", Smokers: " + smokers + " (" + percentage + "%)");
+			i++;
+			cars = 0;
+		}
+		curs.deactivate();
+		db.close();
+		return result;
+	}
+	
+	/**
+	 * Retrieves all of the observations as a list of OverlayItems so that they can be used
+	 * in GoogleMaps 
+	 */
+	public List<OverlayItem> getDownloadedCountryOverlays(){
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor curs = db.query(TABLE_DL_OBSERVATIONS, new String[]{DL_ID,DL_LATITUDE,DL_LONGITUDE}, null, null, null, null, DL_CITY);
+		List<OverlayItem> result = new ArrayList<OverlayItem>();
+		
+		GeoPoint point;
+		double lat,lng;
+		while(curs.moveToNext()){
+			lat = curs.getDouble(1);
+			lng = curs.getDouble(2);
+			point = new GeoPoint((int)(lat * 1e6),(int)(lng * 1e6));
+			result.add(new OverlayItem(point,curs.getString(0),""));
+		}
+		curs.deactivate();
+		db.close();
+		return result;
+	}
+	
+	/**
+	 * Retrieves all of the cities that observations have taken place as a list of 
+	 * OverlayItems so that they can be used in GoogleMaps 
+	 */
+	public List<OverlayItem> getDownloadedCityOverlays() {
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor curs = db.query(TABLE_DL_OBSERVATIONS, new String[]{DL_ID,DL_LATITUDE,DL_LONGITUDE}, null, null, DL_CITY, null, DL_CITY);
+		List<OverlayItem> result = new ArrayList<OverlayItem>();
+		
+		GeoPoint point;
+		double lat,lng;
+		while(curs.moveToNext()){
+			lat = curs.getDouble(1);
+			lng = curs.getDouble(2);
+			point = new GeoPoint((int)(lat * 1e6),(int)(lng * 1e6));
+			result.add(new OverlayItem(point,curs.getString(0),""));
+		}
+		curs.deactivate();
+		db.close();
+		return result;
+	}
+	
+	/**
+	 * Grab a downloaded observation from the database
+	 * @param id, the id of the observation in the database
+	 * @return the given observation
+	 */
+	public DownloadedObservation getDownloadedObservationFromId(String id) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor curs = db.query(TABLE_DL_OBSERVATIONS, null, DL_ID + " = ?", new String[]{id}, null, null, null);
+		DownloadedObservation result = new DownloadedObservation();
+		if(curs.getCount() == 1 && curs.moveToFirst()){
+			result.setAdult(curs.getInt(6));
+			result.setAdults(curs.getInt(7));
+			result.setChild(curs.getInt(5));
+			result.setNoSmokers(curs.getInt(8));
+			result.setCity(curs.getString(9));
+			result.setCountry(curs.getString(10));
+			result.setLatitude(curs.getDouble(1));
+			result.setLongitude(curs.getDouble(2));
+		}else{
+			//fail			
+		}
+		curs.deactivate();
+		db.close();
+		return result;
+	}
 	
 	
 	static final String CREATE_TABLE_Observation = "CREATE TABLE " + TABLE_OBSERVATION + " (" 
@@ -628,4 +824,25 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 			+ USER_PASSWORD_HASH + " VARCHARR(32) NOT NULL)";  
 	
 	
+	static final String CREATE_TABLE_Download = "CREATE TABLE " + TABLE_DL_OBSERVATIONS + " ("
+			+ DL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " 
+			+ DL_LATITUDE + " REAL NOT NULL DEFAULT 0, " 
+			+ DL_LONGITUDE + " REAL NOT NULL DEFAULT 0, " 
+			+ DL_START + " TEXT NOT NULL, " 
+			+ DL_FINISH + " TEXT NOT NULL, "			
+			+ DL_CHILDREN + " INTEGER NOT NULL DEFAULT 0, " 
+			+ DL_LONE_ADULT + " INTEGER NOT NULL DEFAULT 0, " 
+			+ DL_OTHER_ADULTS + " INTEGER NOT NULL DEFAULT 0, "
+			+ DL_NO_SMOKING + " INTEGER NOT NULL DEFAULT 0, "			
+			+ DL_CITY + " TEXT NOT NULL, " 
+			+ DL_COUNTRY + " TEXT NOT NULL, " 
+			+ DL_URI + " TEXT NOT NULL, " 
+			+ DL_DURATION + " INTEGER NOT NULL DEFAULT 0)";
+
+
+
+
+
+
+
 }

@@ -40,6 +40,11 @@
             android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
         <activity android:name="nzdis.tobaccofree.ObserverAccountActivity"
             android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
+        <activity android:name="nzdis.tobaccofree.DownloadedObservationActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
+        <activity android:theme="@android:style/Theme.NoTitleBar"
+            android:name="nzdis.tobaccofree.DownloadedObservationMap"></activity>
+    	<uses-library android:name="com.google.android.maps" />
     </application>
 
 </manifest>
