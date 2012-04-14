@@ -113,4 +113,5 @@
 	<string name="street_view">Street View</string>
 	<string name="close">Close</string>
 	<string name="adult">Adult Smoker</string>
+	<string name="no_internet_update">An Internet connection (2/3G or WiFi) is required to update data</string>
 </resources>

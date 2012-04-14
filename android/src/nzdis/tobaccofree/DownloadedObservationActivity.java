@@ -15,7 +15,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -120,10 +126,22 @@ public class DownloadedObservationActivity extends Activity implements OnClickLi
 	@Override
 	public void onClick(View v) {
 		if(v == btnUpdate){
-			btnUpdate.setEnabled(false);
-			db = new DatabaseHelper(this);
-			task = new DownloadTask(db);
-	        task.execute();
+			if(!isNetworkAvailable()){
+				AlertDialog non_finish_alert = new AlertDialog.Builder(this).create();
+				non_finish_alert.setTitle(getString(R.string.error));
+				non_finish_alert.setMessage(getString(R.string.no_internet_update));
+				non_finish_alert.setButton(getString(R.string.ok), new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface dialog, int which) {}
+				});
+				non_finish_alert.setIcon(android.R.drawable.ic_dialog_alert);
+				non_finish_alert.show();
+			}else{
+				btnUpdate.setEnabled(false);
+				db = new DatabaseHelper(this);
+				task = new DownloadTask(db);
+		        task.execute();
+			}
 		}
 		
 		if(v == btnViewMap){
@@ -135,6 +153,17 @@ public class DownloadedObservationActivity extends Activity implements OnClickLi
 		}
 		
 	}
+	
+	/** 
+	 * Checks if there is an Internet connection. 
+	 * @return <code>true</code> if there is Internet connection, 
+	 * 		<code>false</code> otherwise.
+	 **/
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
 	
 	/**
 	 * Stop the async task before destruction of activity
