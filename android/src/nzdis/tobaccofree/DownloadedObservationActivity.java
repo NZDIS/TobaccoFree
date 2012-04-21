@@ -138,6 +138,7 @@ public class DownloadedObservationActivity extends Activity implements OnClickLi
 				non_finish_alert.show();
 			}else{
 				btnUpdate.setEnabled(false);
+				btnUpdate.setText(getString(R.string.updating));
 				db = new DatabaseHelper(this);
 				task = new DownloadTask(db);
 		        task.execute();
@@ -207,6 +208,7 @@ public class DownloadedObservationActivity extends Activity implements OnClickLi
     		}
     		
     		btnUpdate.setEnabled(true);
+    		btnUpdate.setText(getString(R.string.update_stats));
     		db.close();
     	}
     	
@@ -217,7 +219,7 @@ public class DownloadedObservationActivity extends Activity implements OnClickLi
 			JSONArray objects;
 			observations = new ArrayList<DownloadedObservation>();			
 			try {
-				js = getObservation("http://tobaccofree.nzdis.org/api/v1/observation/?format=json");
+				js = getObservation("http://tobaccofree.nzdis.org/api/v1/observation/?format=json&limit=50");
 				meta = js.getJSONObject("meta");
 				objects = js.getJSONArray("objects");
 				for(int i = 0;i < objects.length();i++){

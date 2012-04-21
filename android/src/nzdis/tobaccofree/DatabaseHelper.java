@@ -797,6 +797,10 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 			result.setCountry(curs.getString(10));
 			result.setLatitude(curs.getDouble(1));
 			result.setLongitude(curs.getDouble(2));
+			result.setFinish(curs.getString(4));
+			result.setStart(curs.getString(3));
+			result.setDuration(curs.getInt(12));
+			
 		}else{
 			//fail			
 		}
