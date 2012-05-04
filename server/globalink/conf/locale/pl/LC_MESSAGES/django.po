@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-16 23:10+1300\n"
+"POT-Creation-Date: 2012-05-04 22:56+1200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -109,8 +109,8 @@ msgid ""
 "If you are developer and can access and process json, xml or yaml, this is "
 "for you."
 msgstr ""
-"Jeżeli jesteś naukowcem albo programistą i dostęp do danych przez json, xml czy yaml nie jest ci obcy "
-"to znajdziesz tu tego czego szukasz."
+"Jeżeli jesteś naukowcem albo programistą i dostęp do danych przez json, xml "
+"czy yaml nie jest ci obcy to znajdziesz tu tego czego szukasz."
 
 #: templates/api_info.html:36
 msgid "provides RESTful API for third party tools and services."
@@ -201,7 +201,7 @@ msgid "number of vehicles with driver smoking alone"
 msgstr "ilość samochodów tylko z palącym kierowcą"
 
 #: templates/api_info.html:63
-msgid "number of vehicles with smoking in a presence of other occupants"
+msgid "number of vehicles with no smoking in a presence of other occupants"
 msgstr "ilość samochodów z palaczem w obecności innych pasażerów"
 
 #: templates/api_info.html:64
@@ -230,11 +230,14 @@ msgstr "Filtrowanie"
 
 #: templates/api_info.html:73
 msgid "You can use one of many available filters in the URL"
-msgstr "Możesz użyć dowolnego z wielu dostępnych metod filtrowania wyników w zapytaniu"
+msgstr ""
+"Możesz użyć dowolnego z wielu dostępnych metod filtrowania wyników w "
+"zapytaniu"
 
 #: templates/api_info.html:74
 msgid "For example, to filter data for a given country, or city"
-msgstr "Na przykład, ażeby uzyskać dane wyłącznie dla jakiegoś kraju, czy miasta"
+msgstr ""
+"Na przykład, ażeby uzyskać dane wyłącznie dla jakiegoś kraju, czy miasta"
 
 #: templates/api_info.html:75
 msgid "Available text filters:"
@@ -252,11 +255,11 @@ msgstr "Dostępne filtry dla liczb:"
 msgid "Please correct your FORM error below"
 msgstr "Proszę popraw błedy w formularzu poniżej"
 
-#: templates/base.html:147 templates/base.html.py:425
+#: templates/base.html:147 templates/base.html.py:467
 msgid "Awareness"
 msgstr "Świadomość społeczna"
 
-#: templates/base.html:148 templates/base.html.py:499
+#: templates/base.html:148 templates/base.html.py:541
 msgid "Feedback"
 msgstr "Komentarz"
 
@@ -319,113 +322,132 @@ msgstr "Jesteśmy na GitHub"
 msgid "counting smoking in cars"
 msgstr "obserwacja palenia tytoniu w samochodach"
 
-#: templates/base.html:267
+#: templates/base.html:256 templates/base.html.py:288
+#: templates/observer/hall_of_fame.html:118
+msgid "observations"
+msgstr "Obserwacje"
+
+#: templates/base.html:268
 msgid "How many people smoke in cars?"
 msgstr "Ile osób pali w samochodach?"
 
-#: templates/base.html:268
+#: templates/base.html:269
 msgid "How many passive smokers are affected?"
 msgstr "Ile osób niepalących jest narażonych?"
 
-#: templates/base.html:269
+#: templates/base.html:270
 msgid "How many children?"
 msgstr "Ile dzieci?"
 
-#: templates/base.html:270
+#: templates/base.html:271
 msgid "How much the stats differ between countries?"
 msgstr "Jak wielkie są różnice pomiędzy państwami?"
 
-#: templates/base.html:275 templates/base.html.py:405
+#: templates/base.html:276 templates/base.html.py:447
 #: templates/observer/register.html:51
 msgid "Register"
 msgstr "Zarejestruj się"
 
-#: templates/base.html:275
+#: templates/base.html:276
 msgid "to participate"
 msgstr "żeby pomóc"
 
-#: templates/base.html:276
+#: templates/base.html:277
 msgid "Learn more"
 msgstr "Więcej info"
 
-#: templates/base.html:299
+#: templates/base.html:301
 msgid "Statistics"
 msgstr "Statystyki"
 
-#: templates/base.html:299
+#: templates/base.html:301 templates/base.html.py:347 templates/base.html:388
 msgid "overall"
 msgstr "ogólne"
 
-#: templates/base.html:301 templates/base.html.py:329
+#: templates/base.html:303 templates/base.html.py:332
 msgid "registered loggers"
 msgstr "woluntariuszy"
 
-#: templates/base.html:302 templates/base.html.py:329
+#: templates/base.html:303
+msgid "active"
+msgstr "Konto aktywne?"
+
+#: templates/base.html:304 templates/base.html.py:332
 msgid "stored observations"
 msgstr "obserwacji"
 
-#: templates/base.html:303 templates/base.html.py:329
+#: templates/base.html:306 templates/base.html.py:332
 #: templates/observer/hall_of_fame.html:118
 msgid "cars checked"
 msgstr "samochodów"
 
-#: templates/base.html:304 templates/base.html.py:329
+#: templates/base.html:307 templates/base.html.py:332
 msgid "of people"
 msgstr "osób"
 
-#: templates/base.html:304 templates/base.html.py:329
+#: templates/base.html:307 templates/base.html.py:332
 msgid "smoke"
 msgstr "pali"
 
-#: templates/base.html:304 templates/base.html.py:329
+#: templates/base.html:307 templates/base.html.py:332
 msgid "in cars"
 msgstr "w samochodach"
 
-#: templates/base.html:333 templates/observer/hall_of_fame.html:122
+#: templates/base.html:336 templates/observer/hall_of_fame.html:122
 msgid "Tweet"
 msgstr "Zatweetuj to"
 
-#: templates/base.html:340 templates/base.html.py:363
+#: templates/base.html:343 templates/base.html.py:384
 msgid "Statistics per"
 msgstr "Statystyki na dane"
 
-#: templates/base.html:340
+#: templates/base.html:343
 msgid "country"
 msgstr "państwo"
 
-#: templates/base.html:343
+#: templates/base.html:346
 msgid "Country"
 msgstr "Państwo"
 
-#: templates/base.html:343 templates/base.html.py:366
-msgid "Smoking in cars"
+#: templates/base.html:347 templates/base.html.py:348 templates/base.html:349
+#: templates/base.html.py:388 templates/base.html:389
+#: templates/base.html.py:390
+msgid "Smoking"
 msgstr "Pali w samochodzie"
 
-#: templates/base.html:344 templates/base.html.py:367
+#: templates/base.html:348 templates/base.html.py:389
+msgid "second-hand exposure"
+msgstr "inne osoby w samochodzie"
+
+#: templates/base.html:349 templates/base.html.py:390
+msgid "child exposure"
+msgstr "dziecko w samochodzie"
+
+#: templates/base.html:350 templates/base.html.py:391
 msgid "Num. cars"
 msgstr "Liczba samochodów"
 
-#: templates/base.html:344 templates/base.html.py:367
+#: templates/base.html:350 templates/base.html.py:392
 msgid "Num. observations"
 msgstr "Liczba obserwacji"
 
-#: templates/base.html:363
+#: templates/base.html:384
 msgid "city"
 msgstr "miasto"
 
-#: templates/base.html:366
+#: templates/base.html:387
 msgid "City"
 msgstr "Miasto"
 
-#: templates/base.html:388
+#: templates/base.html:430
 msgid "Observations map"
 msgstr "Mapa wszystkich obserwacji"
 
-#: templates/base.html:399
+#: templates/base.html:441
 msgid "About"
 msgstr "O projekcie"
 
-#: templates/base.html:400
+#: templates/base.html:442
 msgid ""
 "To collect data from multiple sites, globally, many times a day, over and "
 "over again, would be expensive. "
@@ -433,7 +455,7 @@ msgstr ""
 "Zbieranie danych, z różnych miejsc na ziemi, globalnie, wielokrotnie w ciągu "
 "dnia byłoby bardzo kosztowne."
 
-#: templates/base.html:401
+#: templates/base.html:443
 msgid ""
 "So expensive, that study like that is impossible to run through traditional "
 "methods."
@@ -441,55 +463,55 @@ msgstr ""
 "Tak kosztowne, iż żaden instytut naukowy nie mógłby sobie na nie pozwolić "
 "stosując tradycyjne metody."
 
-#: templates/base.html:402
+#: templates/base.html:444
 msgid "The idea is to ask volunteers to help."
 msgstr "Pomysł - poprosić woluntariuszy o pomoc."
 
-#: templates/base.html:402
+#: templates/base.html:444
 msgid "YOU"
 msgstr "TY"
 
-#: templates/base.html:403
+#: templates/base.html:445
 msgid "will help to conduct the study and do the research."
 msgstr "możesz pomóc w badaniach naukowych."
 
-#: templates/base.html:406
+#: templates/base.html:448
 msgid "Download and install"
 msgstr "Ściągnij i zainstaluj"
 
-#: templates/base.html:407
+#: templates/base.html:449
 msgid "or"
 msgstr "lub"
 
-#: templates/base.html:409
+#: templates/base.html:451
 msgid "Agree to"
 msgstr "Wyraź zgodę na"
 
-#: templates/base.html:409
+#: templates/base.html:451
 msgid "Ethical Conduct and Honour Code"
 msgstr "Kod Honoru i Etyki"
 
-#: templates/base.html:410
+#: templates/base.html:452
 msgid "Go outside, stand by a busy street, and start logging the data"
 msgstr "Wyjdź na zewnątrz, stań przy ruchliwej ulity, i zacznij obserwacje"
 
-#: templates/base.html:411
+#: templates/base.html:453
 msgid "Anyone can participate"
 msgstr "Każdy może pomóc"
 
-#: templates/base.html:412
+#: templates/base.html:454
 msgid "Anyone can use"
 msgstr "Każdy może użyć"
 
-#: templates/base.html:412
+#: templates/base.html:454
 msgid "the data collected by volunteers"
 msgstr "dane zebrane przez woluntariuszy"
 
-#: templates/base.html:414
+#: templates/base.html:456
 msgid "The application allows easy logging of occurances of smoking in cars."
 msgstr "Ta aplikacja pozwala na bardzo łatwe zliczanie palenia w samochodach."
 
-#: templates/base.html:415
+#: templates/base.html:457
 msgid ""
 "Install it, go out, and collect data about particular location. Instructions "
 "are provided within the application."
@@ -497,100 +519,101 @@ msgstr ""
 "Zainstaluj aplikację, wyjdź na zewnątrz i zacznij obserwować samochody.W "
 "aplikacji znajdziesz dokładny opis jak ją używać."
 
-#: templates/base.html:427
+#: templates/base.html:469
 msgid "World"
 msgstr "Świat"
 
-#: templates/base.html:451
+#: templates/base.html:493
 msgid "Research articles"
 msgstr "Artykuły naukowe"
 
-#: templates/base.html:464
+#: templates/base.html:506
 msgid "Development and contribution"
 msgstr "Budowa systemu i pomoc"
 
-#: templates/base.html:467
+#: templates/base.html:509
 msgid "Data API"
 msgstr "Dostęp do danych (API)"
 
-#: templates/base.html:468
+#: templates/base.html:510
 msgid ""
 "Data collected by volunteers is free and we make it easily accessible to "
 "researchers and students."
 msgstr ""
-"Wszystkie dane zebrane przez woluntariuszy są udostępniane za darmo dla wszystkich "
-"zainteresowanych naukowców i studentów."
+"Wszystkie dane zebrane przez woluntariuszy są udostępniane za darmo dla "
+"wszystkich zainteresowanych naukowców i studentów."
 
-#: templates/base.html:469
+#: templates/base.html:511
 msgid ""
 "We have designed a set of web APIs through which the data records can be "
 "accessed."
-msgstr ""
-"Zaprojektowaliśmy programistyczny interfejs do danych."
+msgstr "Zaprojektowaliśmy programistyczny interfejs do danych."
 
-#: templates/base.html:470
+#: templates/base.html:512
 msgid "The data is provided through json, xml or yaml. Make use of it."
 msgstr "Dane są udostępniane przez json, xml i yaml. Użyj ich do badań."
 
-
-#: templates/base.html:471
+#: templates/base.html:513
 msgid ""
 "Please give us feedback and let us know if you have a good way to process or "
 "visualise the data."
 msgstr ""
-"Prosimy daj nam znać jeżeli używasz danych do badań statystycznych albo wizualizacji."
+"Prosimy daj nam znać jeżeli używasz danych do badań statystycznych albo "
+"wizualizacji."
 
-#: templates/base.html:472 templates/base.html.py:478 templates/base.html:485
+#: templates/base.html:514 templates/base.html.py:520 templates/base.html:527
 msgid "Thank you."
 msgstr "Dziekujemy."
 
-#: templates/base.html:475
+#: templates/base.html:517
 msgid "Translations"
 msgstr "Tłumaczenie stron"
 
-#: templates/base.html:476
+#: templates/base.html:518
 msgid ""
 "The system will have impact in your country only when people who do not "
 "speak English will be able to view the data."
 msgstr ""
 "Ten system będzie miał znaczenie w twoim kraju tylko wtedy kiedy ludzie "
-"którzy nie znają angielskiego będą mogli go użyć i zrozumieć wyniki zebranych danych."
+"którzy nie znają angielskiego będą mogli go użyć i zrozumieć wyniki "
+"zebranych danych."
 
-
-#: templates/base.html:477
+#: templates/base.html:519
 msgid ""
 "If you know English and you know another language, please help in "
 "translating the website."
 msgstr ""
-"Jeżeli znasz angielski i dodatkowy język, prosimy pomóż w tłumaczeniu stron WWW."
+"Jeżeli znasz angielski i dodatkowy język, prosimy pomóż w tłumaczeniu stron "
+"WWW."
 
-#: templates/base.html:481
+#: templates/base.html:523
 msgid "Project contributors"
 msgstr "Pomoc w projekcie"
 
-#: templates/base.html:482
+#: templates/base.html:524
 msgid "Many people have helped in making this system possible."
 msgstr "Wiele osób pomogło zrealizować ten system."
 
-#: templates/base.html:483
+#: templates/base.html:525
 msgid ""
 "They provided help through testing, feedback, research, data collection."
 msgstr ""
-"Osoby te poświęciły swój czas na testy, dialog, udoskonalenia, badania naukowe i zbieranie danych."
+"Osoby te poświęciły swój czas na testy, dialog, udoskonalenia, badania "
+"naukowe i zbieranie danych."
 
-#: templates/base.html:484
+#: templates/base.html:526
 msgid "All the work and efforts are appreciated."
 msgstr "Każda para rąk jest mile widziana i doceniana."
 
-#: templates/base.html:499
+#: templates/base.html:541
 msgid "tell us what you think"
 msgstr "powiedz nam co myślisz o tym projekcie"
 
-#: templates/base.html:511
+#: templates/base.html:553
 msgid "Send feedback"
 msgstr "Wyślij komentarz"
 
-#: templates/base.html:512 templates/observer/register.html:67
+#: templates/base.html:554 templates/observer/register.html:67
 msgid "Clear form"
 msgstr "Wyczyść formularz"
 
@@ -622,92 +645,99 @@ msgstr "Ludzie którzy udostępnili system w wielu językach"
 msgid "Japanese"
 msgstr "Japoński"
 
-#: templates/translators.html:33 templates/translators.html.py:52
+#: templates/translators.html:33 templates/translators.html.py:54
+msgid "Spanish"
+msgstr ""
+
+#: templates/translators.html:34 templates/translators.html.py:55
 msgid "German"
 msgstr "Niemiecki"
 
-#: templates/translators.html:34 templates/translators.html.py:54
+#: templates/translators.html:35 templates/translators.html.py:56
 msgid "Polish"
 msgstr "Polski"
 
-#: templates/translators.html:35 templates/translators.html.py:56
+#: templates/translators.html:36 templates/translators.html.py:58
 msgid "Brazilian Portuguese"
 msgstr "Brazylijski"
 
-#: templates/translators.html:44
+#: templates/translators.html:45
 msgid "Existing translations"
 msgstr "Obecne tłumaczenia"
 
-#: templates/translators.html:44
+#: templates/translators.html:45
 msgid "Help us to fix the problems"
 msgstr "Pomóż nam udoskonalić tłumaczenia"
 
-#: templates/translators.html:45
+#: templates/translators.html:46
 msgid "You can help by correcting existing translations."
 msgstr "Możesz pomóc poprzez korektę istniejących już tłumaczeń."
 
-#: templates/translators.html:46
+#: templates/translators.html:47
 msgid ""
 "To do that, grab one of the existing translation files and make the "
 "necessary changes."
 msgstr ""
-"Żeby pomóc, ściągnij plik z gotowym tłumaczeniem i zrób niezbędne korekty i zmiany."
+"Żeby pomóc, ściągnij plik z gotowym tłumaczeniem i zrób niezbędne korekty i "
+"zmiany."
 
-#: templates/translators.html:47
+#: templates/translators.html:48
 msgid "After you correct the file simply send the file to: "
 msgstr "Jak już poprawiłeś plik, to go po prostu do nas wyślij"
 
-#: templates/translators.html:48 templates/translators.html.py:93
+#: templates/translators.html:49 templates/translators.html.py:95
 msgid "We will take care of the rest."
 msgstr "My zajmiemy się resztą."
 
-#: templates/translators.html:49 templates/translators.html.py:94
+#: templates/translators.html:50 templates/translators.html.py:96
 msgid ""
 "Remember to put your name and affiliation in the file. We will use it to "
 "give you credits."
 msgstr ""
-"Pamiętaj żeby wstawić swoje imię i instytut naukowy/firmę. Będziemy mogli wtedy dopisać cię do listy zasłużonych pomocników."
+"Pamiętaj żeby wstawić swoje imię i instytut naukowy/firmę. Będziemy mogli "
+"wtedy dopisać cię do listy zasłużonych pomocników."
 
-#: templates/translators.html:55
+#: templates/translators.html:57
 msgid "Portuguese"
 msgstr "Portugalski"
 
-#: templates/translators.html:59 templates/translators.html.py:96
+#: templates/translators.html:61 templates/translators.html.py:98
 msgid "Thank you"
 msgstr "Dziekujemy serdecznie"
 
-#: templates/translators.html:67
+#: templates/translators.html:69
 msgid "New translations needed"
 msgstr "Niezbędne nowe tłumaczenia"
 
-#: templates/translators.html:67
+#: templates/translators.html:69
 msgid "Help us to spread the news"
 msgstr "Pomóż nam w reklamie i adopcji systemu"
 
-#: templates/translators.html:68
+#: templates/translators.html:70
 msgid ""
 "Please help us by making new translations. It is easy. But you need to know "
 "English."
 msgstr ""
-"Prosimy pomóż nam w realizacji nowych tłumaczeń. To jest łatwe. Ale musisz znać angielski."
+"Prosimy pomóż nam w realizacji nowych tłumaczeń. To jest łatwe. Ale musisz "
+"znać angielski."
 
-#: templates/translators.html:69
+#: templates/translators.html:71
 msgid "To make a translation, you need to download"
 msgstr "Ażeby zrobić tłumaczenie, musis ściągnąć"
 
-#: templates/translators.html:70
+#: templates/translators.html:72
 msgid "this file"
 msgstr "ten plik"
 
-#: templates/translators.html:71
+#: templates/translators.html:73
 msgid "and translate all English phrases into your language."
 msgstr "i przetłumaczyć wszystkie zwroty z angielskiego na innych język."
 
-#: templates/translators.html:72
+#: templates/translators.html:74
 msgid "For example, the file contains a fragment:"
 msgstr "Na przykład, plik zawiera taki fragment"
 
-#: templates/translators.html:75
+#: templates/translators.html:77
 msgid ""
 "Your task is to fill in that empty space that would be the phrase in your "
 "language that translates the identifier above."
@@ -715,19 +745,19 @@ msgstr ""
 "Twoje zadanie to wypełnić pustą przestrzeń pomiędzy cudzysłowami tak żeby "
 "odpowiadała tekstowi identyfikatora po angielsku."
 
-#: templates/translators.html:78
+#: templates/translators.html:80
 msgid "If the translation is longer than a single line, for example"
 msgstr "Jeżeli identyfikator jest dłuższy niż jedna linijka, na przykład"
 
-#: templates/translators.html:85
+#: templates/translators.html:87
 msgid ""
 "You simply fill in and follow the same pattern, or you can translate both "
 "lines into a single line."
 msgstr ""
-"To wtedy możesz postąpić wg takiego samego schematu, albo umieścić "
-"swoje tłumaczenie w jednej linii."
+"To wtedy możesz postąpić wg takiego samego schematu, albo umieścić swoje "
+"tłumaczenie w jednej linii."
 
-#: templates/translators.html:92
+#: templates/translators.html:94
 msgid "After you translate all the phrases, simply send the file to: "
 msgstr "Po skończeniu tłumaczenia pliku, prześlij go emailem do: "
 
@@ -797,10 +827,6 @@ msgstr "Jestem"
 #: templates/observer/hall_of_fame.html:118
 msgid "top volunteer on"
 msgstr "w rankingu woluntariuszy na"
-
-#: templates/observer/hall_of_fame.html:118
-msgid "observations"
-msgstr "Obserwacje"
 
 #: templates/observer/hall_of_fame.html:118
 msgid "and"

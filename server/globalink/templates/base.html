@@ -304,7 +304,7 @@
       	  <li><big>{{ number_of_observations }}</big> {{ _("stored observations") }} 
       	  	({{ number_of_android_observations }} Android, {{ number_of_iphone_observations }} iPhone)</li> 
       	  <li><big>{{ number_of_cars }}</big> {{ _("cars checked") }}</li>
-      	  <li><big>{{ ratio_of_smokers|floatformat }}%</big> {{ _("of people") }} <big>{{ _("smoke") }}</big> {{ _("in cars") }}</li>
+      	  <li><big>{{ ratio_of_smokers|floatformat }}% &plusmn; {{ ratio_of_smokers_interval|floatformat }}</big> {{ _("of people") }} <big>{{ _("smoke") }}</big> {{ _("in cars") }}</li>
 	    </ul>
 	  </div>
 	
@@ -343,21 +343,39 @@
 	    <h4>{{ _("Statistics per") }} <big>{{ _("country") }}</big></h4>
 	    <table>
 	    <thead>
-	    <td>{{ _("Country") }}</td><td>{{ _("Smoking in cars") }}</td>
+	    <td>{{ _("Country") }}</td>
+   	    <td>{{ _("Smoking") }} - {{ _("overall") }} </td>
+	    <td>{{ _("Smoking") }} - {{ _("second-hand exposure") }}</td>
+	    <td>{{ _("Smoking") }} - {{ _("child exposure") }}</td>
 	    <td>{{ _("Num. cars") }}</td><td>{{ _("Num. observations") }}</td>
 	    </thead>
 	    <tbody>
 	    {% for c in countries %}
-	    <tr>
-	    	<td>{{c.country_name}}</td>
-	    	<td>{{c.ratio_of_smokers|floatformat}}%</td>
-	    	<td>{{c.num_cars}}</td>
-	    	<td>{{c.num_observations}}</td>
-	    	
-	    </tr>
+	    {% if c.num_cars < 301 %}
+	    	<tr style="color: #FFAAAA;">
+	    		<td>{{c.country_name}}</td>
+	    		<td>{{c.ratio_of_smokers|floatformat}}%</td>
+	    		<td></td>
+	    		<td></td>
+	    		<td>{{c.num_cars}}</td>
+	    		<td>{{c.num_observations}}</td>
+	    	</tr>
+	    	{% else %}
+	    	<tr>
+	    		<td>{{c.country_name}}</td>
+	    		<td>{{c.ratio_of_smokers|floatformat}}% &plusmn; {{c.ratio_of_smokers_interval|floatformat}}</td>
+	    		<td>{{c.ratio_of_second_hand|floatformat}}% &plusmn; {{c.ratio_of_second_hand_interval|floatformat}}</td>
+	    		<td>{{c.ratio_of_child|floatformat}}% &plusmn; {{c.ratio_of_child_interval|floatformat}}</td>
+	    		<td>{{c.num_cars}}</td>
+	    		<td>{{c.num_observations}}</td>
+	    	</tr>
+	    	{% endif %}
 	    {% endfor %}
 	    </tbody>
 	    </table>
+	   	<p><b>Notes:</b></p>
+	    <p>Error ranges are calculated with 99% Confidence Interval (CI).
+	    <span style="color: #FFAAAA;">Red color indicates</span> insufficient amount of data for statistics.</p>
 	  </div>
 	</div>
 
@@ -366,21 +384,42 @@
 	    <h4>{{ _("Statistics per") }} <big>{{ _("city") }}</big></h4>
 	    <table>
 	    <thead>
-	    <td>{{ _("City") }}</td><td>{{ _("Smoking in cars") }}</td>
-	    <td>{{ _("Num. cars") }}</td><td>{{ _("Num. observations") }}</td>
+	    <td>{{ _("City") }}</td>
+	    <td>{{ _("Smoking") }} - {{ _("overall") }} </td>
+	    <td>{{ _("Smoking") }} - {{ _("second-hand exposure") }}</td>
+	    <td>{{ _("Smoking") }} - {{ _("child exposure") }}</td>
+	    <td>{{ _("Num. cars") }}</td>
+	    <td>{{ _("Num. observations") }}</td>
 	    </thead>
 	    <tbody>
 	    {% for c in cities %}
-	    <tr>
+	    {% if c.num_cars < 301 %}
+	    <tr style="color: #FFAAAA;">
 	    	<td>{{c.city_name}}</td>
 	    	<td>{{c.ratio_of_smokers|floatformat}}%</td>
+	    	<td></td>
+	    	<td></td>
 	    	<td>{{c.num_cars}}</td>
 	    	<td>{{c.num_observations}}</td>
 	    </tr>
+	    {% else %}
+	    <tr>
+	    	<td>{{c.city_name}}</td>
+	    	<td>{{c.ratio_of_smokers|floatformat}}% &plusmn; {{c.ratio_of_smokers_interval|floatformat}}</td>
+	    	<td>{{c.ratio_of_second_hand|floatformat}}% &plusmn; {{c.ratio_of_second_hand_interval|floatformat}}</td>
+	    	<td>{{c.ratio_of_child|floatformat}}% &plusmn; {{c.ratio_of_child_interval|floatformat}}</td>
+	    	<td>{{c.num_cars}}</td>
+	    	<td>{{c.num_observations}}</td>
+	    </tr>	    
+	    {% endif %}
 	    {% endfor %}
 	    </tbody>
 	    </table>
+	    <p><b>Notes:</b></p>
+	    <p>Error ranges are calculated with 99% Confidence Interval (CI).
+	    <span style="color: #FFAAAA;">Red color indicates</span> insufficient amount of data for statistics.</p>
 	  </div>
+	  
 	</div>	
     
     

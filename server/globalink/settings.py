@@ -59,7 +59,9 @@ LANGUAGES = (
     ('es', 'Español'),
     ('pl', 'Polski'),
     ('pt', 'Português'),
+    ('jp', '日本語'),
     ('pt_BR', 'Português Brasileiro'),
+    
 #    ('de', 'Deutsch'),
 )
 

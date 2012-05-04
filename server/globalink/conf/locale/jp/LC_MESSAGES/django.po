@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-16 23:10+1300\n"
+"POT-Creation-Date: 2012-05-04 22:56+1200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,71 +19,71 @@ msgstr ""
 
 #: admin/forms.py:11
 msgid "Your email/Username. Cannot be changed."
-msgstr ""
+msgstr "あなたのメールアドレス/ユーザー名。変えることはできない。"
 
 #: admin/forms.py:13 observer/forms.py:71
 #: templates/admin/observers_list.html:72
 #: templates/observer/hall_of_fame.html:102
 msgid "Name"
-msgstr ""
+msgstr "名前"
 
 #: admin/forms.py:15 observer/forms.py:73
 msgid "Surname"
-msgstr ""
+msgstr "苗字"
 
 #: admin/forms.py:17 observer/forms.py:75
 #: templates/admin/observers_list.html:72
 #: templates/observer/hall_of_fame.html:102
 msgid "Affiliation"
-msgstr ""
+msgstr "所属"
 
 #: admin/forms.py:19
 msgid "Activation key"
-msgstr ""
+msgstr "作動キー"
 
 #: admin/forms.py:21
 msgid "Is active?"
-msgstr ""
+msgstr "作動しているか？"
 
 #: admin/forms.py:23 templates/admin/observers_list.html:73
 msgid "Staff?"
-msgstr ""
+msgstr "スタッフ？"
 
 #: admin/forms.py:25 templates/admin/observers_list.html:73
 msgid "Approved?"
-msgstr ""
+msgstr "承認されたか"
 
 #: observation/forms.py:14 observer/forms.py:18
 msgid "Your email"
-msgstr ""
+msgstr "あなたのメールアドレス"
 
 #: observation/forms.py:16
 msgid "Topic, main subject for your feedback"
-msgstr ""
+msgstr "トピック、あなたのコメントのテーマ"
 
 #: observer/forms.py:20
 msgid "Real name"
-msgstr ""
+msgstr "本当のお名前"
 
 #: observer/forms.py:22
 msgid "Real surname"
-msgstr ""
+msgstr "本当のご苗字"
 
 #: observer/forms.py:24
 msgid "Your affiliation"
-msgstr ""
+msgstr "ご所属"
 
 #: observer/forms.py:26
 msgid "Your password (at least 6 characters)"
-msgstr ""
+msgstr "パスワード（少なくとも６字)"
 
 #: observer/forms.py:85
 msgid "Existing password"
-msgstr ""
+msgstr "現存のパスワード"
 
 #: observer/forms.py:87
 msgid "New password (at last 6 characters)"
-msgstr ""
+msgstr "新しいパスワード（少なくとも６字)"
 
 #: templates/api_info.html:13 templates/base.html:146
 #: templates/contributors.html:13 templates/translators.html:13
@@ -94,62 +94,66 @@ msgstr ""
 #: templates/observer/register.html:31
 #: templates/observer/register_confirm.html:33
 msgid "Home"
-msgstr ""
+msgstr "ホーム"
 
 #: templates/api_info.html:32
 msgid "Web Data API"
-msgstr ""
+msgstr "ウェブ データ　API "
 
 #: templates/api_info.html:32
 msgid "Making the access to the data free and easy"
-msgstr ""
+msgstr "データへ無料で簡単なアクセス"
 
 #: templates/api_info.html:34
 msgid ""
 "If you are developer and can access and process json, xml or yaml, this is "
 "for you."
 msgstr ""
+"もしもあなたがデヴェロパーで、json, xml, yamlにアクセスできれば、これはあなた"
+"にふさわしい"
 
 #: templates/api_info.html:36
 msgid "provides RESTful API for third party tools and services."
-msgstr ""
+msgstr "第三者の道具とサービスに提供する安定したAPI"
 
 #: templates/api_info.html:37
 msgid ""
 "Try it out. Let us know what you use it for and if it works well for you."
 msgstr ""
+"試してごらんなさい。これを何に使ったか、うまく使えたかを 教えてください"
 
 #: templates/api_info.html:39
 msgid "Serialization"
-msgstr ""
+msgstr "シリーズ化"
 
 #: templates/api_info.html:40
 msgid "YAML, JSON and XML serializers are available."
-msgstr ""
+msgstr "YAML, JSON and XML をシリーズ化することができる"
 
 #: templates/api_info.html:41
 msgid "For example"
-msgstr ""
+msgstr "たとえば"
 
 #: templates/api_info.html:41
 msgid "to use YAML attach '?format=yaml' to your URL request."
 msgstr ""
+"YAMLを使うために、あなたのURL requestに ?format=yaml'を アタッチしてください"
 
 #: templates/api_info.html:42
 msgid "Similarily for json and xml"
-msgstr ""
+msgstr "json and xmlとの類似性"
 
 #: templates/api_info.html:44
 msgid "Schema"
-msgstr ""
+msgstr "スキーマ"
 
 #: templates/api_info.html:45
 msgid "The resources schema for"
-msgstr ""
+msgstr "スキーマの資料"
 
 #: templates/api_info.html:45
 msgid "is available at the following URL:"
-msgstr ""
+msgstr "下記のURLにある"
 
 #: templates/api_info.html:49 templates/base.html:158
 #: templates/admin/full_profile.html:39
@@ -159,87 +163,87 @@ msgstr ""
 #: templates/observer/hall_of_fame.html:21
 #: templates/observer/hall_of_fame.html:103 templates/observer/profile.html:39
 msgid "Observations"
-msgstr ""
+msgstr "観察"
 
 #: templates/api_info.html:51
 msgid "To get the list of all observations"
-msgstr ""
+msgstr "あらゆる観察の　リストを　入手する"
 
 #: templates/api_info.html:51 templates/api_info.html.py:53
 msgid "use"
-msgstr ""
+msgstr "利用"
 
 #: templates/api_info.html:53
 msgid "To get a single record of a given observation"
-msgstr ""
+msgstr "一つの　観察の記録を　入手する"
 
 #: templates/api_info.html:56
 msgid "Observation fields"
-msgstr ""
+msgstr "観察アエラ"
 
 #: templates/api_info.html:58
 msgid "observation start timestamp"
-msgstr ""
+msgstr "観察開始時間"
 
 #: templates/api_info.html:59
 msgid "observation finish timestamp"
-msgstr ""
+msgstr "観察終了時間"
 
 #: templates/api_info.html:60
 msgid "observation duration in milliseconds"
-msgstr ""
+msgstr "観察期間ミリ秒"
 
 #: templates/api_info.html:61
 msgid "number of vehicles with no smoking"
-msgstr ""
+msgstr "無喫煙車両の数"
 
 #: templates/api_info.html:62
 msgid "number of vehicles with driver smoking alone"
-msgstr ""
+msgstr "運転手のみ喫煙する車両の数"
 
 #: templates/api_info.html:63
 msgid "number of vehicles with no smoking in a presence of other occupants"
-msgstr ""
+msgstr "他の乗客の前で運転手が無喫煙の車両数"
 
 #: templates/api_info.html:64
 msgid "number of vehicles with smoking in a presence of children"
-msgstr ""
+msgstr "子供の前で運転手が喫煙する車両数"
 
 #: templates/api_info.html:65
 msgid "city of the observation"
-msgstr ""
+msgstr "観察する都市"
 
 #: templates/api_info.html:66
 msgid "country of the observation"
-msgstr ""
+msgstr "観察する国"
 
 #: templates/api_info.html:67
 msgid "latitude of the observation"
-msgstr ""
+msgstr "観察する場所の緯度"
 
 #: templates/api_info.html:68
 msgid "longitude of the observation"
-msgstr ""
+msgstr "観察する場所の経度"
 
 #: templates/api_info.html:72
 msgid "Filtering"
-msgstr ""
+msgstr "フィルター"
 
 #: templates/api_info.html:73
 msgid "You can use one of many available filters in the URL"
-msgstr ""
+msgstr "URLにある多くのフィルターの一つを使用可能"
 
 #: templates/api_info.html:74
 msgid "For example, to filter data for a given country, or city"
-msgstr ""
+msgstr "例えば、特定の国と都市のデータをフィルターする"
 
 #: templates/api_info.html:75
 msgid "Available text filters:"
-msgstr ""
+msgstr "利用可能なテキストのフィルター"
 
 #: templates/api_info.html:83
 msgid "Available number filters:"
-msgstr ""
+msgstr "利用可能なフィルターの数"
 
 #: templates/base.html:126 templates/admin/full_profile.html:12
 #: templates/admin/observations_list.html:12
@@ -247,563 +251,591 @@ msgstr ""
 #: templates/observer/profile.html:12 templates/observer/register.html:12
 #: templates/observer/register_confirm.html:13
 msgid "Please correct your FORM error below"
-msgstr ""
+msgstr "あなたのフォームのエラーを下記で訂正する"
 
-#: templates/base.html:147 templates/base.html.py:425
+#: templates/base.html:147 templates/base.html.py:467
 msgid "Awareness"
-msgstr ""
+msgstr "自覚する"
 
-#: templates/base.html:148 templates/base.html.py:499
+#: templates/base.html:148 templates/base.html.py:541
 msgid "Feedback"
-msgstr ""
+msgstr "フィードバック"
 
 #: templates/base.html:149 templates/observer/hall_of_fame.html:12
 msgid "People"
-msgstr ""
+msgstr "人"
 
 #: templates/base.html:151 templates/admin/full_profile.html:32
 #: templates/admin/observations_list.html:32
 #: templates/admin/observers_list.html:32 templates/observation/list.html:32
 #: templates/observer/hall_of_fame.html:14 templates/observer/profile.html:32
 msgid "My Observations"
-msgstr ""
+msgstr "私の観察"
 
 #: templates/base.html:154 templates/admin/full_profile.html:35
 #: templates/admin/observations_list.html:35
 #: templates/admin/observers_list.html:35 templates/observation/list.html:35
 #: templates/observer/hall_of_fame.html:17 templates/observer/profile.html:35
 msgid "Admin"
-msgstr ""
+msgstr "アドミン"
 
 #: templates/base.html:156 templates/admin/full_profile.html:37
 #: templates/admin/observations_list.html:37
 #: templates/admin/observers_list.html:37 templates/observation/list.html:37
 #: templates/observer/hall_of_fame.html:19 templates/observer/profile.html:37
 msgid "Users"
-msgstr ""
+msgstr "ユーザー"
 
 #: templates/base.html:169 templates/admin/full_profile.html:48
 #: templates/admin/observations_list.html:48
 #: templates/admin/observers_list.html:48 templates/observation/list.html:49
 #: templates/observer/hall_of_fame.html:32 templates/observer/profile.html:49
 msgid "My Profile"
-msgstr ""
+msgstr "私のプロフィル"
 
 #: templates/base.html:171 templates/admin/full_profile.html:50
 #: templates/admin/observations_list.html:50
 #: templates/admin/observers_list.html:50 templates/observation/list.html:51
 #: templates/observer/hall_of_fame.html:34 templates/observer/profile.html:51
 msgid "Logout"
-msgstr ""
+msgstr "ログアウト"
 
 #: templates/base.html:201
 msgid "E-mail"
-msgstr ""
+msgstr "Eメール"
 
 #: templates/base.html:202
 msgid "Password"
-msgstr ""
+msgstr "パスワード"
 
 #: templates/base.html:203
 msgid "Sign in"
-msgstr ""
+msgstr "ログイン"
 
 #: templates/base.html:236
 msgid "Fork me on GitHub"
-msgstr ""
+msgstr "私をGitHubへ移す"
 
 #: templates/base.html:246
 msgid "counting smoking in cars"
-msgstr ""
+msgstr "車内喫煙を数える"
 
-#: templates/base.html:267
-msgid "How many people smoke in cars?"
-msgstr ""
+#: templates/base.html:256 templates/base.html.py:288
+#: templates/observer/hall_of_fame.html:118
+msgid "observations"
+msgstr "観察"
 
 #: templates/base.html:268
-msgid "How many passive smokers are affected?"
-msgstr ""
+msgid "How many people smoke in cars?"
+msgstr "車内で喫煙する人数"
 
 #: templates/base.html:269
-msgid "How many children?"
-msgstr ""
+msgid "How many passive smokers are affected?"
+msgstr "喫煙被害者の数"
 
 #: templates/base.html:270
-msgid "How much the stats differ between countries?"
-msgstr ""
+msgid "How many children?"
+msgstr "子供の人数"
 
-#: templates/base.html:275 templates/base.html.py:405
+#: templates/base.html:271
+msgid "How much the stats differ between countries?"
+msgstr "国の統計の違い"
+
+#: templates/base.html:276 templates/base.html.py:447
 #: templates/observer/register.html:51
 msgid "Register"
-msgstr ""
-
-#: templates/base.html:275
-msgid "to participate"
-msgstr ""
+msgstr "登録"
 
 #: templates/base.html:276
+msgid "to participate"
+msgstr "参加"
+
+#: templates/base.html:277
 msgid "Learn more"
-msgstr ""
+msgstr "もっと知る"
 
-#: templates/base.html:299
+#: templates/base.html:301
 msgid "Statistics"
-msgstr ""
+msgstr "統計"
 
-#: templates/base.html:299
+#: templates/base.html:301 templates/base.html.py:347 templates/base.html:388
 msgid "overall"
-msgstr ""
+msgstr "全体の"
 
-#: templates/base.html:301 templates/base.html.py:329
+#: templates/base.html:303 templates/base.html.py:332
 msgid "registered loggers"
-msgstr ""
+msgstr "登録した利用者"
 
-#: templates/base.html:302 templates/base.html.py:329
+#: templates/base.html:303
+#, fuzzy
+msgid "active"
+msgstr "作動しているか？"
+
+#: templates/base.html:304 templates/base.html.py:332
 msgid "stored observations"
-msgstr ""
+msgstr "観察の蓄積"
 
-#: templates/base.html:303 templates/base.html.py:329
+#: templates/base.html:306 templates/base.html.py:332
 #: templates/observer/hall_of_fame.html:118
 msgid "cars checked"
-msgstr ""
+msgstr "調べられた車両"
 
-#: templates/base.html:304 templates/base.html.py:329
+#: templates/base.html:307 templates/base.html.py:332
 msgid "of people"
-msgstr ""
+msgstr "人の"
 
-#: templates/base.html:304 templates/base.html.py:329
+#: templates/base.html:307 templates/base.html.py:332
 msgid "smoke"
-msgstr ""
+msgstr "喫煙"
 
-#: templates/base.html:304 templates/base.html.py:329
+#: templates/base.html:307 templates/base.html.py:332
 msgid "in cars"
-msgstr ""
+msgstr "車内で"
 
-#: templates/base.html:333 templates/observer/hall_of_fame.html:122
+#: templates/base.html:336 templates/observer/hall_of_fame.html:122
 msgid "Tweet"
-msgstr ""
+msgstr "ツイター"
 
-#: templates/base.html:340 templates/base.html.py:363
+#: templates/base.html:343 templates/base.html.py:384
 msgid "Statistics per"
-msgstr ""
-
-#: templates/base.html:340
-msgid "country"
-msgstr ""
+msgstr "統計ごと"
 
 #: templates/base.html:343
+msgid "country"
+msgstr "国"
+
+#: templates/base.html:346
 msgid "Country"
+msgstr "国"
+
+#: templates/base.html:347 templates/base.html.py:348 templates/base.html:349
+#: templates/base.html.py:388 templates/base.html:389
+#: templates/base.html.py:390
+#, fuzzy
+msgid "Smoking"
+msgstr "車内で喫煙する"
+
+#: templates/base.html:348 templates/base.html.py:389
+msgid "second-hand exposure"
 msgstr ""
 
-#: templates/base.html:343 templates/base.html.py:366
-msgid "Smoking in cars"
+#: templates/base.html:349 templates/base.html.py:390
+msgid "child exposure"
 msgstr ""
 
-#: templates/base.html:344 templates/base.html.py:367
+#: templates/base.html:350 templates/base.html.py:391
 msgid "Num. cars"
-msgstr ""
+msgstr "車両数"
 
-#: templates/base.html:344 templates/base.html.py:367
+#: templates/base.html:350 templates/base.html.py:392
 msgid "Num. observations"
-msgstr ""
+msgstr "観察する数"
 
-#: templates/base.html:363
+#: templates/base.html:384
 msgid "city"
-msgstr ""
+msgstr "都市"
 
-#: templates/base.html:366
+#: templates/base.html:387
 msgid "City"
-msgstr ""
+msgstr "都市"
 
-#: templates/base.html:388
+#: templates/base.html:430
 msgid "Observations map"
-msgstr ""
+msgstr "観察地図"
 
-#: templates/base.html:399
+#: templates/base.html:441
 msgid "About"
-msgstr ""
+msgstr "About"
 
-#: templates/base.html:400
+#: templates/base.html:442
 msgid ""
 "To collect data from multiple sites, globally, many times a day, over and "
 "over again, would be expensive. "
-msgstr ""
+msgstr "多数の都市、国からデータを日に数回　繰り返し収集することはお金がかかる"
 
-#: templates/base.html:401
+#: templates/base.html:443
 msgid ""
 "So expensive, that study like that is impossible to run through traditional "
 "methods."
-msgstr ""
+msgstr "高すぎるので、このような研究は、従来の方法で 持続することは不可能だ。"
 
-#: templates/base.html:402
+#: templates/base.html:444
 msgid "The idea is to ask volunteers to help."
-msgstr ""
+msgstr "ボランティアに助けてもらったほうがいい"
 
-#: templates/base.html:402
+#: templates/base.html:444
 msgid "YOU"
-msgstr ""
+msgstr "あなた"
 
-#: templates/base.html:403
+#: templates/base.html:445
 msgid "will help to conduct the study and do the research."
-msgstr ""
+msgstr "観察と研究を手伝う"
 
-#: templates/base.html:406
+#: templates/base.html:448
 msgid "Download and install"
-msgstr ""
+msgstr "ダンロード、インストール"
 
-#: templates/base.html:407
+#: templates/base.html:449
 msgid "or"
-msgstr ""
+msgstr "あるいは"
 
-#: templates/base.html:409
+#: templates/base.html:451
 msgid "Agree to"
-msgstr ""
+msgstr "同意する"
 
-#: templates/base.html:409
+#: templates/base.html:451
 msgid "Ethical Conduct and Honour Code"
-msgstr ""
+msgstr "倫理的行為と礼儀"
 
-#: templates/base.html:410
+#: templates/base.html:452
 msgid "Go outside, stand by a busy street, and start logging the data"
-msgstr ""
+msgstr "外に出て、交通量の多い道ばたに立ち、データの記入を始める"
 
-#: templates/base.html:411
+#: templates/base.html:453
 msgid "Anyone can participate"
-msgstr ""
+msgstr "だれでも参加できる"
 
-#: templates/base.html:412
+#: templates/base.html:454
 msgid "Anyone can use"
-msgstr ""
+msgstr "だれでも使える"
 
-#: templates/base.html:412
+#: templates/base.html:454
 msgid "the data collected by volunteers"
-msgstr ""
+msgstr "ボランティアの収集したデータ"
 
-#: templates/base.html:414
+#: templates/base.html:456
 msgid "The application allows easy logging of occurances of smoking in cars."
-msgstr ""
+msgstr "このアプリは喫煙者の数の記入を簡単にする"
 
-#: templates/base.html:415
+#: templates/base.html:457
 msgid ""
 "Install it, go out, and collect data about particular location. Instructions "
 "are provided within the application."
 msgstr ""
+"インストール、外へ出て、特定の地区のデータを収集する ンストラクションはアプリ"
+"とともにある"
 
-#: templates/base.html:427
+#: templates/base.html:469
 msgid "World"
-msgstr ""
+msgstr "世界"
 
-#: templates/base.html:451
+#: templates/base.html:493
 msgid "Research articles"
-msgstr ""
+msgstr "研究文章"
 
-#: templates/base.html:464
+#: templates/base.html:506
 msgid "Development and contribution"
-msgstr ""
+msgstr "発展と貢献"
 
-#: templates/base.html:467
+#: templates/base.html:509
 msgid "Data API"
-msgstr ""
+msgstr "データAPI "
 
-#: templates/base.html:468
+#: templates/base.html:510
 msgid ""
 "Data collected by volunteers is free and we make it easily accessible to "
 "researchers and students."
 msgstr ""
+"ボランティアの収集したデータは無料で 研究者と学生は簡単にアクセスできる"
 
-#: templates/base.html:469
+#: templates/base.html:511
 msgid ""
 "We have designed a set of web APIs through which the data records can be "
 "accessed."
-msgstr ""
+msgstr "データにアクセスできるweb APIs のセットを設計した"
 
-#: templates/base.html:470
+#: templates/base.html:512
 msgid "The data is provided through json, xml or yaml. Make use of it."
-msgstr ""
+msgstr "データはjson, xml or yamlによって提供される。利用しよう。"
 
-#: templates/base.html:471
+#: templates/base.html:513
 msgid ""
 "Please give us feedback and let us know if you have a good way to process or "
 "visualise the data."
-msgstr ""
+msgstr "データの処理と可視化のよい方法があれば、教えてください。"
 
-#: templates/base.html:472 templates/base.html.py:478 templates/base.html:485
+#: templates/base.html:514 templates/base.html.py:520 templates/base.html:527
 msgid "Thank you."
-msgstr ""
+msgstr "ありがとうございます"
 
-#: templates/base.html:475
+#: templates/base.html:517
 msgid "Translations"
-msgstr ""
+msgstr "翻訳"
 
-#: templates/base.html:476
+#: templates/base.html:518
 msgid ""
 "The system will have impact in your country only when people who do not "
 "speak English will be able to view the data."
-msgstr ""
+msgstr "このシステムは、英語を使わないあなたの国で ータを見ることができる"
 
-#: templates/base.html:477
+#: templates/base.html:519
 msgid ""
 "If you know English and you know another language, please help in "
 "translating the website."
-msgstr ""
+msgstr "英語と他の言語をご存知の方は このwebsiteの翻訳を手伝ってください"
 
-#: templates/base.html:481
+#: templates/base.html:523
 msgid "Project contributors"
-msgstr ""
+msgstr "プロジェクト貢献者"
 
-#: templates/base.html:482
+#: templates/base.html:524
 msgid "Many people have helped in making this system possible."
-msgstr ""
+msgstr "たくさんの人はこのシステムを助けた"
 
-#: templates/base.html:483
+#: templates/base.html:525
 msgid ""
 "They provided help through testing, feedback, research, data collection."
-msgstr ""
+msgstr "かれらはテスト、フィードバック、リサーチ、データ収集を手伝った"
 
-#: templates/base.html:484
+#: templates/base.html:526
 msgid "All the work and efforts are appreciated."
-msgstr ""
+msgstr "ご協力に感謝する"
 
-#: templates/base.html:499
+#: templates/base.html:541
 msgid "tell us what you think"
-msgstr ""
+msgstr "ご意見を教えてください"
 
-#: templates/base.html:511
+#: templates/base.html:553
 msgid "Send feedback"
-msgstr ""
+msgstr "フィードバックを送ってください"
 
-#: templates/base.html:512 templates/observer/register.html:67
+#: templates/base.html:554 templates/observer/register.html:67
 msgid "Clear form"
-msgstr ""
+msgstr "クリアフォーム"
 
 #: templates/contributors.html:31
 msgid "Contributors"
-msgstr ""
+msgstr "貢献者"
 
 #: templates/contributors.html:31
 msgid "People that made the project real"
-msgstr ""
+msgstr "このプロジェクトを実現させた人々"
 
 #: templates/contributors.html:33
 msgid "Project research and development"
-msgstr ""
+msgstr "プロジェクトの研究と発展"
 
 #: templates/contributors.html:45
 msgid "Testing and feedback"
-msgstr ""
+msgstr "テストとフィードバック"
 
 #: templates/translators.html:30
 msgid "Translators"
-msgstr ""
+msgstr "翻訳者"
 
 #: templates/translators.html:30
 msgid "People who made the website accessible in other countries"
-msgstr ""
+msgstr "このwebsiteを他の国でアクセス可能にさせた人々"
 
 #: templates/translators.html:32 templates/translators.html.py:53
 msgid "Japanese"
+msgstr "日本語"
+
+#: templates/translators.html:33 templates/translators.html.py:54
+msgid "Spanish"
 msgstr ""
 
-#: templates/translators.html:33 templates/translators.html.py:52
+#: templates/translators.html:34 templates/translators.html.py:55
 msgid "German"
-msgstr ""
-
-#: templates/translators.html:34 templates/translators.html.py:54
-msgid "Polish"
-msgstr ""
+msgstr "ドイツ語"
 
 #: templates/translators.html:35 templates/translators.html.py:56
+msgid "Polish"
+msgstr "ポーランド語"
+
+#: templates/translators.html:36 templates/translators.html.py:58
 msgid "Brazilian Portuguese"
-msgstr ""
-
-#: templates/translators.html:44
-msgid "Existing translations"
-msgstr ""
-
-#: templates/translators.html:44
-msgid "Help us to fix the problems"
-msgstr ""
+msgstr "ブラジルポルトガル語"
 
 #: templates/translators.html:45
-msgid "You can help by correcting existing translations."
-msgstr ""
+msgid "Existing translations"
+msgstr "現存翻訳"
+
+#: templates/translators.html:45
+msgid "Help us to fix the problems"
+msgstr "問題解決を手伝ってください"
 
 #: templates/translators.html:46
+msgid "You can help by correcting existing translations."
+msgstr "現存翻訳の間違いを訂正してください"
+
+#: templates/translators.html:47
 msgid ""
 "To do that, grab one of the existing translation files and make the "
 "necessary changes."
-msgstr ""
+msgstr "現存翻訳のファイルをあけて、必要な訂正を行ってください"
 
-#: templates/translators.html:47
+#: templates/translators.html:48
 msgid "After you correct the file simply send the file to: "
-msgstr ""
+msgstr "訂正後、フィアルを送ってください"
 
-#: templates/translators.html:48 templates/translators.html.py:93
+#: templates/translators.html:49 templates/translators.html.py:95
 msgid "We will take care of the rest."
-msgstr ""
+msgstr "後は私たちにお任せ下さい"
 
-#: templates/translators.html:49 templates/translators.html.py:94
+#: templates/translators.html:50 templates/translators.html.py:96
 msgid ""
 "Remember to put your name and affiliation in the file. We will use it to "
 "give you credits."
 msgstr ""
+"お名前と所属をファイルに記入していくださ なたへのクレジットとして使用する"
 
-#: templates/translators.html:55
+#: templates/translators.html:57
 msgid "Portuguese"
-msgstr ""
+msgstr "ポルトガル語"
 
-#: templates/translators.html:59 templates/translators.html.py:96
+#: templates/translators.html:61 templates/translators.html.py:98
 msgid "Thank you"
-msgstr ""
+msgstr "ありがとうございます"
 
-#: templates/translators.html:67
+#: templates/translators.html:69
 msgid "New translations needed"
-msgstr ""
+msgstr "新しい翻訳が必要"
 
-#: templates/translators.html:67
+#: templates/translators.html:69
 msgid "Help us to spread the news"
-msgstr ""
+msgstr "このニュースを幅広く広めよう"
 
-#: templates/translators.html:68
+#: templates/translators.html:70
 msgid ""
 "Please help us by making new translations. It is easy. But you need to know "
 "English."
 msgstr ""
-
-#: templates/translators.html:69
-msgid "To make a translation, you need to download"
-msgstr ""
-
-#: templates/translators.html:70
-msgid "this file"
-msgstr ""
+"新しい翻訳を助けてください。でも、あなたは英語を 解していなければなりません"
 
 #: templates/translators.html:71
-msgid "and translate all English phrases into your language."
-msgstr ""
+msgid "To make a translation, you need to download"
+msgstr "翻訳するために、ダンロードしてください"
 
 #: templates/translators.html:72
-msgid "For example, the file contains a fragment:"
-msgstr ""
+msgid "this file"
+msgstr "このファイル"
 
-#: templates/translators.html:75
+#: templates/translators.html:73
+msgid "and translate all English phrases into your language."
+msgstr "英語の文をすべてあなたの言語に翻訳してください"
+
+#: templates/translators.html:74
+msgid "For example, the file contains a fragment:"
+msgstr "たとえば、このファイルは不完全"
+
+#: templates/translators.html:77
 msgid ""
 "Your task is to fill in that empty space that would be the phrase in your "
 "language that translates the identifier above."
-msgstr ""
+msgstr "あなたは空白を、上記の部分を あなたの言語に翻訳して、埋めてください"
 
-#: templates/translators.html:78
+#: templates/translators.html:80
 msgid "If the translation is longer than a single line, for example"
-msgstr ""
+msgstr "もしも翻訳が一行より長い場合は、たとえば"
 
-#: templates/translators.html:85
+#: templates/translators.html:87
 msgid ""
 "You simply fill in and follow the same pattern, or you can translate both "
 "lines into a single line."
 msgstr ""
+"埋めてから、同じパタンにしたがってください。あるいは 両方を翻訳してから、同じ"
+"行につめてください"
 
-#: templates/translators.html:92
+#: templates/translators.html:94
 msgid "After you translate all the phrases, simply send the file to: "
-msgstr ""
+msgstr "あるゆる文を翻訳してから、送ってください"
 
 #: templates/admin/base_site.html:4 templates/admin/base_site.html.py:7
 msgid "TobaccoFree administration"
-msgstr ""
+msgstr "TobaccoFree administration"
 
 #: templates/admin/full_profile.html:71 templates/observer/profile.html:72
 msgid "Profile of"
-msgstr ""
+msgstr "プロフィル"
 
 #: templates/admin/full_profile.html:73
 msgid "Delete this observer"
-msgstr ""
+msgstr "観察者を消去する"
 
 #: templates/admin/full_profile.html:90
 msgid "Update profile"
-msgstr ""
+msgstr "プロフィルを更新する"
 
 #: templates/admin/observations_list.html:74
 msgid "User"
-msgstr ""
+msgstr "ユーザ"
 
 #: templates/admin/observations_list.html:75
 #: templates/observation/list.html:74
 msgid "When"
-msgstr ""
+msgstr "いつ"
 
 #: templates/admin/observations_list.html:76
 #: templates/observation/list.html:74
 msgid "Where"
-msgstr ""
+msgstr "どこ"
 
 #: templates/admin/observations_list.html:77
 #: templates/observation/list.html:75
 msgid "How long"
-msgstr ""
+msgstr "期間の長さ"
 
 #: templates/admin/observations_list.html:95
 msgid "Delete"
-msgstr ""
+msgstr "消去する"
 
 #: templates/admin/observers_list.html:70
 msgid "Observers"
-msgstr ""
+msgstr "観察者"
 
 #: templates/admin/observers_list.html:73
 msgid "username/email"
-msgstr ""
+msgstr "ユーザの名前／Eメール"
 
 #: templates/observation/list.html:72
 msgid "Observations collected by"
-msgstr ""
+msgstr "観察の収集者"
 
 #: templates/observer/hall_of_fame.html:100
 msgid "Top volunteers"
-msgstr ""
+msgstr "ボランティア"
 
 #: templates/observer/hall_of_fame.html:103
 msgid "Cars"
-msgstr ""
+msgstr "車両"
 
 #: templates/observer/hall_of_fame.html:118
 msgid "I am"
-msgstr ""
+msgstr "わたしは"
 
 #: templates/observer/hall_of_fame.html:118
 msgid "top volunteer on"
-msgstr ""
-
-#: templates/observer/hall_of_fame.html:118
-msgid "observations"
-msgstr ""
+msgstr "ボランティアです"
 
 #: templates/observer/hall_of_fame.html:118
 msgid "and"
-msgstr ""
+msgstr "および"
 
 #: templates/observer/profile.html:88
 msgid "Password change"
-msgstr ""
+msgstr "パスワードの変更"
 
 #: templates/observer/register.html:51
 msgid "and be able to upload data to the server"
-msgstr ""
+msgstr "データをサーバにアップロード可能"
 
 #: templates/observer/register.html:66
 msgid "Send registration request"
-msgstr ""
+msgstr "登録リクエストを送る"
 
 #: templates/observer/register_confirm.html:52
 msgid "Confirm your registration"
-msgstr ""
+msgstr "あなたの登録を確認する"
 
 #: templates/observer/register_confirm.html:52
 msgid "to start logging the observations"
-msgstr ""
+msgstr "観察の記入を始める"
 
 #: templates/observer/register_confirm.html:54
 msgid "Please copy and paste your activation key"
-msgstr ""
+msgstr "あなたの作動キーをコピー、ペーストしてください"
 
 #: templates/observer/register_confirm.html:63
 msgid "Confirm registration"
-msgstr ""
+msgstr "登録を確認する"

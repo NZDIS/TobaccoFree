@@ -137,6 +137,8 @@ def hall_of_fame(request):
     result = []
     for o in obs:
         o.num_of_observations = count_observations_for_observer(o)
+        if o.num_of_observations == 0:
+            continue
         o.num_of_cars = count_cars_for_observer(o)
         o.duration = count_duration_for_observer(o)
         result.append(o)
