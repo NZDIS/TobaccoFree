@@ -66,6 +66,10 @@
         padding: 20px 20px 10px;
         margin: -20px -20px 20px;
       }
+      
+      tr.stats-insufficient, span.stats-insufficient {
+      	color: #bfbfbf;
+      }
 
       /* Styles you shouldn't keep as they are for displaying this base example only */
       .content .span10,
@@ -253,7 +257,7 @@
 	      		<img alt="Android app on Galaxy Nexus" width="200" height="370" src="{{ STATIC_URL }}images/galaxy_home_screen.png" />
 	      		<img alt="Android app on Google Play" src="http://www.android.com/images/brand/android_app_on_play_logo_large.png" /></a>
 				<!-- <img align="top" src="http://chart.apis.google.com/chart?cht=qr&chs=200x200&chld=L&choe=UTF-8&chl=https%3A%2F%2Fmarket.android.com%2Fdetails%3Fid%3Dnzdis.tobaccofree"/> -->
-				<h1>{{ number_of_android_observations }}<small>{{ _("observations") }}</small></h1>
+				<h1>{{ number_of_android_observations }} <small>{{ _("observations") }}</small></h1>
 				</div>     		
             </div>
             
@@ -273,7 +277,7 @@
 
                <p>                                                                                                 
                <a href="/observer/register" class="btn success large pull-left">
-               		<big>{{ _("Register") }}</big> {{ _("to participate") }} &raquo;</a>&nbsp;&nbsp;                                                                                        
+               		<b>{{ _("Register") }}</b> {{ _("to participate") }} &raquo;</a>&nbsp;&nbsp;                                                                                        
  			   <a href="#about" class="btn primary large">{{ _("Learn more") }} &raquo;</a>                                         
                </p>
           	</div>
@@ -285,7 +289,7 @@
 	      		<img alt="iPhone app " width="180" height="340" src="{{ STATIC_URL }}images/iphone_home_screen.png" />
   				<img alt="iPhone app on iTunes" src="{{ STATIC_URL }}images/apple_appstore_icon.png" />
 				</a>
-				<h1>{{ number_of_iphone_observations }}<small>{{ _("observations") }}</small></h1>
+				<h1>{{ number_of_iphone_observations }} <small>{{ _("observations") }}</small></h1>
 				</div>	      		
             </div>
             {% endif %}
@@ -347,12 +351,13 @@
    	    <td>{{ _("Smoking") }} - {{ _("overall") }} </td>
 	    <td>{{ _("Smoking") }} - {{ _("second-hand exposure") }}</td>
 	    <td>{{ _("Smoking") }} - {{ _("child exposure") }}</td>
-	    <td>{{ _("Num. cars") }}</td><td>{{ _("Num. observations") }}</td>
+	    <td>{{ _("Num. cars") }}</td>
+	    <td>{{ _("Num.") }} {{ _("observation") }} {{ _("sessions") }}</td>
 	    </thead>
 	    <tbody>
 	    {% for c in countries %}
 	    {% if c.num_cars < 301 %}
-	    	<tr style="color: #FFAAAA;">
+	    	<tr class="stats-insufficient">
 	    		<td>{{c.country_name}}</td>
 	    		<td>{{c.ratio_of_smokers|floatformat}}%</td>
 	    		<td></td>
@@ -375,7 +380,7 @@
 	    </table>
 	   	<p><b>Notes:</b></p>
 	    <p>Error ranges are calculated with 99% Confidence Interval (CI).
-	    <span style="color: #FFAAAA;">Red color indicates</span> insufficient amount of data for statistics.</p>
+	    <span class="stats-insufficient">Grey color indicates</span> insufficient amount of data for statistics.</p>
 	  </div>
 	</div>
 
@@ -389,12 +394,12 @@
 	    <td>{{ _("Smoking") }} - {{ _("second-hand exposure") }}</td>
 	    <td>{{ _("Smoking") }} - {{ _("child exposure") }}</td>
 	    <td>{{ _("Num. cars") }}</td>
-	    <td>{{ _("Num. observations") }}</td>
+	    <td>{{ _("Num.") }} {{ _("observation") }} {{ _("sessions") }}</td>
 	    </thead>
 	    <tbody>
 	    {% for c in cities %}
 	    {% if c.num_cars < 301 %}
-	    <tr style="color: #FFAAAA;">
+	    <tr class="stats-insufficient">
 	    	<td>{{c.city_name}}</td>
 	    	<td>{{c.ratio_of_smokers|floatformat}}%</td>
 	    	<td></td>
@@ -417,7 +422,7 @@
 	    </table>
 	    <p><b>Notes:</b></p>
 	    <p>Error ranges are calculated with 99% Confidence Interval (CI).
-	    <span style="color: #FFAAAA;">Red color indicates</span> insufficient amount of data for statistics.</p>
+	    <span class="stats-insufficient">Grey color indicates</span> insufficient amount of data for statistics.</p>
 	  </div>
 	  
 	</div>	
