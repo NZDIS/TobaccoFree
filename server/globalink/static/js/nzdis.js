@@ -7,8 +7,32 @@
     var geocoder;
     var map;
 
+    google.load("visualization", "1", {packages:["corechart"]});
     google.maps.event.addDomListener(window, 'load', initialize);
 
+    /**
+     * Loads stats and draw some charts.
+     */
+	function drawStatsCharts() {
+	      var jsonData_stats = $.ajax({
+	          url: "/observation/stats",
+	          dataType:"json",
+	          async: false
+	          }).responseText;
+	      // Create our data table out of JSON data loaded from server.
+	      var stats_data = new google.visualization.DataTable(jsonData_stats);
+	      // Instantiate and draw our charts, passing in some options.
+	      var options = {
+	            title: 'Smoking in cars',
+	            vAxis: {title: 'Country',  titleTextStyle: {color: '#0000FF'}},
+	            hAxis: {title: 'Percentage [%]',  titleTextStyle: {color: '#0000FF'}},
+	            legend: {position: 'top'}
+	      };
+	      var stats_chart = new google.visualization.BarChart(document.getElementById('stats_graph'), options);
+	      if (stats_chart != null) {
+	    	  stats_chart.draw(stats_data, options);
+	      }
+	}
 
     /**
      * Setup a new maker for a given observation
@@ -52,6 +76,6 @@
   			map.panTo(latlng);
   			map.setZoom(8);
     	});
-
+    	drawStatsCharts();
     }
 

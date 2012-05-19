@@ -23,6 +23,7 @@ from globalink.views import redirect_home_with_message
 from globalink.observation.forms import FeedbackForm
 
 from globalink import settings
+from globalink.views import prepare_stats_per_country
 
 import urllib
 import logging
@@ -77,6 +78,52 @@ def do_geocode_data(request):
    
 def home(request):
     return redirect_home_with_message(request, None)
+
+
+
+def _populate_row(v, c, base_label, base_label_interval):
+    '''
+    Populate vector 'v' with data from country 'c' based on 
+    the base_label and base_label_interval data
+    '''
+    v.append({'v': c[base_label], 'f': "%.2f" % c[base_label]})
+    interval_1 = c[base_label] - c[base_label_interval]
+    v.append({'v': interval_1, 'f': "%.2f" % interval_1})
+    interval_2 = c[base_label] + c[base_label_interval]
+    v.append({'v': interval_2, 'f': "%.2f" % interval_2})
+
+
+def prepare_stats_data(request):
+    """
+    Returns a json array of stats for google charts.
+    """
+
+    countries = prepare_stats_per_country()
+    
+    cols = [{"label":"Country", "type":"string"}, 
+            {"label":"General", "type":"number"},
+            {"type":"number", "p":{"role":"interval"}},
+            {"type":"number", "p":{"role":"interval"}}, 
+            {"label":"Second-hand", "type":"number"},
+            {"type":"number", "p":{"role":"interval"}},
+            {"type":"number", "p":{"role":"interval"}}, 
+            {"label":"Child occurrences", "type":"number"},
+            {"type":"number", "p":{"role":"interval"}},
+            {"type":"number", "p":{"role":"interval"}}]
+    data = {}
+    rows = []
+    
+    for c in countries:
+        if c['num_cars'] > 0:
+            v = []
+            v.append({'v': c['country_name']})
+            _populate_row(v, c, 'ratio_of_smokers', 'ratio_of_smokers_interval')
+            _populate_row(v, c, 'ratio_of_second_hand', 'ratio_of_second_hand_interval')
+            _populate_row(v, c, 'ratio_of_child', 'ratio_of_child_interval')
+            rows.append({'c': v})
+        
+    data.update({"cols":cols, "rows":rows})
+    return HttpResponse(json.dumps(data), mimetype='application/json')
 
 
 def feedback(request):

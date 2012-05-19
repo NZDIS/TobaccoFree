@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-04 22:56+1200\n"
+"POT-Creation-Date: 2012-05-20 00:42+1200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,7 +85,7 @@ msgstr "Obecne hasło"
 msgid "New password (at last 6 characters)"
 msgstr "Nowe hasło (przynajmniej 6 znaków)"
 
-#: templates/api_info.html:13 templates/base.html:146
+#: templates/api_info.html:13 templates/base.html:158
 #: templates/contributors.html:13 templates/translators.html:13
 #: templates/admin/full_profile.html:31
 #: templates/admin/observations_list.html:31
@@ -154,7 +154,7 @@ msgstr "Schemat danych dla"
 msgid "is available at the following URL:"
 msgstr "jest udostępniony pod następującym URL:"
 
-#: templates/api_info.html:49 templates/base.html:158
+#: templates/api_info.html:49 templates/base.html:170
 #: templates/admin/full_profile.html:39
 #: templates/admin/observations_list.html:39
 #: templates/admin/observations_list.html:70
@@ -247,7 +247,7 @@ msgstr "Dostępne filtry dla pól tekstowych:"
 msgid "Available number filters:"
 msgstr "Dostępne filtry dla liczb:"
 
-#: templates/base.html:126 templates/admin/full_profile.html:12
+#: templates/base.html:138 templates/admin/full_profile.html:12
 #: templates/admin/observations_list.html:12
 #: templates/admin/observers_list.html:12 templates/observation/list.html:12
 #: templates/observer/profile.html:12 templates/observer/register.html:12
@@ -255,321 +255,318 @@ msgstr "Dostępne filtry dla liczb:"
 msgid "Please correct your FORM error below"
 msgstr "Proszę popraw błedy w formularzu poniżej"
 
-#: templates/base.html:147 templates/base.html.py:467
+#: templates/base.html:159 templates/base.html.py:487
 msgid "Awareness"
 msgstr "Świadomość społeczna"
 
-#: templates/base.html:148 templates/base.html.py:541
+#: templates/base.html:160 templates/base.html.py:561
 msgid "Feedback"
 msgstr "Komentarz"
 
-#: templates/base.html:149 templates/observer/hall_of_fame.html:12
+#: templates/base.html:161 templates/observer/hall_of_fame.html:12
 msgid "People"
 msgstr "Woluntariusze"
 
-#: templates/base.html:151 templates/admin/full_profile.html:32
+#: templates/base.html:163 templates/admin/full_profile.html:32
 #: templates/admin/observations_list.html:32
 #: templates/admin/observers_list.html:32 templates/observation/list.html:32
 #: templates/observer/hall_of_fame.html:14 templates/observer/profile.html:32
 msgid "My Observations"
 msgstr "Moje obserwacje"
 
-#: templates/base.html:154 templates/admin/full_profile.html:35
+#: templates/base.html:166 templates/admin/full_profile.html:35
 #: templates/admin/observations_list.html:35
 #: templates/admin/observers_list.html:35 templates/observation/list.html:35
 #: templates/observer/hall_of_fame.html:17 templates/observer/profile.html:35
 msgid "Admin"
 msgstr "Admin"
 
-#: templates/base.html:156 templates/admin/full_profile.html:37
+#: templates/base.html:168 templates/admin/full_profile.html:37
 #: templates/admin/observations_list.html:37
 #: templates/admin/observers_list.html:37 templates/observation/list.html:37
 #: templates/observer/hall_of_fame.html:19 templates/observer/profile.html:37
 msgid "Users"
 msgstr "Użytkownicy"
 
-#: templates/base.html:169 templates/admin/full_profile.html:48
+#: templates/base.html:181 templates/admin/full_profile.html:48
 #: templates/admin/observations_list.html:48
 #: templates/admin/observers_list.html:48 templates/observation/list.html:49
 #: templates/observer/hall_of_fame.html:32 templates/observer/profile.html:49
 msgid "My Profile"
 msgstr "Mój profil"
 
-#: templates/base.html:171 templates/admin/full_profile.html:50
+#: templates/base.html:183 templates/admin/full_profile.html:50
 #: templates/admin/observations_list.html:50
 #: templates/admin/observers_list.html:50 templates/observation/list.html:51
 #: templates/observer/hall_of_fame.html:34 templates/observer/profile.html:51
 msgid "Logout"
 msgstr "Wyloguj"
 
-#: templates/base.html:201
+#: templates/base.html:213
 msgid "E-mail"
 msgstr "E-mail"
 
-#: templates/base.html:202
+#: templates/base.html:214
 msgid "Password"
 msgstr "Hasło"
 
-#: templates/base.html:203
+#: templates/base.html:215
 msgid "Sign in"
 msgstr "Zaloguj"
 
-#: templates/base.html:236
+#: templates/base.html:248
 msgid "Fork me on GitHub"
 msgstr "Jesteśmy na GitHub"
 
-#: templates/base.html:246
+#: templates/base.html:258
 msgid "counting smoking in cars"
 msgstr "obserwacja palenia tytoniu w samochodach"
 
-#: templates/base.html:256 templates/base.html.py:288
+#: templates/base.html:268 templates/base.html.py:300
 #: templates/observer/hall_of_fame.html:118
 msgid "observations"
 msgstr "Obserwacje"
 
-#: templates/base.html:268
+#: templates/base.html:280
 msgid "How many people smoke in cars?"
 msgstr "Ile osób pali w samochodach?"
 
-#: templates/base.html:269
+#: templates/base.html:281
 msgid "How many passive smokers are affected?"
 msgstr "Ile osób niepalących jest narażonych?"
 
-#: templates/base.html:270
+#: templates/base.html:282
 msgid "How many children?"
 msgstr "Ile dzieci?"
 
-#: templates/base.html:271
+#: templates/base.html:283
 msgid "How much the stats differ between countries?"
 msgstr "Jak wielkie są różnice pomiędzy państwami?"
 
-#: templates/base.html:276 templates/base.html.py:447
+#: templates/base.html:288 templates/base.html.py:467
 #: templates/observer/register.html:51
 msgid "Register"
 msgstr "Zarejestruj się"
 
-#: templates/base.html:276
+#: templates/base.html:288
 msgid "to participate"
 msgstr "żeby pomóc"
 
-#: templates/base.html:277
+#: templates/base.html:289
 msgid "Learn more"
 msgstr "Więcej info"
 
-#: templates/base.html:301
+#: templates/base.html:313
 msgid "Statistics"
 msgstr "Statystyki"
 
-#: templates/base.html:301 templates/base.html.py:347 templates/base.html:388
+#: templates/base.html:313 templates/base.html.py:366 templates/base.html:408
 msgid "overall"
 msgstr "ogólne"
 
-#: templates/base.html:303 templates/base.html.py:332
+#: templates/base.html:315 templates/base.html.py:344
 msgid "registered loggers"
 msgstr "woluntariuszy"
 
-#: templates/base.html:303
+#: templates/base.html:315
 msgid "active"
 msgstr "Konto aktywne?"
 
-#: templates/base.html:304 templates/base.html.py:332
+#: templates/base.html:316 templates/base.html.py:344
 msgid "stored observations"
 msgstr "obserwacji"
 
-#: templates/base.html:306 templates/base.html.py:332
+#: templates/base.html:318 templates/base.html.py:344
 #: templates/observer/hall_of_fame.html:118
 msgid "cars checked"
 msgstr "samochodów"
 
-#: templates/base.html:307 templates/base.html.py:332
+#: templates/base.html:319 templates/base.html.py:344
 msgid "of people"
 msgstr "osób"
 
-#: templates/base.html:307 templates/base.html.py:332
+#: templates/base.html:319 templates/base.html.py:344
 msgid "smoke"
 msgstr "pali"
 
-#: templates/base.html:307 templates/base.html.py:332
+#: templates/base.html:319 templates/base.html.py:344
 msgid "in cars"
 msgstr "w samochodach"
 
-#: templates/base.html:336 templates/observer/hall_of_fame.html:122
+#: templates/base.html:348 templates/observer/hall_of_fame.html:122
 msgid "Tweet"
 msgstr "Zatweetuj to"
 
-#: templates/base.html:343 templates/base.html.py:384
+#: templates/base.html:362 templates/base.html.py:404
 msgid "Statistics per"
 msgstr "Statystyki na dane"
 
-#: templates/base.html:343
+#: templates/base.html:362
 msgid "country"
 msgstr "państwo"
 
-#: templates/base.html:346
+#: templates/base.html:365
 msgid "Country"
 msgstr "Państwo"
 
-#: templates/base.html:347 templates/base.html.py:348 templates/base.html:349
-#: templates/base.html.py:388 templates/base.html:389
-#: templates/base.html.py:390
+#: templates/base.html:366 templates/base.html.py:367 templates/base.html:368
+#: templates/base.html.py:408 templates/base.html:409
+#: templates/base.html.py:410
 msgid "Smoking"
 msgstr "Pali w samochodzie"
 
-#: templates/base.html:348 templates/base.html.py:389
+#: templates/base.html:367 templates/base.html.py:409
 msgid "second-hand exposure"
 msgstr "inne osoby w samochodzie"
 
-#: templates/base.html:349 templates/base.html.py:390
+#: templates/base.html:368 templates/base.html.py:410
 msgid "child exposure"
 msgstr "dziecko w samochodzie"
 
-#: templates/base.html:350 templates/base.html.py:391
+#: templates/base.html:369 templates/base.html.py:411
 msgid "Num. cars"
 msgstr "Liczba samochodów"
 
-#: templates/base.html:350 templates/base.html.py:392
-msgid "Num. observations"
-msgstr "Liczba obserwacji"
+#: templates/base.html:370 templates/base.html.py:412
+msgid "Num."
+msgstr "Num."
 
-#: templates/base.html:384
+#: templates/base.html:370 templates/base.html.py:412
+msgid "observation"
+msgstr "obserwacje"
+
+#: templates/base.html:370 templates/base.html.py:412
+msgid "sessions"
+msgstr "sesja"
+
+#: templates/base.html:404
 msgid "city"
 msgstr "miasto"
 
-#: templates/base.html:387
+#: templates/base.html:407
 msgid "City"
 msgstr "Miasto"
 
-#: templates/base.html:430
+#: templates/base.html:450
 msgid "Observations map"
 msgstr "Mapa wszystkich obserwacji"
 
-#: templates/base.html:441
+#: templates/base.html:461
 msgid "About"
 msgstr "O projekcie"
 
-#: templates/base.html:442
-msgid ""
-"To collect data from multiple sites, globally, many times a day, over and "
+#: templates/base.html:462
+msgid "To collect data from multiple sites, globally, many times a day, over and "
 "over again, would be expensive. "
-msgstr ""
-"Zbieranie danych, z różnych miejsc na ziemi, globalnie, wielokrotnie w ciągu "
+msgstr "Zbieranie danych, z różnych miejsc na ziemi, globalnie, wielokrotnie w ciągu "
 "dnia byłoby bardzo kosztowne."
 
-#: templates/base.html:443
-msgid ""
-"So expensive, that study like that is impossible to run through traditional "
+#: templates/base.html:463
+msgid "So expensive, that study like that is impossible to run through traditional "
 "methods."
-msgstr ""
-"Tak kosztowne, iż żaden instytut naukowy nie mógłby sobie na nie pozwolić "
+msgstr "Tak kosztowne, iż żaden instytut naukowy nie mógłby sobie na nie pozwolić "
 "stosując tradycyjne metody."
 
-#: templates/base.html:444
+#: templates/base.html:464
 msgid "The idea is to ask volunteers to help."
 msgstr "Pomysł - poprosić woluntariuszy o pomoc."
 
-#: templates/base.html:444
+#: templates/base.html:464
 msgid "YOU"
 msgstr "TY"
 
-#: templates/base.html:445
+#: templates/base.html:465
 msgid "will help to conduct the study and do the research."
 msgstr "możesz pomóc w badaniach naukowych."
 
-#: templates/base.html:448
+#: templates/base.html:468
 msgid "Download and install"
 msgstr "Ściągnij i zainstaluj"
 
-#: templates/base.html:449
+#: templates/base.html:469
 msgid "or"
 msgstr "lub"
 
-#: templates/base.html:451
+#: templates/base.html:471
 msgid "Agree to"
 msgstr "Wyraź zgodę na"
 
-#: templates/base.html:451
+#: templates/base.html:471
 msgid "Ethical Conduct and Honour Code"
 msgstr "Kod Honoru i Etyki"
 
-#: templates/base.html:452
+#: templates/base.html:472
 msgid "Go outside, stand by a busy street, and start logging the data"
 msgstr "Wyjdź na zewnątrz, stań przy ruchliwej ulity, i zacznij obserwacje"
 
-#: templates/base.html:453
+#: templates/base.html:473
 msgid "Anyone can participate"
 msgstr "Każdy może pomóc"
 
-#: templates/base.html:454
+#: templates/base.html:474
 msgid "Anyone can use"
 msgstr "Każdy może użyć"
 
-#: templates/base.html:454
+#: templates/base.html:474
 msgid "the data collected by volunteers"
 msgstr "dane zebrane przez woluntariuszy"
 
-#: templates/base.html:456
+#: templates/base.html:476
 msgid "The application allows easy logging of occurances of smoking in cars."
 msgstr "Ta aplikacja pozwala na bardzo łatwe zliczanie palenia w samochodach."
 
-#: templates/base.html:457
-msgid ""
-"Install it, go out, and collect data about particular location. Instructions "
+#: templates/base.html:477
+msgid "Install it, go out, and collect data about particular location. Instructions "
 "are provided within the application."
-msgstr ""
-"Zainstaluj aplikację, wyjdź na zewnątrz i zacznij obserwować samochody.W "
+msgstr "Zainstaluj aplikację, wyjdź na zewnątrz i zacznij obserwować samochody.W "
 "aplikacji znajdziesz dokładny opis jak ją używać."
 
-#: templates/base.html:469
+#: templates/base.html:489
 msgid "World"
 msgstr "Świat"
 
-#: templates/base.html:493
+#: templates/base.html:513
 msgid "Research articles"
 msgstr "Artykuły naukowe"
 
-#: templates/base.html:506
+#: templates/base.html:526
 msgid "Development and contribution"
 msgstr "Budowa systemu i pomoc"
 
-#: templates/base.html:509
+#: templates/base.html:529
 msgid "Data API"
 msgstr "Dostęp do danych (API)"
 
-#: templates/base.html:510
-msgid ""
-"Data collected by volunteers is free and we make it easily accessible to "
+#: templates/base.html:530
+msgid "Data collected by volunteers is free and we make it easily accessible to "
 "researchers and students."
-msgstr ""
-"Wszystkie dane zebrane przez woluntariuszy są udostępniane za darmo dla "
+msgstr "Wszystkie dane zebrane przez woluntariuszy są udostępniane za darmo dla "
 "wszystkich zainteresowanych naukowców i studentów."
 
-#: templates/base.html:511
-msgid ""
-"We have designed a set of web APIs through which the data records can be "
+#: templates/base.html:531
+msgid "We have designed a set of web APIs through which the data records can be "
 "accessed."
 msgstr "Zaprojektowaliśmy programistyczny interfejs do danych."
 
-#: templates/base.html:512
+#: templates/base.html:532
 msgid "The data is provided through json, xml or yaml. Make use of it."
 msgstr "Dane są udostępniane przez json, xml i yaml. Użyj ich do badań."
 
-#: templates/base.html:513
-msgid ""
-"Please give us feedback and let us know if you have a good way to process or "
+#: templates/base.html:533
+msgid "Please give us feedback and let us know if you have a good way to process or "
 "visualise the data."
-msgstr ""
-"Prosimy daj nam znać jeżeli używasz danych do badań statystycznych albo "
+msgstr "Prosimy daj nam znać jeżeli używasz danych do badań statystycznych albo "
 "wizualizacji."
 
-#: templates/base.html:514 templates/base.html.py:520 templates/base.html:527
+#: templates/base.html:534 templates/base.html.py:540 templates/base.html:547
 msgid "Thank you."
 msgstr "Dziekujemy."
 
-#: templates/base.html:517
+#: templates/base.html:537
 msgid "Translations"
 msgstr "Tłumaczenie stron"
 
-#: templates/base.html:518
+#: templates/base.html:538
 msgid ""
 "The system will have impact in your country only when people who do not "
 "speak English will be able to view the data."
@@ -578,7 +575,7 @@ msgstr ""
 "którzy nie znają angielskiego będą mogli go użyć i zrozumieć wyniki "
 "zebranych danych."
 
-#: templates/base.html:519
+#: templates/base.html:539
 msgid ""
 "If you know English and you know another language, please help in "
 "translating the website."
@@ -586,34 +583,34 @@ msgstr ""
 "Jeżeli znasz angielski i dodatkowy język, prosimy pomóż w tłumaczeniu stron "
 "WWW."
 
-#: templates/base.html:523
+#: templates/base.html:543
 msgid "Project contributors"
 msgstr "Pomoc w projekcie"
 
-#: templates/base.html:524
+#: templates/base.html:544
 msgid "Many people have helped in making this system possible."
 msgstr "Wiele osób pomogło zrealizować ten system."
 
-#: templates/base.html:525
+#: templates/base.html:545
 msgid ""
 "They provided help through testing, feedback, research, data collection."
 msgstr ""
 "Osoby te poświęciły swój czas na testy, dialog, udoskonalenia, badania "
 "naukowe i zbieranie danych."
 
-#: templates/base.html:526
+#: templates/base.html:546
 msgid "All the work and efforts are appreciated."
 msgstr "Każda para rąk jest mile widziana i doceniana."
 
-#: templates/base.html:541
+#: templates/base.html:561
 msgid "tell us what you think"
 msgstr "powiedz nam co myślisz o tym projekcie"
 
-#: templates/base.html:553
+#: templates/base.html:573
 msgid "Send feedback"
 msgstr "Wyślij komentarz"
 
-#: templates/base.html:554 templates/observer/register.html:67
+#: templates/base.html:574 templates/observer/register.html:67
 msgid "Clear form"
 msgstr "Wyczyść formularz"
 
@@ -647,7 +644,7 @@ msgstr "Japoński"
 
 #: templates/translators.html:33 templates/translators.html.py:54
 msgid "Spanish"
-msgstr ""
+msgstr "Hiszpański"
 
 #: templates/translators.html:34 templates/translators.html.py:55
 msgid "German"
@@ -859,3 +856,6 @@ msgstr "Proszę skopiuj i wklej swoj klucz aktywacji konta"
 #: templates/observer/register_confirm.html:63
 msgid "Confirm registration"
 msgstr "Potwierdź swoją rejestrację"
+
+#~ msgid "Num. observations"
+#~ msgstr "Liczba obserwacji"

@@ -5,5 +5,6 @@ urlpatterns = patterns('globalink.observation.views',
     url(r'^add', 'add'),
     url(r'^all', 'all_latlng'),
     url(r'^list', 'do_list'),
+    url(r'^stats', 'prepare_stats_data'),
     url(r'^geocode', 'do_geocode_data'),
 )

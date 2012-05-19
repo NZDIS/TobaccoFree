@@ -98,9 +98,17 @@
       #map_canvas {
         position:inherit;
         height: 400px;
-        width: 680px;
+        width: 720px;
         border: 1px solid #333;
         margin-top: 0.6em;
+      }
+      
+      #stats_graph {
+        position:inherit;
+        height: 500px;
+        width: 750px;
+        
+        margin-top: 0.6em;      	
       }
     </style>
     
@@ -341,7 +349,14 @@
 	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 	</div>
 	
-	
+	<!-- Some stats in graphical form -->
+ 	<hr>           
+    <div class="row">
+    	<div class="span16">
+        	<div id="stats_graph"></div>
+        </div>
+    </div>
+    
 	<div class="row">
 	  <div class="span13">
 	    <h4>{{ _("Statistics per") }} <big>{{ _("country") }}</big></h4>
@@ -525,7 +540,7 @@
 			{{ _("Thank you.")}}
 			</p></li>
 			
-			<li><a href="/contributors">{{ _("Project contributors")}}</a><p>
+			<li><big><a href="/contributors">{{ _("Project contributors")}}</a></big><p>
 			{{ _("Many people have helped in making this system possible.")}}
 			{{ _("They provided help through testing, feedback, research, data collection.") }}
 			{{ _("All the work and efforts are appreciated.")}}
