@@ -18,8 +18,8 @@ import logging, math
 
 
 
-Z_CONFIDENCE_VALUE = 2.5759 # 99% confidence interval
-
+#Z_CONFIDENCE_VALUE = 2.5759f # 99% confidence interval
+Z_CONFIDENCE_VALUE = 1.96 # 95% confidence interval
 
 
 # Get an instance of a logger
