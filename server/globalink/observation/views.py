@@ -116,7 +116,7 @@ def prepare_stats_data(request):
     rows = []
     
     for c in countries:
-        if c['num_cars'] > 30:
+        if c['num_cars'] > 330:
             v = []
             v.append({'v': c['country_name']})
             _populate_row(v, c, 'ratio_of_smokers', 'ratio_of_smokers_interval')
