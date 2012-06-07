@@ -89,7 +89,7 @@ def prepare_stats_per_country():
         country = prepare_stats_for_observations(obs)
         country['country_name'] = c
         countries.append(country)
-    return countries
+    return sorted(countries, key=lambda c: c['country_name'].lower())
 
 def prepare_stats_per_city():
     citynames =  Observation.objects.distinct('loc_city')
@@ -99,7 +99,7 @@ def prepare_stats_per_city():
         city = prepare_stats_for_observations(obs)
         city['city_name'] = c
         cities.append(city)
-    return cities
+    return sorted(cities, key=lambda c: c['city_name'].lower())
 
 
 def prepareStatistics():
