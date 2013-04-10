@@ -821,7 +821,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements Constants {
 	static final String CREATE_TABLE_Details = "CREATE TABLE " + TABLE_DETAILS + " (" 
 			+ DETAILS_ID + " INTEGER NOT NULL, " 
 			+ DETAILS_TYPE + " INTEGER NOT NULL DEFAULT 0, " 
-			+ DETAILS_TIMESTAMP + " INTEGNER NOT NULL DEFAULT 0)";
+			+ DETAILS_TIMESTAMP + " INTEGER NOT NULL DEFAULT 0)";
 	
 	static final String CREATE_TABLE_User = "CREATE TABLE " + TABLE_USER + " (" 
 			+ USER_USER_EMAIL + " VARCHAR(32) NOT NULL, " 

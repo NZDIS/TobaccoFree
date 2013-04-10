@@ -345,6 +345,58 @@ public class ObservationActivity extends Activity implements LocationListener, O
 	
 	
 	
+	@Override
+	public void onClick(View v) {
+		
+		if(v == btnFinish){
+			quitPressed();
+			return;
+		}
+		
+		if(v == btnHelp){
+			Intent instructions = new Intent(this,InstructionsActivity.class);
+			startActivity(instructions);
+			return;
+		}
+		
+		if(v == btnNoSmoking){
+			DatabaseHelper db = new DatabaseHelper(this);
+			db.incrementNoSmoking(observationId);
+			tvNone.setText(db.getNoSmokingCount(observationId)+"");
+			db.close();
+			playSound();
+			return;
+		}
+		
+		if(v == btnNoOccupants){
+			DatabaseHelper db = new DatabaseHelper(this);
+			db.incrementLoneAdultSmoking(observationId);
+			tvAlone.setText(db.getLoneSmokerCount(observationId) + "");
+			db.close();
+			playSound();
+			return;
+		}
+		
+		if(v == btnOtherAdults){
+			DatabaseHelper db = new DatabaseHelper(this);
+			db.incrementOtherAdults(observationId);
+			tvAdults.setText(db.getOtherAdultsSmokingCount(observationId) + "");
+			db.close();
+			playSound();            
+			return;
+		}
+		
+		if(v == btnChild){
+			DatabaseHelper db = new DatabaseHelper(this);
+			db.incrementChild(observationId);
+			tvChild.setText(db.getChildCount(observationId) + "");
+			db.close();
+			playSound();
+			return;
+		}
+		
+	}
+
 	/* 
 	 * Will play a 'click' sound if it hasn't been disabled
 	 * in the preferences
